@@ -1,0 +1,57 @@
+import DigestPublicPage from '@/components/pages/DigestPublicPage';
+import { getPublicDigest } from '@/lib/queries';
+import { generateDigestOGUrl } from '@/utils/open-graph';
+import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
+import * as Sentry from '@sentry/nextjs';
+
+interface PageProps {
+  params: { teamSlug: string; digestSlug: string };
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  try {
+    const digest = await getPublicDigest(params.digestSlug, params.teamSlug);
+    const url = generateDigestOGUrl(params.digestSlug);
+
+    return {
+      title: `${digest?.title} by ${digest?.team.name}`,
+      twitter: {
+        card: 'summary_large_image',
+        title: `${digest?.title}`,
+        description: digest?.description || digest?.team.name,
+        images: [url],
+      },
+      openGraph: {
+        type: 'website',
+        title: `${digest?.title}`,
+        description: digest?.description || digest?.team.name,
+        url,
+        images: [
+          {
+            url,
+            width: 1200,
+            height: 600,
+          },
+        ],
+      },
+    };
+  } catch (error) {
+    Sentry.captureException(error);
+    return {};
+  }
+}
+
+const PublicDigestPage = async ({ params }: PageProps) => {
+  const digest = await getPublicDigest(params.digestSlug, params.teamSlug);
+
+  if (!digest) {
+    redirect('/');
+  }
+
+  return <DigestPublicPage digest={digest} />;
+};
+
+export default PublicDigestPage;

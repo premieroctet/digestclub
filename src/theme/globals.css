@@ -1,0 +1,45 @@
+@config "./../../tailwind.config.js";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.btn {
+  @apply rounded-md font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2;
+}
+
+.btn-primary {
+  @apply rounded-md bg-violet-600 py-2 px-5 text-base font-semibold text-white shadow-sm hover:bg-violet-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 active:bg-violet-900;
+}
+
+.btn-lg {
+  @apply rounded-md bg-violet-600 py-2.5 px-6 text-lg font-semibold text-white shadow-sm hover:bg-violet-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 active:bg-violet-900;
+}
+
+.btn-xl {
+  @apply rounded-md bg-violet-600 py-3 px-8 text-xl font-semibold text-white shadow-sm hover:bg-violet-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600 active:bg-violet-900;
+}
+
+.btn-secondary {
+  @apply rounded-md bg-transparent py-2 px-5 text-base font-semibold text-violet-600 hover:bg-violet-100  active:bg-violet-300;
+}
+
+.btn-add-link {
+  @apply p-3 md:py-2 md:px-3 shadow-md text-white bg-gradient-to-tl from-[#06b6d4] to-[#4ade80] hover:from-[#4ade80] hover:to-[#06b6d4] font-semibold rounded-lg text-xs 2xl:text-sm flex items-center justify-center gap-2;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+}
+
+.TooltipContent {
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+  animation: scaleIn 0.05s ease-out;
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

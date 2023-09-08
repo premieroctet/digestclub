@@ -1,0 +1,34 @@
+import { TeamInvitation } from '@/lib/queries';
+import ListItem from '../TabsListItem';
+
+type Props = {
+  invitation: TeamInvitation;
+  deleteInvitation: (invitation: TeamInvitation) => void;
+  isLoading?: boolean;
+};
+
+const Item = ({ invitation, deleteInvitation, isLoading }: Props) => {
+  const membership = invitation.membership;
+  const name =
+    membership?.user?.name ||
+    membership.invitedName ||
+    membership.invitedEmail ||
+    'Anonymous';
+
+  return (
+    <ListItem
+      key={invitation.id}
+      name={name}
+      badge={{
+        status: 'PENDING',
+        type: 'default',
+      }}
+      isLoading={isLoading}
+      deleteItem={() => {
+        deleteInvitation(invitation);
+      }}
+    />
+  );
+};
+
+export default Item;

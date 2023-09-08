@@ -1,0 +1,29 @@
+name: 'run tests'
+on:
+  push:
+    branches:
+      - web-v2
+      - main
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo NEXTAUTH_SECRET="RANDOMEKEY" >> .env
+          echo JWT_SECRET="RANDOMEKEY" >> .env
+          cat .env
+      - name: Install dependencies
+        run: yarn install
+      - name: Run tests
+        run: yarn test:build
+      - name: Run build
+        run: yarn build

@@ -1,0 +1,23 @@
+html,
+body,
+#__next {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  height: 100%;
+  background-color: #f1f5f9;
+}
+
+::-moz-selection {
+  color: white;
+  background-color: black;
+}
+
+::selection {
+  color: white;
+  background-color: black;
+}
+
+* {
+  -moz-osx-font-smoothing: grayscale;
+}

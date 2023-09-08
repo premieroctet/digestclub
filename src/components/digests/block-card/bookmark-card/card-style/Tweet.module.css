@@ -1,0 +1,35 @@
+/**
+This module is used to style the overwrite the default styles of the react-tweet library
+https://react-tweet.vercel.app/
+*/
+
+.tweet :global(.react-tweet-theme) {
+  --tweet-body-font-size: theme('fontSize.base');
+  --tweet-border: 0px;
+  max-width: 100%;
+
+  --tweet-color-blue-secondary: theme('colors.black');
+  --tweet-color-blue-secondary-hover: theme('colors.green.100');
+  --tweet-twitter-icon-color: theme('colors.gray.100');
+  --tweet-color-red-primary: theme('colors.black');
+  --tweet-color-red-primary-hover: theme('colors.green.100');
+  --tweet-color-blue-primary: theme('colors.black');
+  --tweet-color-blue-primary-hover: theme('colors.green.100');
+  --tweet-color-green-primary: theme('colors.black');
+  --tweet-color-green-primary-hover: theme('colors.green.100');
+  --tweet-font-color-secondary: theme('colors.black');
+}
+
+/* hide the tweet actions buttons (retweet, like, share) */
+.tweet div[class^='tweet-actions'] {
+  display: none;
+}
+
+/* hide the tweet replies */
+.tweet div[class^='tweet-replies'] {
+  display: none;
+}
+
+.tweet [class^='tweet-header_twitterIcon'] {
+  display: none;
+}

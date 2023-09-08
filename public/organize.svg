@@ -1,0 +1,165 @@
+<svg width="305" height="250" viewBox="0 0 305 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+<style>
+    #bookmark, #github {
+        animation-delay: 1s;
+        animation-duration: 3s;
+        animation-fill-mode: both;
+        animation-iteration-count: infinite;
+        animation-timing-function: ease-in-out;
+        animation-direction: alternate;
+    }
+
+    #bookmark {
+        animation-name: bookmark;
+    }
+
+    #github {
+        animation-name: github;
+    }
+
+    @keyframes bookmark {
+        0% {
+            transform: translate3d(0,0,0);
+        }
+
+        35% {
+            transform: translate3d(0,0,0);
+        }
+
+        65% {
+            transform: translate3d(0, 75px, 0);
+        }
+
+        100% {
+            transform: translate3d(0, 75px, 0);
+        }
+    }
+
+    @keyframes github {
+        0% {
+            transform: translate3d(0,0,0);
+        }
+
+        35% {
+            transform: translate3d(0,0,0);
+        }
+
+        65% {
+            transform: translate3d(0, -75px, 0);
+        }
+
+        100% {
+            transform: translate3d(0, -75px, 0);
+        }
+    }
+</style>
+<g id="organize" clip-path="url(#clip0)">
+<g id="github">
+<g id="Rectangle 2" filter="url(#filter0_d)">
+<rect x="8" y="93" width="291" height="59" rx="10" fill="white"/>
+</g>
+<rect id="Rectangle 11" x="69" y="102" width="113" height="12" fill="#F1F4F5"/>
+<rect id="Rectangle 12" x="69" y="123" width="139" height="8" fill="#F1F4F5"/>
+<rect id="Rectangle 13" x="69" y="134" width="173" height="8" fill="#F1F4F5"/>
+<g id="icon">
+<circle id="Ellipse 1" cx="38.3252" cy="122.156" r="16.5" transform="rotate(1.70166 38.3252 122.156)" fill="url(#paint0_radial)"/>
+<g id="uim:github-alt">
+<path id="Vector" d="M44.6799 116.981C44.6144 116.892 44.5443 116.807 44.4699 116.725C44.5478 116.524 44.6076 116.317 44.6485 116.105C44.771 115.33 44.6805 114.537 44.3869 113.81C44.3869 113.81 43.4732 113.513 41.3541 114.907C40.4636 114.65 39.5424 114.516 38.6159 114.509C37.6867 114.497 36.7602 114.611 35.8614 114.847C33.7733 113.392 32.8532 113.685 32.8532 113.685C32.5475 114.398 32.44 115.18 32.5421 115.949C32.5785 116.17 32.6365 116.388 32.7151 116.598C32.6406 116.679 32.5659 116.768 32.4995 116.849C31.8804 117.609 31.5458 118.561 31.5534 119.54C31.5489 119.773 31.5573 120.005 31.5786 120.237C31.8012 123.866 34.2068 124.735 36.5042 125.022C36.1753 125.321 35.9502 125.717 35.8615 126.153C35.7823 126.443 35.7432 126.743 35.7454 127.044L35.7338 128.116C34.8169 128.188 33.8786 128.045 33.5961 127.225C33.2917 126.439 32.7804 125.751 32.1162 125.233C32.0676 125.206 32.0214 125.175 31.9781 125.14C31.921 124.985 31.8182 124.85 31.6834 124.755C31.5485 124.659 31.3879 124.606 31.2225 124.604L31.2184 124.604C31.0021 124.601 30.7935 124.685 30.6385 124.836C30.4834 124.987 30.3945 125.193 30.391 125.409C30.3814 126.074 31.0422 126.511 31.3132 126.659C31.6282 126.984 31.8803 127.364 32.0567 127.78C32.3455 128.621 33.2035 129.903 35.6913 129.765L35.6921 129.845L35.693 130.064C35.6906 130.281 35.7746 130.491 35.9264 130.646C36.0783 130.801 36.2856 130.889 36.5026 130.892L40.3614 130.934C40.5785 130.936 40.7877 130.852 40.9428 130.7C41.098 130.548 41.1865 130.341 41.1889 130.124C41.1889 130.124 41.2235 127.537 41.2282 127.104C41.2369 126.803 41.2044 126.502 41.1315 126.21L41.1299 126.205L41.1331 126.21C41.1261 126.181 41.1157 126.158 41.1078 126.131C41.021 125.724 40.8139 125.353 40.5135 125.066L40.5232 125.083L40.507 125.066C42.81 124.829 45.2178 123.996 45.5189 120.389C45.5452 120.158 45.5586 119.926 45.5592 119.693C45.5844 118.716 45.2741 117.759 44.6799 116.982L44.6799 116.981Z" fill="white"/>
+</g>
+</g>
+</g>
+<g id="twitter">
+<g id="Rectangle 3" filter="url(#filter1_d)">
+<rect x="8" y="171" width="291" height="59" rx="10" fill="white"/>
+</g>
+<rect id="Rectangle 14" x="69" y="184" width="112" height="12" fill="#F1F4F5"/>
+<rect id="Rectangle 15" x="69" y="205" width="138" height="8" fill="#F1F4F5"/>
+<rect id="Rectangle 16" x="69" y="216" width="172" height="8" fill="#F1F4F5"/>
+<g id="icon_2">
+<circle id="Ellipse 1_2" cx="39.482" cy="200.482" r="16.5" transform="rotate(-16.3728 39.482 200.482)" fill="url(#paint1_radial)"/>
+<g id="ant-design:twitter-outlined" clip-path="url(#clip1)">
+<path id="Vector_2" d="M48.4657 196.383C47.8195 196.569 47.1287 196.674 46.4327 196.661C47.1994 196.328 47.8183 195.727 48.1733 194.97C47.4538 195.283 46.6855 195.469 45.9025 195.52C45.6265 195.137 45.2748 194.816 44.8693 194.576C44.4638 194.336 44.0132 194.182 43.5455 194.123C41.6538 193.883 39.9374 195.223 39.6981 197.104C39.6645 197.369 39.6629 197.637 39.6826 197.898C36.8689 197.389 34.5147 195.715 33.0987 193.429C32.7262 193.913 32.4902 194.488 32.4151 195.094C32.2644 196.279 32.734 197.4 33.5747 198.132C33.0359 198.042 32.5261 197.826 32.0866 197.501L32.0812 197.543C31.8702 199.203 32.8683 200.727 34.3915 201.242C34.0882 201.281 33.7813 201.282 33.4779 201.244C33.2557 201.216 33.0483 201.167 32.8399 201.11C33.1002 202.518 34.2344 203.661 35.7296 203.884C34.4397 204.654 32.9017 205.007 31.3062 204.804C31.02 204.768 30.757 204.724 30.4868 204.657C31.8767 205.821 33.601 206.61 35.5348 206.856C41.8124 207.654 45.9089 202.89 46.4831 198.376C46.5019 198.228 46.5207 198.08 46.5296 197.93C47.256 197.529 47.9152 197 48.4657 196.383Z" fill="white"/>
+</g>
+</g>
+</g>
+<g id="bookmark">
+<g id="Rectangle 1" filter="url(#filter2_d)">
+<rect x="8" y="15" width="291" height="59" rx="10" fill="white"/>
+</g>
+<g id="icon_3">
+<circle id="Ellipse 1_3" cx="39.098" cy="44.098" r="16.5637" transform="rotate(33.6014 39.098 44.098)" fill="url(#paint2_radial)"/>
+<g id="bi:bookmark-fill" clip-path="url(#clip2)">
+<g id="Group">
+<path id="Vector_3" fill-rule="evenodd" clip-rule="evenodd" d="M33.8583 38.5903C33.9065 37.9798 34.1952 37.4134 34.6609 37.0157C35.1267 36.6181 35.7314 36.4218 36.3419 36.4699L43.2478 37.0147C43.8583 37.0628 44.4247 37.3515 44.8223 37.8173C45.22 38.283 45.4163 38.8877 45.3682 39.4982L44.2787 53.31L38.7961 49.4031L32.7688 52.4021L33.8583 38.5903Z" fill="white"/>
+</g>
+</g>
+</g>
+<rect id="Rectangle 8" x="69" y="23" width="113" height="12" fill="#F1F4F5"/>
+<rect id="Rectangle 9" x="69" y="44" width="139" height="8" fill="#F1F4F5"/>
+<rect id="Rectangle 10" x="69" y="55" width="173" height="8" fill="#F1F4F5"/>
+<g id="cursor" filter="url(#filter3_d)">
+<path d="M127.87 91.9882L125.001 48.3262L155.872 79.3358L138.893 80.5341L127.87 91.9882Z" fill="#393939"/>
+<path d="M127.87 91.9882L125.001 48.3262L155.872 79.3358L138.893 80.5341L127.87 91.9882Z" stroke="white" stroke-width="2"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" x="-2" y="85" width="311" height="79" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<filter id="filter1_d" x="-2" y="163" width="311" height="79" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<filter id="filter2_d" x="-2" y="7" width="311" height="79" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="5"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<filter id="filter3_d" x="104.25" y="38.703" width="57.903" height="63.6098" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"/>
+<feOffset dy="4"/>
+<feGaussianBlur stdDeviation="2"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<radialGradient id="paint0_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(38.3252 122.156) rotate(90) scale(16.5)">
+<stop stop-color="#626262" stop-opacity="0.79"/>
+<stop offset="1" stop-opacity="0.9"/>
+</radialGradient>
+<radialGradient id="paint1_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(39.482 200.482) rotate(90) scale(16.5)">
+<stop stop-color="#ACDFFF"/>
+<stop offset="1" stop-color="#35AFFA"/>
+</radialGradient>
+<radialGradient id="paint2_radial" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(39.098 44.098) rotate(90) scale(16.5637)">
+<stop stop-color="#89D3E3"/>
+<stop offset="1" stop-color="#46E2A1"/>
+</radialGradient>
+<clipPath id="clip0">
+<rect width="305" height="250" fill="white"/>
+</clipPath>
+<clipPath id="clip1">
+<rect width="20.6635" height="20.6635" fill="white" transform="translate(30.5363 188.929) rotate(7.24815)"/>
+</clipPath>
+<clipPath id="clip2">
+<rect width="18.473" height="18.473" fill="white" transform="translate(30.6777 34.865) rotate(4.51017)"/>
+</clipPath>
+</defs>
+</svg>
