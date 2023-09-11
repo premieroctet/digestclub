@@ -12,10 +12,10 @@ import { AxiosError, AxiosResponse } from 'axios';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useMutation } from 'react-query';
-import NoContent from './layout/NoContent';
-import BookmarkImage from './link/BookmarkImage';
-import { DeletePopover } from './Popover';
-import message from '../messages/en';
+import NoContent from '../layout/NoContent';
+import BookmarkImage from './BookmarkImage';
+import { DeletePopover } from '../Popover';
+import message from '../../messages/en';
 import { getEnvHost } from '@/lib/server';
 
 type Props = {

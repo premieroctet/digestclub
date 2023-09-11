@@ -288,6 +288,12 @@ export const DigestEditPage = ({
                   />
                 )}
               </div>
+              <div className="flex justify-end">
+                <Pagination
+                  totalItems={totalCount}
+                  itemsPerPage={itemPerPage}
+                />
+              </div>
             </SectionContainer>
           </div>
           <SectionContainer className="md:w-1/2 w-full h-min">

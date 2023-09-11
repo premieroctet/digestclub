@@ -2,7 +2,7 @@ import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import { getTeamBookmarksNotInDigest } from '@/lib/queries';
 import Link from 'next/link';
 import React from 'react';
-import BookmarkImage from '../link/BookmarkImage';
+import BookmarkImage from '../bookmark/BookmarkImage';
 import { AiOutlineLoading3Quarters as LoadingIcon } from '@react-icons/all-files/ai/AiOutlineLoading3Quarters';
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import { getRelativeDate } from '@/utils/date';

@@ -5,18 +5,17 @@ import {
   TeamDigestsResult,
 } from '@/lib/queries';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import clsx from 'clsx';
 import { useTransition } from 'react';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import { Bookmarks } from '../Bookmarks';
+import { Bookmarks } from '../bookmark/Bookmarks';
 import Card from '../Card';
 import { CounterTag } from '../CounterTag';
 import { DigestCreateInput } from '../digests/DigestCreateInput';
 import { Digests } from '../digests/Digests';
 import PageContainer from '../layout/PageContainer';
-import Pagination from '../list/Pagination';
 import { Tooltip } from '../Tooltip';
+import { BookmarksControls } from '../bookmark/BookmarksControls';
 
 type Props = {
   linkCount: number;
@@ -26,14 +25,9 @@ type Props = {
 };
 
 const Team = ({ team, linkCount, bookmarks, digests }: Props) => {
-  const searchParams = useSearchParams();
-  const path = usePathname();
-  let [isPending, startTransition] = useTransition();
-  const { replace } = useRouter();
-
   return (
     <PageContainer title={team.name}>
-      <div className="flex max-lg:flex-col gap-5">
+      <div className="flex max-lg:flex-col gap-5 pb-4">
         <Card
           className="w-full lg:w-2/3"
           header={
@@ -42,33 +36,12 @@ const Team = ({ team, linkCount, bookmarks, digests }: Props) => {
                 <h2 className="text-xl">Bookmarks</h2>
                 <CounterTag count={linkCount} />
               </div>
-              <div className="flex items-center justify-center gap-3">
-                <button
-                  title="Show unused bookmarks"
-                  className={clsx(
-                    'm-1 relative top-[2px] inline-flex items-center rounded-full border py-1 px-3 text-sm font-bold cursor-pointer transition ease-in-out duration-150 focus:outline-none',
-                    searchParams?.get('all') === 'true' &&
-                      'bg-gray-900 text-white border-black',
-                    searchParams?.get('all') !== 'false' &&
-                      'opacity-40 hover:opacity-100'
-                  )}
-                  onClick={() => {
-                    if (!searchParams) return;
-                    const params = new URLSearchParams(searchParams);
-                    if (params.get('all') === 'true') {
-                      params.delete('all');
-                    } else {
-                      params.set('all', 'true');
-                    }
-                    startTransition(() => {
-                      replace(path + `?${params.toString()}`);
-                    });
-                  }}
-                >
-                  All bookmarks
-                </button>
-                <Pagination totalItems={linkCount} className="h-6" />
-              </div>
+              <BookmarksControls linkCount={linkCount} />
+            </div>
+          }
+          footer={
+            <div className="flex items-center justify-end">
+              <BookmarksControls linkCount={linkCount} />
             </div>
           }
         >
@@ -79,7 +52,7 @@ const Team = ({ team, linkCount, bookmarks, digests }: Props) => {
           />
         </Card>
         <Card
-          className="w-full lg:w-1/3"
+          className="w-full lg:w-1/3 "
           header={
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
