@@ -204,7 +204,7 @@ export const DigestEditPage = ({
   };
 
   return (
-    <>
+    <div className="pb-4">
       <Breadcrumb
         paths={[
           {
@@ -325,6 +325,6 @@ export const DigestEditPage = ({
           </SectionContainer>
         </DragDropContext>
       </div>
-    </>
+    </div>
   );
 };
