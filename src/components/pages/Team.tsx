@@ -4,8 +4,6 @@ import {
   TeamBookmarksResult,
   TeamDigestsResult,
 } from '@/lib/queries';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { useTransition } from 'react';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { Bookmarks } from '../bookmark/Bookmarks';
@@ -52,7 +50,7 @@ const Team = ({ team, linkCount, bookmarks, digests }: Props) => {
           />
         </Card>
         <Card
-          className="w-full lg:w-1/3 "
+          className="w-full lg:w-1/3"
           header={
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
