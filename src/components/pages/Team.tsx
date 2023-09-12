@@ -29,7 +29,7 @@ const Team = ({ team, linkCount, bookmarks, digests }: Props) => {
         <Card
           className="w-full lg:w-2/3"
           header={
-            <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center justify-between gap-3 max-sm:flex-col max-sm:items-start">
               <div className="flex items-center gap-3 h-8">
                 <h2 className="text-xl">Bookmarks</h2>
                 <CounterTag count={linkCount} />
