@@ -183,6 +183,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
             description: {
               display: true,
             },
+            isFeatured: {
+              display: true,
+            },
             createdAt: {
               display: true,
             },
