@@ -148,27 +148,44 @@ export const getTeamBookmarks = async (
     page?: number;
     perPage?: number;
     onlyNotInDigest?: boolean;
+    search?: string;
   }
 ) => {
   const { page, perPage = 10 } = options;
+
+  const where: Prisma.BookmarkFindManyArgs['where'] = {
+    ...(options.onlyNotInDigest && {
+      digestBlocks: { none: {} },
+    }),
+    teamId,
+    ...(options.search && {
+      link: {
+        OR: [
+          {
+            title: {
+              contains: options.search,
+              mode: 'insensitive',
+            },
+          },
+          {
+            description: {
+              contains: options.search,
+              mode: 'insensitive',
+            },
+          },
+        ],
+      },
+    }),
+  };
+
   const totalCount = await db.bookmark.count({
-    where: {
-      teamId,
-      ...(options.onlyNotInDigest && {
-        digestBlocks: { none: {} },
-      }),
-    },
+    where,
   });
 
   const bookmarks = await db.bookmark.findMany({
     take: perPage,
     skip: page ? (page - 1) * perPage : 0,
-    where: {
-      teamId,
-      ...(options.onlyNotInDigest && {
-        digestBlocks: { none: {} },
-      }),
-    },
+    where,
     orderBy: {
       createdAt: 'desc',
     },
@@ -500,6 +517,10 @@ export type TeamInvitation = Awaited<
 export type TeamBookmarksResult = Awaited<
   ReturnType<typeof getTeamBookmarks>
 >['bookmarks'][number];
+
+export type TeamBookmarksNotInDigestResult = Awaited<
+  ReturnType<typeof getTeamBookmarksNotInDigest>
+>;
 
 export type TeamDigestsResult = Awaited<
   ReturnType<typeof getTeamDigests>

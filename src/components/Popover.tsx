@@ -45,7 +45,10 @@ export const DeletePopover = forwardRef<HTMLButtonElement, DeletePopoverProps>(
       <Popover
         trigger={
           props.trigger || (
-            <span ref={ref} className="text-xs font-semibold hover:underline">
+            <span
+              ref={ref}
+              className="text-xs font-semibold hover:underline cursor-pointer"
+            >
               Delete
             </span>
           )

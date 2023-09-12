@@ -5,7 +5,7 @@ import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { useTransition } from 'react';
 import { Switch } from '../Input';
 
-export const BookmarksControls = ({
+export const BookmarksListControls = ({
   linkCount,
 }: { linkCount: number } & PropsWithChildren) => {
   const searchParams = useSearchParams();
