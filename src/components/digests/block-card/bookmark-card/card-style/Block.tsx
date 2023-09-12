@@ -1,6 +1,6 @@
 import BookmarkImage, {
   Props as BookmarkImageProps,
-} from '@/components/link/BookmarkImage';
+} from '@/components/bookmark/BookmarkImage';
 import { getEnvHost } from '@/lib/server';
 import { getDomainFromUrl } from '@/utils/url';
 import clsx from 'clsx';

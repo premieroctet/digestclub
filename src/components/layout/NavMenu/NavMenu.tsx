@@ -5,7 +5,7 @@ import { Team } from '@prisma/client';
 import { HiChevronDown } from '@react-icons/all-files/hi/HiChevronDown';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { usePathname } from 'next/navigation';
-import BookmarkButton from '../../link/BookmarkButton';
+import BookmarkButton from '../../bookmark/BookmarkButton';
 import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import Divider from './Divider';
