@@ -145,7 +145,10 @@ export const BookmarkItem = ({
                   )}
                 </div>
                 <div className="mx-1">-</div>
-                <div className="relative z-20">
+                <div
+                  className="relative z-20"
+                  onClick={(e) => e.preventDefault()}
+                >
                   <DeletePopover
                     handleDelete={() =>
                       deleteBookmark({ bookmarkId: bookmark?.id })
