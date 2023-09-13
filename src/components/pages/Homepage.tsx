@@ -2,6 +2,7 @@ import Hero from '@/components/home/Hero';
 import HomeFooter from '../home/HomeFooter';
 import HomeSteps from '../home/HomeSteps';
 import { Session } from 'next-auth';
+import HomeDigests from '../home/HomeDigests';
 
 const Homepage = ({ user }: { user?: Session['user'] }) => {
   return (
@@ -11,6 +12,10 @@ const Homepage = ({ user }: { user?: Session['user'] }) => {
       </section>
       <section className="flex-1 flex justify-center pb-8 bg-slate-100">
         <HomeSteps />
+      </section>
+      <section className="bg-white flex flex-1 justify-center">
+        {/* @ts-expect-error */}
+        <HomeDigests />
       </section>
       <HomeFooter />
     </div>

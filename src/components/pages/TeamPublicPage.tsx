@@ -36,7 +36,6 @@ const TeamPublicPage = ({ team }: Props) => {
                   key={digest.slug}
                   digest={digest}
                   teamSlug={team.slug}
-                  teamName={team.name}
                 />
               ))
             )}

@@ -189,7 +189,8 @@ model Digest {
   digestBlocks   DigestBlock[]
   typefullyThreadUrl String?
   hasSentNewsletter Boolean @default(false)
-
+  isFeatured Boolean @default(false)
+  
   @@unique([slug, teamId])
   @@map("digests")
 }

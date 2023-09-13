@@ -1,16 +1,14 @@
 import { PublicTeamResult } from '@/lib/queries';
 import { generateDigestOGUrl } from '@/utils/open-graph';
 import { format } from 'date-fns';
-import Image from 'next/image';
 import Link from 'next/link';
 
 interface Props {
   digest: NonNullable<PublicTeamResult>['Digest'][number];
   teamSlug: string;
-  teamName: string;
 }
 
-const PublicDigestCard = ({ digest, teamSlug, teamName }: Props) => {
+const PublicDigestCard = ({ digest, teamSlug }: Props) => {
   const { title, description, publishedAt, _count } = digest;
   const url = new URL(generateDigestOGUrl(digest.slug));
 
