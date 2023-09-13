@@ -158,6 +158,11 @@ export const BookmarkItem = ({
                 </div>
               </div>
             </div>
+            {bookmark.link.description && (
+              <p className={clsx('pt-2 text-sm', { 'opacity-60': isUsed })}>
+                {bookmark.link.description}
+              </p>
+            )}
           </div>
         </div>
         {editMode && digestId && (
@@ -168,11 +173,6 @@ export const BookmarkItem = ({
           />
         )}
       </div>
-      {bookmark.link.description && (
-        <p className={clsx('pt-2 text-sm', { 'opacity-60': isUsed })}>
-          {bookmark.link.description}
-        </p>
-      )}
     </div>
   );
 };
