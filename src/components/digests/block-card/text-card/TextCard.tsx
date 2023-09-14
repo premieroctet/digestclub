@@ -8,7 +8,6 @@ import { useTeam } from '@/contexts/TeamContext';
 import { useParams } from 'next/navigation';
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import ActionsBlockPopover from '../../ActionsBlockPopover';
-import AddTextBlockDialog from '../../dialog/AddTextBlockDialog';
 
 export interface Props {
   block: PublicDigestListProps['digest']['digestBlocks'][number];
@@ -16,7 +15,6 @@ export interface Props {
 }
 
 export default function BlockTextCard({ block, isEditable = false }: Props) {
-  const [isAddTextDialogOpen, setIsAddTextDialogOpen] = useState(false);
   const { id: teamId } = useTeam();
   const params = useParams();
   const { remove, isRefreshing } = useAddAndRemoveBlockOnDigest({
@@ -52,20 +50,10 @@ export default function BlockTextCard({ block, isEditable = false }: Props) {
         </div>
       </div>
       {isEditable && (
-        <>
-          <ActionsBlockPopover
-            isRemoving={remove.isLoading || isRefreshing}
-            onRemoveClick={() => remove.mutate(block.id)}
-            onAddTextBlockClick={() => setIsAddTextDialogOpen(true)}
-          />
-          <AddTextBlockDialog
-            isOpen={isAddTextDialogOpen}
-            setIsOpen={setIsAddTextDialogOpen}
-            digestId={params?.digestId as string}
-            teamId={teamId}
-            position={block.order + 1}
-          />
-        </>
+        <ActionsBlockPopover
+          isRemoving={remove.isLoading || isRefreshing}
+          onRemoveClick={() => remove.mutate(block.id)}
+        />
       )}
     </div>
   );
