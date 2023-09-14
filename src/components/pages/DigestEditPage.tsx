@@ -8,6 +8,7 @@ import api from '@/lib/api';
 
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import {
+  TeamBookmarksNotInDigestResult,
   getDigest,
   getTeamBookmarksNotInDigest,
   getTeamBySlug,
@@ -32,7 +33,7 @@ import Button from '../Button';
 import { Input, TextArea } from '../Input';
 import { DeletePopover } from '../Popover';
 import { BlockListDnd } from '../digests/BlockListDnd';
-import BookmarkListDnd from '../digests/BookmarkListDnd';
+import BookmarkListDnd from '../bookmark/BookmarkListDnd';
 import SearchInput from '../digests/SearchInput';
 import NoContent from '../layout/NoContent';
 import SectionContainer from '../layout/SectionContainer';
@@ -43,7 +44,7 @@ import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
 
 type Props = {
-  dataBookmarks: Awaited<ReturnType<typeof getTeamBookmarksNotInDigest>>;
+  dataBookmarks: TeamBookmarksNotInDigestResult;
   digest: NonNullable<Awaited<ReturnType<typeof getDigest>>>;
   team: Awaited<ReturnType<typeof getTeamBySlug>>;
 };

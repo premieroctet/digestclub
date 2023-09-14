@@ -38,9 +38,11 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
   await updateDefaultTeam(user.id, team.id);
 
   const page = Number(searchParams?.page || 1);
+  const search = searchParams?.search || '';
   const { totalCount, bookmarks } = await getTeamBookmarks(team.id, {
     page,
     onlyNotInDigest: !searchParams?.all,
+    search,
   });
 
   const digests = await getTeamDigests(team.id, 1, 11);

@@ -6,14 +6,14 @@ import {
 } from '@/lib/queries';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
-import { Bookmarks } from '../bookmark/Bookmarks';
+import { BookmarksTeamList } from '../bookmark/BookmarksTeamList';
 import Card from '../Card';
 import { CounterTag } from '../CounterTag';
 import { DigestCreateInput } from '../digests/DigestCreateInput';
 import { Digests } from '../digests/Digests';
 import PageContainer from '../layout/PageContainer';
 import { Tooltip } from '../Tooltip';
-import { BookmarksControls } from '../bookmark/BookmarksControls';
+import { BookmarksListControls } from '../bookmark/BookmarksListControls';
 
 type Props = {
   linkCount: number;
@@ -34,16 +34,16 @@ const Team = ({ team, linkCount, bookmarks, digests }: Props) => {
                 <h2 className="text-xl">Bookmarks</h2>
                 <CounterTag count={linkCount} />
               </div>
-              <BookmarksControls linkCount={linkCount} />
+              <BookmarksListControls linkCount={linkCount} />
             </div>
           }
           footer={
             <div className="flex items-center justify-end">
-              <BookmarksControls linkCount={linkCount} />
+              <BookmarksListControls linkCount={linkCount} />
             </div>
           }
         >
-          <Bookmarks
+          <BookmarksTeamList
             teamId={team.id}
             teamSlug={team.slug}
             bookmarks={bookmarks}
