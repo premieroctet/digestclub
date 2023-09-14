@@ -53,6 +53,7 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
       linkCount={totalCount}
       bookmarks={bookmarks}
       digests={digests}
+      search={search}
     />
   );
 };
