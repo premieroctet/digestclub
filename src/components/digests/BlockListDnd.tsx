@@ -6,6 +6,7 @@ import NoContent from '../layout/NoContent';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import clsx from 'clsx';
 import BlockCard from './block-card/BlockCard';
+import AddTextBlockButton from './AddTextBlockButton';
 
 export type BlockListDndProps = {
   digest: Awaited<ReturnType<typeof getDigest>>;
@@ -40,6 +41,8 @@ export const BlockListDnd = ({ digest }: BlockListDndProps) => {
                       </li>
                     )}
                   </Draggable>
+
+                  <AddTextBlockButton position={block.order} />
                 </div>
               );
             })

@@ -23,7 +23,7 @@ export default function BlockBookmarkCard({
   isEditable = false,
 }: Props) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [isAddTextDialogOpen, setIsAddTextDialogOpen] = useState(false);
+
   const params = useParams();
   const { id: teamId } = useTeam();
   const {
@@ -55,9 +55,6 @@ export default function BlockBookmarkCard({
           onEditClick={() => {
             setIsEditDialogOpen(true);
           }}
-          onAddTextBlockClick={() => {
-            setIsAddTextDialogOpen(true);
-          }}
         />
         <EditBookmarkDialog
           isOpen={isEditDialogOpen}
@@ -67,13 +64,6 @@ export default function BlockBookmarkCard({
             ...(title && { title }),
             ...(description && { description }),
           }}
-        />
-        <AddTextBlockDialog
-          isOpen={isAddTextDialogOpen}
-          setIsOpen={setIsAddTextDialogOpen}
-          digestId={params?.digestId as string}
-          teamId={teamId}
-          position={block.order + 1}
         />
       </>
     );
