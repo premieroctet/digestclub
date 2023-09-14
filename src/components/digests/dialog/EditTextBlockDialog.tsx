@@ -95,7 +95,8 @@ export default function EditBookmarkDialog({
   return (
     <Dialog open={isOpen} onOpenChange={() => setIsOpen(!open)}>
       <DialogContent
-        title="Edit bookmark"
+        title="Edit a text block"
+        description="Write something to add to your digest, markdown is supported."
         closeIcon
         containerClassName="w-full sm:max-w-3xl"
       >
@@ -103,10 +104,12 @@ export default function EditBookmarkDialog({
           className="flex flex-col items-end mt-4 gap-6 w-full max-w-3xl"
           onSubmit={handleSubmit(onSubmit)}
         >
-          <fieldset className="flex flex-col gap-2 w-full">
-            <label htmlFor="description">Description</label>
-            <TextArea className="min-h-[10rem]" {...register('text')} />
-          </fieldset>
+          <TextArea
+            className="min-h-[10rem]"
+            placeholder="Write something..."
+            {...register('text')}
+            rows={10}
+          />
           <div className="flex justify-start gap-4 w-full items-center">
             <Button
               isLoading={isRemoving || isRefreshing}
