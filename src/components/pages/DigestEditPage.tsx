@@ -286,6 +286,7 @@ export const DigestEditPage = ({
                   <NoContent
                     icon={<BsFillBookmarkFill />}
                     title="No bookmark"
+                    subtitle="No bookmark matched your search"
                   />
                 )}
               </div>
