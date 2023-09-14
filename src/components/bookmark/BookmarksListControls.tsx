@@ -9,7 +9,7 @@ export const BookmarksListControls = ({
   linkCount,
 }: { linkCount: number } & PropsWithChildren) => {
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams);
+  const params = new URLSearchParams(searchParams?.toString());
   const path = usePathname();
   let [isPending, startTransition] = useTransition();
   const { replace } = useRouter();
