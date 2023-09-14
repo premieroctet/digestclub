@@ -96,7 +96,7 @@ export default function AddTextBlockDialog({
               disabled={!isDirty}
               isLoading={isCreating || isRefreshing}
             >
-              Save
+              Add
             </Button>
             <Button
               type="button"
