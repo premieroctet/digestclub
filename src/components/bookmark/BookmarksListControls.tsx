@@ -9,6 +9,7 @@ export const BookmarksListControls = ({
   linkCount,
 }: { linkCount: number } & PropsWithChildren) => {
   const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams);
   const path = usePathname();
   let [isPending, startTransition] = useTransition();
   const { replace } = useRouter();
@@ -16,7 +17,6 @@ export const BookmarksListControls = ({
   const handleCheckboxChange = () => {
     if (!searchParams) return;
 
-    const params = new URLSearchParams(searchParams);
     if (params.get('all') === 'true') {
       params.delete('all');
     } else {
@@ -27,6 +27,8 @@ export const BookmarksListControls = ({
       replace(path + `?${params.toString()}`);
     });
   };
+
+  if (params?.get('search') && !linkCount) return null;
 
   return (
     <div className="flex items-center justify-end gap-3 max-sm:w-full max-sm:justify-between">
