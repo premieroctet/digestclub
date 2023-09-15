@@ -66,7 +66,7 @@ export default function BlockTextCard({ block, isEditable = false }: Props) {
             setIsOpen={setIsEditDialogOpen}
             bookmarkDigest={block}
             defaultValues={{
-              ...(block.text && { text: block.text }),
+              text: block.text,
             }}
           />
         </>

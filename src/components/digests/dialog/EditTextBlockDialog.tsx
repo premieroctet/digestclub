@@ -2,8 +2,6 @@ import { useTeam } from '@/contexts/TeamContext';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
-import { getTweetId, isTwitterLink } from '@/utils/link';
-import { BookmarkDigestStyle } from '@prisma/client';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useParams } from 'next/navigation';
 import React, { useEffect } from 'react';
@@ -40,6 +38,10 @@ export default function EditTextBlockDialog({
   });
   const { successToast, errorToast } = useCustomToast();
   const { isRefreshing, refresh } = useTransitionRefresh();
+
+  useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
 
   const params = useParams();
   const { id: teamId } = useTeam();
