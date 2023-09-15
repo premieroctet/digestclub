@@ -24,7 +24,7 @@ interface Props {
   defaultValues?: Partial<FormValues>;
 }
 
-export default function EditBookmarkDialog({
+export default function EditTextBlockDialog({
   isOpen,
   setIsOpen,
   bookmarkDigest,
