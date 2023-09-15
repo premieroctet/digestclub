@@ -58,7 +58,7 @@ export default function EditTextBlockDialog({
     },
     {
       onSuccess: () => {
-        successToast('Bookmark updated');
+        successToast('Digest updated');
         closeDialog();
         refresh();
       },
