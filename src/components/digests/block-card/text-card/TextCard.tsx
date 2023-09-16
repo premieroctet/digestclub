@@ -8,6 +8,7 @@ import { useTeam } from '@/contexts/TeamContext';
 import { useParams } from 'next/navigation';
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import ActionsBlockPopover from '../../ActionsBlockPopover';
+import EditTextBlockDialog from '../../dialog/EditTextBlockDialog';
 
 export interface Props {
   block: PublicDigestListProps['digest']['digestBlocks'][number];
@@ -15,6 +16,7 @@ export interface Props {
 }
 
 export default function BlockTextCard({ block, isEditable = false }: Props) {
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { id: teamId } = useTeam();
   const params = useParams();
   const { remove, isRefreshing } = useAddAndRemoveBlockOnDigest({
@@ -27,6 +29,7 @@ export default function BlockTextCard({ block, isEditable = false }: Props) {
       'BlockTextCard: block.text is null, but it should not be null.'
     );
   }
+
   const htmlContent = remark().use(html).processSync(block.text);
 
   return (
@@ -50,10 +53,23 @@ export default function BlockTextCard({ block, isEditable = false }: Props) {
         </div>
       </div>
       {isEditable && (
-        <ActionsBlockPopover
-          isRemoving={remove.isLoading || isRefreshing}
-          onRemoveClick={() => remove.mutate(block.id)}
-        />
+        <>
+          <ActionsBlockPopover
+            isRemoving={remove.isLoading || isRefreshing}
+            onRemoveClick={() => remove.mutate(block.id)}
+            onEditClick={() => {
+              setIsEditDialogOpen(true);
+            }}
+          />
+          <EditTextBlockDialog
+            isOpen={isEditDialogOpen}
+            setIsOpen={setIsEditDialogOpen}
+            bookmarkDigest={block}
+            defaultValues={{
+              text: block.text,
+            }}
+          />
+        </>
       )}
     </div>
   );

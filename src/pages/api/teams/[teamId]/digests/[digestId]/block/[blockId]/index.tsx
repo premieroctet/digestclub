@@ -38,7 +38,6 @@ router
     const teamId = req.query.teamId as string;
     const digestId = req.query.digestId as string;
     const blockId = req.query.blockId as string;
-    const { title, description, style } = req.body;
 
     await client.digest.findFirstOrThrow({
       where: {
@@ -53,51 +52,74 @@ router
       },
     });
 
-    /* Update a bookmark block, other block type are not editable at the moment */
-    if (block.type !== DigestBlockType.BOOKMARK) return res.end(400);
+    if (block.type === DigestBlockType.BOOKMARK) {
+      const { title, description, style } = req.body;
 
-    /* If the update is an update on the style to a tweet style, we need to check if this is a valid tweet url */
-    if (
-      block &&
-      style === BookmarkDigestStyle.TWEET_EMBED &&
-      block.style !== style
-    ) {
-      if (!block.bookmarkId)
-        return res.status(404).json({ error: 'Block not found' });
-      const bookmark = await client.bookmark.findFirst({
-        where: {
-          id: block.bookmarkId,
-        },
-        include: {
-          link: true,
-        },
-      });
-      if (!bookmark)
-        return res.status(404).json({ error: 'Bookmark not found' });
-      const isTweet = isTwitterLink(bookmark?.link?.url);
-      if (!isTweet)
-        return res.status(400).json({
-          error: 'This bookmark is not a tweet, cannot be a tweet embed',
+      /* If the update is an update on the style to a tweet style, we need to check if this is a valid tweet url */
+      if (
+        block &&
+        style === BookmarkDigestStyle.TWEET_EMBED &&
+        block.style !== style
+      ) {
+        if (!block.bookmarkId)
+          return res.status(404).json({ error: 'Block not found' });
+        const bookmark = await client.bookmark.findFirst({
+          where: {
+            id: block.bookmarkId,
+          },
+          include: {
+            link: true,
+          },
         });
-    }
+        if (!bookmark)
+          return res.status(404).json({ error: 'Bookmark not found' });
+        const isTweet = isTwitterLink(bookmark?.link?.url);
+        if (!isTweet)
+          return res.status(400).json({
+            error: 'This bookmark is not a tweet, cannot be a tweet embed',
+          });
+      }
 
-    if (isStringEmpty(title)) {
-      return res.status(400).json({
-        error: 'Title cannot be empty',
+      if (isStringEmpty(title)) {
+        return res.status(400).json({
+          error: 'Title cannot be empty',
+        });
+      }
+
+      const updatedBlock = await client.digestBlock.update({
+        where: {
+          id: block.id,
+        },
+        data: {
+          title,
+          description,
+          style,
+        },
       });
-    }
 
-    const updatedBlock = await client.digestBlock.update({
-      where: {
-        id: block.id,
-      },
-      data: {
-        title,
-        description,
-        style,
-      },
-    });
-    return res.status(200).json(updatedBlock);
+      return res.status(200).json(updatedBlock);
+    } else if (block.type === DigestBlockType.TEXT) {
+      const { text } = req.body;
+
+      if (isStringEmpty(text)) {
+        return res.status(400).json({
+          error: 'Title cannot be empty',
+        });
+      }
+
+      const updatedBlock = await client.digestBlock.update({
+        where: {
+          id: block.id,
+        },
+        data: {
+          text,
+        },
+      });
+
+      return res.status(200).json(updatedBlock);
+    } else {
+      return res.end(400);
+    }
   });
 
 export default router.handler({
