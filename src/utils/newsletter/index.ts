@@ -1,6 +1,7 @@
 type Theme = {
   [key: string]: {
     fontSize: string;
+    fontFamily?: string;
     fontWeight: string;
     color: string;
     fontStyle?: string;
@@ -10,62 +11,74 @@ type Theme = {
 const defaultTheme: Theme = {
   h1: {
     fontSize: '16px',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'bold',
     color: '#000000',
   },
   h2: {
     fontSize: '14px',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'bold',
     color: '#000000',
   },
   h3: {
     fontSize: '14px',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'normal',
     color: '#000000',
   },
   h4: {
     fontSize: '14px',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'normal',
     color: '#000000',
   },
   h5: {
     fontSize: '14px',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'normal',
     color: '#000000',
   },
   p: {
     fontSize: '13px',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'normal',
     color: '#333333',
   },
   ul: {
     fontSize: '13px',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'normal',
     color: '#333333',
   },
   ol: {
     fontSize: '13px',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'normal',
     color: '#333333',
   },
   li: {
     fontSize: '13px',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'normal',
     color: '#333333',
   },
   strong: {
     color: 'inherit',
     fontSize: 'inherit',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'bold',
   },
   em: {
     fontSize: 'inherit',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'inherit',
     fontStyle: 'italic',
     color: 'inherit',
   },
   i: {
     fontSize: 'inherit',
+    fontFamily: 'Cantarell, sans-serif',
     fontWeight: 'inherit',
     fontStyle: 'italic',
     color: 'inherit',
