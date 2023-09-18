@@ -18,7 +18,7 @@ const SearchInput = ({
   /* eslint-disable react-hooks/exhaustive-deps */
   const onSearch = useCallback(
     debounce((e: React.ChangeEvent<HTMLInputElement>) => {
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams.toString());
       params.set('search', e.target.value);
 
       startTransition(() => {
