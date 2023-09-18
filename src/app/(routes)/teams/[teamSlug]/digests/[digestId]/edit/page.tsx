@@ -3,7 +3,7 @@ import { TeamProvider } from '@/contexts/TeamContext';
 import {
   checkUserTeamBySlug,
   getDigest,
-  getTeamBookmarksNotInDigest,
+  getTeamBookmarkedLinks,
   updateDefaultTeam,
 } from '@/lib/queries';
 import { getCurrentUserOrRedirect } from '@/lib/sessions';
@@ -32,17 +32,16 @@ const page = async ({ params, searchParams }: TeamPageProps) => {
 
   const page = Number(searchParams?.page || 1);
   const search = searchParams?.search || '';
-  const dataBookmarks = await getTeamBookmarksNotInDigest(
-    team.id,
+  const bookmarkedLinksData = await getTeamBookmarkedLinks(team.id, {
     page,
-    10,
-    search
-  );
+    onlyNotInDigest: true,
+    search,
+  });
 
   return (
     <TeamProvider team={team}>
       <DigestEditPage
-        dataBookmarks={dataBookmarks}
+        bookmarkedLinksData={bookmarkedLinksData}
         digest={digest}
         team={team}
       />

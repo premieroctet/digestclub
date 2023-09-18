@@ -1,7 +1,7 @@
 'use client';
 import {
   getTeamBySlug,
-  TeamBookmarksResult,
+  TeamBookmarkedLinks,
   TeamDigestsResult,
 } from '@/lib/queries';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
@@ -19,13 +19,13 @@ import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill
 
 type Props = {
   linkCount: number;
-  bookmarks: TeamBookmarksResult[];
+  bookmarkedLinks: TeamBookmarkedLinks;
   digests: TeamDigestsResult[];
   team: Awaited<ReturnType<typeof getTeamBySlug>>;
   search?: string;
 };
 
-const Team = ({ team, linkCount, bookmarks, digests, search }: Props) => {
+const Team = ({ team, linkCount, bookmarkedLinks, digests, search }: Props) => {
   return (
     <PageContainer title={team.name}>
       <div className="flex max-lg:flex-col gap-5 pb-4">
@@ -46,7 +46,7 @@ const Team = ({ team, linkCount, bookmarks, digests, search }: Props) => {
             </div>
           }
         >
-          {!search && !bookmarks?.length ? (
+          {!search && !bookmarkedLinks?.length ? (
             <NoContent
               icon={<BsFillBookmarkFill />}
               title="No bookmark"
@@ -56,7 +56,7 @@ const Team = ({ team, linkCount, bookmarks, digests, search }: Props) => {
             <BookmarksTeamList
               teamId={team.id}
               teamSlug={team.slug}
-              bookmarks={bookmarks}
+              bookmarkedLinks={bookmarkedLinks}
             />
           )}
         </Card>

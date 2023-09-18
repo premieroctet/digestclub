@@ -26,7 +26,7 @@ export const Tooltip = ({
           <Content
             side="bottom"
             sideOffset={5}
-            className="shadow-md bg-gray-600 text-xs text-white rounded-md p-2"
+            className="shadow-md bg-gray-600 text-xs text-white rounded-md p-2 z-20"
           >
             {children}
             <Arrow className="fill-gray-600" />

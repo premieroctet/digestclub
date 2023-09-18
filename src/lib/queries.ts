@@ -142,7 +142,7 @@ export const getTeamInvitations = (slug: string) =>
 /**
  * Get bookmarks of a team in the team page, used to list the bookmarks in the team page
  */
-export const getTeamBookmarks = async (
+export const getTeamBookmarkedLinks = async (
   teamId: string,
   options: {
     page?: number;
@@ -153,11 +153,17 @@ export const getTeamBookmarks = async (
 ) => {
   const { page, perPage = 10 } = options;
 
-  const where: Prisma.BookmarkFindManyArgs['where'] = {
-    ...(options.onlyNotInDigest && {
-      digestBlocks: { none: {} },
-    }),
-    teamId,
+  const where = {
+    bookmark: {
+      some: {
+        teamId,
+      },
+      ...(options.onlyNotInDigest && {
+        every: {
+          digestBlocks: { none: {} },
+        },
+      }),
+    },
     ...(options.search && {
       link: {
         OR: [
@@ -178,125 +184,69 @@ export const getTeamBookmarks = async (
     }),
   };
 
-  const totalCount = await db.bookmark.count({
+  const totalCount = await db.link.count({
     where,
   });
 
-  const bookmarks = await db.bookmark.findMany({
+  const bookmarkedLinks = await db.link.findMany({
     take: perPage,
     skip: page ? (page - 1) * perPage : 0,
-    where,
     orderBy: {
       createdAt: 'desc',
     },
+    where,
     include: {
-      link: {
+      bookmark: {
         select: {
-          url: true,
-          description: true,
-          image: true,
-          title: true,
-          blurHash: true,
-        },
-      },
-      membership: {
-        include: {
-          user: {
+          createdAt: true,
+          updatedAt: true,
+          id: true,
+          teamId: true,
+          provider: true,
+          membership: {
+            include: {
+              user: {
+                select: {
+                  email: true,
+                  name: true,
+                },
+              },
+            },
+          },
+          digestBlocks: {
             select: {
-              email: true,
-              name: true,
+              digest: {
+                select: {
+                  id: true,
+                },
+              },
             },
           },
         },
-      },
-      digestBlocks: {
-        select: {
-          digest: {
-            select: {
-              id: true,
-            },
-          },
+        where: {
+          teamId,
+          ...(options.onlyNotInDigest && {
+            digestBlocks: { none: {} },
+          }),
         },
       },
     },
   });
 
   return {
-    bookmarks,
+    bookmarkedLinks: bookmarkedLinks,
     totalCount,
+    perPage,
   };
 };
 
-/**
- * Get bookmarks of a team that are not in any digest, used to edit a digest
- */
-export const getTeamBookmarksNotInDigest = async (
-  teamId: string,
-  page?: number,
-  itemPerPage: number = 10,
-  search?: string
-) => {
-  const where: Prisma.BookmarkFindManyArgs['where'] = {
-    digestBlocks: { none: {} },
-    teamId,
-    ...(!!search && {
-      link: {
-        OR: [
-          {
-            title: {
-              contains: search,
-              mode: 'insensitive',
-            },
-          },
-          {
-            description: {
-              contains: search,
-              mode: 'insensitive',
-            },
-          },
-        ],
-      },
-    }),
-  };
-  const bookmarks = await db.bookmark.findMany({
-    take: itemPerPage,
-    skip: page ? (page - 1) * itemPerPage : 0,
-    where,
-    orderBy: {
-      createdAt: 'desc',
-    },
-    include: {
-      link: {
-        select: {
-          url: true,
-          description: true,
-          image: true,
-          title: true,
-          blurHash: true,
-        },
-      },
-      membership: {
-        include: {
-          user: {
-            select: {
-              email: true,
-              name: true,
-            },
-          },
-        },
-      },
-    },
-  });
-  const totalCount = await db.bookmark.count({
-    where,
-  });
+export type TeamBookmarkedLinksData = Awaited<
+  ReturnType<typeof getTeamBookmarkedLinks>
+>;
 
-  return {
-    bookmarks,
-    totalCount,
-    itemPerPage,
-  };
-};
+export type TeamBookmarkedLinks = TeamBookmarkedLinksData['bookmarkedLinks'];
+
+export type TeamBookmarkedLinkItem = TeamBookmarkedLinks[number];
 
 export const getTeamDigests = async (
   teamId: string,
@@ -513,14 +463,6 @@ export type Member = Awaited<ReturnType<typeof getTeamMembers>>[number];
 export type TeamInvitation = Awaited<
   ReturnType<typeof getTeamInvitations>
 >[number];
-
-export type TeamBookmarksResult = Awaited<
-  ReturnType<typeof getTeamBookmarks>
->['bookmarks'][number];
-
-export type TeamBookmarksNotInDigestResult = Awaited<
-  ReturnType<typeof getTeamBookmarksNotInDigest>
->;
 
 export type TeamDigestsResult = Awaited<
   ReturnType<typeof getTeamDigests>

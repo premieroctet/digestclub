@@ -1,6 +1,6 @@
 'use client';
 
-import { TeamBookmarksResult } from '@/lib/queries';
+import { TeamBookmarkedLinks } from '@/lib/queries';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import NoContent from '../layout/NoContent';
 import { BookmarkItem } from './BookmarkItem';
@@ -8,16 +8,20 @@ import Link from 'next/link';
 import SearchInput from '../digests/SearchInput';
 
 type Props = {
-  bookmarks: TeamBookmarksResult[];
+  bookmarkedLinks: TeamBookmarkedLinks;
   teamId: string;
   teamSlug: string;
 };
 
-export const BookmarksTeamList = ({ bookmarks, teamId, teamSlug }: Props) => {
+export const BookmarksTeamList = ({
+  bookmarkedLinks,
+  teamId,
+  teamSlug,
+}: Props) => {
   return (
     <div className="w-full">
       <SearchInput className="mb-4" />
-      {bookmarks.length < 1 ? (
+      {bookmarkedLinks.length < 1 ? (
         <NoContent
           icon={<BsFillBookmarkFill />}
           title="No bookmark"
@@ -25,19 +29,25 @@ export const BookmarksTeamList = ({ bookmarks, teamId, teamSlug }: Props) => {
         />
       ) : (
         <div className="flex flex-col gap-2">
-          {bookmarks.map((bookmark) => (
+          {bookmarkedLinks?.map((bookmarkedLink) => (
             <Link
-              key={bookmark?.id}
-              href={bookmark.link.url}
+              key={bookmarkedLink?.id}
+              href={bookmarkedLink.url}
               target="_blank"
               rel="noopener noreferrer"
             >
               <BookmarkItem
-                bookmark={bookmark}
+                bookmarkedLink={bookmarkedLink}
                 teamSlug={teamSlug}
                 teamId={teamId}
-                digestId={bookmark.digestBlocks[0]?.digest.id}
-                nbOfTimesUsed={bookmark.digestBlocks.length}
+                digestId={
+                  bookmarkedLink.bookmark?.find(
+                    (bookmarkedLink) => bookmarkedLink?.digestBlocks?.length
+                  )?.digestBlocks[0].digest.id
+                }
+                isUsed={bookmarkedLink.bookmark?.some(
+                  (bookmarkedLink) => bookmarkedLink.digestBlocks.length
+                )}
               />
             </Link>
           ))}
