@@ -153,35 +153,39 @@ export const getTeamBookmarkedLinks = async (
 ) => {
   const { page, perPage = 10 } = options;
 
-  const where = {
-    bookmark: {
-      some: {
-        teamId,
-      },
-      ...(options.onlyNotInDigest && {
-        every: {
-          digestBlocks: { none: {} },
+  const searchWhere = {
+    OR: [
+      {
+        title: {
+          contains: options.search,
+          mode: Prisma.QueryMode.insensitive,
         },
-      }),
-    },
-    ...(options.search && {
-      link: {
-        OR: [
-          {
-            title: {
-              contains: options.search,
-              mode: 'insensitive',
-            },
-          },
-          {
-            description: {
-              contains: options.search,
-              mode: 'insensitive',
-            },
-          },
-        ],
       },
-    }),
+      {
+        description: {
+          contains: options.search,
+          mode: Prisma.QueryMode.insensitive,
+        },
+      },
+    ],
+  };
+
+  const where = {
+    AND: [
+      options.search ? searchWhere : {},
+      {
+        bookmark: {
+          some: {
+            teamId,
+          },
+          ...(options.onlyNotInDigest && {
+            every: {
+              digestBlocks: { none: {} },
+            },
+          }),
+        },
+      },
+    ],
   };
 
   const totalCount = await db.link.count({
