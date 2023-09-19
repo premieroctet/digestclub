@@ -83,7 +83,7 @@ export const Switch = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>(
         </div>
         <span
           className={`ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 ${
-            !isChecked ? 'opacity-40' : 'opacity-100'
+            !isChecked ? 'opacity-60' : 'opacity-100'
           }`}
         >
           {label}
