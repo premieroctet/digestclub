@@ -8,18 +8,21 @@ export const getUserById = (userId: string) =>
     },
   });
 
-export const getUserTeams = (userId: string) =>
-  db.team.findMany({
-    where: {
-      memberships: {
-        some: {
-          user: {
-            id: userId,
+export const getUserTeams = (userId?: string) => {
+  if (userId)
+    return db.team.findMany({
+      where: {
+        memberships: {
+          some: {
+            user: {
+              id: userId,
+            },
           },
         },
       },
-    },
-  });
+    });
+  return [];
+};
 
 export const getUserInvitations = (email: string) =>
   db.invitation.findMany({
@@ -350,56 +353,57 @@ export const getPublicTeam = cache((slug: string) =>
   })
 );
 
-export const getPublicDigest = cache((digestSlug: string, teamSlug: string) =>
-  db.digest.findFirst({
-    select: {
-      publishedAt: true,
-      title: true,
-      description: true,
-      team: {
-        select: {
-          id: true,
-          slug: true,
-          name: true,
-          bio: true,
-          website: true,
-          github: true,
-          twitter: true,
+export const getPublicDigest = cache(
+  (digestSlug: string, teamSlug: string, isPreview?: boolean) =>
+    db.digest.findFirst({
+      select: {
+        publishedAt: true,
+        title: true,
+        description: true,
+        team: {
+          select: {
+            id: true,
+            slug: true,
+            name: true,
+            bio: true,
+            website: true,
+            github: true,
+            twitter: true,
+          },
         },
-      },
-      digestBlocks: {
-        select: {
-          id: true,
-          order: true,
-          title: true,
-          style: true,
-          bookmarkId: true,
-          description: true,
-          text: true,
-          type: true,
-          bookmark: {
-            include: {
-              link: {
-                select: {
-                  url: true,
-                  description: true,
-                  image: true,
-                  title: true,
-                  blurHash: true,
+        digestBlocks: {
+          select: {
+            id: true,
+            order: true,
+            title: true,
+            style: true,
+            bookmarkId: true,
+            description: true,
+            text: true,
+            type: true,
+            bookmark: {
+              include: {
+                link: {
+                  select: {
+                    url: true,
+                    description: true,
+                    image: true,
+                    title: true,
+                    blurHash: true,
+                  },
                 },
               },
             },
           },
+          orderBy: { order: 'asc' },
         },
-        orderBy: { order: 'asc' },
       },
-    },
-    where: {
-      slug: digestSlug,
-      team: { slug: teamSlug },
-      publishedAt: { lte: new Date() },
-    },
-  })
+      where: {
+        slug: digestSlug,
+        team: { slug: teamSlug },
+        ...(!isPreview ? { publishedAt: { lte: new Date() } } : {}),
+      },
+    })
 );
 
 export const getDigestDataForTypefully = async (
