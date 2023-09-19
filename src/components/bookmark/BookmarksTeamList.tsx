@@ -1,6 +1,6 @@
 'use client';
 
-import { TeamBookmarksResult } from '@/lib/queries';
+import { TeamLinks } from '@/lib/queries';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import NoContent from '../layout/NoContent';
 import { BookmarkItem } from './BookmarkItem';
@@ -8,16 +8,16 @@ import Link from 'next/link';
 import SearchInput from '../digests/SearchInput';
 
 type Props = {
-  bookmarks: TeamBookmarksResult[];
+  teamLinks: TeamLinks;
   teamId: string;
   teamSlug: string;
 };
 
-export const BookmarksTeamList = ({ bookmarks, teamId, teamSlug }: Props) => {
+export const BookmarksTeamList = ({ teamLinks, teamId, teamSlug }: Props) => {
   return (
     <div className="w-full">
       <SearchInput className="mb-4" />
-      {bookmarks.length < 1 ? (
+      {teamLinks.length < 1 ? (
         <NoContent
           icon={<BsFillBookmarkFill />}
           title="No bookmark"
@@ -25,19 +25,25 @@ export const BookmarksTeamList = ({ bookmarks, teamId, teamSlug }: Props) => {
         />
       ) : (
         <div className="flex flex-col gap-2">
-          {bookmarks.map((bookmark) => (
+          {teamLinks?.map((teamLink) => (
             <Link
-              key={bookmark?.id}
-              href={bookmark.link.url}
+              key={teamLink?.id}
+              href={teamLink.url}
               target="_blank"
               rel="noopener noreferrer"
             >
               <BookmarkItem
-                bookmark={bookmark}
+                teamLink={teamLink}
                 teamSlug={teamSlug}
                 teamId={teamId}
-                digestId={bookmark.digestBlocks[0]?.digest.id}
-                nbOfTimesUsed={bookmark.digestBlocks.length}
+                digestId={
+                  teamLink.bookmark?.find(
+                    (teamLink) => teamLink?.digestBlocks?.length
+                  )?.digestBlocks[0].digest.id
+                }
+                isUsed={teamLink.bookmark?.some(
+                  (teamLink) => teamLink.digestBlocks.length
+                )}
               />
             </Link>
           ))}

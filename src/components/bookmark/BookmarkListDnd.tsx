@@ -1,19 +1,14 @@
-import {
-  TeamBookmarksNotInDigestResult,
-  getDigest,
-  getTeamBookmarksNotInDigest,
-  getTeamBySlug,
-} from '@/lib/queries';
+import { TeamLinks, getDigest, getTeamBySlug } from '@/lib/queries';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { BookmarkItem } from './BookmarkItem';
 
 export type BookmarkListDndProps = {
   digest: NonNullable<Awaited<ReturnType<typeof getDigest>>>;
   team: Awaited<ReturnType<typeof getTeamBySlug>>;
-  bookmarks: TeamBookmarksNotInDigestResult['bookmarks'];
+  teamLinks: TeamLinks;
 };
 
-const BookmarkListDnd = ({ bookmarks, team, digest }: BookmarkListDndProps) => {
+const BookmarkListDnd = ({ teamLinks, team, digest }: BookmarkListDndProps) => {
   return (
     <Droppable droppableId="bookmark" type="bookmark">
       {(provided) => (
@@ -22,11 +17,11 @@ const BookmarkListDnd = ({ bookmarks, team, digest }: BookmarkListDndProps) => {
           {...provided.droppableProps}
           ref={provided.innerRef}
         >
-          {bookmarks.map((bookmark, index) => {
+          {teamLinks?.map((teamLink, index) => {
             return (
               <Draggable
-                key={bookmark.id}
-                draggableId={bookmark.id}
+                key={teamLink.id}
+                draggableId={teamLink.bookmark[0].id}
                 index={index}
               >
                 {(provided) => (
@@ -36,8 +31,8 @@ const BookmarkListDnd = ({ bookmarks, team, digest }: BookmarkListDndProps) => {
                     ref={provided.innerRef}
                   >
                     <BookmarkItem
-                      key={bookmark.id}
-                      bookmark={bookmark}
+                      key={teamLink.id}
+                      teamLink={teamLink}
                       teamSlug={team.slug}
                       teamId={team.id}
                       digestId={digest.id}

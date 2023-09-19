@@ -8,9 +8,9 @@ import api from '@/lib/api';
 
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import {
-  TeamBookmarksNotInDigestResult,
+  TeamLinks,
+  TeamLinksData,
   getDigest,
-  getTeamBookmarksNotInDigest,
   getTeamBySlug,
 } from '@/lib/queries';
 import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
@@ -44,7 +44,7 @@ import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
 
 type Props = {
-  dataBookmarks: TeamBookmarksNotInDigestResult;
+  teamLinksData: TeamLinksData;
   digest: NonNullable<Awaited<ReturnType<typeof getDigest>>>;
   team: Awaited<ReturnType<typeof getTeamBySlug>>;
 };
@@ -57,7 +57,7 @@ type DigestData = {
 };
 
 export const DigestEditPage = ({
-  dataBookmarks: { totalCount, bookmarks, itemPerPage },
+  teamLinksData: { totalCount, teamLinks, perPage },
   digest,
   team,
 }: Props) => {
@@ -271,16 +271,16 @@ export const DigestEditPage = ({
             <SectionContainer title="Bookmarks" className="relative">
               <Pagination
                 totalItems={totalCount}
-                itemsPerPage={itemPerPage}
+                itemsPerPage={perPage}
                 className="absolute top-5 right-5"
               />
               <SearchInput className="mb-4" />
               <div className="flex flex-col gap-2">
-                {bookmarks && bookmarks.length > 0 ? (
+                {teamLinks && teamLinks.length > 0 ? (
                   <BookmarkListDnd
                     team={team}
                     digest={digest}
-                    bookmarks={bookmarks}
+                    teamLinks={teamLinks}
                   />
                 ) : (
                   <NoContent
@@ -291,10 +291,7 @@ export const DigestEditPage = ({
                 )}
               </div>
               <div className="flex justify-end">
-                <Pagination
-                  totalItems={totalCount}
-                  itemsPerPage={itemPerPage}
-                />
+                <Pagination totalItems={totalCount} itemsPerPage={perPage} />
               </div>
             </SectionContainer>
           </div>

@@ -5,6 +5,7 @@ import { Bookmark } from '@prisma/client';
 import { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import * as Sentry from '@sentry/nextjs';
+import messages from '@/messages/en';
 
 export type ApiBookmarkResponseSuccess = Bookmark;
 
@@ -21,14 +22,21 @@ router.use(checkTeam).post(async (req, res) => {
     const bookmark = await saveBookmark(linkUrl, req.teamId!, req.membershipId);
     return res.status(201).json(bookmark);
   } catch (error: unknown) {
-    if ((error as TypeError).message !== 'invalid_link') {
-      Sentry.captureMessage(
-        `Failed to save bookmark. Cause: Invalid link (${linkUrl})`
-      );
-    }
+    console.log(error);
+    const error_code = (error as TypeError)
+      .message as keyof typeof messages.bookmark.create.error;
+    console.log(error_code);
+
+    Sentry.captureMessage(
+      `Failed to save bookmark. Cause: ${
+        messages.bookmark.create.error[error_code] ??
+        (error as TypeError).message
+      } (${linkUrl})`
+    );
 
     return res.status(400).json({
-      error: 'Invalid link',
+      error:
+        messages.bookmark.create.error[error_code] ?? messages['default_error'],
     });
   }
 });

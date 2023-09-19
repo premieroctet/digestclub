@@ -3,7 +3,6 @@
 import { Toaster } from 'react-hot-toast';
 import { SessionProvider } from 'next-auth/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import messages from '../messages/en.json';
 
 const locale = 'en';
 

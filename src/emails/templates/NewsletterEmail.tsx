@@ -16,7 +16,7 @@ import React from 'react';
 import { remark } from 'remark';
 import html from 'remark-html';
 
-const Bookmark = ({
+const NewsBookmark = ({
   bookmark,
 }: {
   bookmark: NewsletterBookmark;
@@ -151,7 +151,7 @@ const NewsletterEmail = ({
         {blocks?.length &&
           blocks.map((block, i) => {
             if (block.type === BlockType.BOOKMARK) {
-              return <Bookmark bookmark={block} key={i} />;
+              return <NewsBookmark bookmark={block} key={i} />;
             } else if (block.type === BlockType.TEXT) {
               return <Text text={block.text} key={i} />;
             }

@@ -34,7 +34,7 @@ export const BookmarksListControls = ({
     <div className="flex items-center justify-end gap-3 max-sm:w-full max-sm:justify-between">
       <Switch
         label="View all bookmarks"
-        onClick={handleCheckboxChange}
+        onChange={handleCheckboxChange}
         checked={searchParams?.has('all')}
       />
       <Pagination totalItems={linkCount} className="h-6" />

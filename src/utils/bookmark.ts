@@ -31,6 +31,36 @@ const getHtml = async (url: string) => {
   });
 };
 
+const isBookmarkedByUser = async (
+  linkId?: string,
+  membershipId?: string,
+  teamId?: string
+) => {
+  if (!linkId || !membershipId || !teamId) return;
+
+  return db.bookmark
+    .findFirst({
+      select: { id: true },
+      where: {
+        linkId: {
+          equals: linkId,
+        },
+        membershipId: {
+          equals: membershipId,
+        },
+        teamId: {
+          equals: teamId,
+        },
+      },
+    })
+    .then((response) => {
+      console.log(response);
+      if (response?.id) {
+        throw new TypeError('already_bookmarked');
+      }
+    });
+};
+
 export const extractMetadata = async (url: string) => {
   const html = await getHtml(url);
   const metadata = (await metascraper({
@@ -65,7 +95,10 @@ export const saveBookmark = async (
       },
     },
   });
+
   await isLinkValid(linkUrl);
+  await isBookmarkedByUser(link?.id, membershipId, teamId);
+
   if (!link) {
     const metadata = await extractMetadata(linkUrl);
 
