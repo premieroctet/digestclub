@@ -34,14 +34,15 @@ export default function PublicDigestList({ digest }: Props) {
         <div className="flex flex-col items-start md:items-center justify-center align-middle mt-2 md:mt-0">
           <div className="flex items-center gap-0">
             <span className="text-4xl md:text-5xl font-bold pr-2">
-              {format(digest.publishedAt!, 'dd')}
+              {digest.publishedAt && format(digest.publishedAt!, 'dd')}
             </span>
             <div className="font-semibold text-sm md:text-base">
               <span className="text-red-600 block whitespace-nowrap leading-none">
-                {format(digest.publishedAt!, 'EEEE')}
+                {digest?.publishedAt && format(digest.publishedAt!, 'EEEE')}
               </span>
               <span className="whitespace-nowrap leading-none">
-                {format(digest.publishedAt!, 'MMMM, yyyy')}
+                {digest?.publishedAt &&
+                  format(digest.publishedAt!, 'MMMM, yyyy')}
               </span>
             </div>
           </div>

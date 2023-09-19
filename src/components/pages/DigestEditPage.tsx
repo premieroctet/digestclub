@@ -7,12 +7,7 @@ import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
 
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import {
-  TeamLinks,
-  TeamLinksData,
-  getDigest,
-  getTeamBySlug,
-} from '@/lib/queries';
+import { TeamLinksData, getDigest, getTeamBySlug } from '@/lib/queries';
 import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
 import { reorderList } from '@/utils/actionOnList';
 import { getRelativeDate } from '@/utils/date';
@@ -42,6 +37,7 @@ import { Breadcrumb } from '../teams/Breadcrumb';
 import DigestEditVisit from './DigestEditVisit';
 import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
+import { EyeIcon } from '@heroicons/react/24/solid';
 
 type Props = {
   teamLinksData: TeamLinksData;
@@ -235,6 +231,21 @@ export const DigestEditPage = ({
               >
                 {!!digest?.publishedAt ? 'Unpublished' : 'Publish'}
               </Button>
+
+              {!digest?.publishedAt && (
+                <Button
+                  className="flex-1"
+                  aria-label="Preview digest"
+                  variant="default"
+                  icon={<EyeIcon />}
+                  disabled={isPublishing || isRefreshing || isDeleting}
+                  onClick={() => {
+                    push(`/${team.slug}/${digest?.slug}/preview`);
+                  }}
+                >
+                  Preview
+                </Button>
+              )}
               <DeletePopover
                 handleDelete={deleteDigest}
                 isLoading={isDeleting}
