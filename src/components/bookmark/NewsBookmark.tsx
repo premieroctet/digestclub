@@ -1,5 +1,5 @@
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import { TeamBookmarkedLinkItem, TeamBookmarkedLinks } from '@/lib/queries';
+import { TeamBookmarkedLinkItem, TeamLinks } from '@/lib/queries';
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import { DigestBlockType } from '@prisma/client';
 import { AiOutlineLoading3Quarters as LoadingIcon } from '@react-icons/all-files/ai/AiOutlineLoading3Quarters';
@@ -8,11 +8,11 @@ import { PropsWithChildren } from 'react';
 import BookmarkImage from './BookmarkImage';
 
 export const Bookmark = ({
-  bookmarkedLink,
+  teamLink,
   teamId,
   digestId,
 }: {
-  bookmarkedLink: TeamBookmarkedLinkItem;
+  teamLink: TeamBookmarkedLinkItem;
   teamId: string;
   digestId: string;
 } & PropsWithChildren) => {
@@ -25,19 +25,19 @@ export const Bookmark = ({
       <div className="flex w-full justify-between">
         <div className="flex gap-2 overflow-hidden w-[100%] justify-start">
           <div className="relative w-16 h-16 overflow-hidden rounded-md border max-w-[4rem]">
-            <BookmarkImage link={bookmarkedLink} />
+            <BookmarkImage link={teamLink} />
           </div>
           <div className="flex flex-col items-start max-w-[100%] overflow-hidden flex-1">
             <div className="flex flex-col overflow-hidden max-w-[100%]">
               <p className="font-semibold whitespace-nowrap overflow-hidden text-ellipsis text-base text-gray-800">
-                {bookmarkedLink.title}
+                {teamLink.title}
               </p>
               <Link
-                href={bookmarkedLink.url}
+                href={teamLink.url}
                 target="_blank"
                 className="text-gray-400 whitespace-nowrap overflow-hidden text-ellipsis text-base underline underline-offset-2"
               >
-                {bookmarkedLink.url}
+                {teamLink.url}
               </Link>
             </div>
           </div>
@@ -49,7 +49,7 @@ export const Bookmark = ({
             onClick={(e) => {
               e.preventDefault();
               add.mutate({
-                bookmarkId: bookmarkedLink.id,
+                bookmarkId: teamLink.id,
                 type: DigestBlockType.BOOKMARK,
               });
             }}

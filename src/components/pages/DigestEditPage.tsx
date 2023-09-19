@@ -8,8 +8,8 @@ import api from '@/lib/api';
 
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import {
-  TeamBookmarkedLinks,
-  TeamBookmarkedLinksData,
+  TeamLinks,
+  TeamLinksData,
   getDigest,
   getTeamBySlug,
 } from '@/lib/queries';
@@ -44,7 +44,7 @@ import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
 
 type Props = {
-  bookmarkedLinksData: TeamBookmarkedLinksData;
+  teamLinksData: TeamLinksData;
   digest: NonNullable<Awaited<ReturnType<typeof getDigest>>>;
   team: Awaited<ReturnType<typeof getTeamBySlug>>;
 };
@@ -57,7 +57,7 @@ type DigestData = {
 };
 
 export const DigestEditPage = ({
-  bookmarkedLinksData: { totalCount, bookmarkedLinks, perPage },
+  teamLinksData: { totalCount, teamLinks, perPage },
   digest,
   team,
 }: Props) => {
@@ -276,11 +276,11 @@ export const DigestEditPage = ({
               />
               <SearchInput className="mb-4" />
               <div className="flex flex-col gap-2">
-                {bookmarkedLinks && bookmarkedLinks.length > 0 ? (
+                {teamLinks && teamLinks.length > 0 ? (
                   <BookmarkListDnd
                     team={team}
                     digest={digest}
-                    bookmarkedLinks={bookmarkedLinks}
+                    teamLinks={teamLinks}
                   />
                 ) : (
                   <NoContent

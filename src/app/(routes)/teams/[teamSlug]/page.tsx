@@ -2,7 +2,7 @@ import Team from '@/components/pages/Team';
 import db from '@/lib/db';
 import {
   checkUserTeamBySlug,
-  getTeamBookmarkedLinks,
+  getTeamLinks,
   getTeamDigests,
   updateDefaultTeam,
 } from '@/lib/queries';
@@ -39,14 +39,11 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
 
   const page = Number(searchParams?.page || 1);
   const search = searchParams?.search || '';
-  const { totalCount, bookmarkedLinks } = await getTeamBookmarkedLinks(
-    team.id,
-    {
-      page,
-      onlyNotInDigest: !searchParams?.all,
-      search,
-    }
-  );
+  const { totalCount, teamLinks } = await getTeamLinks(team.id, {
+    page,
+    onlyNotInDigest: !searchParams?.all,
+    search,
+  });
 
   const digests = await getTeamDigests(team.id, 1, 11);
 
@@ -54,7 +51,7 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
     <Team
       team={team}
       linkCount={totalCount}
-      bookmarkedLinks={bookmarkedLinks}
+      teamLinks={teamLinks}
       digests={digests}
       search={search}
     />

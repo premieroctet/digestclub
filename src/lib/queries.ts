@@ -142,7 +142,7 @@ export const getTeamInvitations = (slug: string) =>
 /**
  * Get bookmarks of a team in the team page, used to list the bookmarks in the team page
  */
-export const getTeamBookmarkedLinks = async (
+export const getTeamLinks = async (
   teamId: string,
   options: {
     page?: number;
@@ -192,7 +192,7 @@ export const getTeamBookmarkedLinks = async (
     where,
   });
 
-  const bookmarkedLinks = await db.link.findMany({
+  const teamLinks = await db.link.findMany({
     take: perPage,
     skip: page ? (page - 1) * perPage : 0,
     orderBy: {
@@ -238,19 +238,17 @@ export const getTeamBookmarkedLinks = async (
   });
 
   return {
-    bookmarkedLinks: bookmarkedLinks,
+    teamLinks,
     totalCount,
     perPage,
   };
 };
 
-export type TeamBookmarkedLinksData = Awaited<
-  ReturnType<typeof getTeamBookmarkedLinks>
->;
+export type TeamLinksData = Awaited<ReturnType<typeof getTeamLinks>>;
 
-export type TeamBookmarkedLinks = TeamBookmarkedLinksData['bookmarkedLinks'];
+export type TeamLinks = TeamLinksData['teamLinks'];
 
-export type TeamBookmarkedLinkItem = TeamBookmarkedLinks[number];
+export type TeamBookmarkedLinkItem = TeamLinks[number];
 
 export const getTeamDigests = async (
   teamId: string,

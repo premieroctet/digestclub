@@ -23,7 +23,7 @@ import { Tooltip } from '../Tooltip';
 import { DeletePopover, MultipleDeletePopover } from '../Popover';
 
 type Props = {
-  bookmarkedLink: TeamBookmarkedLinkItem;
+  teamLink: TeamBookmarkedLinkItem;
   teamSlug: string;
   teamId: string;
   digestId?: string;
@@ -61,7 +61,7 @@ export const getContributorsString = (
 };
 
 export const BookmarkItem = ({
-  bookmarkedLink,
+  teamLink,
   teamSlug,
   teamId,
   digestId,
@@ -70,7 +70,7 @@ export const BookmarkItem = ({
 }: Props) => {
   const { successToast, errorToast } = useCustomToast();
   const { isRefreshing, refresh } = useTransitionRefresh();
-  const bookmarksNumber = bookmarkedLink.bookmark?.length;
+  const bookmarksNumber = teamLink.bookmark?.length;
 
   const { mutate: deleteBookmark, isLoading: isDeleting } = useMutation<
     AxiosResponse<ApiBookmarkResponseSuccess>,
@@ -100,7 +100,7 @@ export const BookmarkItem = ({
 
   return (
     <div
-      key={bookmarkedLink?.id}
+      key={teamLink?.id}
       className={clsx(
         'group relative flex w-full rounded-md p-2 hover:bg-gray-50 flex-col',
         { 'opacity-60': isRefreshing }
@@ -125,16 +125,16 @@ export const BookmarkItem = ({
         <div className="flex gap-2 overflow-hidden w-[100%] justify-start">
           <div className="relative w-16 h-16 overflow-hidden rounded-md border max-w-[4rem]">
             <BookmarkImage
-              link={bookmarkedLink}
+              link={teamLink}
               fallbackSrc={`${getEnvHost()}/api/bookmark-og?bookmark=${
-                bookmarkedLink.id
+                teamLink.id
               }`}
             />
           </div>
           <div className="flex flex-col items-start max-w-[100%] overflow-hidden flex-1">
             <div className="flex flex-col overflow-hidden max-w-[100%]">
               <span className="truncate font-semibold whitespace-nowrap">
-                {bookmarkedLink.title || bookmarkedLink.url}
+                {teamLink.title || teamLink.url}
               </span>
 
               <div className="flex items-center text-sm text-gray-500">
@@ -148,26 +148,26 @@ export const BookmarkItem = ({
                       </div>
                     }
                   >
-                    {getContributorsString(bookmarkedLink.bookmark)}
+                    {getContributorsString(teamLink.bookmark)}
                   </Tooltip>
                 ) : (
                   <div className="whitespace-nowrap max-w-[33%] sm:max-w-none truncate">
-                    {getContributorsString(bookmarkedLink.bookmark)}
+                    {getContributorsString(teamLink.bookmark)}
                   </div>
                 )}
                 <div className="mx-1">-</div>
                 <div className="whitespace-nowrap max-w-[33%] sm:max-w-none truncate">
                   {editMode ? (
                     <Link
-                      href={bookmarkedLink.url}
+                      href={teamLink.url}
                       target="_blank"
                       className="text-gray-400 whitespace-nowrap overflow-hidden text-ellipsis underline underline-offset-2"
                     >
-                      {getDomainFromUrl(bookmarkedLink.url)}
+                      {getDomainFromUrl(teamLink.url)}
                     </Link>
                   ) : (
                     <span className="cursor-auto">
-                      {getDomainFromUrl(bookmarkedLink.url)}
+                      {getDomainFromUrl(teamLink.url)}
                     </span>
                   )}
                 </div>
@@ -176,14 +176,14 @@ export const BookmarkItem = ({
                   {bookmarksNumber > 1 ? (
                     <MultipleDeletePopover
                       onDelete={(bookmarkId) => deleteBookmark({ bookmarkId })}
-                      bookmarks={bookmarkedLink.bookmark}
+                      bookmarks={teamLink.bookmark}
                       isLoading={isLoading}
                     />
                   ) : (
                     <DeletePopover
                       handleDelete={() =>
                         deleteBookmark({
-                          bookmarkId: bookmarkedLink.bookmark[0]?.id,
+                          bookmarkId: teamLink.bookmark[0]?.id,
                         })
                       }
                       isLoading={isLoading}
@@ -192,16 +192,16 @@ export const BookmarkItem = ({
                 </div>
               </div>
             </div>
-            {bookmarkedLink.description && (
+            {teamLink.description && (
               <p className={clsx('pt-2 text-sm', { 'opacity-60': isUsed })}>
-                {bookmarkedLink.description}
+                {teamLink.description}
               </p>
             )}
           </div>
         </div>
         {editMode && digestId && (
           <BookmarkAddButton
-            bookmark={bookmarkedLink}
+            bookmark={teamLink}
             teamId={teamId}
             digestId={digestId}
           />

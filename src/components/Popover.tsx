@@ -105,7 +105,7 @@ export const MultipleDeletePopover = forwardRef<
     >
       <div className="flex-col z-20">
         {bookmarks.map((bookmark) => (
-          <div className="flex items-center pb-4" key={bookmark?.id}>
+          <div className="flex items-center justify-between" key={bookmark?.id}>
             <div className="pr-4">{getContributor(bookmark)}</div>
             <DeletePopover
               handleDelete={() => onDelete(bookmark?.id)}
