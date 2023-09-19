@@ -2,7 +2,6 @@ import { getPublicDigest, getUserTeams } from '@/lib/queries';
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/sessions';
 import DigestPublicPage from '@/components/pages/DigestPublicPage';
-import { routes } from '@/core/constants';
 
 interface PageProps {
   params: { teamSlug: string; digestSlug: string };
