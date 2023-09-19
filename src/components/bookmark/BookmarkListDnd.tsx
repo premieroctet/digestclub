@@ -21,7 +21,7 @@ const BookmarkListDnd = ({ teamLinks, team, digest }: BookmarkListDndProps) => {
             return (
               <Draggable
                 key={teamLink.id}
-                draggableId={teamLink.id}
+                draggableId={teamLink.bookmark[0].id}
                 index={index}
               >
                 {(provided) => (
