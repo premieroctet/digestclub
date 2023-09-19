@@ -5,6 +5,9 @@ export async function isLinkValid(url: string): Promise<boolean> {
     },
   })
     .then((response) => {
+      if (!response.ok) {
+        throw new TypeError('invalid_link');
+      }
       return response.ok;
     })
     .catch(() => {
