@@ -280,7 +280,14 @@ const message = {
   },
   bookmark: {
     delete: {
-      success: 'Your link has been deleted',
+      success: 'Your bookmark has been deleted',
+    },
+    create: {
+      error: {
+        already_bookmarked:
+          'You have already bookmarked this link in this team',
+        invalid_link: 'Invalid link provided',
+      },
     },
   },
   team: {

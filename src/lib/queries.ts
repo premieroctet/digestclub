@@ -8,18 +8,21 @@ export const getUserById = (userId: string) =>
     },
   });
 
-export const getUserTeams = (userId: string) =>
-  db.team.findMany({
-    where: {
-      memberships: {
-        some: {
-          user: {
-            id: userId,
+export const getUserTeams = (userId?: string) => {
+  if (userId)
+    return db.team.findMany({
+      where: {
+        memberships: {
+          some: {
+            user: {
+              id: userId,
+            },
           },
         },
       },
-    },
-  });
+    });
+  return [];
+};
 
 export const getUserInvitations = (email: string) =>
   db.invitation.findMany({
@@ -142,7 +145,7 @@ export const getTeamInvitations = (slug: string) =>
 /**
  * Get bookmarks of a team in the team page, used to list the bookmarks in the team page
  */
-export const getTeamBookmarks = async (
+export const getTeamLinks = async (
   teamId: string,
   options: {
     page?: number;
@@ -153,150 +156,102 @@ export const getTeamBookmarks = async (
 ) => {
   const { page, perPage = 10 } = options;
 
-  const where: Prisma.BookmarkFindManyArgs['where'] = {
-    ...(options.onlyNotInDigest && {
-      digestBlocks: { none: {} },
-    }),
-    teamId,
-    ...(options.search && {
-      link: {
-        OR: [
-          {
-            title: {
-              contains: options.search,
-              mode: 'insensitive',
-            },
-          },
-          {
-            description: {
-              contains: options.search,
-              mode: 'insensitive',
-            },
-          },
-        ],
+  const searchWhere = {
+    OR: [
+      {
+        title: {
+          contains: options.search,
+          mode: Prisma.QueryMode.insensitive,
+        },
       },
-    }),
+      {
+        description: {
+          contains: options.search,
+          mode: Prisma.QueryMode.insensitive,
+        },
+      },
+    ],
   };
 
-  const totalCount = await db.bookmark.count({
+  const where = {
+    AND: [
+      options.search ? searchWhere : {},
+      {
+        bookmark: {
+          some: {
+            teamId,
+          },
+          ...(options.onlyNotInDigest && {
+            every: {
+              digestBlocks: { none: {} },
+            },
+          }),
+        },
+      },
+    ],
+  };
+
+  const totalCount = await db.link.count({
     where,
   });
 
-  const bookmarks = await db.bookmark.findMany({
+  const teamLinks = await db.link.findMany({
     take: perPage,
     skip: page ? (page - 1) * perPage : 0,
-    where,
     orderBy: {
       createdAt: 'desc',
     },
+    where,
     include: {
-      link: {
+      bookmark: {
         select: {
-          url: true,
-          description: true,
-          image: true,
-          title: true,
-          blurHash: true,
-        },
-      },
-      membership: {
-        include: {
-          user: {
+          createdAt: true,
+          updatedAt: true,
+          id: true,
+          teamId: true,
+          provider: true,
+          membership: {
+            include: {
+              user: {
+                select: {
+                  email: true,
+                  name: true,
+                },
+              },
+            },
+          },
+          digestBlocks: {
             select: {
-              email: true,
-              name: true,
+              digest: {
+                select: {
+                  id: true,
+                },
+              },
             },
           },
         },
-      },
-      digestBlocks: {
-        select: {
-          digest: {
-            select: {
-              id: true,
-            },
-          },
+        where: {
+          teamId,
+          ...(options.onlyNotInDigest && {
+            digestBlocks: { none: {} },
+          }),
         },
       },
     },
   });
 
   return {
-    bookmarks,
+    teamLinks,
     totalCount,
+    perPage,
   };
 };
 
-/**
- * Get bookmarks of a team that are not in any digest, used to edit a digest
- */
-export const getTeamBookmarksNotInDigest = async (
-  teamId: string,
-  page?: number,
-  itemPerPage: number = 10,
-  search?: string
-) => {
-  const where: Prisma.BookmarkFindManyArgs['where'] = {
-    digestBlocks: { none: {} },
-    teamId,
-    ...(!!search && {
-      link: {
-        OR: [
-          {
-            title: {
-              contains: search,
-              mode: 'insensitive',
-            },
-          },
-          {
-            description: {
-              contains: search,
-              mode: 'insensitive',
-            },
-          },
-        ],
-      },
-    }),
-  };
-  const bookmarks = await db.bookmark.findMany({
-    take: itemPerPage,
-    skip: page ? (page - 1) * itemPerPage : 0,
-    where,
-    orderBy: {
-      createdAt: 'desc',
-    },
-    include: {
-      link: {
-        select: {
-          url: true,
-          description: true,
-          image: true,
-          title: true,
-          blurHash: true,
-        },
-      },
-      membership: {
-        include: {
-          user: {
-            select: {
-              email: true,
-              name: true,
-            },
-          },
-        },
-      },
-    },
-  });
-  const totalCount = await db.bookmark.count({
-    where,
-  });
+export type TeamLinksData = Awaited<ReturnType<typeof getTeamLinks>>;
 
-  return {
-    bookmarks,
-    totalCount,
-    itemPerPage,
-  };
-};
+export type TeamLinks = TeamLinksData['teamLinks'];
+
+export type TeamBookmarkedLinkItem = TeamLinks[number];
 
 export const getTeamDigests = async (
   teamId: string,
@@ -398,56 +353,57 @@ export const getPublicTeam = cache((slug: string) =>
   })
 );
 
-export const getPublicDigest = cache((digestSlug: string, teamSlug: string) =>
-  db.digest.findFirst({
-    select: {
-      publishedAt: true,
-      title: true,
-      description: true,
-      team: {
-        select: {
-          id: true,
-          slug: true,
-          name: true,
-          bio: true,
-          website: true,
-          github: true,
-          twitter: true,
+export const getPublicDigest = cache(
+  (digestSlug: string, teamSlug: string, isPreview?: boolean) =>
+    db.digest.findFirst({
+      select: {
+        publishedAt: true,
+        title: true,
+        description: true,
+        team: {
+          select: {
+            id: true,
+            slug: true,
+            name: true,
+            bio: true,
+            website: true,
+            github: true,
+            twitter: true,
+          },
         },
-      },
-      digestBlocks: {
-        select: {
-          id: true,
-          order: true,
-          title: true,
-          style: true,
-          bookmarkId: true,
-          description: true,
-          text: true,
-          type: true,
-          bookmark: {
-            include: {
-              link: {
-                select: {
-                  url: true,
-                  description: true,
-                  image: true,
-                  title: true,
-                  blurHash: true,
+        digestBlocks: {
+          select: {
+            id: true,
+            order: true,
+            title: true,
+            style: true,
+            bookmarkId: true,
+            description: true,
+            text: true,
+            type: true,
+            bookmark: {
+              include: {
+                link: {
+                  select: {
+                    url: true,
+                    description: true,
+                    image: true,
+                    title: true,
+                    blurHash: true,
+                  },
                 },
               },
             },
           },
+          orderBy: { order: 'asc' },
         },
-        orderBy: { order: 'asc' },
       },
-    },
-    where: {
-      slug: digestSlug,
-      team: { slug: teamSlug },
-      publishedAt: { lte: new Date() },
-    },
-  })
+      where: {
+        slug: digestSlug,
+        team: { slug: teamSlug },
+        ...(!isPreview ? { publishedAt: { lte: new Date() } } : {}),
+      },
+    })
 );
 
 export const getDigestDataForTypefully = async (
@@ -513,14 +469,6 @@ export type Member = Awaited<ReturnType<typeof getTeamMembers>>[number];
 export type TeamInvitation = Awaited<
   ReturnType<typeof getTeamInvitations>
 >[number];
-
-export type TeamBookmarksResult = Awaited<
-  ReturnType<typeof getTeamBookmarks>
->['bookmarks'][number];
-
-export type TeamBookmarksNotInDigestResult = Awaited<
-  ReturnType<typeof getTeamBookmarksNotInDigest>
->;
 
 export type TeamDigestsResult = Awaited<
   ReturnType<typeof getTeamDigests>

@@ -39,7 +39,7 @@ router.post(async (req, res) => {
       return res.status(201).json(bookmark);
     } catch (error: unknown) {
       Sentry.captureException(error);
-
+      console.log(error);
       return res.status(400).json({
         error: 'Invalid link',
       });

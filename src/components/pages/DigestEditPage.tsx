@@ -7,12 +7,7 @@ import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
 
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import {
-  TeamBookmarksNotInDigestResult,
-  getDigest,
-  getTeamBookmarksNotInDigest,
-  getTeamBySlug,
-} from '@/lib/queries';
+import { TeamLinksData, getDigest, getTeamBySlug } from '@/lib/queries';
 import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
 import { reorderList } from '@/utils/actionOnList';
 import { getRelativeDate } from '@/utils/date';
@@ -42,9 +37,10 @@ import { Breadcrumb } from '../teams/Breadcrumb';
 import DigestEditVisit from './DigestEditVisit';
 import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
+import { EyeIcon } from '@heroicons/react/24/solid';
 
 type Props = {
-  dataBookmarks: TeamBookmarksNotInDigestResult;
+  teamLinksData: TeamLinksData;
   digest: NonNullable<Awaited<ReturnType<typeof getDigest>>>;
   team: Awaited<ReturnType<typeof getTeamBySlug>>;
 };
@@ -57,7 +53,7 @@ type DigestData = {
 };
 
 export const DigestEditPage = ({
-  dataBookmarks: { totalCount, bookmarks, itemPerPage },
+  teamLinksData: { totalCount, teamLinks, perPage },
   digest,
   team,
 }: Props) => {
@@ -235,6 +231,21 @@ export const DigestEditPage = ({
               >
                 {!!digest?.publishedAt ? 'Unpublish' : 'Publish'}
               </Button>
+
+              {!digest?.publishedAt && (
+                <Button
+                  className="flex-1"
+                  aria-label="Preview digest"
+                  variant="default"
+                  icon={<EyeIcon />}
+                  disabled={isPublishing || isRefreshing || isDeleting}
+                  onClick={() => {
+                    push(`/${team.slug}/${digest?.slug}/preview`);
+                  }}
+                >
+                  Preview
+                </Button>
+              )}
               <DeletePopover
                 handleDelete={deleteDigest}
                 isLoading={isDeleting}
@@ -271,29 +282,27 @@ export const DigestEditPage = ({
             <SectionContainer title="Bookmarks" className="relative">
               <Pagination
                 totalItems={totalCount}
-                itemsPerPage={itemPerPage}
+                itemsPerPage={perPage}
                 className="absolute top-5 right-5"
               />
               <SearchInput className="mb-4" />
               <div className="flex flex-col gap-2">
-                {bookmarks && bookmarks.length > 0 ? (
+                {teamLinks && teamLinks.length > 0 ? (
                   <BookmarkListDnd
                     team={team}
                     digest={digest}
-                    bookmarks={bookmarks}
+                    teamLinks={teamLinks}
                   />
                 ) : (
                   <NoContent
                     icon={<BsFillBookmarkFill />}
                     title="No bookmark"
+                    subtitle="No bookmark matched your search"
                   />
                 )}
               </div>
               <div className="flex justify-end">
-                <Pagination
-                  totalItems={totalCount}
-                  itemsPerPage={itemPerPage}
-                />
+                <Pagination totalItems={totalCount} itemsPerPage={perPage} />
               </div>
             </SectionContainer>
           </div>

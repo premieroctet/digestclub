@@ -1,9 +1,5 @@
 'use client';
-import {
-  getTeamBySlug,
-  TeamBookmarksResult,
-  TeamDigestsResult,
-} from '@/lib/queries';
+import { getTeamBySlug, TeamLinks, TeamDigestsResult } from '@/lib/queries';
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import { BookmarksTeamList } from '../bookmark/BookmarksTeamList';
@@ -14,15 +10,18 @@ import { Digests } from '../digests/Digests';
 import PageContainer from '../layout/PageContainer';
 import { Tooltip } from '../Tooltip';
 import { BookmarksListControls } from '../bookmark/BookmarksListControls';
+import NoContent from '../layout/NoContent';
+import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 
 type Props = {
   linkCount: number;
-  bookmarks: TeamBookmarksResult[];
+  teamLinks: TeamLinks;
   digests: TeamDigestsResult[];
   team: Awaited<ReturnType<typeof getTeamBySlug>>;
+  search?: string;
 };
 
-const Team = ({ team, linkCount, bookmarks, digests }: Props) => {
+const Team = ({ team, linkCount, teamLinks, digests, search }: Props) => {
   return (
     <PageContainer title={team.name}>
       <div className="flex max-lg:flex-col gap-5 pb-4">
@@ -43,11 +42,19 @@ const Team = ({ team, linkCount, bookmarks, digests }: Props) => {
             </div>
           }
         >
-          <BookmarksTeamList
-            teamId={team.id}
-            teamSlug={team.slug}
-            bookmarks={bookmarks}
-          />
+          {!search && !teamLinks?.length ? (
+            <NoContent
+              icon={<BsFillBookmarkFill />}
+              title="No bookmark"
+              subtitle="Start bookmarking links to share them with your team"
+            />
+          ) : (
+            <BookmarksTeamList
+              teamId={team.id}
+              teamSlug={team.slug}
+              teamLinks={teamLinks}
+            />
+          )}
         </Card>
         <Card
           className="w-full lg:w-1/3"

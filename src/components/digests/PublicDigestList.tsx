@@ -34,20 +34,21 @@ export default function PublicDigestList({ digest }: Props) {
         <div className="flex flex-col items-start md:items-center justify-center align-middle mt-2 md:mt-0">
           <div className="flex items-center gap-0">
             <span className="text-4xl md:text-5xl font-bold pr-2">
-              {format(digest.publishedAt!, 'dd')}
+              {digest.publishedAt && format(digest.publishedAt!, 'dd')}
             </span>
             <div className="font-semibold text-sm md:text-base">
               <span className="text-red-600 block whitespace-nowrap leading-none">
-                {format(digest.publishedAt!, 'EEEE')}
+                {digest?.publishedAt && format(digest.publishedAt!, 'EEEE')}
               </span>
               <span className="whitespace-nowrap leading-none">
-                {format(digest.publishedAt!, 'MMMM, yyyy')}
+                {digest?.publishedAt &&
+                  format(digest.publishedAt!, 'MMMM, yyyy')}
               </span>
             </div>
           </div>
         </div>
       </div>
-      <div className="mt-2 px-0 md:px-10 py-2 md:pb-8 w-full space-y-8">
+      <div className="mt-2 px-0 md:px-10 py-2 md:pb-8 w-full space-y-4">
         {digest.digestBlocks.length === 0 ? (
           <NoContent
             icon={<BookmarkIcon className="h-8 w-8" />}
@@ -56,7 +57,7 @@ export default function PublicDigestList({ digest }: Props) {
           />
         ) : (
           digest.digestBlocks.map((block, i) => {
-            return <BlockCard key={i} block={block} />;
+            return <BlockCard key={i} block={block} index={i} />;
           })
         )}
       </div>

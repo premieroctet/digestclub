@@ -1,20 +1,13 @@
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import { getTeamBookmarksNotInDigest } from '@/lib/queries';
-import Link from 'next/link';
+import { TeamBookmarkedLinkItem } from '@/lib/queries';
 import React from 'react';
-import BookmarkImage from '../bookmark/BookmarkImage';
 import { AiOutlineLoading3Quarters as LoadingIcon } from '@react-icons/all-files/ai/AiOutlineLoading3Quarters';
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
-import { getRelativeDate } from '@/utils/date';
-import { getDomainFromUrl } from '@/utils/url';
 import { BookmarkDigestStyle, DigestBlockType } from '@prisma/client';
-import { getEnvHost } from '@/lib/server';
 import { isTwitterLink } from '@/utils/link';
 
 interface Props {
-  bookmark: Awaited<
-    ReturnType<typeof getTeamBookmarksNotInDigest>
-  >['bookmarks'][0];
+  bookmark: TeamBookmarkedLinkItem;
   teamId: string;
   digestId: string;
 }
@@ -39,9 +32,9 @@ export default function BookmarkAddButton({
         onClick={(e) => {
           e.preventDefault();
           add.mutate({
-            bookmarkId: bookmark.id,
+            bookmarkId: bookmark.bookmark[0].id,
             type: DigestBlockType.BOOKMARK,
-            style: isTwitterLink(bookmark.link.url)
+            style: isTwitterLink(bookmark.url)
               ? BookmarkDigestStyle.TWEET_EMBED
               : BookmarkDigestStyle.BLOCK,
           });

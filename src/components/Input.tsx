@@ -63,7 +63,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps<any>>(
 );
 
 export const Switch = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>(
-  function Switch({ label, onClick, checked, ...props }, ref) {
+  function Switch({ label, onChange, checked, ...props }, ref) {
     const [isChecked, setIsChecked] = useState(checked);
     return (
       <label className="relative inline-flex  cursor-pointer">
@@ -72,9 +72,9 @@ export const Switch = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>(
             type="checkbox"
             checked={isChecked}
             className="sr-only peer"
-            onClick={(e) => {
+            onChange={(e) => {
               setIsChecked(!isChecked);
-              onClick && onClick(e);
+              onChange && onChange(e);
             }}
             ref={ref}
             {...props}
@@ -83,7 +83,7 @@ export const Switch = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>(
         </div>
         <span
           className={`ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 ${
-            !isChecked ? 'opacity-40' : 'opacity-100'
+            !isChecked ? 'opacity-60' : 'opacity-100'
           }`}
         >
           {label}

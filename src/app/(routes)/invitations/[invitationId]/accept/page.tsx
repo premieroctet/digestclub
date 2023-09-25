@@ -1,6 +1,6 @@
 import Invitation from '@/components/pages/Invitation';
 import db from '@/lib/db';
-import { getCurrentUserOrRedirect } from '@/lib/sessions';
+import { getCurrentUser } from '@/lib/sessions';
 import { notFound } from 'next/navigation';
 
 interface InvitationPageProps {
@@ -13,7 +13,7 @@ export const metadata = {
 
 const InvitationPage = async ({ params }: InvitationPageProps) => {
   const { invitationId } = params;
-  const user = await getCurrentUserOrRedirect();
+  const user = await getCurrentUser();
 
   const invitation = await db.invitation.findUnique({
     select: {
