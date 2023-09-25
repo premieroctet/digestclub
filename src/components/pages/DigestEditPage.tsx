@@ -220,7 +220,7 @@ export const DigestEditPage = ({
               <Button
                 className="flex-1"
                 aria-label={`${
-                  digest?.publishedAt ? 'Unpublished' : 'Publish'
+                  digest?.publishedAt ? 'Unpublish' : 'Publish'
                 } digest`}
                 variant="outline"
                 icon={digest.publishedAt ? <EyeSlashIcon /> : <RssIcon />}
@@ -229,7 +229,7 @@ export const DigestEditPage = ({
                   digest?.publishedAt ? draft() : publish();
                 }}
               >
-                {!!digest?.publishedAt ? 'Unpublished' : 'Publish'}
+                {!!digest?.publishedAt ? 'Unpublish' : 'Publish'}
               </Button>
 
               {!digest?.publishedAt && (
