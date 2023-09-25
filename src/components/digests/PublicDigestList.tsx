@@ -19,9 +19,11 @@ export default function PublicDigestList({ digest }: Props) {
             <h2 className="text-2xl md:text-3xl font-bold">{digest.title}</h2>
             <div className="flex items-center mt-2">
               <span className="px-2 text-sm font-semibold bg-green-100 rounded-md">
-                {`${digest.digestBlocks.length} bookmark${
-                  digest.digestBlocks.length > 1 ? 's' : ''
-                }`}
+                {`${
+                  digest.digestBlocks.filter(
+                    (block) => block.type === 'BOOKMARK'
+                  )?.length
+                } bookmark${digest.digestBlocks.length > 1 ? 's' : ''}`}
               </span>
             </div>
           </div>
