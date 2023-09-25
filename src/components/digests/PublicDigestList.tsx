@@ -48,7 +48,7 @@ export default function PublicDigestList({ digest }: Props) {
           </div>
         </div>
       </div>
-      <div className="mt-2 px-0 md:px-10 py-2 md:pb-8 w-full space-y-5">
+      <div className="mt-2 px-0 md:px-10 py-2 md:pb-8 w-full space-y-4">
         {digest.digestBlocks.length === 0 ? (
           <NoContent
             icon={<BookmarkIcon className="h-8 w-8" />}
