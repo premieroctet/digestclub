@@ -1,6 +1,6 @@
 import DigestPublicPage from '@/components/pages/DigestPublicPage';
 import { getPublicDigest } from '@/lib/queries';
-import { generateDigestOGUrl } from '@/utils/open-graph';
+import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import * as Sentry from '@sentry/nextjs';

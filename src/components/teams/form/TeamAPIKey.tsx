@@ -1,6 +1,7 @@
+'use client';
 import Button from '@/components/Button';
 import { Team } from '@prisma/client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useTransition } from 'react';
 import {
   ClipboardIcon,
   ClipboardDocumentCheckIcon,
@@ -9,37 +10,21 @@ import {
 import { copyToClipboard, makeHidden } from '@/utils/string';
 import clsx from 'clsx';
 import useCustomToast from '@/hooks/useCustomToast';
-import api from '@/lib/api';
-import { useMutation } from 'react-query';
-import { ApiTeamResponseSuccess } from '@/pages/api/teams';
-import { AxiosError, AxiosResponse } from 'axios';
-import useTransitionRefresh from '@/hooks/useTransitionRefresh';
+import { useRouter } from 'next/navigation';
 import * as Popover from '@radix-ui/react-popover';
+import generateAPIKey from '@/actions/generate-api-key';
 interface Props {
   team: Team;
 }
 
-export default function TeamAPIKey({ team }: Props) {
-  const id = team.apiKey;
-  const displayedId = id ? makeHidden(id) : '';
+export default function TeamAPIKeyServer({ team }: Props) {
+  const key = team.apiKey;
+  const router = useRouter();
+
+  const displayedKey = key ? makeHidden(key) : '';
   const [isAnimating, setIsAnimating] = useState(false);
-  const { isRefreshing, refresh } = useTransitionRefresh();
   const { successToast, errorToast } = useCustomToast();
-  const { mutate: updateKey, isLoading } = useMutation<
-    AxiosResponse<ApiTeamResponseSuccess>,
-    AxiosError<ErrorResponse>,
-    void
-  >('update-team-key', () => api.get(`/teams/${team.id}/key/new`), {
-    onSuccess: () => {
-      successToast('Team API Key updated successfully');
-      refresh();
-    },
-    onError: (error) => {
-      errorToast('An error occurred while updating the API Key');
-      // eslint-disable-next-line no-console
-      console.log(error);
-    },
-  });
+  let [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     if (isAnimating) {
@@ -48,6 +33,22 @@ export default function TeamAPIKey({ team }: Props) {
       }, 1000);
     }
   }, [isAnimating]);
+
+  function handleClick() {
+    startTransition(
+      //@ts-expect-error
+      async () => {
+        const { error } = await generateAPIKey(team.id);
+        if (error) {
+          errorToast(error.message);
+          return;
+        } else {
+          successToast('Team API Key updated successfully');
+          router.refresh();
+        }
+      }
+    );
+  }
 
   return (
     <div className=" w-full flex flex-col gap-2 items-stretch">
@@ -58,15 +59,15 @@ export default function TeamAPIKey({ team }: Props) {
             <div
               className="w-full group cursor-pointer"
               onClick={() => {
-                if (!id) return;
+                if (!key) return;
                 setIsAnimating(true);
                 successToast('Copied to clipboard ✅');
-                copyToClipboard(id);
+                copyToClipboard(key);
               }}
             >
               <div className="px-3 py-2 flex justify-between items-center rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
                 <span className="w-[40ch] overflow-hidden text-ellipsis block select-none items-center text-gray-500 sm:text-base">
-                  {displayedId}
+                  {displayedKey}
                 </span>
 
                 {isAnimating ? (
@@ -85,7 +86,7 @@ export default function TeamAPIKey({ team }: Props) {
                 <Button
                   className="whitespace-nowrap"
                   icon={<ArrowPathIcon />}
-                  disabled={isLoading || isRefreshing}
+                  disabled={isPending}
                   variant="outline"
                 >
                   Create new
@@ -102,10 +103,8 @@ export default function TeamAPIKey({ team }: Props) {
                       <Button
                         variant="destructiveOutline"
                         size="sm"
-                        onClick={() => {
-                          updateKey();
-                        }}
-                        isLoading={isLoading}
+                        onClick={handleClick}
+                        isLoading={isPending}
                       >
                         Yes, regenerate it
                       </Button>
@@ -117,11 +116,9 @@ export default function TeamAPIKey({ team }: Props) {
           </>
         ) : (
           <Button
-            onClick={() => {
-              updateKey();
-            }}
+            onClick={handleClick}
             className="whitespace-nowrap"
-            disabled={isLoading || isRefreshing}
+            disabled={isPending}
             variant="outline"
           >
             Create

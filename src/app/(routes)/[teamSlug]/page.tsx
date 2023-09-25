@@ -1,7 +1,7 @@
 import TeamPublicPage from '@/components/pages/TeamPublicPage';
 import { getPublicTeam } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
-import { generateTeamOG } from '@/utils/open-graph';
+import { generateTeamOGUrl } from '@/utils/open-graph-url';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 
@@ -13,7 +13,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const team = await getPublicTeam(params.teamSlug);
-  const url = generateTeamOG(team?.slug || '');
+  const url = generateTeamOGUrl(team?.slug || '');
 
   return {
     alternates: {
@@ -51,7 +51,6 @@ const PublicTeamPage = async ({ params }: PageProps) => {
   if (!team) {
     redirect('/');
   }
-
   return <TeamPublicPage team={team} />;
 };
 

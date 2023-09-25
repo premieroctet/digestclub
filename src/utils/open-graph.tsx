@@ -1,16 +1,7 @@
-import { getEnvHost } from '@/lib/server';
 import path from 'path';
 import fs from 'fs';
 import satori from 'satori';
 import type { SatoriOptions } from 'satori';
-import { Resvg } from '@resvg/resvg-js';
-export function generateTeamOG(teamSlug: string) {
-  return encodeURI(`${getEnvHost()}/api/team-og?team=${teamSlug}`);
-}
-
-export function generateDigestOGUrl(digestSlug: string) {
-  return encodeURI(`${getEnvHost()}/api/digest-og?digest=${digestSlug}`);
-}
 
 interface getSvgOptions {
   width?: number;
