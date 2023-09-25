@@ -153,7 +153,7 @@ const NewsletterEmail = ({
     <MjmlHead>
       <MjmlBreakpoint width={481} />
       <MjmlAttributes>
-        <MjmlAll padding={'5px'} fontFamily={'Cantarell, sans-serif'} />
+        <MjmlAll padding={'5px'} fontFamily={theme.fontFamily.bodyPrimary} />
       </MjmlAttributes>
     </MjmlHead>
     <MjmlBody backgroundColor="#F1F5F9" cssClass="mt-1">
