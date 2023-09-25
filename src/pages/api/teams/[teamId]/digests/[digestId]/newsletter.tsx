@@ -133,11 +133,13 @@ router
                 description:
                   block.description || block.bookmark!.link.description,
                 image: block.bookmark!.link.image,
+                style: block.style,
               };
             } else if (block.type === DigestBlockType.TEXT && block.text) {
               return {
                 type: DigestBlockType.TEXT,
                 text: block.text,
+                style: block.style,
               };
             } else {
               throw new Error(

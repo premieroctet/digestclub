@@ -10,13 +10,13 @@ import {
   MjmlWrapper,
   MjmlAttributes,
   MjmlAll,
-  MjmlDivider,
   MjmlHead,
   MjmlBreakpoint,
 } from 'mjml-react';
 import React from 'react';
 import { remark } from 'remark';
 import html from 'remark-html';
+import theme from '../theme';
 
 const Bookmark = ({
   bookmark: { title, description, url, image, style },
@@ -24,29 +24,47 @@ const Bookmark = ({
   bookmark: NewsletterBookmark;
 }): JSX.Element => {
   let isBlock = !!image && style == 'BLOCK';
+  console.log({
+    cond1: !!image,
+    cond2: style == 'BLOCK',
+    style,
+  });
 
   return (
     <MjmlSection>
       {title && (
         <MjmlColumn width="100%">
           <MjmlText
-            fontWeight={800}
+            fontWeight={600}
             fontSize={16}
             align="left"
             paddingBottom={5}
+            color={theme.colors.darkGray}
           >
             <a
               href={url!}
               target="_blank"
               style={{ color: 'unset', textDecoration: 'unset' }}
             >
-              {title}
+              <span>{title}</span>
 
               {url && (
-                <span style={{ color: 'rgb(148, 163, 184)' }}>
-                  {' · '}
-                  {url.replace(/^https?:\/\//, '').split('/')[0]}
-                </span>
+                <>
+                  <span>{' · '}</span>
+                  <span
+                    style={{
+                      color: theme.colors.primary,
+                      fontWeight: 400,
+                      fontSize: 14,
+                      boxShadow: `0px 0px 0px 1px ${theme.colors.primary}`,
+                      borderRadius: '16px',
+                      padding: '4px 6px',
+                      backgroundColor: 'rgba(109,40,217,0.1)',
+                    }}
+                  >
+                    {url.replace(/^https?:\/\//, '').split('/')[0]}
+                  </span>
+                </>
               )}
             </a>
           </MjmlText>
@@ -60,12 +78,14 @@ const Bookmark = ({
       )}
 
       <MjmlColumn width={isBlock ? '60%' : '100%'}>
-        {description && <MjmlText>{description}</MjmlText>}
+        {description && (
+          <MjmlText color={theme.colors.lightGray}>{description}</MjmlText>
+        )}
       </MjmlColumn>
 
-      <MjmlColumn width="100%">
-        <MjmlDivider borderWidth={1} borderColor="#d1d5db" />
-      </MjmlColumn>
+      {/* <MjmlColumn width="100%">
+        <MjmlDivider borderWidth={1} borderColor="#999999" />
+      </MjmlColumn> */}
     </MjmlSection>
   );
 };
@@ -82,8 +102,8 @@ const Text = ({ block: { text } }: { block: NewsletterText }): JSX.Element => {
   const htmlContent = remark().use(html).processSync(text);
   return (
     <MjmlSection
-      paddingLeft={25}
-      paddingRight={25}
+      paddingLeft={10}
+      paddingRight={10}
       paddingBottom={10}
       paddingTop={10}
     >
@@ -145,6 +165,8 @@ const NewsletterEmail = ({
               fontSize={26}
               align="left"
               paddingBottom={16}
+              color={theme.colors.primary}
+              fontFamily={theme.fontFamily.heading}
             >
               {title}
             </MjmlText>
@@ -153,7 +175,7 @@ const NewsletterEmail = ({
               fontSize={14}
               fontWeight={400}
               lineHeight="20px"
-              paddingTop={16}
+              fontFamily={theme.fontFamily.bodyPrimary}
             >
               {description}
             </MjmlText>
@@ -179,11 +201,15 @@ const NewsletterEmail = ({
               fontWeight={400}
               lineHeight="20px"
               paddingTop={16}
-              color="rgb(148, 163, 184)"
+              fontFamily={theme.fontFamily.bodyPrimary}
+              color={theme.colors.lightGray}
             >
               You received this email because you subscribed to this newsletter
               at{' '}
-              <a href={hostUrl} style={{ color: '#6D28D9 !important' }}>
+              <a
+                href={hostUrl}
+                style={{ color: `${theme.colors.primary} !important` }}
+              >
                 digest.club
               </a>
               . If you{"'"}d like to unsubscribe, click{' '}
@@ -191,7 +217,7 @@ const NewsletterEmail = ({
                 // `params.email` interpolation is done by sendinblue
                 href={`${hostUrl}/unsubscribe?email={{params.email}}&teamId=${teamId}`}
                 rel="nofollow"
-                style={{ color: '#6D28D9 !important' }}
+                style={{ color: `${theme.colors.primary} !important` }}
               >
                 here
               </a>
