@@ -9,13 +9,18 @@ import { useParams } from 'next/navigation';
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import ActionsBlockPopover from '../../ActionsBlockPopover';
 import EditTextBlockDialog from '../../dialog/EditTextBlockDialog';
-
+import cn from 'classnames';
 export interface Props {
   block: PublicDigestListProps['digest']['digestBlocks'][number];
   isEditable?: boolean;
+  index?: number;
 }
 
-export default function BlockTextCard({ block, isEditable = false }: Props) {
+export default function BlockTextCard({
+  block,
+  isEditable = false,
+  index,
+}: Props) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const { id: teamId } = useTeam();
   const params = useParams();
@@ -44,7 +49,12 @@ export default function BlockTextCard({ block, isEditable = false }: Props) {
           )}
           {Boolean(block.text) && (
             <div
-              className="prose prose-violet prose-sm"
+              className={cn(
+                'prose prose-violet prose-sm prose-headings:mb-1 prose-headings:mt-3 prose-p:mt-1 prose-p:leading-relaxed',
+                {
+                  'first:prose-h1:mt-7': index !== 0 && !isEditable,
+                }
+              )}
               dangerouslySetInnerHTML={{
                 __html: htmlContent.toString(),
               }}
