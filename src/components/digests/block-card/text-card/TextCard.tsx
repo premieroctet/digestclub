@@ -50,7 +50,7 @@ export default function BlockTextCard({
           {Boolean(block.text) && (
             <div
               className={cn(
-                'prose prose-violet prose-sm prose-headings:mb-2 prose-p:mt-1 prose-p:leading-relaxed',
+                'prose prose-violet prose-sm prose-headings:mb-1 prose-headings:mt-3 prose-p:mt-1 prose-p:leading-relaxed',
                 {
                   'first:prose-h1:mt-7': index !== 0 && !isEditable,
                 }
