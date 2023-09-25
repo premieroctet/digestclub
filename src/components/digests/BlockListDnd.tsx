@@ -37,7 +37,7 @@ export const BlockListDnd = ({ digest }: BlockListDndProps) => {
                         ref={provided.innerRef}
                         className="group relative flex flex-col w-full will-change-transform bg-white rounded-md"
                       >
-                        <BlockCard block={block} isEditable />
+                        <BlockCard block={block} isEditable index={index} />
                       </li>
                     )}
                   </Draggable>

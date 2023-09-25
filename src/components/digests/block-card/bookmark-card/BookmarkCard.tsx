@@ -16,11 +16,13 @@ export interface Props {
   isEditable?: boolean;
   remove?: () => void;
   isRemoving?: boolean;
+  index?: number;
 }
 
 export default function BlockBookmarkCard({
   block,
   isEditable = false,
+  index,
 }: Props) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
