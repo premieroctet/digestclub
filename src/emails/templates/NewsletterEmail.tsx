@@ -82,10 +82,6 @@ const Bookmark = ({
           <MjmlText color={theme.colors.lightGray}>{description}</MjmlText>
         )}
       </MjmlColumn>
-
-      {/* <MjmlColumn width="100%">
-        <MjmlDivider borderWidth={1} borderColor="#999999" />
-      </MjmlColumn> */}
     </MjmlSection>
   );
 };
