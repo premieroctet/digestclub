@@ -52,7 +52,7 @@ export default function BlockTextCard({
               className={cn(
                 'prose prose-violet prose-sm prose-headings:mb-2 prose-p:mt-1 prose-p:leading-relaxed',
                 {
-                  'first:prose-h1:mt-5': index !== 0 && !isEditable,
+                  'first:prose-h1:mt-7': index !== 0 && !isEditable,
                 }
               )}
               dangerouslySetInnerHTML={{
