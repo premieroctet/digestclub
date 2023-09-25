@@ -21,7 +21,8 @@ export async function isLinkValid(url: string): Promise<boolean> {
  * @returns a boolean indicating if the URL is a twitter link
  */
 export function isTwitterLink(url: string): boolean {
-  const twitterPattern = /^https?:\/\/(?:www\.)?twitter\.com\/.*$/;
+  const twitterPattern =
+    /^(?:https?:\/\/(?:www\.)?)?(?:twitter\.com|x\.com)\/.*$/;
 
   return twitterPattern.test(url);
 }
@@ -33,15 +34,13 @@ export function isTwitterLink(url: string): boolean {
  * @returns false if the URL is not a valid tweet link
  */
 export function getTweetId(url: string): false | string {
-  const twitterPattern = /^https?:\/\/(?:www\.)?twitter\.com\/.*\/status\/.*$/;
+  const twitterPattern =
+    /^(?:https?:\/\/(?:www\.)?)?(?:twitter\.com|x\.com)\/.*\/status\/(\d+)(?:\?.*)?$/;
 
-  if (twitterPattern.test(url)) {
-    const urlParts = url.split('/');
-    const id = urlParts[urlParts.length - 1];
-    if (id === '') {
-      return false;
-    }
-    return id;
+  const match = url.match(twitterPattern);
+
+  if (match && match[1]) {
+    return match[1];
   } else {
     return false;
   }
