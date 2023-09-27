@@ -8,11 +8,10 @@ import NoContent from '../layout/NoContent';
 
 type Props = {
   digests: TeamDigestsResult[];
-  teamId: string;
   teamSlug: string;
 };
 
-export const Digests = ({ digests, teamId, teamSlug }: Props) => {
+export const Digests = ({ digests, teamSlug }: Props) => {
   const { isRefreshing } = useTransitionRefresh();
 
   if (digests.length < 1) {

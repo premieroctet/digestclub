@@ -1,3 +1,4 @@
+'use client';
 import { Member } from '@/lib/queries';
 import { InformationCircleIcon } from '@heroicons/react/24/solid';
 import { Session } from 'next-auth';
@@ -9,7 +10,7 @@ interface Props {
   currentUser: Session['user'];
 }
 
-const List = ({ memberships, currentUser }: Props) => {
+const MembersList = ({ memberships, currentUser }: Props) => {
   if (memberships.length === 0) {
     return (
       <>
@@ -49,4 +50,4 @@ const List = ({ memberships, currentUser }: Props) => {
   );
 };
 
-export default List;
+export default MembersList;
