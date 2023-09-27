@@ -16,11 +16,18 @@ type Props = {
 
 const InvitationList = ({ invitations }: Props) => {
   const { successToast, errorToast } = useCustomToast();
+  const [isPending, startTransition] = useTransition();
+  const [optiInvitations, removeOptiInvitation] = useOptimistic(
+    invitations || [],
+    (state: Invitation[], deleteId: string) =>
+      [...state].filter((invitation) => invitation?.id !== deleteId)
+  );
+
   const handleDeleteInvitation = async (invitation: TeamInvitation) => {
     startTransition(
       //@ts-expect-error
       async () => {
-        removeOptiTeamInvitation(invitation?.id);
+        removeOptiInvitation(invitation?.id);
         const { error } = await deleteInvitation(invitation.id);
         if (error) {
           errorToast(error.message);
@@ -32,17 +39,9 @@ const InvitationList = ({ invitations }: Props) => {
     );
   };
 
-  const [isPending, startTransition] = useTransition();
-
-  const [optiTeamInvitations, removeOptiTeamInvitation] = useOptimistic(
-    invitations || [],
-    (state: Invitation[], deleteId: string) =>
-      [...state].filter((invitation) => invitation?.id !== deleteId)
-  );
-
   return (
     <div className="flex flex-col gap-2 pt-4">
-      {optiTeamInvitations.map((invitation: TeamInvitation) => (
+      {optiInvitations.map((invitation: TeamInvitation) => (
         <InvitationItem
           key={invitation.id}
           invitation={invitation}
