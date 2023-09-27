@@ -1,51 +1,24 @@
+'use client';
+
 import { Team } from '@prisma/client';
-import { FormEvent } from 'react';
+import { FormEvent, useTransition } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DangerZoneTeam } from '../DangerZone';
 import SlackPanel from '../SlackPanel';
-import { useMutation } from 'react-query';
-import { ApiTeamResponseSuccess } from '@/pages/api/teams';
-import { AxiosError, AxiosResponse } from 'axios';
-import api from '@/lib/api';
-import { routes } from '@/core/constants';
 import useCustomToast from '@/hooks/useCustomToast';
-import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import SettingsField from './SettingsField';
 import { fieldsData, FieldName, FIELDS } from './form-data';
 import Button from '@/components/Button';
 import TypefullyPanel from '../TypefullyPanel';
 import TeamAPIKey from '../TeamAPIKey';
+import updateTeamInfo from '@/actions/update-team-info';
 
 type SettingsForm = Record<FieldName, string>;
-type PartialRecord<K extends keyof any, T> = {
-  [P in K]?: T;
-};
 
 const SettingsForm = ({ team }: { team: Team }) => {
   const { successToast, errorToast } = useCustomToast();
-  const { refresh } = useTransitionRefresh();
+  const [isPending, startTransition] = useTransition();
 
-  const { mutate: updateTeam, isLoading } = useMutation<
-    AxiosResponse<ApiTeamResponseSuccess>,
-    AxiosError<ErrorResponse>,
-    PartialRecord<FieldName, string>
-  >(
-    'update-team-profile',
-    (data) => api.patch(routes.TEAM.replace(':slug', team.id.toString()), data),
-    {
-      onSuccess: () => {
-        successToast('Team info updated successfully');
-        refresh();
-      },
-      onError: (error: AxiosError<ErrorResponse>) => {
-        errorToast(
-          error.response?.data?.error ||
-            error.response?.statusText ||
-            error.message
-        );
-      },
-    }
-  );
   const methods = useForm<SettingsForm>({
     mode: 'onBlur',
     defaultValues: {
@@ -63,26 +36,31 @@ const SettingsForm = ({ team }: { team: Team }) => {
     formState: { isDirty, dirtyFields },
   } = methods;
 
-  function onSubmit(e: FormEvent) {
-    e.preventDefault();
-    handleSubmit((values) => {
-      const { bio, name, website, github, twitter } = values;
-      const dataToUpdate = {
-        ...(dirtyFields.bio && { bio }),
-        ...(dirtyFields.name && { name }),
-        ...(dirtyFields.website && { website }),
-        ...(dirtyFields.github && { github }),
-        ...(dirtyFields.twitter && { twitter }),
-      };
+  const onSubmit = (e: FormEvent) =>
+    startTransition(
+      //@ts-expect-error
+      async () => {
+        handleSubmit(async (values) => {
+          let changedValues: Partial<Team> = {};
+          Object.keys(dirtyFields).map((key) => {
+            changedValues[key as FieldName] = values[key as FieldName];
+          });
+          const { error } = await updateTeamInfo(changedValues, team?.id);
+          if (error) {
+            errorToast(error.message);
+          } else {
+            successToast('Team info updated successfully');
+          }
 
-      updateTeam(dataToUpdate);
-      reset({}, { keepValues: true });
-    })(e);
-  }
+          reset({}, { keepValues: true });
+        })(e);
+      }
+    );
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit}>
+      {/* @ts-expect-error */}
+      <form action={onSubmit}>
         <div className="flex flex-col gap-6 pt-4">
           <div className="flex flex-col gap-4">
             {fieldsData.map((field) => (
@@ -114,7 +92,7 @@ const SettingsForm = ({ team }: { team: Team }) => {
                 <Button
                   fullWidth
                   type="submit"
-                  isLoading={isLoading}
+                  isLoading={isPending}
                   disabled={!isDirty}
                 >
                   Save

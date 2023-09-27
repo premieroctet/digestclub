@@ -1,7 +1,7 @@
 'use server';
 import db from '@/lib/db';
 import * as Sentry from '@sentry/nextjs';
-import { CUSTOM_ERROR_MESSAGES, checkAuthAction } from './utils';
+import { checkAuthAction, getErrorMessage } from './utils';
 import { revalidateTag } from 'next/cache';
 
 interface DeleteInvitationResult {
@@ -37,11 +37,7 @@ export default async function deleteInvitation(
     Sentry.captureException(err);
     return {
       error: {
-        message:
-          err?.message &&
-          Object.values(CUSTOM_ERROR_MESSAGES)?.includes(err?.message)
-            ? err.message
-            : 'Something went wrong...',
+        message: getErrorMessage(err.message),
       },
     };
   }

@@ -2,7 +2,7 @@
 import db from '@/lib/db';
 import * as Sentry from '@sentry/nextjs';
 import { revalidatePath } from 'next/cache';
-import { checkAuthAction } from './utils';
+import { checkAuthAction, getErrorMessage } from './utils';
 
 interface UpdateUserResult {
   error?: {
@@ -35,7 +35,7 @@ export default async function updateUser(
     Sentry.captureException(err);
     return {
       error: {
-        message: err?.message ?? 'Something went wrong...',
+        message: getErrorMessage(err.message),
       },
     };
   }
