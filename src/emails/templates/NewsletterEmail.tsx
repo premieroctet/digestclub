@@ -24,11 +24,6 @@ const Bookmark = ({
   bookmark: NewsletterBookmark;
 }): JSX.Element => {
   let isBlock = !!image && style == 'BLOCK';
-  console.log({
-    cond1: !!image,
-    cond2: style == 'BLOCK',
-    style,
-  });
 
   return (
     <MjmlSection>

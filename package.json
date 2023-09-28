@@ -12,7 +12,8 @@
     "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "test:watch": "jest --watch",
     "test:build": "jest",
-    "analyze": "cross-env ANALYZE=true next build"
+    "analyze": "cross-env ANALYZE=true next build",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -41,6 +42,7 @@
     "date-fns": "^2.29.3",
     "feed": "^4.2.2",
     "framer-motion": "^10.7.0",
+    "husky": "^8.0.3",
     "jsonwebtoken": "^9.0.1",
     "lodash": "^4.17.21",
     "metascraper": "^5.36.0",

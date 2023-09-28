@@ -41,6 +41,7 @@ export default async function handler(
     res.status(200).end(png);
   } catch (e: any) {
     captureException(e);
+    // eslint-disable-next-line no-console
     console.log(e);
     res.status(500).json({ error: 'Internal server error' });
   }
