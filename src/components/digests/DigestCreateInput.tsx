@@ -1,3 +1,5 @@
+'use client';
+
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
@@ -11,12 +13,19 @@ import clsx from 'clsx';
 import Button from '../Button';
 import { Input } from '../Input';
 
+import DigestGuessTitle from './DigestGuessTitle';
+
 type Props = {
   teamId: string;
   teamSlug: string;
+  lastDigestTitles: string[];
 };
 
-export const DigestCreateInput = ({ teamId, teamSlug }: Props) => {
+export const DigestCreateInput = ({
+  teamId,
+  teamSlug,
+  lastDigestTitles,
+}: Props) => {
   const router = useRouter();
   const { successToast, errorToast } = useCustomToast();
   const [newDigestTiltle, setNewDigestTitle] = useState('');
@@ -58,28 +67,36 @@ export const DigestCreateInput = ({ teamId, teamSlug }: Props) => {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className={clsx('w-full flex', isRefreshing && 'opacity-80')}
-    >
-      <Input
-        className="px-4 rounded-r-none"
-        type="text"
-        placeholder="Digest name"
-        value={newDigestTiltle}
-        onChange={(e: ChangeEvent<HTMLInputElement>) =>
-          setNewDigestTitle(e.target.value)
-        }
-        required
+    <>
+      <div>
+        <form
+          onSubmit={handleSubmit}
+          className={clsx('w-full flex', isRefreshing && 'opacity-80')}
+        >
+          <Input
+            className="px-4 rounded-r-none"
+            type="text"
+            placeholder="Digest name"
+            value={newDigestTiltle}
+            onChange={(e: ChangeEvent<HTMLInputElement>) =>
+              setNewDigestTitle(e.target.value)
+            }
+            required
+          />
+          <Button
+            className="py-2 px-4 bg-violet-600 text-white border-violet-600 !rounded-l-none ring-0"
+            type="submit"
+            disabled={!newDigestTiltle || isLoading}
+            isLoading={isLoading || isRefreshing}
+          >
+            Create
+          </Button>
+        </form>
+      </div>
+      <DigestGuessTitle
+        handleGuess={setNewDigestTitle}
+        lastDigestTitles={lastDigestTitles}
       />
-      <Button
-        className="py-2 px-4 bg-violet-600 text-white border-violet-600 !rounded-l-none ring-0"
-        type="submit"
-        disabled={!newDigestTiltle || isLoading}
-        isLoading={isLoading || isRefreshing}
-      >
-        Create
-      </Button>
-    </form>
+    </>
   );
 };

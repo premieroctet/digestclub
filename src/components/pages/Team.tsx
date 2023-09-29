@@ -77,7 +77,11 @@ const Team = ({ team, linkCount, teamLinks, digests, search }: Props) => {
           }
         >
           <div className="flex flex-col gap-4 w-full">
-            <DigestCreateInput teamId={team.id} teamSlug={team.slug} />
+            <DigestCreateInput
+              teamId={team.id}
+              teamSlug={team.slug}
+              lastDigestTitles={digests?.map((digest) => digest?.title)}
+            />
             <Digests digests={digests} teamId={team.id} teamSlug={team.slug} />
           </div>
         </Card>
