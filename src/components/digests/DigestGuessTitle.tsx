@@ -46,15 +46,11 @@ const DigestGuessTitle = ({
 
   // If we already have a guess check it before allowing to make a new one
   useEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      window.localStorage &&
-      window.localStorage.getItem('dg-storedGuess')
-    ) {
+    if (window.localStorage.getItem('dg-storedGuess')) {
       const { lastTitles, guess } = JSON.parse(
         window.localStorage.getItem('dg-storedGuess') ?? ''
       );
-      if (lastTitles.split(';') === lastDigestTitles && guess) {
+      if (lastTitles === lastDigestTitles.join(';') && guess) {
         setGuessedTitle(guess);
       } else {
         window.localStorage.removeItem('dg-storedGuess');
