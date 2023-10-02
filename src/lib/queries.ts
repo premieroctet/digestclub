@@ -170,6 +170,12 @@ export const getTeamLinks = async (
           mode: Prisma.QueryMode.insensitive,
         },
       },
+      {
+        url: {
+          contains: options.search,
+          mode: Prisma.QueryMode.insensitive,
+        },
+      },
     ],
   };
 
