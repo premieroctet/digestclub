@@ -11,7 +11,7 @@ const UserInvitations = ({
 }) => {
   return (
     <SectionContainer
-      title="User invitations"
+      title="My invitations"
       className="flex justify-center max-w-2xl m-auto w-full"
     >
       {invitations?.length ? (
