@@ -28,7 +28,9 @@ export const getUserInvitations = (email: string) =>
   db.invitation.findMany({
     select: {
       id: true,
-      membership: { select: { team: { select: { name: true } } } },
+      membership: {
+        select: { team: { select: { name: true, id: true, slug: true } } },
+      },
     },
     where: {
       membership: { invitedEmail: email },
@@ -469,6 +471,12 @@ export type Member = Awaited<ReturnType<typeof getTeamMembers>>[number];
 export type TeamInvitation = Awaited<
   ReturnType<typeof getTeamInvitations>
 >[number];
+
+export type UserInvitationsResults = Awaited<
+  ReturnType<typeof getUserInvitations>
+>;
+
+export type UserInvitationItem = UserInvitationsResults[number];
 
 export type TeamDigestsResult = Awaited<
   ReturnType<typeof getTeamDigests>
