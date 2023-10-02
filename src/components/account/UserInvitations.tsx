@@ -14,8 +14,11 @@ const UserInvitations = ({
       title="User invitations"
       className="flex justify-center max-w-2xl m-auto w-full"
     >
-      <p className="pb-4">Find all pending invitations below</p>
-      {!invitations?.length && <p>You have no pending invitations</p>}
+      {invitations?.length ? (
+        <p className="pb-4">Find all pending invitations below</p>
+      ) : (
+        <p>You have no pending invitations</p>
+      )}
       <div className="flex flex-col space-y-4">
         {invitations?.map((invitation) => (
           <UserInvitationItem key={invitation?.id} invitation={invitation} />
