@@ -66,6 +66,7 @@ export default function AddTextBlockDialog({
             error.message ||
             'Something went wrong!'
         );
+        // eslint-disable-next-line no-console
         console.log(error);
       },
     }

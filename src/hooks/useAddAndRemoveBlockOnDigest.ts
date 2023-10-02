@@ -51,15 +51,6 @@ function useAddAndRemoveBlockOnDigest({ teamId, digestId }: Params) {
   >(
     'add-block',
     ({ bookmarkId, position, type = DigestBlockType.BOOKMARK, style }) => {
-      console.log(
-        {
-          bookmarkId,
-          position,
-          type,
-          style,
-        },
-        'add-block'
-      );
       return api.post(`/teams/${teamId}/digests/${digestId}/block`, {
         bookmarkId,
         position,

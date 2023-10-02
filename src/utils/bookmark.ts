@@ -54,6 +54,7 @@ const isBookmarkedByUser = async (
       },
     })
     .then((response) => {
+      // eslint-disable-next-line no-console
       console.log(response);
       if (response?.id) {
         throw new TypeError('already_bookmarked');

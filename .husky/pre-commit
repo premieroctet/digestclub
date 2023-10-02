@@ -1,0 +1,24 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+
+yarn lint --quiet ||
+(
+        echo '💥 ❌ ESLint Errors'
+        false; 
+)
+(
+        echo '✨ ✅ ESLint !'
+        true; 
+)
+
+
+yarn tsc --noEmit ||
+(
+    echo '🙈 ❌ TS Errors'
+    false;
+)
+(
+        echo '👑 ✅ TypeScript !'
+        true; 
+)

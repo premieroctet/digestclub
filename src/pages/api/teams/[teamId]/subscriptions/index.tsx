@@ -38,6 +38,7 @@ router
         email: email,
       });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
       return res.status(500).json({
         error: 'Something went wrong',

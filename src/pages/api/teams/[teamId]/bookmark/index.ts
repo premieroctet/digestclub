@@ -22,10 +22,10 @@ router.use(checkTeam).post(async (req, res) => {
     const bookmark = await saveBookmark(linkUrl, req.teamId!, req.membershipId);
     return res.status(201).json(bookmark);
   } catch (error: unknown) {
+    // eslint-disable-next-line no-console
     console.log(error);
     const error_code = (error as TypeError)
       .message as keyof typeof messages.bookmark.create.error;
-    console.log(error_code);
 
     Sentry.captureMessage(
       `Failed to save bookmark. Cause: ${

@@ -36,6 +36,7 @@ export default function TeamAPIKey({ team }: Props) {
     },
     onError: (error) => {
       errorToast('An error occurred while updating the API Key');
+      // eslint-disable-next-line no-console
       console.log(error);
     },
   });
