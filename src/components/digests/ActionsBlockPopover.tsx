@@ -22,9 +22,9 @@ export default function ActionsBlockPopover({
   }
   return (
     <Popover.Root open={open} onOpenChange={() => setOpen(!open)}>
-      <div className="flex justify-center items-center gap-2 w-5 h-5 top-2 right-1 absolute md:relative cursor-pointer">
+      <div className="flex justify-center items-center gap-2 top-2 right-1 absolute md:relative cursor-pointer">
         <Popover.Trigger asChild className="relative">
-          <EllipsisVerticalIcon className="max-md:fill-white max-md:isolate" />
+          <EllipsisVerticalIcon className="max-md:fill-white max-md:isolate w-5 h-5 " />
         </Popover.Trigger>
         <Popover.Portal>
           <Popover.Content>
