@@ -9,6 +9,7 @@ import { useMutation } from 'react-query';
 import Button from '../Button';
 import { Input } from '../Input';
 import { DangerZoneAccount } from '../teams/form/DangerZone';
+import SectionContainer from '../layout/SectionContainer';
 
 interface FormElements extends HTMLFormControlsCollection {
   email: HTMLInputElement;
@@ -44,38 +45,43 @@ const AccountForm = ({ user }: Props) => {
   };
 
   return (
-    <form
-      className="flex flex-col items-end mt-4 gap-6 w-full max-w-2xl"
-      onSubmit={handleSubmit}
+    <SectionContainer
+      title="My Account"
+      className="flex justify-center max-w-2xl m-auto w-full"
     >
-      <fieldset className="flex flex-col gap-2 w-full">
-        <label htmlFor="email">Email address</label>
-        <Input
-          readOnly
-          disabled
-          defaultValue={user?.email!}
-          type="email"
-          name="email"
-        />
-      </fieldset>
-      <fieldset className="flex flex-col gap-2 w-full">
-        <label htmlFor="name">Full name</label>
-        <Input
-          defaultValue={user?.name!}
-          type="text"
-          name="name"
-          minLength={2}
-        />
-      </fieldset>
-      <div className="flex justify-start gap-4 w-full items-center">
-        <Button type="submit" isLoading={isLoading}>
-          Save
-        </Button>
-        <div className="flex-2">
-          <DangerZoneAccount user={user} />
+      <form
+        className="flex flex-col items-end mt-4 gap-6 w-full max-w-2xl"
+        onSubmit={handleSubmit}
+      >
+        <fieldset className="flex flex-col gap-2 w-full">
+          <label htmlFor="email">Email address</label>
+          <Input
+            readOnly
+            disabled
+            defaultValue={user?.email!}
+            type="email"
+            name="email"
+          />
+        </fieldset>
+        <fieldset className="flex flex-col gap-2 w-full">
+          <label htmlFor="name">Full name</label>
+          <Input
+            defaultValue={user?.name!}
+            type="text"
+            name="name"
+            minLength={2}
+          />
+        </fieldset>
+        <div className="flex justify-start gap-4 w-full items-center">
+          <Button type="submit" isLoading={isLoading}>
+            Save
+          </Button>
+          <div className="flex-2">
+            <DangerZoneAccount user={user} />
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </SectionContainer>
   );
 };
 
