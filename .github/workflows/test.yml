@@ -20,6 +20,7 @@ jobs:
           touch .env
           echo NEXTAUTH_SECRET="RANDOMEKEY" >> .env
           echo JWT_SECRET="RANDOMEKEY" >> .env
+          echo OPENAI_API_KEY="RANDOMEKEY" >> .env
           cat .env
       - name: Install dependencies
         run: yarn install
