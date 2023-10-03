@@ -25,9 +25,7 @@ const UserInvitationItem = ({
       onSuccess: () => {
         successToast('Welcome to your new team !');
         refresh();
-        router.push(`${routes.TEAMS}/${invitation?.membership?.team?.slug}`, {
-          forceOptimisticNavigation: true,
-        });
+        router.push(`${routes.TEAMS}/${invitation?.membership?.team?.slug}`);
       },
       onError: () => {
         errorToast('Something went wrong...');
