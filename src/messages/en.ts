@@ -146,7 +146,6 @@ const message = {
       noDigest: "Oh it seems that this team hasn't published any digest yet...",
       no_more: "Looks like it's all we have to show for now...",
       other_digests: 'Previous digests',
-      guess_title: 'Guess next digest title',
     },
     detail: {
       headTitle: '{{digest}}',
