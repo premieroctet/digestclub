@@ -5,6 +5,7 @@ import { AuthApiRequest, errorHandler } from '@/lib/router';
 import { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import urlSlug from 'url-slug';
+import { openAiCompletion } from '@/utils/openai';
 
 export type ApiDigestResponseSuccess = Digest;
 
@@ -18,7 +19,7 @@ router
 
     try {
       let digest = await client.digest.findUnique({
-        select: { publishedAt: true },
+        select: { publishedAt: true, teamId: true },
         where: { id: digestId?.toString() },
       });
       if (req.body.title !== undefined && !req.body.title.trim()) {
@@ -26,6 +27,38 @@ router
         return res.status(400).json({
           error: 'Title cannot be empty',
         });
+      }
+      const isFirstPublication = !digest?.publishedAt && !!req.body.publishedAt;
+
+      if (isFirstPublication) {
+        const lastDigests = await client.digest.findMany({
+          select: { title: true },
+          where: { teamId: digest?.teamId },
+        });
+
+        const lastDigestTitles = [
+          ...lastDigests?.map((digest) => digest?.title),
+          req.body.title,
+        ].filter((title) => !!title);
+
+        if (!!lastDigestTitles?.length) {
+          const prompt = `
+        Here is a list of document titles sorted from most recent to oldest, separared by ; signs : ${lastDigestTitles.join(
+          ';'
+        )} 
+        Just guess the next document title. Don't add any other sentence in your response.
+        `;
+
+          const response = await openAiCompletion(prompt);
+          const guessedTitle = response[0]?.message?.content;
+
+          await client.team.update({
+            where: { id: digest?.teamId },
+            data: {
+              nextSuggestedDigestTitle: guessedTitle,
+            },
+          });
+        }
       }
 
       digest = await client.digest.update({
