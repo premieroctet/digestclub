@@ -13,22 +13,22 @@ import clsx from 'clsx';
 import Button from '../Button';
 import { Input } from '../Input';
 
-import DigestGuessTitle from './DigestGuessTitle';
-
 type Props = {
   teamId: string;
   teamSlug: string;
-  lastDigestTitles: string[];
+  predictedDigestTitle: string | null;
 };
 
 export const DigestCreateInput = ({
   teamId,
   teamSlug,
-  lastDigestTitles,
+  predictedDigestTitle,
 }: Props) => {
   const router = useRouter();
   const { successToast, errorToast } = useCustomToast();
-  const [newDigestTiltle, setNewDigestTitle] = useState('');
+  const [newDigestTiltle, setNewDigestTitle] = useState(
+    predictedDigestTitle ?? ''
+  );
   const { isRefreshing, refresh } = useTransitionRefresh();
 
   const { mutate: createDigest, isLoading } = useMutation<
@@ -67,36 +67,30 @@ export const DigestCreateInput = ({
   };
 
   return (
-    <>
-      <div>
-        <form
-          onSubmit={handleSubmit}
-          className={clsx('w-full flex', isRefreshing && 'opacity-80')}
+    <div>
+      <form
+        onSubmit={handleSubmit}
+        className={clsx('w-full flex', isRefreshing && 'opacity-80')}
+      >
+        <Input
+          className="px-4 rounded-r-none"
+          type="text"
+          placeholder="Digest name"
+          value={newDigestTiltle}
+          onChange={(e: ChangeEvent<HTMLInputElement>) =>
+            setNewDigestTitle(e.target.value)
+          }
+          required
+        />
+        <Button
+          className="py-2 px-4 bg-violet-600 text-white border-violet-600 !rounded-l-none ring-0"
+          type="submit"
+          disabled={!newDigestTiltle || isLoading}
+          isLoading={isLoading || isRefreshing}
         >
-          <Input
-            className="px-4 rounded-r-none"
-            type="text"
-            placeholder="Digest name"
-            value={newDigestTiltle}
-            onChange={(e: ChangeEvent<HTMLInputElement>) =>
-              setNewDigestTitle(e.target.value)
-            }
-            required
-          />
-          <Button
-            className="py-2 px-4 bg-violet-600 text-white border-violet-600 !rounded-l-none ring-0"
-            type="submit"
-            disabled={!newDigestTiltle || isLoading}
-            isLoading={isLoading || isRefreshing}
-          >
-            Create
-          </Button>
-        </form>
-      </div>
-      <DigestGuessTitle
-        handleGuess={setNewDigestTitle}
-        lastDigestTitles={lastDigestTitles}
-      />
-    </>
+          Create
+        </Button>
+      </form>
+    </div>
   );
 };

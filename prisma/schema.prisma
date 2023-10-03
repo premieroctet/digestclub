@@ -111,6 +111,7 @@ model Team {
   github      String?
   createdAt    DateTime   @default(now())
   apiKey     String?
+  nextSuggestedDigestTitle String?
   
   @@unique([id, slackTeamId])
   @@unique(slug)

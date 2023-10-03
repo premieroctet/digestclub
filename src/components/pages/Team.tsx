@@ -80,7 +80,7 @@ const Team = ({ team, linkCount, teamLinks, digests, search }: Props) => {
             <DigestCreateInput
               teamId={team.id}
               teamSlug={team.slug}
-              lastDigestTitles={digests?.map((digest) => digest?.title)}
+              predictedDigestTitle={team?.nextSuggestedDigestTitle}
             />
             <Digests digests={digests} teamId={team.id} teamSlug={team.slug} />
           </div>
