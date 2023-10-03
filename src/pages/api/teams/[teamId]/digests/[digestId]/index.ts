@@ -39,22 +39,26 @@ router
         const lastDigestTitles = [
           ...lastDigests?.map((digest) => digest?.title),
           req.body.title,
-        ].join(';');
+        ].filter((title) => !!title);
 
-        const prompt = `
-        Here is a list of document titles sorted from most recent to oldest, separared by ; signs : ${lastDigestTitles} 
+        if (!!lastDigestTitles?.length) {
+          const prompt = `
+        Here is a list of document titles sorted from most recent to oldest, separared by ; signs : ${lastDigestTitles.join(
+          ';'
+        )} 
         Just guess the next document title. Don't add any other sentence in your response.
         `;
 
-        const response = await openAiCompletion(prompt);
-        const guessedTitle = response[0]?.message?.content;
+          const response = await openAiCompletion(prompt);
+          const guessedTitle = response[0]?.message?.content;
 
-        await client.team.update({
-          where: { id: digest?.teamId },
-          data: {
-            nextSuggestedDigestTitle: guessedTitle,
-          },
-        });
+          await client.team.update({
+            where: { id: digest?.teamId },
+            data: {
+              nextSuggestedDigestTitle: guessedTitle,
+            },
+          });
+        }
       }
 
       digest = await client.digest.update({
