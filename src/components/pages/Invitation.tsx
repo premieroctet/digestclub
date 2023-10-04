@@ -32,9 +32,7 @@ const Invitation = ({
     {
       onSuccess: () => {
         refresh();
-        router.push(`${routes.TEAMS}/${team.slug}`, {
-          forceOptimisticNavigation: true,
-        });
+        router.push(`${routes.TEAMS}/${team.slug}`);
       },
     }
   );

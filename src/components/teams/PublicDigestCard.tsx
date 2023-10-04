@@ -1,5 +1,5 @@
 import { PublicTeamResult } from '@/lib/queries';
-import { generateDigestOGUrl } from '@/utils/open-graph';
+import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { format } from 'date-fns';
 import Link from 'next/link';
 

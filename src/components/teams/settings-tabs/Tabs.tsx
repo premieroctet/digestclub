@@ -1,3 +1,4 @@
+'use client';
 import message from '@/messages/en';
 import * as Tabs from '@radix-ui/react-tabs';
 

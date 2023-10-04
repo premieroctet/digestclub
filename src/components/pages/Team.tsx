@@ -82,7 +82,7 @@ const Team = ({ team, linkCount, teamLinks, digests, search }: Props) => {
               teamSlug={team.slug}
               predictedDigestTitle={team?.nextSuggestedDigestTitle}
             />
-            <Digests digests={digests} teamId={team.id} teamSlug={team.slug} />
+            <Digests digests={digests} teamSlug={team.slug} />
           </div>
         </Card>
       </div>

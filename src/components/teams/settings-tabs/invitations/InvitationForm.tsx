@@ -1,6 +1,6 @@
-import { ChangeEvent, useState } from 'react';
-import Button from '../Button';
-import { Input } from '../Input';
+import { ChangeEvent } from 'react';
+import Button from '../../../Button';
+import { Input } from '../../../Input';
 interface Props {
   onSend: () => void;
   isLoading: boolean;
@@ -8,7 +8,7 @@ interface Props {
   setEmail: (email: string) => void;
   label?: string;
 }
-export default function EmailSend({
+export default function InvitationForm({
   onSend,
   isLoading,
   email,

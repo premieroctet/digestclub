@@ -1,5 +1,4 @@
 import { Member, TeamInvitation } from '@/lib/queries';
-import InvitedMembersList from './settings-tabs/invitations/List';
 import MembersList from './settings-tabs/members/List';
 import SubscribersList from './settings-tabs/subscribers/List';
 import SettingsTabs from './settings-tabs/Tabs';
@@ -11,9 +10,10 @@ import { AxiosResponse } from 'axios';
 import api from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import useCustomToast from '@/hooks/useCustomToast';
-import EmailSend from './EmailSend';
 import { Subscription } from '@prisma/client';
 import message from '@/messages/en';
+import InvitationForm from './settings-tabs/invitations/InvitationForm';
+import InvitationList from './settings-tabs/invitations/InvitationList';
 
 type Props = {
   members: Member[];
@@ -76,14 +76,14 @@ const TeamSettingsMembers = ({
       </Tabs.Content>
       <Tabs.Content value="invitations">
         <div className="pt-8 flex flex-col items-stretch max-h-screen overflow-auto">
-          <EmailSend
+          <InvitationForm
             onSend={onSendInvitation}
             isLoading={isLoading}
             email={emailInvitation}
             setEmail={setEmailInvitation}
             label="Send"
           />
-          <InvitedMembersList invitations={invitations} />
+          <InvitationList invitations={invitations} />
         </div>
       </Tabs.Content>
       <Tabs.Content value="subscribers">

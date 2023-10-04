@@ -7,7 +7,7 @@ type Props = {
   isLoading?: boolean;
 };
 
-const Item = ({ invitation, deleteInvitation, isLoading }: Props) => {
+const InvitationItem = ({ invitation, deleteInvitation, isLoading }: Props) => {
   const membership = invitation.membership;
   const name =
     membership?.user?.name ||
@@ -31,4 +31,4 @@ const Item = ({ invitation, deleteInvitation, isLoading }: Props) => {
   );
 };
 
-export default Item;
+export default InvitationItem;

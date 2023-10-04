@@ -1,3 +1,5 @@
+'use client';
+
 import { useMutation } from 'react-query';
 import { Team } from '@prisma/client';
 import { Session } from 'next-auth';

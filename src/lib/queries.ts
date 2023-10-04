@@ -1,4 +1,4 @@
-import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 import db from './db';
 import { Prisma } from '@prisma/client';
 export const getUserById = (userId: string) =>
@@ -38,7 +38,7 @@ export const getUserInvitations = (email: string) =>
     },
   });
 
-export const checkUserTeamBySlug = cache((slug: string, userId: string) =>
+export const checkUserTeamBySlug = (slug: string, userId: string) =>
   db.team.findFirst({
     where: {
       slug,
@@ -50,8 +50,7 @@ export const checkUserTeamBySlug = cache((slug: string, userId: string) =>
         include: { user: { select: { email: true } } },
       },
     },
-  })
-);
+  });
 
 export const checkDigestAuth = (teamId: string, digestId: string) =>
   db.digest.count({
@@ -323,7 +322,7 @@ export const getDigest = async (id: string) => {
   return digest;
 };
 
-export const getPublicTeam = cache((slug: string) =>
+export const getPublicTeam = unstable_cache((slug: string) =>
   db.team.findFirst({
     where: {
       slug,
@@ -361,7 +360,7 @@ export const getPublicTeam = cache((slug: string) =>
   })
 );
 
-export const getPublicDigest = cache(
+export const getPublicDigest = unstable_cache(
   (digestSlug: string, teamSlug: string, isPreview?: boolean) =>
     db.digest.findFirst({
       select: {

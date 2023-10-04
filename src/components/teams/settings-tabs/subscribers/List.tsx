@@ -1,3 +1,5 @@
+'use client';
+
 import { Subscription } from '@prisma/client';
 import ListItem from '../TabsListItem';
 
@@ -5,7 +7,7 @@ type Props = {
   subscriptions: Subscription[];
 };
 
-const List = ({ subscriptions }: Props) => {
+const SubscribersList = ({ subscriptions }: Props) => {
   return (
     <div className="flex flex-col gap-2 pt-4">
       {subscriptions.length === 0 ? (
@@ -29,4 +31,4 @@ const List = ({ subscriptions }: Props) => {
   );
 };
 
-export default List;
+export default SubscribersList;

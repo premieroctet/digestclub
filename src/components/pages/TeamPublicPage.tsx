@@ -1,6 +1,6 @@
 import { PublicTeamResult } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
-import { BookmarkIcon, RssIcon } from '@heroicons/react/24/solid';
+import { BookmarkIcon } from '@heroicons/react/24/solid';
 import SubscribeToNewsLetter from '../digests/SubscribeToNewsletter';
 import NoContent from '../layout/NoContent';
 import PublicPageTemplate from '../layout/PublicPageTemplate';

@@ -2,10 +2,6 @@ import { captureException } from '@sentry/nextjs';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { createOGTeamSVG } from '@/utils/open-graph';
 import db from '@/lib/db';
-import { SatoriOptions } from 'satori/wasm';
-import path from 'path';
-import fs from 'fs';
-import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 
 export default async function handler(

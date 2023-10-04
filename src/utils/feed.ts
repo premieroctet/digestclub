@@ -1,11 +1,11 @@
 import { PublicTeamResult } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
 import { Feed } from 'feed';
-import { generateTeamOG } from './open-graph';
+import { generateTeamOGUrl } from './open-graph-url';
 
 export const createFeed = (team: PublicTeamResult, teamSlug: string) => {
   const date = new Date();
-  const ogImage = generateTeamOG(team?.slug || '');
+  const ogImage = generateTeamOGUrl(team?.slug || '');
   const feed = new Feed({
     title: team!.name,
     description: team?.bio || undefined,
