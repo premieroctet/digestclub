@@ -31,7 +31,7 @@ export default async function deleteInvitation(
         id: invitation.membershipId,
       },
     });
-    revalidateTag('check-user-team-by-slug');
+
     return { data: { invitationId } };
   } catch (err: any) {
     Sentry.captureException(err);

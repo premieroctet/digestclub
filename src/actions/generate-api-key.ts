@@ -37,7 +37,6 @@ export default async function generateAPIKey(
         apiKey: token,
       },
     });
-    revalidateTag('check-user-team-by-slug');
 
     return {
       data: {

@@ -38,23 +38,19 @@ export const getUserInvitations = (email: string) =>
     },
   });
 
-export const checkUserTeamBySlug = unstable_cache(
-  (slug: string, userId: string) =>
-    db.team.findFirst({
-      where: {
-        slug,
-        memberships: { some: { user: { id: userId } } },
+export const checkUserTeamBySlug = (slug: string, userId: string) =>
+  db.team.findFirst({
+    where: {
+      slug,
+      memberships: { some: { user: { id: userId } } },
+    },
+    include: {
+      memberships: {
+        where: { NOT: { user: null } },
+        include: { user: { select: { email: true } } },
       },
-      include: {
-        memberships: {
-          where: { NOT: { user: null } },
-          include: { user: { select: { email: true } } },
-        },
-      },
-    }),
-  ['checkUserTeamBySlug'],
-  { tags: ['check-user-team-by-slug'] }
-);
+    },
+  });
 
 export const checkDigestAuth = (teamId: string, digestId: string) =>
   db.digest.count({

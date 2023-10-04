@@ -26,7 +26,7 @@ export default async function updateTeamInfo(
       where: { id: teamId },
       data: updatedTeamInfo,
     });
-    revalidateTag('check-user-team-by-slug');
+
     return {
       data: {
         team: JSON.stringify(updatedTeam),
