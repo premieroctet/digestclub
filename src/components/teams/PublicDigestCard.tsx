@@ -1,6 +1,6 @@
 import { PublicTeamResult } from '@/lib/queries';
+import { formatDate } from '@/utils/date';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
-import { format } from 'date-fns';
 import Link from 'next/link';
 
 interface Props {
@@ -31,7 +31,7 @@ const PublicDigestCard = ({ digest, teamSlug }: Props) => {
         <div className="max-w-xl">
           <div className="mt-8 flex items-center gap-x-4 text-xs">
             <time className="text-gray-500">
-              {format(publishedAt!, 'MMMM dd, yyyy')}
+              {formatDate(publishedAt!, 'MMMM dd, yyyy')}
             </time>
           </div>
           <div className="group relative">

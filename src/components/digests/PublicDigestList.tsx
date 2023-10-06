@@ -5,6 +5,7 @@ import NoContent from '../layout/NoContent';
 import { BookmarkIcon } from '@heroicons/react/24/solid';
 import SubscribeToNewsLetter from './SubscribeToNewsletter';
 import BlockCard from './block-card/BlockCard';
+import { formatDate } from '@/utils/date';
 
 export interface Props {
   digest: NonNullable<PublicDigestResult>;
@@ -36,15 +37,15 @@ export default function PublicDigestList({ digest }: Props) {
         <div className="flex flex-col items-start md:items-center justify-center align-middle mt-2 md:mt-0">
           <div className="flex items-center gap-0">
             <span className="text-4xl md:text-5xl font-bold pr-2">
-              {digest.publishedAt && format(digest.publishedAt!, 'dd')}
+              {digest.publishedAt && formatDate(digest.publishedAt!, 'dd')}
             </span>
             <div className="font-semibold text-sm md:text-base">
               <span className="text-red-600 block whitespace-nowrap leading-none">
-                {digest?.publishedAt && format(digest.publishedAt!, 'EEEE')}
+                {digest?.publishedAt && formatDate(digest.publishedAt!, 'EEEE')}
               </span>
               <span className="whitespace-nowrap leading-none">
                 {digest?.publishedAt &&
-                  format(digest.publishedAt!, 'MMMM, yyyy')}
+                  formatDate(digest.publishedAt!, 'MMMM, yyyy')}
               </span>
             </div>
           </div>

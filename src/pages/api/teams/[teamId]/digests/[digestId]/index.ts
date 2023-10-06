@@ -30,7 +30,7 @@ router
       }
       const isFirstPublication = !digest?.publishedAt && !!req.body.publishedAt;
 
-      if (isFirstPublication) {
+      if (isFirstPublication && process.env.OPENAI_API_KEY) {
         const lastDigests = await client.digest.findMany({
           select: { title: true },
           where: { teamId: digest?.teamId },
@@ -41,7 +41,7 @@ router
           req.body.title,
         ].filter((title) => !!title);
 
-        if (!!lastDigestTitles?.length) {
+        if (Boolean(lastDigestTitles?.length)) {
           const prompt = `
         Here is a list of document titles sorted from most recent to oldest, separared by ; signs : ${lastDigestTitles.join(
           ';'
@@ -49,15 +49,20 @@ router
         Just guess the next document title. Don't add any other sentence in your response.
         `;
 
-          const response = await openAiCompletion(prompt);
-          const guessedTitle = response[0]?.message?.content;
+          try {
+            const response = await openAiCompletion(prompt);
+            const guessedTitle = response[0]?.message?.content;
 
-          await client.team.update({
-            where: { id: digest?.teamId },
-            data: {
-              nextSuggestedDigestTitle: guessedTitle,
-            },
-          });
+            await client.team.update({
+              where: { id: digest?.teamId },
+              data: {
+                nextSuggestedDigestTitle: guessedTitle,
+              },
+            });
+          } catch (e) {
+            // eslint-disable-next-line no-console
+            console.log(e);
+          }
         }
       }
 
