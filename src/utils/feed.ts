@@ -29,7 +29,7 @@ export const createFeed = (team: PublicTeamResult, teamSlug: string) => {
       id: `${getEnvHost()}/${teamSlug}/${digest.slug}`,
       link: `${getEnvHost()}/${teamSlug}/${digest.slug}`,
       description: `${digest.description ? digest.description + ' - ' : ''} ${
-        digest._count.digestBlocks
+        digest.digestBlocks?.length
       } bookmarks`,
       date: parseISO(digest.publishedAt!.toString()),
     });

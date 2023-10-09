@@ -9,6 +9,7 @@ export const routes = {
   DIGEST: '/teams/:slug/digests/:id',
   DIGEST_EDIT: '/teams/:slug/digests/:id/edit',
   UPDATES: '/updates',
+  DISCOVER: '/discover',
 };
 
 export const mainNavigation = [
@@ -19,6 +20,10 @@ export const mainNavigation = [
   {
     route: routes.TEAMS,
     label: 'Dashboard',
+  },
+  {
+    route: routes.DISCOVER,
+    label: 'Discover',
   },
   {
     route: routes.UPDATES,

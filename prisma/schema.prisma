@@ -109,9 +109,10 @@ model Team {
   website     String?
   twitter     String?
   github      String?
-  createdAt    DateTime   @default(now())
-  apiKey     String?
+  createdAt   DateTime   @default(now())
+  apiKey      String?
   nextSuggestedDigestTitle String?
+  color       String?
   
   @@unique([id, slackTeamId])
   @@unique(slug)

@@ -476,7 +476,7 @@ export async function createOGDigestSVG({
                 </span>
               )}
             </div>
-            {nbOfLink && (
+            {!!nbOfLink && (
               <div style={{ display: 'flex' }}>
                 <span
                   style={{

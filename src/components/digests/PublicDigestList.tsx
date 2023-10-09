@@ -28,11 +28,6 @@ export default function PublicDigestList({ digest }: Props) {
               </span>
             </div>
           </div>
-          {digest.description && (
-            <p className="whitespace-pre-wrap max-w-[65ch] mb-4 text-sm md:text-base">
-              {digest.description}
-            </p>
-          )}
         </div>
         <div className="flex flex-col items-start md:items-center justify-center align-middle mt-2 md:mt-0">
           <div className="flex items-center gap-0">
@@ -50,6 +45,13 @@ export default function PublicDigestList({ digest }: Props) {
             </div>
           </div>
         </div>
+      </div>
+      <div className="px-2 md:px-10">
+        {digest.description && (
+          <p className="whitespace-pre-wrap mb-4 text-sm md:text-base w-full">
+            {digest.description}
+          </p>
+        )}
       </div>
       <div className="mt-2 px-0 md:px-10 py-2 md:pb-8 w-full space-y-4">
         {digest.digestBlocks.length === 0 ? (

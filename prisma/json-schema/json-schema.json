@@ -272,6 +272,12 @@
             "string",
             "null"
           ]
+        },
+        "color": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     },

@@ -29,7 +29,10 @@ export default async function handler(
         },
         digestBlocks: {
           select: {
-            type: true,
+            id: true,
+          },
+          where: {
+            type: DigestBlockType?.BOOKMARK,
           },
         },
       },
@@ -38,9 +41,7 @@ export default async function handler(
     if (!digest) return res.status(404).end();
 
     const { title, team } = digest;
-    const nbOfLink = digest.digestBlocks.filter(
-      (block) => block.type === DigestBlockType.BOOKMARK
-    ).length;
+    const nbOfLink = digest.digestBlocks.length;
 
     const svg = await createOGDigestSVG({
       title,

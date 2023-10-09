@@ -35,7 +35,7 @@ const TeamPublicPage = ({ team }: Props) => {
                 <PublicDigestCard
                   key={digest.slug}
                   digest={digest}
-                  teamSlug={team.slug}
+                  team={team}
                 />
               ))}
             </div>

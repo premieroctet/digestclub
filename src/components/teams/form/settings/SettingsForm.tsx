@@ -12,6 +12,8 @@ import Button from '@/components/Button';
 import TypefullyPanel from '../TypefullyPanel';
 import TeamAPIKey from '../TeamAPIKey';
 import updateTeamInfo from '@/actions/update-team-info';
+import TeamColorField from './TeamColorField';
+import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 
 type SettingsForm = Record<FieldName, string>;
 
@@ -27,6 +29,7 @@ const SettingsForm = ({ team }: { team: Team }) => {
       [FIELDS.website]: team?.website || '',
       [FIELDS.github]: team?.github || '',
       [FIELDS.twitter]: team?.twitter || '',
+      [FIELDS.color]: team?.color || '#6d28d9',
     },
   });
 
@@ -34,7 +37,9 @@ const SettingsForm = ({ team }: { team: Team }) => {
     handleSubmit,
     reset,
     formState: { isDirty, dirtyFields },
+    getValues,
   } = methods;
+  const { refresh, isRefreshing } = useTransitionRefresh();
 
   const onSubmit = (e: FormEvent) =>
     startTransition(
@@ -50,6 +55,7 @@ const SettingsForm = ({ team }: { team: Team }) => {
             errorToast(error.message);
           } else {
             successToast('Team info updated successfully');
+            refresh();
           }
 
           reset({}, { keepValues: true });
@@ -70,6 +76,25 @@ const SettingsForm = ({ team }: { team: Team }) => {
                 defaultValue={team[field.id] || ''}
               />
             ))}
+
+            <TeamColorField id="color" label="Team Color" team={team} />
+
+            <div className="flex justify-start gap-4 w-full items-center pt-6 pb-2">
+              <div className="flex-1">
+                <Button
+                  fullWidth
+                  type="submit"
+                  isLoading={isPending}
+                  disabled={!isDirty}
+                >
+                  Save
+                </Button>
+              </div>
+              <div className="flex-1">
+                <DangerZoneTeam team={team} />
+              </div>
+            </div>
+
             <div className="relative py-5">
               <div
                 className="absolute inset-0 flex items-center "
@@ -87,21 +112,6 @@ const SettingsForm = ({ team }: { team: Team }) => {
             <SlackPanel team={team} />
             <TypefullyPanel team={team} />
             <TeamAPIKey team={team} />
-            <div className="flex justify-start gap-4 w-full items-center pt-6 pb-2">
-              <div className="flex-1">
-                <Button
-                  fullWidth
-                  type="submit"
-                  isLoading={isPending}
-                  disabled={!isDirty}
-                >
-                  Save
-                </Button>
-              </div>
-              <div className="flex-1">
-                <DangerZoneTeam team={team} />
-              </div>
-            </div>
           </div>
         </div>
       </form>
