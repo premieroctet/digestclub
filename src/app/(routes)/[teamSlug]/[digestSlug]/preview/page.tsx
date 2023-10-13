@@ -3,6 +3,9 @@ import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/sessions';
 import DigestPublicPage from '@/components/pages/DigestPublicPage';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 interface PageProps {
   params: { teamSlug: string; digestSlug: string };
 }

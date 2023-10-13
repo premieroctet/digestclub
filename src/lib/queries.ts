@@ -360,58 +360,60 @@ export const getPublicTeam = unstable_cache((slug: string) =>
   })
 );
 
-export const getPublicDigest = unstable_cache(
-  (digestSlug: string, teamSlug: string, isPreview?: boolean) =>
-    db.digest.findFirst({
-      select: {
-        publishedAt: true,
-        title: true,
-        description: true,
-        team: {
-          select: {
-            id: true,
-            slug: true,
-            name: true,
-            bio: true,
-            website: true,
-            github: true,
-            twitter: true,
-          },
+export const getPublicDigest = (
+  digestSlug: string,
+  teamSlug: string,
+  isPreview?: boolean
+) =>
+  db.digest.findFirst({
+    select: {
+      publishedAt: true,
+      title: true,
+      description: true,
+      team: {
+        select: {
+          id: true,
+          slug: true,
+          name: true,
+          bio: true,
+          website: true,
+          github: true,
+          twitter: true,
         },
-        digestBlocks: {
-          select: {
-            id: true,
-            order: true,
-            title: true,
-            style: true,
-            bookmarkId: true,
-            description: true,
-            text: true,
-            type: true,
-            bookmark: {
-              include: {
-                link: {
-                  select: {
-                    url: true,
-                    description: true,
-                    image: true,
-                    title: true,
-                    blurHash: true,
-                  },
+      },
+      digestBlocks: {
+        select: {
+          id: true,
+          order: true,
+          title: true,
+          style: true,
+          bookmarkId: true,
+          description: true,
+          text: true,
+          type: true,
+          bookmark: {
+            include: {
+              link: {
+                select: {
+                  url: true,
+                  description: true,
+                  image: true,
+                  title: true,
+                  blurHash: true,
                 },
               },
             },
           },
-          orderBy: { order: 'asc' },
         },
+        orderBy: { order: 'asc' },
       },
-      where: {
-        slug: digestSlug,
-        team: { slug: teamSlug },
-        ...(!isPreview ? { publishedAt: { lte: new Date() } } : {}),
-      },
-    })
-);
+    },
+    where: {
+      slug: digestSlug,
+      team: { slug: teamSlug },
+      ...(!isPreview ? { publishedAt: { lte: new Date() } } : {}),
+    },
+  });
 
 export const getDigestDataForTypefully = async (
   digestId: string,
