@@ -55,6 +55,11 @@ const HomeFooter = () => {
               Twitter
             </Link>
           </li>
+          <li>
+            <Link href="https://github.com/premieroctet/digestclub" target="_blank">
+              GitHub
+            </Link>
+          </li>
         </ListSection>
       </div>
     </div>
