@@ -1,17 +1,15 @@
 'use client';
-import { getTeamBySlug, TeamLinks, TeamDigestsResult } from '@/lib/queries';
-import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/solid';
+import { TeamDigestsResult, TeamLinks, getTeamBySlug } from '@/lib/queries';
+import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import Link from 'next/link';
-import { BookmarksTeamList } from '../bookmark/BookmarksTeamList';
 import Card from '../Card';
 import { CounterTag } from '../CounterTag';
+import { BookmarksListControls } from '../bookmark/BookmarksListControls';
+import { BookmarksTeamList } from '../bookmark/BookmarksTeamList';
 import { DigestCreateInput } from '../digests/DigestCreateInput';
 import { Digests } from '../digests/Digests';
-import PageContainer from '../layout/PageContainer';
-import { Tooltip } from '../Tooltip';
-import { BookmarksListControls } from '../bookmark/BookmarksListControls';
 import NoContent from '../layout/NoContent';
-import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
+import PageContainer from '../layout/PageContainer';
 
 type Props = {
   linkCount: number;
@@ -64,15 +62,9 @@ const Team = ({ team, linkCount, teamLinks, digests, search }: Props) => {
                 <h2 className="text-xl">Digests</h2>
                 <CounterTag count={digests.length} />
               </div>
-              <Tooltip
-                trigger={
-                  <Link href={`/${team.slug}`}>
-                    <ArrowTopRightOnSquareIcon className="h-5 w-5 text-gray-500 rounded-md hover:text-gray-700" />
-                  </Link>
-                }
-              >
+              <Link className="text-sm underline" href={`/${team.slug}`}>
                 Show all digests
-              </Tooltip>
+              </Link>
             </div>
           }
         >

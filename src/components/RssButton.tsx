@@ -9,7 +9,7 @@ import {
   Trigger,
 } from '@radix-ui/react-tooltip';
 import clsx from 'clsx';
-import { forwardRef, HTMLProps, SVGProps, useState } from 'react';
+import { HTMLProps, forwardRef, useState } from 'react';
 
 type Props = {
   copyText: string;
@@ -39,7 +39,6 @@ const RssButton = forwardRef<HTMLDivElement, Props>((props, ref) => {
               className
             )}
           >
-            <span className="font-semibold">RSS</span>
             <RssIcon className="w-5" />
           </div>
         </Trigger>

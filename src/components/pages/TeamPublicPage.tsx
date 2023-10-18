@@ -1,10 +1,10 @@
 import { PublicTeamResult } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
 import { BookmarkIcon } from '@heroicons/react/24/solid';
+import RssButton from '../RssButton';
 import SubscribeToNewsLetter from '../digests/SubscribeToNewsletter';
 import NoContent from '../layout/NoContent';
 import PublicPageTemplate from '../layout/PublicPageTemplate';
-import RssButton from '../RssButton';
 import PublicDigestCard from '../teams/PublicDigestCard';
 
 export interface Props {
@@ -23,23 +23,23 @@ const TeamPublicPage = ({ team }: Props) => {
             <RssButton copyText={`${getEnvHost()}/${team.slug}/rss.xml`} />
           </div>
 
-          <div className="mt-3 gap-3 grid sm:grid-cols-3">
-            {team.Digest.length === 0 ? (
-              <NoContent
-                icon={<BookmarkIcon className="h-8 w-8" />}
-                title="No Digest"
-                subtitle="There is no public digest in this team yet."
-              />
-            ) : (
-              team.Digest.slice(0, 10).map((digest) => (
+          {team.Digest.length === 0 ? (
+            <NoContent
+              icon={<BookmarkIcon className="h-8 w-8" />}
+              title="No Digest"
+              subtitle="There is no public digest in this team yet."
+            />
+          ) : (
+            <div className="mt-3 gap-3 grid sm:grid-cols-3">
+              {team.Digest.slice(0, 10).map((digest) => (
                 <PublicDigestCard
                   key={digest.slug}
                   digest={digest}
                   teamSlug={team.slug}
                 />
-              ))
-            )}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
         <SubscribeToNewsLetter teamId={team.id} />
       </div>

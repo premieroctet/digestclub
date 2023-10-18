@@ -1,5 +1,6 @@
 import { PublicTeamResult } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
+import { parseISO } from 'date-fns';
 import { Feed } from 'feed';
 import { generateTeamOGUrl } from './open-graph-url';
 
@@ -30,7 +31,7 @@ export const createFeed = (team: PublicTeamResult, teamSlug: string) => {
       description: `${digest.description ? digest.description + ' - ' : ''} ${
         digest._count.digestBlocks
       } bookmarks`,
-      date: digest.publishedAt!,
+      date: parseISO(digest.publishedAt!.toString()),
     });
   });
 
