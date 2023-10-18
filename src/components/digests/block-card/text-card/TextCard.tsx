@@ -1,15 +1,15 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Props as PublicDigestListProps } from '../../PublicDigestList';
+import { useTeam } from '@/contexts/TeamContext';
+import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
+import cn from 'classnames';
+import { useParams } from 'next/navigation';
+import { useState } from 'react';
 import { remark } from 'remark';
 import html from 'remark-html';
-import { useTeam } from '@/contexts/TeamContext';
-import { useParams } from 'next/navigation';
-import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import ActionsBlockPopover from '../../ActionsBlockPopover';
+import { Props as PublicDigestListProps } from '../../PublicDigestList';
 import EditTextBlockDialog from '../../dialog/EditTextBlockDialog';
-import cn from 'classnames';
 export interface Props {
   block: PublicDigestListProps['digest']['digestBlocks'][number];
   isEditable?: boolean;
@@ -50,7 +50,7 @@ export default function BlockTextCard({
           {Boolean(block.text) && (
             <div
               className={cn(
-                'prose prose-violet prose-sm prose-headings:mb-1 prose-headings:mt-3 prose-p:mt-1 prose-p:leading-relaxed word break-all',
+                'prose prose-violet prose-sm prose-headings:mb-1 prose-headings:mt-3 prose-p:mt-1 prose-p:leading-relaxed word break-all max-w-full',
                 {
                   'first:prose-h1:mt-7': index !== 0 && !isEditable,
                 }
