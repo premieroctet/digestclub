@@ -21,7 +21,7 @@ const DiscoverPage = async ({ searchParams }: TeamPageProps) => {
   });
 
   return (
-    <main className="max-w-6xl mx-auto">
+    <main className="max-w-6xl mx-auto mb-10">
       <div className="flex gap-4">
         <div className="md:w-9/12 flex justify-between items-center gap-3 w-full">
           <h1 className="font-bold text-3xl my-4">Community Digests</h1>

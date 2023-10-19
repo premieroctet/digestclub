@@ -10,7 +10,7 @@ interface Props {
 
 const PublicPageTemplate = ({ children, team }: PropsWithChildren & Props) => {
   return (
-    <div className="flex flex-col gap-4 md:flex-row max-w-6xl mx-auto">
+    <div className="flex flex-col gap-4 md:flex-row max-w-6xl mx-auto mb-10">
       <div className="md:w-9/12">{children}</div>
       <div className="flex flex-col gap-4 md:max-w-[22rem]">
         <PublicDigestHeader

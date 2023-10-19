@@ -3,7 +3,6 @@ import { formatDate } from '@/utils/date';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { Team } from '@prisma/client';
 import Link from 'next/link';
-import BookmarkImage from '../bookmark/BookmarkImage';
 import BookmarkCountBadge from './BookmarkCountBadge';
 import TeamAvatar from './TeamAvatar';
 
@@ -25,10 +24,10 @@ const PublicDigestListItem = ({ digest, showTeam, team }: Props) => {
     >
       <article className="flex flex-col items-start w-full bg-white py-4 px-6 border border-gray-200 rounded-md">
         {showTeam && (
-          <div className=" flex items-center gap-x-1 text-xs">
+          <div className="flex items-center gap-x-1 text-xs">
             <Link href={`/${team.slug}`}>
               <div className="flex items-center justify-center gap-2">
-                <TeamAvatar className="w-4 h-4" team={team} />
+                <TeamAvatar team={team} />
                 <span>{team?.name}</span>
               </div>
             </Link>
@@ -46,16 +45,6 @@ const PublicDigestListItem = ({ digest, showTeam, team }: Props) => {
         <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-600">
           {description}
         </p>
-        <div className="flex mt-4 ml-2">
-          {digest.digestBlocks.map((bookmark) => (
-            <div
-              key={bookmark.id}
-              className="h-8 w-8 relative rounded-full overflow-hidden border border-gray-200 -ml-2"
-            >
-              <BookmarkImage link={bookmark.bookmark!.link} />
-            </div>
-          ))}
-        </div>
       </article>
     </Link>
   );
