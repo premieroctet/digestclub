@@ -1,6 +1,7 @@
 import { PublicDigestResult } from '@/lib/queries';
 import PublicDigestHeader from '../digests/PublicDigestHeader';
 import PublicDigestList from '../digests/PublicDigestList';
+import SubscribeToNewsLetter from '../digests/SubscribeToNewsletter';
 
 export interface Props {
   digest: NonNullable<PublicDigestResult>;
@@ -9,8 +10,11 @@ const DigestPublicPage = ({ digest }: Props) => {
   const { team } = digest;
 
   return (
-    <div className="flex flex-col pb-10 items-center box-border pt-5 md:pt-10 relative w-full md:w-[90%] lg:w-full m-auto">
-      <div className="w-full m-auto max-w-3xl box-border relative z-5">
+    <div className="flex flex-col gap-4 md:flex-row mb-5 max-w-6xl mx-auto">
+      <div className="md:w-9/12">
+        <PublicDigestList digest={digest} />
+      </div>
+      <div className="flex flex-col gap-4 md:max-w-[22rem]">
         <PublicDigestHeader
           team={{
             name: team.name,
@@ -21,7 +25,7 @@ const DigestPublicPage = ({ digest }: Props) => {
             ...(team.slug && { slug: team.slug }),
           }}
         />
-        <PublicDigestList digest={digest} />
+        <SubscribeToNewsLetter teamName={team.name} teamId={digest.team.id} />
       </div>
     </div>
   );

@@ -25,7 +25,7 @@ export const Digests = ({ digests, teamSlug }: Props) => {
       {digests.map((digest) => {
         const bookmarkCount = digest.digestBlocks.filter(
           (block) => block.type === DigestBlockType.BOOKMARK
-        ).length;
+        )?.length;
 
         return (
           <div

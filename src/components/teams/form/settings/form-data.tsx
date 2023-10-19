@@ -9,6 +9,7 @@ export const FIELDS = {
   website: 'website',
   github: 'github',
   twitter: 'twitter',
+  color: 'color',
 } as const;
 
 export type FieldName = (typeof FIELDS)[keyof typeof FIELDS];

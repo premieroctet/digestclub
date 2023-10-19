@@ -9,8 +9,9 @@ import Button from '../Button';
 
 interface Props {
   teamId: string;
+  teamName: string;
 }
-const SubscribeToNewsLetter = ({ teamId }: Props) => {
+const SubscribeToNewsLetter = ({ teamId, teamName }: Props) => {
   const { refresh, isRefreshing } = useTransitionRefresh();
   const { successToast, errorToast } = useCustomToast();
   const emailInputRef = React.useRef<HTMLInputElement>(null);
@@ -52,18 +53,18 @@ const SubscribeToNewsLetter = ({ teamId }: Props) => {
   );
 
   return (
-    <div className="bg-white md:px-10 py-12 lg:py-16">
-      <div className="mx-auto max-w-7xl flex flex-col items- justify-start">
-        <div className="max-w-2xl font-bold tracking-tight text-gray-900 sm:text-2xl">
-          <h2 className="inline sm:block">
-            Want to stay updated with our digests?
+    <div className="bg-white p-4 border border-gray-200 rounded-lg">
+      <div className="mx-auto max-w-7xl flex flex-col justify-start">
+        <div className="max-w-2xl text-gray-900">
+          <h2 className="inline sm:block text-lg mb-2 font-bold">
+            {teamName} Newsletter
           </h2>{' '}
-          <p className="inline sm:block font-light text-gray-800">
-            Subscribe to our newsletter
+          <p className="inline sm:block text-slate-600 text-sm">
+            Receive the latest digests from {teamName} in your inbox.
           </p>
         </div>
         <form className="mt-5 max-w-md" onSubmit={handleSubmit}>
-          <div className="flex gap-x-4">
+          <div className="flex gap-x-2">
             <label htmlFor="email-address" className="sr-only">
               Email address
             </label>

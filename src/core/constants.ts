@@ -9,20 +9,29 @@ export const routes = {
   DIGEST: '/teams/:slug/digests/:id',
   DIGEST_EDIT: '/teams/:slug/digests/:id/edit',
   UPDATES: '/updates',
+  DISCOVER: '/discover',
 };
 
 export const mainNavigation = [
   {
     route: routes.HOME,
     label: 'Home',
+    requireAuth: false,
   },
   {
     route: routes.TEAMS,
     label: 'Dashboard',
+    requireAuth: true,
+  },
+  {
+    route: routes.DISCOVER,
+    label: 'Discover',
+    requireAuth: false,
   },
   {
     route: routes.UPDATES,
     label: 'Updates',
+    requireAuth: false,
   },
 ] as const;
 

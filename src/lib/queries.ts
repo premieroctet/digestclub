@@ -1,6 +1,6 @@
+import { DigestBlockType, Prisma } from '@prisma/client';
 import { unstable_cache } from 'next/cache';
 import db from './db';
-import { Prisma } from '@prisma/client';
 export const getUserById = (userId: string) =>
   db.user.findUnique({
     where: {
@@ -341,10 +341,23 @@ export const getPublicTeam = unstable_cache((slug: string) =>
           title: true,
           description: true,
           slug: true,
-          _count: {
+          digestBlocks: {
             select: {
-              digestBlocks: true,
+              id: true,
+              bookmark: {
+                select: {
+                  link: {
+                    select: {
+                      url: true,
+                      image: true,
+                      blurHash: true,
+                      title: true,
+                    },
+                  },
+                },
+              },
             },
+            where: { type: DigestBlockType.BOOKMARK },
           },
         },
         orderBy: {
@@ -414,6 +427,72 @@ export const getPublicDigest = (
       ...(!isPreview ? { publishedAt: { lte: new Date() } } : {}),
     },
   });
+
+export const getDiscoverDigests = async ({
+  page,
+  perPage = 10,
+}: {
+  page?: number;
+  perPage?: number;
+}) => {
+  const totalCount = await db.digest.count({
+    where: {
+      publishedAt: { not: null },
+    },
+  });
+
+  const digests = await db.digest.findMany({
+    take: perPage,
+    skip: page ? (page - 1) * perPage : 0,
+    orderBy: { publishedAt: 'desc' },
+    where: { publishedAt: { not: null } },
+    select: {
+      id: true,
+      publishedAt: true,
+      title: true,
+      description: true,
+      slug: true,
+      team: {
+        select: {
+          name: true,
+          slug: true,
+          color: true,
+        },
+      },
+      digestBlocks: {
+        select: {
+          id: true,
+          bookmark: {
+            select: {
+              link: {
+                select: {
+                  url: true,
+                  image: true,
+                  blurHash: true,
+                  title: true,
+                },
+              },
+            },
+          },
+        },
+        where: {
+          type: DigestBlockType?.BOOKMARK,
+        },
+      },
+    },
+  });
+
+  return { totalCount, digests, perPage };
+};
+export const getRecentTeams = async () => {
+  const teams = await db.team.findMany({
+    take: 5,
+    select: { name: true, slug: true },
+    where: { Digest: { some: { publishedAt: { not: null } } } },
+  });
+
+  return teams;
+};
 
 export const getDigestDataForTypefully = async (
   digestId: string,

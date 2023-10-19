@@ -57,6 +57,7 @@ export default function SettingsField({
             </div>
           ) : (
             <TextArea
+              className="sm:max-w-md"
               defaultValue={defaultValue || ''}
               placeholder={placeholder}
               {...register(id, {

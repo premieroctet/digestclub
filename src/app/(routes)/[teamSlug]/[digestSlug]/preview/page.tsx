@@ -1,7 +1,7 @@
-import { getPublicDigest, getUserTeams } from '@/lib/queries';
-import { redirect } from 'next/navigation';
-import { getSession } from '@/lib/sessions';
 import DigestPublicPage from '@/components/pages/DigestPublicPage';
+import { getPublicDigest, getUserTeams } from '@/lib/queries';
+import { getSession } from '@/lib/sessions';
+import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -31,8 +31,8 @@ const PreviewDigestPage = async ({ params }: PageProps) => {
   return (
     <>
       <div className="flex justify-center">
-        <span className="bg-purple-100 text-purple-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300">
-          {params.digestSlug.toUpperCase()} - DIGEST PREVIEW
+        <span className="bg-purple-100 text-purple-800 text-lg font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-purple-900 dark:text-purple-300 mb-4">
+          Digest Preview - {params.digestSlug} 👀
         </span>
       </div>
       <DigestPublicPage digest={digest} />

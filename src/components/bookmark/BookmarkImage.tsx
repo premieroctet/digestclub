@@ -1,7 +1,8 @@
+'use client';
+
 import { BookmarkIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
-import React, { useState } from 'react';
-import * as Sentry from '@sentry/nextjs';
+import { useState } from 'react';
 
 export interface Props {
   link: { image: string | null; blurHash: string | null; title: string | null };

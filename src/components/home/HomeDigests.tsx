@@ -1,23 +1,31 @@
 import db from '@/lib/db';
-import React from 'react';
+import { DigestBlockType } from '@prisma/client';
 import PublicDigestCard from '../teams/PublicDigestCard';
 
 const HomeDigests = async () => {
   const digests = await db.digest.findMany({
     take: 3,
     orderBy: { publishedAt: 'desc' },
-    where: { publishedAt: { not: null }, isFeatured: true },
+    where: { publishedAt: { not: null } },
     select: {
       id: true,
       publishedAt: true,
       title: true,
       description: true,
       slug: true,
-      team: { select: { slug: true } },
-      _count: {
+      team: true,
+      digestBlocks: {
         select: {
-          digestBlocks: true,
+          id: true,
+          bookmark: {
+            select: {
+              link: {
+                select: { title: true, blurHash: true, url: true, image: true },
+              },
+            },
+          },
         },
+        where: { type: DigestBlockType.BOOKMARK },
       },
     },
   });
@@ -33,7 +41,7 @@ const HomeDigests = async () => {
             <PublicDigestCard
               key={digest.id}
               digest={digest}
-              teamSlug={digest.team.slug}
+              team={digest?.team}
             />
           ))}
         </div>

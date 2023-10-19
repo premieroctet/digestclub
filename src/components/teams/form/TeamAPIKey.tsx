@@ -53,7 +53,7 @@ export default function TeamAPIKeyServer({ team }: Props) {
   return (
     <div className=" w-full flex flex-col gap-2 items-stretch">
       <span className="font-semibold mt-4 mb-4">API Key</span>
-      <div className="flex gap-8 items-center">
+      <div className="flex gap-8 items-center flex-col sm:flex-row">
         {team.apiKey ? (
           <>
             <div
@@ -66,7 +66,7 @@ export default function TeamAPIKeyServer({ team }: Props) {
               }}
             >
               <div className="px-3 py-2 flex justify-between items-center rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <span className="w-[40ch] overflow-hidden text-ellipsis block select-none items-center text-gray-500 sm:text-base">
+                <span className=" overflow-hidden text-ellipsis block select-none items-center text-gray-500 sm:text-base">
                   {displayedKey}
                 </span>
 
