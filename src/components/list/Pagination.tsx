@@ -1,8 +1,8 @@
 'use client';
 
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/solid';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { HTMLProps, useEffect, useState, useTransition } from 'react';
 
 type Props = {
@@ -58,7 +58,7 @@ const Pagination = ({
             handlePageChange(currentPage - 1);
           }}
           className={clsx(
-            'cursor-pointer w-8 relative inline-flex items-center rounded-l-md p-[10%] text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0',
+            'cursor-pointer w-8 relative inline-flex items-center rounded-l-md p-[10%] text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white',
             {
               'cursor-not-allowed opacity-30 pointer-events-none':
                 currentPage === 1 || isRefreshing,
@@ -77,7 +77,7 @@ const Pagination = ({
             handlePageChange(currentPage + 1);
           }}
           className={clsx(
-            'cursor-pointer w-8 relative inline-flex items-center rounded-r-md p-[10%] text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0',
+            'cursor-pointer w-8 relative inline-flex items-center rounded-r-md p-[10%] text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 bg-white',
             {
               'cursor-not-allowed opacity-30 pointer-events-none':
                 currentPage === totalPages || isRefreshing,

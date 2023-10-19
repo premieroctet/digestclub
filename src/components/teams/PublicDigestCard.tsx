@@ -1,9 +1,10 @@
 import { PublicTeamResult } from '@/lib/queries';
 import { formatDate } from '@/utils/date';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
-import Link from 'next/link';
-import TeamAvatar from './TeamAvatar';
 import { Team } from '@prisma/client';
+import Link from 'next/link';
+import BookmarkCountBadge from './BookmarkCountBadge';
+import TeamAvatar from './TeamAvatar';
 
 interface Props {
   digest: NonNullable<PublicTeamResult>['Digest'][number];
@@ -32,16 +33,16 @@ const PublicDigestCard = ({ digest, showTeam, team }: Props) => {
           <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
         </div>
         <div className="max-w-xl">
-          <div className="mt-8 flex items-center gap-x-4 text-xs">
+          <div className="mt-4 flex items-center gap-x-1 text-xs">
             <Link href={`/${team.slug}`}>
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-center gap-2">
                 {showTeam && <TeamAvatar team={team} />}
-                <span className="pl-2">{team?.name}</span>
+                <span>{team?.name}</span>
               </div>
             </Link>
 
             <time className="text-gray-500">
-              {formatDate(publishedAt!, 'MMMM dd, yyyy')}
+              - {formatDate(publishedAt!, 'MMMM dd, yyyy')}
             </time>
           </div>
           <div className="group relative">
@@ -49,10 +50,7 @@ const PublicDigestCard = ({ digest, showTeam, team }: Props) => {
               <span className="absolute inset-0" />
               {title}
               {digestBlocks && (
-                <span className="ml-2 bg-violet-100 text-violet-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-violet-900 dark:text-violet-300">
-                  {digestBlocks?.length} bookmark
-                  {digestBlocks?.length === 1 ? '' : 's'}
-                </span>
+                <BookmarkCountBadge count={digestBlocks.length} />
               )}
             </h3>
             <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-600">

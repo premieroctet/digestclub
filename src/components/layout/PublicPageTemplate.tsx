@@ -1,6 +1,7 @@
 import { PublicDigestResult, PublicTeamResult } from '@/lib/queries';
 import { PropsWithChildren } from 'react';
 import PublicDigestHeader from '../digests/PublicDigestHeader';
+import SubscribeToNewsLetter from '../digests/SubscribeToNewsletter';
 
 interface Props {
   // @ts-ignore
@@ -9,9 +10,9 @@ interface Props {
 
 const PublicPageTemplate = ({ children, team }: PropsWithChildren & Props) => {
   return (
-    <div className=" flex flex-col pb-10 items-center box-border pt-10 relative w-full md:w-[90%] lg:w-full m-auto">
-      <span className="w-screen absolute h-[20rem] bg-white box-border z-4 top-[-2.5rem]"></span>
-      <div className="w-full max-w-[1024px] box-border relative z-5">
+    <div className="flex flex-col gap-4 md:flex-row max-w-6xl mx-auto">
+      <div className="md:w-9/12">{children}</div>
+      <div className="flex flex-col gap-4 md:max-w-[22rem]">
         <PublicDigestHeader
           team={{
             name: team.name,
@@ -22,7 +23,7 @@ const PublicPageTemplate = ({ children, team }: PropsWithChildren & Props) => {
             ...(team.slug && { slug: team.slug }),
           }}
         />
-        {children}
+        <SubscribeToNewsLetter teamName={team.name} teamId={team.id} />
       </div>
     </div>
   );

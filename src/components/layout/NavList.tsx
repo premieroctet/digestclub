@@ -1,12 +1,13 @@
 'use client';
 
 import { mainNavigation } from '@/core/constants';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import React, { Fragment, useEffect } from 'react';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { AiOutlineMenu } from '@react-icons/all-files/ai/AiOutlineMenu';
+import clsx from 'clsx';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { Fragment } from 'react';
 const ListItem = ({
   pathName,
   route,
@@ -59,14 +60,19 @@ const MenuItem = ({
 
 export default function NavList() {
   const pathName = usePathname();
+  const { status } = useSession();
+  const navItems = mainNavigation.filter(
+    (item) =>
+      !item.requireAuth || (item.requireAuth && status === 'authenticated')
+  );
 
   return (
     <div className="relatve">
       <div className="hidden sm:flex flex-row gap-2 sm:gap-4 items-center">
-        {mainNavigation.map((item, index) => (
+        {navItems.map((item, index) => (
           <Fragment key={`${item.route}-nav-list-fragment`}>
             <ListItem pathName={pathName} {...item} />
-            {index !== mainNavigation.length - 1 && (
+            {index !== navItems.length - 1 && (
               <span className="text-gray-400 text-sm">|</span>
             )}
           </Fragment>

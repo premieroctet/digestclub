@@ -344,6 +344,18 @@ export const getPublicTeam = unstable_cache((slug: string) =>
           digestBlocks: {
             select: {
               id: true,
+              bookmark: {
+                select: {
+                  link: {
+                    select: {
+                      url: true,
+                      image: true,
+                      blurHash: true,
+                      title: true,
+                    },
+                  },
+                },
+              },
             },
             where: { type: DigestBlockType.BOOKMARK },
           },
@@ -450,6 +462,18 @@ export const getDiscoverDigests = async ({
       digestBlocks: {
         select: {
           id: true,
+          bookmark: {
+            select: {
+              link: {
+                select: {
+                  url: true,
+                  image: true,
+                  blurHash: true,
+                  title: true,
+                },
+              },
+            },
+          },
         },
         where: {
           type: DigestBlockType?.BOOKMARK,
@@ -459,6 +483,15 @@ export const getDiscoverDigests = async ({
   });
 
   return { totalCount, digests, perPage };
+};
+export const getRecentTeams = async () => {
+  const teams = await db.team.findMany({
+    take: 5,
+    select: { name: true, slug: true },
+    where: { Digest: { some: { publishedAt: { not: null } } } },
+  });
+
+  return teams;
 };
 
 export const getDigestDataForTypefully = async (

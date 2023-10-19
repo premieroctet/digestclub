@@ -1,11 +1,8 @@
-import React from 'react';
-import { format } from 'date-fns';
 import { PublicDigestResult } from '@/lib/queries';
-import NoContent from '../layout/NoContent';
-import { BookmarkIcon } from '@heroicons/react/24/solid';
-import SubscribeToNewsLetter from './SubscribeToNewsletter';
-import BlockCard from './block-card/BlockCard';
 import { formatDate } from '@/utils/date';
+import { BookmarkIcon } from '@heroicons/react/24/solid';
+import NoContent from '../layout/NoContent';
+import BlockCard from './block-card/BlockCard';
 
 export interface Props {
   digest: NonNullable<PublicDigestResult>;
@@ -13,11 +10,11 @@ export interface Props {
 
 export default function PublicDigestList({ digest }: Props) {
   return (
-    <div className="bg-white w-full p-4 md:p-0 pb-10 shadow-2xl flex-col rounded-xl">
-      <div className="flex flex-col-reverse md:flex-row md:px-10 md:pt-10 md:justify-between md:items-start">
+    <div className="bg-white p-4 md:p-0 pb-10 flex-col rounded-lg border border-gray-200">
+      <div className="flex flex-col-reverse md:flex-row md:px-8 md:pt-8 md:justify-between md:items-start">
         <div className="flex flex-col md:mr-4 md:items-start">
-          <div className="max-w-[45rem] mb-4">
-            <h2 className="text-2xl md:text-3xl font-bold">{digest.title}</h2>
+          <div className="mb-4">
+            <h2 className="text-4xl md:text-4xl font-bold">{digest.title}</h2>
             <div className="flex items-center mt-2">
               <span className="px-2 text-sm font-semibold bg-green-100 rounded-md">
                 {`${
@@ -66,7 +63,6 @@ export default function PublicDigestList({ digest }: Props) {
           })
         )}
       </div>
-      <SubscribeToNewsLetter teamId={digest.team.id} />
     </div>
   );
 }

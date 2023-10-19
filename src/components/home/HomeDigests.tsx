@@ -1,7 +1,6 @@
 import db from '@/lib/db';
-import React from 'react';
-import PublicDigestCard from '../teams/PublicDigestCard';
 import { DigestBlockType } from '@prisma/client';
+import PublicDigestCard from '../teams/PublicDigestCard';
 
 const HomeDigests = async () => {
   const digests = await db.digest.findMany({
@@ -18,6 +17,13 @@ const HomeDigests = async () => {
       digestBlocks: {
         select: {
           id: true,
+          bookmark: {
+            select: {
+              link: {
+                select: { title: true, blurHash: true, url: true, image: true },
+              },
+            },
+          },
         },
         where: { type: DigestBlockType.BOOKMARK },
       },
