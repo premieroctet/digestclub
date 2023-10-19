@@ -45,6 +45,7 @@ const TeamColorField = ({
               />
             </div>
           </DialogTrigger>
+          mes-rencontres
           <DialogContent
             containerClassName="w-full sm:max-w-md "
             title="Pick team color"

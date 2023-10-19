@@ -1,5 +1,6 @@
 import Pagination from '@/components/list/Pagination';
 import PublicDigestListItem from '@/components/teams/PublicDigestListItem';
+import TeamAvatar from '@/components/teams/TeamAvatar';
 import { getDiscoverDigests, getRecentTeams } from '@/lib/queries';
 import Link from 'next/link';
 
@@ -50,11 +51,12 @@ const DiscoverPage = async ({ searchParams }: TeamPageProps) => {
               {recentTeams.map((team) => (
                 <Link key={team.slug} href={`/${team.slug}`}>
                   <div className="flex items-center gap-2">
+                    <TeamAvatar team={team} />
                     <div className="flex flex-col">
                       <span className="font-semibold">{team?.name}</span>
                       <a
                         href={`/${team.slug}`}
-                        className="hover:text-violet-600 underline text-sm"
+                        className="hover:text-violet-600 text-xs text-slate-500"
                         title={` Browse all digests of ${team.name}`}
                         rel="noreferrer"
                       >

@@ -23,7 +23,7 @@ const PublicDigestListItem = ({ digest, showTeam, team }: Props) => {
       className="overflow-hidden flex cursor-pointer"
       rel="noopener noreferrer"
     >
-      <article className="flex flex-col items-start w-full bg-white py-4 px-6 border border-gray-200 rounded-md">
+      <article className="flex flex-col items-start w-full bg-white py-6 px-6 border border-gray-200 rounded-md">
         {showTeam && (
           <div className="flex items-center gap-x-1 text-xs">
             <Link href={`/${team.slug}`}>
@@ -48,11 +48,11 @@ const PublicDigestListItem = ({ digest, showTeam, team }: Props) => {
         <div className="mt-4">
           {digestBlocks && <BookmarkCountBadge count={digestBlocks.length} />}
         </div>
-        <div className="flex mt-2 gap-1 overflow-hidden items-center">
-          {digest.digestBlocks.map((bookmark) => (
+        <div className="flex mt-2 overflow-hidden items-center gap-2">
+          {digest.digestBlocks.slice(0, 5).map((bookmark) => (
             <div
               key={bookmark.id}
-              className="h-6 w-8 relative border border-gray-200 rounded-sm overflow-hidden"
+              className="h-24 w-36 relative border border-gray-200 rounded-sm overflow-hidden"
             >
               <BookmarkImage link={bookmark.bookmark!.link} />
             </div>
