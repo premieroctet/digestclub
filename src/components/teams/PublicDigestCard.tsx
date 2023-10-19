@@ -46,12 +46,14 @@ const PublicDigestCard = ({ digest, showTeam, team }: Props) => {
             </time>
           </div>
           <div className="group relative">
-            <h3 className="mt-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
+            <h3 className="mt-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600 flex gap-1">
               <span className="absolute inset-0" />
-              {title}
-              {digestBlocks && (
-                <BookmarkCountBadge count={digestBlocks.length} />
-              )}
+              <span>{title}</span>
+              <div>
+                {digestBlocks && (
+                  <BookmarkCountBadge count={digestBlocks.length} />
+                )}
+              </div>
             </h3>
             <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-600">
               {description}

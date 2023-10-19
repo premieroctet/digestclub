@@ -1,11 +1,11 @@
+import { Team } from '.prisma/client';
+import Button from '@/components/Button';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/Dialog';
 import { Input } from '@/components/Input';
 import { useState } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import { useFormContext } from 'react-hook-form';
 import TeamAvatar from '../../TeamAvatar';
-import { Team } from '.prisma/client';
-import Button from '@/components/Button';
 
 const TeamColorField = ({
   label,
@@ -48,7 +48,6 @@ const TeamColorField = ({
           <DialogContent
             containerClassName="w-full sm:max-w-md "
             title="Pick team color"
-            description="Pick a new color for your team"
             closeIcon
           >
             <div className="flex-col flex gap-2">

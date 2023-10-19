@@ -3,6 +3,7 @@ import { formatDate } from '@/utils/date';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { Team } from '@prisma/client';
 import Link from 'next/link';
+import BookmarkImage from '../bookmark/BookmarkImage';
 import BookmarkCountBadge from './BookmarkCountBadge';
 import TeamAvatar from './TeamAvatar';
 
@@ -36,7 +37,6 @@ const PublicDigestListItem = ({ digest, showTeam, team }: Props) => {
         <div className="flex justify-between items-center w-full">
           <h3 className="mt-1 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
             <span className="text-2xl font-bold">{title}</span>
-            {digestBlocks && <BookmarkCountBadge count={digestBlocks.length} />}
           </h3>
           <time className="text-gray-500 text-xs">
             {formatDate(publishedAt!, 'MMMM dd, yyyy')}
@@ -45,6 +45,19 @@ const PublicDigestListItem = ({ digest, showTeam, team }: Props) => {
         <p className="mt-2 line-clamp-3 text-sm leading-6 text-gray-600">
           {description}
         </p>
+        <div className="mt-4">
+          {digestBlocks && <BookmarkCountBadge count={digestBlocks.length} />}
+        </div>
+        <div className="flex mt-2 gap-1 overflow-hidden items-center">
+          {digest.digestBlocks.map((bookmark) => (
+            <div
+              key={bookmark.id}
+              className="h-6 w-8 relative border border-gray-200 rounded-sm overflow-hidden"
+            >
+              <BookmarkImage link={bookmark.bookmark!.link} />
+            </div>
+          ))}
+        </div>
       </article>
     </Link>
   );

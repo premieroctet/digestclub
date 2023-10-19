@@ -27,6 +27,7 @@ const BookmarkImage = ({ link, fallbackSrc }: Props) => {
           unoptimized
           blurDataURL={link.blurHash || 'placeholder'}
           alt={link.title!}
+          title={link.title!}
           src={link.image || fallbackSrc || ''}
           onError={({ currentTarget }) => {
             /* On error we will try to load a fallbackSrc if provided */
