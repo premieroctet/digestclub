@@ -445,7 +445,10 @@ export const getDiscoverDigests = async ({
     take: perPage,
     skip: page ? (page - 1) * perPage : 0,
     orderBy: { publishedAt: 'desc' },
-    where: { publishedAt: { not: null } },
+    where: {
+      publishedAt: { not: null },
+      digestBlocks: { some: { bookmarkId: { not: null } } },
+    },
     select: {
       id: true,
       publishedAt: true,
