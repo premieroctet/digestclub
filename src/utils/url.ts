@@ -4,3 +4,5 @@ export const getDomainFromUrl = (url: string) => {
 
   return domain;
 };
+
+export const isPdfUrl = (url: string) => url.indexOf('.pdf') > -1;

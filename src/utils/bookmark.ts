@@ -7,6 +7,7 @@ import MetascraperTitle from 'metascraper-title';
 import MetascraperDescription from 'metascraper-description';
 import MetascraperImage from 'metascraper-image';
 import MetascrapperLogoFavicon from 'metascraper-logo-favicon';
+import { isPdfUrl } from './url';
 
 const metascraper = Metascraper([
   MetascraperTwitter(),
@@ -97,13 +98,17 @@ export const saveBookmark = async (
     },
   });
 
-  await isLinkValid(linkUrl);
+  const response = await isLinkValid(linkUrl);
   await isBookmarkedByUser(link?.id, membershipId, teamId);
 
   if (!link) {
-    const metadata = await extractMetadata(linkUrl);
-
+    const isPDF = response.headers.get('Content-Type') === 'application/pdf';
     let blurhash = null;
+    let metadata = null;
+
+    if (!isPDF) {
+      metadata = await extractMetadata(linkUrl);
+    }
 
     if (metadata?.image) {
       try {
@@ -115,13 +120,15 @@ export const saveBookmark = async (
       } catch (e) {}
     }
 
+    const logo = isPDF ? 'hello' : metadata?.logo ?? null;
+
     link = await db.link.create({
       data: {
         title: metadata?.title || linkUrl,
-        image: metadata?.image,
-        description: metadata?.description,
+        image: metadata?.image || null,
+        description: metadata?.description || '',
         url: linkUrl,
-        logo: metadata?.logo,
+        logo,
         blurHash: blurhash,
       },
     });

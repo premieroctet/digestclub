@@ -1,22 +1,40 @@
 'use client';
 
-import { BookmarkIcon } from '@heroicons/react/24/solid';
+import { isPdfUrl } from '@/utils/url';
+import { BookmarkIcon, DocumentIcon } from '@heroicons/react/24/solid';
 import Image from 'next/image';
 import { useState } from 'react';
 
 export interface Props {
-  link: { image: string | null; blurHash: string | null; title: string | null };
+  link: {
+    image: string | null;
+    blurHash: string | null;
+    title: string | null;
+    url: string;
+  };
   fallbackSrc?: string;
 }
 
+const PdfIcon = () => {
+  return (
+    <div className="flex flex-col justify-center">
+      <span className="text-center text-white font-bold text-xs absolute mt-2 ml-2">
+        PDF
+      </span>
+      <DocumentIcon className="h-10 w-10 fill-violet-600" />
+    </div>
+  );
+};
+
 const BookmarkImage = ({ link, fallbackSrc }: Props) => {
   const [failToLoadImage, setFailToLoadImage] = useState(false);
+  const isPdf = isPdfUrl(link.url);
 
   return (
     <>
       {failToLoadImage ? (
         <div className="flex items-center justify-center bg-gray-100 text-gray-200 h-full w-full">
-          <BookmarkIcon className="h-10 w-10" />
+          {isPdf ? <PdfIcon /> : <BookmarkIcon className="h-10 w-10" />}
         </div>
       ) : (
         <Image
