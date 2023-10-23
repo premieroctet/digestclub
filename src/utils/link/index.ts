@@ -1,4 +1,4 @@
-export async function isLinkValid(url: string): Promise<boolean> {
+export async function isLinkValid(url: string): Promise<Response> {
   return fetch(url, {
     headers: {
       'User-Agent': 'digestclub-bot/1.0',
@@ -8,7 +8,7 @@ export async function isLinkValid(url: string): Promise<boolean> {
       if (!response.ok) {
         throw new TypeError('invalid_link');
       }
-      return response.ok;
+      return response;
     })
     .catch(() => {
       throw new TypeError('invalid_link');

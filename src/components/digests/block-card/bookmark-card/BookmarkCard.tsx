@@ -88,6 +88,7 @@ export default function BlockBookmarkCard({
           image: link.image,
           blurHash: link.blurHash,
           title: link.title,
+          url: link?.url,
         }}
         {...(title && { title })}
         {...(description && { description })}
