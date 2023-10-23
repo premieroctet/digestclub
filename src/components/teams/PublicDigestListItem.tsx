@@ -1,4 +1,4 @@
-import { PublicTeamResult } from '@/lib/queries';
+import { DiscoveryDigest } from '@/lib/queries';
 import { formatDate } from '@/utils/date';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { Team } from '@prisma/client';
@@ -8,7 +8,7 @@ import BookmarkCountBadge from './BookmarkCountBadge';
 import TeamAvatar from './TeamAvatar';
 
 interface Props {
-  digest: NonNullable<PublicTeamResult>['Digest'][number];
+  digest: DiscoveryDigest;
   showTeam?: boolean;
   team: Partial<Team>;
 }

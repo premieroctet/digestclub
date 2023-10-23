@@ -8,12 +8,14 @@ import { HTMLProps, useEffect, useState, useTransition } from 'react';
 type Props = {
   totalItems: number;
   itemsPerPage?: number;
+  pageParamName?: string;
 };
 
 const Pagination = ({
   totalItems,
   itemsPerPage = 10,
   className,
+  pageParamName = 'page',
   ...props
 }: Props & HTMLProps<HTMLDivElement>) => {
   const { push } = useRouter();
@@ -22,14 +24,14 @@ const Pagination = ({
   const [isRefreshing, startTransition] = useTransition();
   const [action, setAction] = useState<'prev' | 'next'>();
 
-  const currentPage = Number(searchParams?.get('page')) || 1;
+  const currentPage = Number(searchParams?.get(pageParamName)) || 1;
 
   const totalPages =
     totalItems < itemsPerPage ? 1 : Math.ceil(totalItems / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set('page', page.toString());
+    params.set(pageParamName, page.toString());
 
     startTransition(() => {
       push(path + `?${params.toString()}`);

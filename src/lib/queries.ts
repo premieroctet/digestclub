@@ -198,7 +198,7 @@ export const getTeamLinks = async (
     ],
   };
 
-  const totalCount = await db.link.count({
+  const linksCount = await db.link.count({
     where,
   });
 
@@ -249,7 +249,7 @@ export const getTeamLinks = async (
 
   return {
     teamLinks,
-    totalCount,
+    linksCount,
     perPage,
   };
 };
@@ -265,6 +265,11 @@ export const getTeamDigests = async (
   page?: number,
   perPage = 30
 ) => {
+  const digestsCount = await db.digest.count({
+    where: {
+      teamId,
+    },
+  });
   const digests = await db.digest.findMany({
     take: perPage,
     skip: page ? (page - 1) * perPage : 0,
@@ -279,7 +284,7 @@ export const getTeamDigests = async (
     },
   });
 
-  return digests;
+  return { digests, digestsCount };
 };
 
 export const getDigest = async (id: string) => {
@@ -431,24 +436,27 @@ export const getPublicDigest = (
 export const getDiscoverDigests = async ({
   page,
   perPage = 10,
+  teamId,
 }: {
   page?: number;
   perPage?: number;
+  teamId?: string;
 }) => {
-  const totalCount = await db.digest.count({
-    where: {
-      publishedAt: { not: null },
-    },
+  const where = {
+    publishedAt: { not: null },
+    digestBlocks: { some: { bookmarkId: { not: null } } },
+    ...(teamId ? { teamId } : {}),
+  };
+
+  const digestsCount = await db.digest.count({
+    where,
   });
 
   const digests = await db.digest.findMany({
     take: perPage,
     skip: page ? (page - 1) * perPage : 0,
     orderBy: { publishedAt: 'desc' },
-    where: {
-      publishedAt: { not: null },
-      digestBlocks: { some: { bookmarkId: { not: null } } },
-    },
+    where,
     select: {
       id: true,
       publishedAt: true,
@@ -485,7 +493,7 @@ export const getDiscoverDigests = async ({
     },
   });
 
-  return { totalCount, digests, perPage };
+  return { digestsCount, digests, perPage };
 };
 export const getRecentTeams = async () => {
   const digests = await db.digest.findMany({
@@ -571,7 +579,7 @@ export type UserInvitationItem = UserInvitationsResults[number];
 
 export type TeamDigestsResult = Awaited<
   ReturnType<typeof getTeamDigests>
->[number];
+>['digests'][number];
 
 export type PublicTeamResult = Awaited<ReturnType<typeof getPublicTeam>>;
 
@@ -580,3 +588,7 @@ export type PublicDigestResult = Awaited<ReturnType<typeof getPublicDigest>>;
 export type DigestDataForTypefullyResult = Awaited<
   ReturnType<typeof getDigestDataForTypefully>
 >;
+
+export type DiscoveryDigest = Awaited<
+  ReturnType<typeof getDiscoverDigests>
+>['digests'][number];

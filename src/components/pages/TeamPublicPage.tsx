@@ -1,16 +1,20 @@
-import { PublicTeamResult } from '@/lib/queries';
+import { DiscoveryDigest, PublicTeamResult } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
 import { BookmarkIcon } from '@heroicons/react/24/solid';
 import RssButton from '../RssButton';
 import NoContent from '../layout/NoContent';
 import PublicPageTemplate from '../layout/PublicPageTemplate';
 import PublicDigestListItem from '../teams/PublicDigestListItem';
+import Pagination from '../list/Pagination';
+import { Team } from '@prisma/client';
 
 export interface Props {
-  team: NonNullable<PublicTeamResult>;
+  team: Team;
+  digestsCount: number;
+  digests: DiscoveryDigest[];
 }
 
-const TeamPublicPage = ({ team }: Props) => {
+const TeamPublicPage = ({ team, digestsCount, digests }: Props) => {
   return (
     <PublicPageTemplate team={team}>
       <div className="bg-white w-fullflex-col rounded-lg border border-gray-200">
@@ -21,8 +25,8 @@ const TeamPublicPage = ({ team }: Props) => {
           <RssButton copyText={`${getEnvHost()}/${team.slug}/rss.xml`} />
         </div>
       </div>
-      <div className="w-full">
-        {team.Digest.length === 0 ? (
+      <div className="w-full pb-6">
+        {digestsCount === 0 ? (
           <NoContent
             icon={<BookmarkIcon className="h-20 w-20" />}
             title="No Digest"
@@ -30,13 +34,17 @@ const TeamPublicPage = ({ team }: Props) => {
           />
         ) : (
           <div className="mt-3 gap-4 flex flex-col">
-            {team.Digest.slice(0, 10).map((digest) => (
+            {digests.map((digest) => (
               <PublicDigestListItem
                 key={digest.slug}
                 digest={digest}
                 team={team}
               />
             ))}
+            <Pagination
+              totalItems={digestsCount}
+              className="justify-end flex"
+            />
           </div>
         )}
       </div>

@@ -37,22 +37,28 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
 
   await updateDefaultTeam(user.id, team.id);
 
-  const page = Number(searchParams?.page || 1);
+  const linksPage = Number(searchParams?.page || 1);
   const search = searchParams?.search || '';
-  const { totalCount, teamLinks } = await getTeamLinks(team.id, {
-    page,
+  const { linksCount, teamLinks } = await getTeamLinks(team.id, {
+    page: linksPage,
     onlyNotInDigest: !searchParams?.all,
     search,
   });
 
-  const digests = await getTeamDigests(team.id, 1, 11);
+  const digestsPage = Number(searchParams?.digestPage || 1);
+  const { digests, digestsCount } = await getTeamDigests(
+    team.id,
+    digestsPage,
+    8
+  );
 
   return (
     <Team
       team={team}
-      linkCount={totalCount}
+      linkCount={linksCount}
       teamLinks={teamLinks}
       digests={digests}
+      digestsCount={digestsCount}
       search={search}
     />
   );
