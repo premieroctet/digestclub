@@ -53,7 +53,7 @@ type DigestData = {
 };
 
 export const DigestEditPage = ({
-  teamLinksData: { totalCount, teamLinks, perPage },
+  teamLinksData: { linksCount, teamLinks, perPage },
   digest,
   team,
 }: Props) => {
@@ -281,7 +281,7 @@ export const DigestEditPage = ({
 
             <SectionContainer title="Bookmarks" className="relative">
               <Pagination
-                totalItems={totalCount}
+                totalItems={linksCount}
                 itemsPerPage={perPage}
                 className="absolute top-5 right-5"
               />
@@ -302,7 +302,7 @@ export const DigestEditPage = ({
                 )}
               </div>
               <div className="flex justify-end">
-                <Pagination totalItems={totalCount} itemsPerPage={perPage} />
+                <Pagination totalItems={linksCount} itemsPerPage={perPage} />
               </div>
             </SectionContainer>
           </div>

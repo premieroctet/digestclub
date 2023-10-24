@@ -10,16 +10,25 @@ import { DigestCreateInput } from '../digests/DigestCreateInput';
 import { Digests } from '../digests/Digests';
 import NoContent from '../layout/NoContent';
 import PageContainer from '../layout/PageContainer';
+import Pagination from '../list/Pagination';
 
 type Props = {
   linkCount: number;
   teamLinks: TeamLinks;
   digests: TeamDigestsResult[];
+  digestsCount: number;
   team: Awaited<ReturnType<typeof getTeamBySlug>>;
   search?: string;
 };
 
-const Team = ({ team, linkCount, teamLinks, digests, search }: Props) => {
+const Team = ({
+  team,
+  linkCount,
+  teamLinks,
+  digests,
+  digestsCount,
+  search,
+}: Props) => {
   return (
     <PageContainer title={team.name}>
       <div className="flex max-lg:flex-col gap-5 pb-4">
@@ -60,7 +69,7 @@ const Team = ({ team, linkCount, teamLinks, digests, search }: Props) => {
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-3">
                 <h2 className="text-xl">Digests</h2>
-                <CounterTag count={digests.length} />
+                <CounterTag count={digestsCount} />
               </div>
               <Link className="text-sm underline" href={`/${team.slug}`}>
                 Show all digests
@@ -75,6 +84,12 @@ const Team = ({ team, linkCount, teamLinks, digests, search }: Props) => {
               predictedDigestTitle={team?.nextSuggestedDigestTitle}
             />
             <Digests digests={digests} teamSlug={team.slug} />
+            <Pagination
+              totalItems={digestsCount}
+              pageParamName="digestPage"
+              className="h-6"
+              itemsPerPage={8}
+            />
           </div>
         </Card>
       </div>

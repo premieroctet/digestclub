@@ -1,33 +1,10 @@
-import db from '@/lib/db';
-import { DigestBlockType } from '@prisma/client';
 import PublicDigestCard from '../teams/PublicDigestCard';
+import { getDiscoverDigests } from '@/lib/queries';
 
 const HomeDigests = async () => {
-  const digests = await db.digest.findMany({
-    take: 3,
-    orderBy: { publishedAt: 'desc' },
-    where: { publishedAt: { not: null } },
-    select: {
-      id: true,
-      publishedAt: true,
-      title: true,
-      description: true,
-      slug: true,
-      team: true,
-      digestBlocks: {
-        select: {
-          id: true,
-          bookmark: {
-            select: {
-              link: {
-                select: { title: true, blurHash: true, url: true, image: true },
-              },
-            },
-          },
-        },
-        where: { type: DigestBlockType.BOOKMARK },
-      },
-    },
+  const { digests } = await getDiscoverDigests({
+    page: 1,
+    perPage: 3,
   });
 
   return (

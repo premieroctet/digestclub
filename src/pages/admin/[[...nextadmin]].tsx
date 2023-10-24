@@ -27,7 +27,7 @@ type DashboardProps = {
   newUsersByMonth: Awaited<ReturnType<typeof newUsersByMonth>>;
   newDigestByMonth: Awaited<ReturnType<typeof newDigestByMonth>>;
   linksByDomain: Awaited<ReturnType<typeof linksByDomain>>;
-  totalLinks: number;
+  linksCount: number;
   latestTeam: Team | null;
   latestDigest: Digest | null;
   linksByDay: Awaited<ReturnType<typeof linksByDay>>;
@@ -78,7 +78,7 @@ export default function Admin(
             </Card>
             <Card>
               <Text>Total des liens</Text>
-              <Metric>{dashboardProps?.totalLinks}</Metric>
+              <Metric>{dashboardProps?.linksCount}</Metric>
             </Card>
             <Col numColSpan={3} numColSpanLg={3}>
               <LinksOverTime data={{ linksByDay: dashboardProps.linksByDay }} />
@@ -213,7 +213,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       newDigestByMonth: await newDigestByMonth(),
       linksByDomain: await linksByDomain(),
       linksByDay: await linksByDay(),
-      totalLinks: await client.link.count(),
+      linksCount: await client.link.count(),
       latestDigest: await client.digest.findFirst({
         where: { publishedAt: { not: null } },
         orderBy: { createdAt: 'desc' },

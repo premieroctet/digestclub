@@ -1,5 +1,5 @@
 import TeamPublicPage from '@/components/pages/TeamPublicPage';
-import { getPublicTeam } from '@/lib/queries';
+import { getDiscoverDigests, getTeamBySlug } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
 import { generateTeamOGUrl } from '@/utils/open-graph-url';
 import { Metadata } from 'next';
@@ -9,12 +9,13 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 interface PageProps {
   params: { teamSlug: string };
+  searchParams?: { [key: string]: string | undefined };
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const team = await getPublicTeam(params.teamSlug);
+  const team = await getTeamBySlug(params.teamSlug);
   const url = generateTeamOGUrl(team?.slug || '');
 
   return {
@@ -47,13 +48,23 @@ export async function generateMetadata({
   };
 }
 
-const PublicTeamPage = async ({ params }: PageProps) => {
-  const team = await getPublicTeam(params.teamSlug);
+const PublicTeamPage = async ({ params, searchParams }: PageProps) => {
+  const team = await getTeamBySlug(params.teamSlug);
+
+  if (!team) return null;
+  const page = Number(searchParams?.page || 1);
+  const { digests, digestsCount } = await getDiscoverDigests({
+    page,
+    perPage: 10,
+    teamId: team?.id,
+  });
 
   if (!team) {
     redirect('/');
   }
-  return <TeamPublicPage team={team} />;
+  return (
+    <TeamPublicPage team={team} digests={digests} digestsCount={digestsCount} />
+  );
 };
 
 export default PublicTeamPage;
