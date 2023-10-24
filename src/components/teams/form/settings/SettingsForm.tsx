@@ -15,6 +15,8 @@ import updateTeamInfo from '@/actions/update-team-info';
 import TeamColorField from './TeamColorField';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 
+const PRO_FIELDS = ['prompt'];
+
 type SettingsForm = Record<FieldName, string>;
 
 const SettingsForm = ({ team }: { team: Team }) => {
@@ -30,6 +32,7 @@ const SettingsForm = ({ team }: { team: Team }) => {
       [FIELDS.github]: team?.github || '',
       [FIELDS.twitter]: team?.twitter || '',
       [FIELDS.color]: team?.color || '#6d28d9',
+      [FIELDS.prompt]: team?.prompt || 'english',
     },
   });
 
@@ -37,7 +40,6 @@ const SettingsForm = ({ team }: { team: Team }) => {
     handleSubmit,
     reset,
     formState: { isDirty, dirtyFields },
-    getValues,
   } = methods;
   const { refresh, isRefreshing } = useTransitionRefresh();
 
@@ -69,13 +71,18 @@ const SettingsForm = ({ team }: { team: Team }) => {
       <form action={onSubmit}>
         <div className="flex flex-col gap-6 pt-4">
           <div className="flex flex-col gap-4">
-            {fieldsData.map((field) => (
-              <SettingsField
-                {...field}
-                key={field.id}
-                defaultValue={team[field.id] || ''}
-              />
-            ))}
+            {fieldsData
+              .filter(
+                (field) =>
+                  team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
+              )
+              .map((field) => (
+                <SettingsField
+                  {...field}
+                  key={field.id}
+                  defaultValue={team[field.id] || ''}
+                />
+              ))}
 
             <TeamColorField id="color" label="Team Color" team={team} />
 

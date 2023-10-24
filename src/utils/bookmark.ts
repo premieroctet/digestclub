@@ -7,7 +7,6 @@ import MetascraperTitle from 'metascraper-title';
 import MetascraperDescription from 'metascraper-description';
 import MetascraperImage from 'metascraper-image';
 import MetascrapperLogoFavicon from 'metascraper-logo-favicon';
-import { isPdfUrl } from './url';
 
 const metascraper = Metascraper([
   MetascraperTwitter(),

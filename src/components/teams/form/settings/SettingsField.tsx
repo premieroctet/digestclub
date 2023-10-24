@@ -1,4 +1,4 @@
-import { Input, TextArea } from '@/components/Input';
+import { Input, Select, TextArea } from '@/components/Input';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FieldData } from './form-data';
@@ -13,7 +13,8 @@ export default function SettingsField({
   registerOptions,
   prefix,
   rightElement,
-  leftElement,
+  selectDefault,
+  selectOptions,
 }: FieldData) {
   const {
     register,
@@ -30,7 +31,17 @@ export default function SettingsField({
 
       <div className="mt-2 w-full">
         <>
-          {input === 'text' ? (
+          {input === 'select' && selectOptions?.length && (
+            <Select
+              className="sm:max-w-md"
+              {...register(id, {
+                ...(!!registerOptions && registerOptions),
+              })}
+              defaultValue={selectDefault}
+              options={selectOptions}
+            />
+          )}
+          {input === 'text' && (
             <div className="px-3 py-1 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
               {!!prefix && (
                 <span className="flex select-none items-center text-gray-500 sm:text-base">
@@ -55,7 +66,8 @@ export default function SettingsField({
                 </span>
               )}
             </div>
-          ) : (
+          )}
+          {input === 'textarea' && (
             <TextArea
               className="sm:max-w-md"
               defaultValue={defaultValue || ''}
