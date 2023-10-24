@@ -113,6 +113,8 @@ model Team {
   apiKey      String?
   nextSuggestedDigestTitle String?
   color       String?
+  subscriptionId String?
+  prompt    String? 
   
   @@unique([id, slackTeamId])
   @@unique(slug)

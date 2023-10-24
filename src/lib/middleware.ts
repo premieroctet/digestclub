@@ -2,8 +2,25 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth';
 import { NextHandler } from 'next-connect';
-import { checkDigestAuth, getTeamMembershipById } from './queries';
+import { checkDigestAuth, getTeamById, getTeamMembershipById } from './queries';
 import { AuthApiRequest } from './router';
+
+export const checkProAccount = async (
+  req: AuthApiRequest,
+  res: NextApiResponse,
+  next: NextHandler
+) => {
+  const teamId = (req.query.teamId as string) || (req.query.state as string);
+  const teamInfo = await getTeamById(teamId);
+
+  if (!teamInfo?.subscriptionId) {
+    return res
+      .status(403)
+      .json({ error: 'This feature requires a pro account' });
+  }
+
+  return next();
+};
 
 export const checkTeam = async (
   req: AuthApiRequest,

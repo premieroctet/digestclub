@@ -66,6 +66,7 @@ export default function BlockBookmarkCard({
             ...(title && { title }),
             ...(description && { description }),
           }}
+          url={url}
         />
       </>
     );

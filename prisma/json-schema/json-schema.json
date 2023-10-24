@@ -278,6 +278,18 @@
             "string",
             "null"
           ]
+        },
+        "subscriptionId": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt": {
+          "type": [
+            "string",
+            "null"
+          ]
         }
       }
     },

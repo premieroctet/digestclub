@@ -33,7 +33,7 @@ export const TextArea = forwardRef<
   );
 });
 
-interface SelectOptionProps<T = string> {
+export interface SelectOptionProps<T = string> {
   label: string;
   value: T;
 }
