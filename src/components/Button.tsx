@@ -88,41 +88,39 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
       disabled={disabled || isLoading}
       {...rest}
     >
-      {isLoading && (
-        <>
-          <span
-            role="status"
-            className="flex items-center justify-center position absolute"
-          >
+      {isLoading ? (
+        <div className="flex items-center gap-4">
+          {!!loadingText && loadingText}
+          <span role="status">
             <LoadingIcon
               className={clsx('animate-spin', iconVariants({ size }))}
               aria-hidden="true"
             />
           </span>
-          {!!loadingText && loadingText}
-        </>
+        </div>
+      ) : (
+        <span className="flex items-center justify-center gap-2">
+          {children && (
+            <span
+              className={clsx({
+                'opacity-0 pointer-events-none': isLoading,
+              })}
+            >
+              {children}
+            </span>
+          )}
+          {icon && !isLoading && (
+            <span
+              className={clsx(
+                'flex  items-center justify-center',
+                iconVariants({ size })
+              )}
+            >
+              {icon}
+            </span>
+          )}
+        </span>
       )}
-      <span className="flex items-center justify-center gap-2">
-        {children && (
-          <span
-            className={clsx({
-              'opacity-0 pointer-events-none': isLoading,
-            })}
-          >
-            {children}
-          </span>
-        )}
-        {icon && !isLoading && (
-          <span
-            className={clsx(
-              'flex  items-center justify-center',
-              iconVariants({ size })
-            )}
-          >
-            {icon}
-          </span>
-        )}
-      </span>
     </button>
   );
 });

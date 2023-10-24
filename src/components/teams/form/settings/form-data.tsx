@@ -2,6 +2,7 @@ import { ImGithub } from '@react-icons/all-files/im/ImGithub';
 import { ImTwitter } from '@react-icons/all-files/im/ImTwitter';
 import { ImLink } from '@react-icons/all-files/im/ImLink';
 import { RegisterOptions } from 'react-hook-form';
+import { SelectOptionProps } from '@/components/Input';
 
 export const FIELDS = {
   bio: 'bio',
@@ -10,13 +11,14 @@ export const FIELDS = {
   github: 'github',
   twitter: 'twitter',
   color: 'color',
+  prompt: 'prompt',
 } as const;
 
 export type FieldName = (typeof FIELDS)[keyof typeof FIELDS];
 
 export interface FieldData {
   id: FieldName;
-  input: 'text' | 'textarea';
+  input: 'text' | 'textarea' | 'select';
   inputType: 'text' | 'email' | 'password' | 'url';
   defaultValue?: string;
   label: string;
@@ -25,6 +27,8 @@ export interface FieldData {
   leftElement?: React.ReactNode;
   rightElement?: React.ReactNode;
   prefix?: string;
+  selectDefault?: string;
+  selectOptions?: SelectOptionProps[];
 }
 
 export const fieldsData: FieldData[] = [
@@ -76,5 +80,13 @@ export const fieldsData: FieldData[] = [
     rightElement: <ImTwitter />,
     prefix: '@',
     placeholder: '',
+  },
+  {
+    id: FIELDS.prompt,
+    input: 'textarea',
+    inputType: 'text',
+    label: 'Summary generator prompt',
+    placeholder:
+      'Add a custom prompt for bookmark summary generation. Your prompt will be followed by : + article content',
   },
 ];

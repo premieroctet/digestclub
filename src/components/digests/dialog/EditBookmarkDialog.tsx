@@ -13,6 +13,7 @@ import Button from '../../Button';
 import { Dialog, DialogContent } from '../../Dialog';
 import { Input, Select, TextArea } from '../../Input';
 import { Props as BookmarkCardProps } from '../block-card/BlockCard';
+import SummaryButton from './SummaryButton';
 
 interface IFormValues {
   title: string;
@@ -25,6 +26,7 @@ interface Props {
   setIsOpen: (isOpen: boolean) => void;
   bookmarkDigest: BookmarkCardProps['block'];
   defaultValues?: Partial<IFormValues>;
+  url: string;
 }
 
 const StyleSelectOptions: Array<{
@@ -50,12 +52,14 @@ export default function EditBookmarkDialog({
   setIsOpen,
   bookmarkDigest,
   defaultValues,
+  url,
 }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors, isDirty },
     reset,
+    setValue,
   } = useForm<IFormValues>({
     defaultValues,
   });
@@ -63,7 +67,7 @@ export default function EditBookmarkDialog({
   const { isRefreshing, refresh } = useTransitionRefresh();
 
   const params = useParams();
-  const { id: teamId } = useTeam();
+  const { id: teamId, subscriptionId } = useTeam();
 
   const { mutate: updateBookDigest, isLoading: isRemoving } = useMutation<
     AxiosResponse,
@@ -153,6 +157,13 @@ export default function EditBookmarkDialog({
             <label htmlFor="description">Description</label>
             <TextArea className="min-h-[10rem]" {...register('description')} />
           </fieldset>
+          <SummaryButton
+            url={url}
+            handleSuccess={(text) =>
+              setValue('description', text, { shouldDirty: true })
+            }
+            hasAccess={!!subscriptionId}
+          />
           <fieldset className="flex flex-col gap-2 w-full">
             <label htmlFor="style">
               Style{' '}
