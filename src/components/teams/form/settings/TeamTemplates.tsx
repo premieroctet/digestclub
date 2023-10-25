@@ -9,6 +9,8 @@ const TeamTemplates = ({
   team: Team;
   templates: TeamDigestsResult[];
 }) => {
+  if (!templates?.length) return null;
+
   return (
     <div className="pt-6">
       <div className="w-full border-t border-gray-300 pb-6" />
