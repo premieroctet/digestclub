@@ -66,7 +66,7 @@ const TeamUsers = ({
   return (
     <div>
       <TeamMenuTitle
-        title="Users and Subscriptions"
+        title="Members and Subscriptions"
         subtitle="Manage your team members, invitations and newsletter subscriptions"
       />
       <Tabs.Root

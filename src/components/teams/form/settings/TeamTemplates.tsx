@@ -13,7 +13,7 @@ const TeamTemplates = ({
   templates: TeamDigestsResult[];
 }) => {
   return (
-    <div className="pt-6">
+    <div>
       <TeamMenuTitle title="Templates" subtitle="Manage your team templates" />
       <div className="flex gap-4 flex-col">
         {templates?.map((template) => (
