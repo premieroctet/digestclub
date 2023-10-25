@@ -6,7 +6,7 @@ import { getTweetId, isTwitterLink } from '@/utils/link';
 import { BookmarkDigestStyle } from '@prisma/client';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useParams } from 'next/navigation';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import Button from '../../Button';
@@ -153,17 +153,22 @@ export default function EditBookmarkDialog({
               })}
             />
           </fieldset>
-          <fieldset className="flex flex-col gap-2 w-full">
-            <label htmlFor="description">Description</label>
-            <TextArea className="min-h-[10rem]" {...register('description')} />
-          </fieldset>
-          <SummaryButton
-            url={url}
-            handleSuccess={(text) =>
-              setValue('description', text, { shouldDirty: true })
-            }
-            hasAccess={!!subscriptionId}
-          />
+          <div className="w-full flex flex-col gap-3">
+            <fieldset className="flex flex-col gap-2 w-full">
+              <label htmlFor="description">Description</label>
+              <TextArea
+                className="min-h-[10rem]"
+                {...register('description')}
+              />
+            </fieldset>
+            <SummaryButton
+              url={url}
+              handleSuccess={(text) =>
+                setValue('description', text, { shouldDirty: true })
+              }
+              hasAccess={!!subscriptionId}
+            />
+          </div>
           <fieldset className="flex flex-col gap-2 w-full">
             <label htmlFor="style">
               Style{' '}
@@ -177,20 +182,16 @@ export default function EditBookmarkDialog({
               options={getStyleSelectOptions()}
             />
           </fieldset>
-          <div className="flex justify-start gap-4 w-full items-center">
+          <div className="flex justify-between gap-4 w-full items-center">
+            <Button type="button" variant="ghost" onClick={closeDialog}>
+              Cancel
+            </Button>
             <Button
               isLoading={isRemoving || isRefreshing}
               type="submit"
               disabled={!isDirty}
             >
               Save
-            </Button>
-            <Button
-              type="button"
-              variant="destructiveGhost"
-              onClick={closeDialog}
-            >
-              Cancel
             </Button>
           </div>
         </form>

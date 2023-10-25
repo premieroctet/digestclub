@@ -43,10 +43,12 @@ const SummaryButton = ({
   if (!hasAccess) return null;
 
   return (
-    <div className="flex flex-col justify-start w-full">
-      <span className="pb-2">Lacking inspiration ?</span>
+    <div className="flex flex-col items-end w-full">
       <div>
         <Button
+          size="sm"
+          variant="ghost"
+          type="button"
           icon={<LightBulbIcon />}
           onClick={() => {
             generateSummary({ url });
@@ -54,7 +56,7 @@ const SummaryButton = ({
           isLoading={isLoading}
           loadingText="Generating"
         >
-          Generate link summary
+          Generate Summary
         </Button>
       </div>
     </div>
