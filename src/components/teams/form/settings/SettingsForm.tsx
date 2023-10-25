@@ -32,7 +32,7 @@ const SettingsForm = ({ team }: { team: Team }) => {
       [FIELDS.github]: team?.github || '',
       [FIELDS.twitter]: team?.twitter || '',
       [FIELDS.color]: team?.color || '#6d28d9',
-      [FIELDS.prompt]: team?.prompt || 'english',
+      [FIELDS.prompt]: team?.prompt || '',
     },
   });
 

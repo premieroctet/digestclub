@@ -41,7 +41,7 @@ function CardStyleBlock({
               </div>
             </div>
             <div className="w-full md:w-2/3 md:mt-0 max-w-[100%]">
-              <p className="text-lg font-semibold overflow-hidden text-ellipsis leading-6 bg-green-50 group-hover:bg-green-100 transition-colors inline pl-2 pr-2 py-1">
+              <p className="text-lg font-semibold overflow-hidden text-ellipsis leading-6 bg-green-50 group-hover:bg-green-100 transition-colors inline">
                 {title}
               </p>
               {Boolean(description) && (

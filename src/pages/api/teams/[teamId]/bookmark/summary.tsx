@@ -28,7 +28,7 @@ router
         ? `${team?.prompt} : "${articleContent}"`
         : `Write a summary of 2 to 3 sentences, using between 40 to 70 words maximum, with a journalistic tone for the following article web content ${articleContent}. Only send back the summary text, do not add quotes or any intro sentence. Make liaisons between sentences. Do not use ; characters.`;
 
-      const response = await openAiCompletion(prompt);
+      const response = await openAiCompletion({ prompt, model: 'gpt-4' });
       const summary = response[0]?.message?.content;
 
       return res.status(201).json(summary);
