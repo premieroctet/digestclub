@@ -24,6 +24,7 @@ const buttonVariants = cva(
           'bg-transparent text-violet-700 ring-1 ring-transparent hover:bg-violet-100 hover:ring-violet-100',
         destructiveGhost:
           'bg-transparent text-red-700 ring-1 ring-transparent hover:bg-red-100 hover:ring-red-100',
+        link: 'ring-0 text-gray-700 text-sm underline hover:text-gray-400 font-light !px-0 !font-normal',
       },
       size: {
         sm: 'py-1 px-4 text-sm',

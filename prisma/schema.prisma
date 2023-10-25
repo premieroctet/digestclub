@@ -194,6 +194,7 @@ model Digest {
   typefullyThreadUrl String?
   hasSentNewsletter Boolean @default(false)
   isFeatured Boolean @default(false)
+  isTemplate Boolean @default(false)
   
   @@unique([slug, teamId])
   @@map("digests")
@@ -212,6 +213,7 @@ model DigestBlock {
   description String?
   type        DigestBlockType @default(BOOKMARK)
   text        String?
+  isTemplate Boolean @default(false)
 
   @@unique([bookmarkId, digestId])
   @@map("digest_blocks")

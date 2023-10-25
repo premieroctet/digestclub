@@ -51,6 +51,7 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
     digestsPage,
     8
   );
+  const { digests: templates } = await getTeamDigests(team.id, 1, 11, true);
 
   return (
     <Team
@@ -60,6 +61,7 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
       digests={digests}
       digestsCount={digestsCount}
       search={search}
+      templates={templates}
     />
   );
 };

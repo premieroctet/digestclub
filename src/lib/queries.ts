@@ -263,7 +263,8 @@ export type TeamBookmarkedLinkItem = TeamLinks[number];
 export const getTeamDigests = async (
   teamId: string,
   page?: number,
-  perPage = 30
+  perPage = 30,
+  isTemplate = false
 ) => {
   const digestsCount = await db.digest.count({
     where: {
@@ -275,6 +276,7 @@ export const getTeamDigests = async (
     skip: page ? (page - 1) * perPage : 0,
     where: {
       teamId,
+      isTemplate,
     },
     include: {
       digestBlocks: true,
