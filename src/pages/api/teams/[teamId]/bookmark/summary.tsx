@@ -5,8 +5,14 @@ import type { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import Parser from '@postlight/parser';
 import { getTeamById } from '@/lib/queries';
-const MAX_PROMPT_LENGTH = 4097;
+
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
+
+const OPENAI_ERRORS: { [key: string]: string } = {
+  rate_limit_exceeded:
+    'Generation service is overloaded, Please try again later',
+  context_length_exceeded: 'Cannot generate summary, your prompt is too long !',
+};
 
 router
   .use(checkTeam)
@@ -22,19 +28,24 @@ router
     try {
       const team = await getTeamById(req.query.teamId as string);
       const linkInfo = await Parser.parse(url, { contentType: 'text' });
-      const articleContent = linkInfo.content.substring(0, MAX_PROMPT_LENGTH);
+      // (so 130 tokens ~= 100 words). 8K => 6150 words for gpt4 including prompt + answer
+      const articleContent = linkInfo.content;
 
       const prompt = team?.prompt
         ? `${team?.prompt} : "${articleContent}"`
-        : `Write a summary of 2 to 3 sentences, using between 40 to 70 words maximum, with a journalistic tone for the following article web content ${articleContent}. Only send back the summary text, do not add quotes or any intro sentence. Make liaisons between sentences. Do not use ; characters.`;
+        : `Write a summary of 2 to 3 sentences, using between 40 to 70 words maximum, with a journalistic tone for the following article web content. Only send back the summary text, do not add quotes or any intro sentence. Make liaisons between sentences. Do not use ; characters. Here is the content : ${articleContent}. `
+            .split(' ')
+            .slice(0, 5500)
+            .join('');
 
       const response = await openAiCompletion({ prompt, model: 'gpt-4' });
       const summary = response[0]?.message?.content;
 
       return res.status(201).json(summary);
-    } catch (e) {
+    } catch (e: any) {
+      const errorCode = e?.error.code as string;
       return res.status(400).json({
-        error: 'Something went wrong',
+        error: OPENAI_ERRORS[errorCode] || 'Something went wrong',
       });
     }
   });
