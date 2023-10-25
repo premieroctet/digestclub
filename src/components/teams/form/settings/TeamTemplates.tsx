@@ -16,9 +16,11 @@ const TeamTemplates = ({
       <span className="text-sm text-gray-500 font-light">
         Manage your team templates
       </span>
-      {templates?.map((template) => (
-        <TemplateItem key={template?.id} template={template} team={team} />
-      ))}
+      <div className="flex gap-4 flex-col">
+        {templates?.map((template) => (
+          <TemplateItem key={template?.id} template={template} team={team} />
+        ))}
+      </div>
     </div>
   );
 };
