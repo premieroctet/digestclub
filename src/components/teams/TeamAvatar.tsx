@@ -17,7 +17,7 @@ const TeamAvatar = ({
         className
       )}
       style={{
-        backgroundColor: team?.color ?? '#6d28d9',
+        backgroundColor: team?.color || '#6d28d9',
       }}
     >
       {name ? name[0].toUpperCase() : 'Team'}

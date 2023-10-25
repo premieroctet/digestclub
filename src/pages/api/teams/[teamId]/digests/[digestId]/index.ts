@@ -50,7 +50,7 @@ router
         `;
 
           try {
-            const response = await openAiCompletion(prompt);
+            const response = await openAiCompletion({ prompt });
             const guessedTitle = response[0]?.message?.content;
 
             await client.team.update({
