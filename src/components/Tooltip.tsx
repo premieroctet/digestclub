@@ -11,11 +11,13 @@ import {
 
 interface IProps {
   trigger: ReactElement;
+  side?: 'bottom' | 'top' | 'right' | 'left';
 }
 
 export const Tooltip = ({
   trigger,
   children,
+  side,
   ...tooltipProps
 }: IProps & PropsWithChildren & TooltipProps) => {
   return (
@@ -24,7 +26,7 @@ export const Tooltip = ({
         <Trigger>{trigger}</Trigger>
         <Portal>
           <Content
-            side="bottom"
+            side={side || 'bottom'}
             sideOffset={5}
             className="shadow-md bg-gray-600 text-xs text-white rounded-md p-2 z-20"
           >

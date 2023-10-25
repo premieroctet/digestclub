@@ -33,7 +33,6 @@ export default function SettingsField({
         <>
           {input === 'select' && selectOptions?.length && (
             <Select
-              className="sm:max-w-md"
               {...register(id, {
                 ...(!!registerOptions && registerOptions),
               })}
@@ -42,7 +41,7 @@ export default function SettingsField({
             />
           )}
           {input === 'text' && (
-            <div className="px-3 py-1 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+            <div className="px-3 py-1 flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600">
               {!!prefix && (
                 <span className="flex select-none items-center text-gray-500 sm:text-base">
                   {prefix}
@@ -69,7 +68,6 @@ export default function SettingsField({
           )}
           {input === 'textarea' && (
             <TextArea
-              className="sm:max-w-md"
               defaultValue={defaultValue || ''}
               placeholder={placeholder}
               {...register(id, {

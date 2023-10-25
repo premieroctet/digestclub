@@ -4,22 +4,20 @@ import { Team } from '@prisma/client';
 import { FormEvent, useTransition } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DangerZoneTeam } from '../DangerZone';
-import SlackPanel from '../SlackPanel';
 import useCustomToast from '@/hooks/useCustomToast';
 import SettingsField from './SettingsField';
 import { fieldsData, FieldName, FIELDS } from './form-data';
 import Button from '@/components/Button';
-import TypefullyPanel from '../TypefullyPanel';
-import TeamAPIKey from '../TeamAPIKey';
 import updateTeamInfo from '@/actions/update-team-info';
 import TeamColorField from './TeamColorField';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
+import TeamMenuTitle from '../../TeamMenuTitle';
 
 const PRO_FIELDS = ['prompt'];
 
 type SettingsForm = Record<FieldName, string>;
 
-const SettingsForm = ({ team }: { team: Team }) => {
+const TeamInfo = ({ team }: { team: Team }) => {
   const { successToast, errorToast } = useCustomToast();
   const [isPending, startTransition] = useTransition();
 
@@ -66,46 +64,47 @@ const SettingsForm = ({ team }: { team: Team }) => {
     );
 
   return (
-    <FormProvider {...methods}>
-      {/* @ts-expect-error */}
-      <form action={onSubmit}>
-        <div className="flex flex-col gap-6 pt-4">
-          <div className="flex flex-col gap-4">
-            {fieldsData
-              .filter(
-                (field) =>
-                  team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
-              )
-              .map((field) => (
-                <SettingsField
-                  {...field}
-                  key={field.id}
-                  defaultValue={team[field.id] || ''}
-                />
-              ))}
+    <>
+      <TeamMenuTitle
+        title="Team Info"
+        subtitle="Fill your team info, they will be displayed on your public Team page"
+      />
+      <FormProvider {...methods}>
+        {/* @ts-expect-error */}
+        <form action={onSubmit}>
+          <div className="flex flex-col gap-6 pt-4">
+            <div className="flex flex-col gap-4">
+              {fieldsData
+                .filter(
+                  (field) =>
+                    team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
+                )
+                .map((field) => (
+                  <SettingsField
+                    {...field}
+                    key={field.id}
+                    defaultValue={team[field.id] || ''}
+                  />
+                ))}
 
-            <TeamColorField id="color" label="Team Color" team={team} />
-
-            <div className="flex justify-start gap-4 w-full items-center pt-6 pb-2">
-              <div className="flex-1">
-                <Button
-                  fullWidth
-                  type="submit"
-                  isLoading={isPending}
-                  disabled={!isDirty}
-                >
-                  Save
-                </Button>
-              </div>
-              <div className="flex-1">
-                <DangerZoneTeam team={team} />
-              </div>
+              <TeamColorField id="color" label="Team Color" team={team} />
             </div>
+
+            <Button
+              fullWidth
+              type="submit"
+              isLoading={isPending}
+              disabled={!isDirty}
+            >
+              Save
+            </Button>
+
+            <DangerZoneTeam team={team} />
           </div>
-        </div>
-      </form>
-    </FormProvider>
+        </form>
+      </FormProvider>
+    </>
   );
 };
 
-export default SettingsForm;
+export default TeamInfo;

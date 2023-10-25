@@ -33,7 +33,7 @@ const TeamColorField = ({
         {label}
       </label>
 
-      <div className="mt-2 w-full sm:max-w-md">
+      <div className="mt-2 w-full">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <div className="flex gap-2 cursor-pointer">

@@ -57,7 +57,7 @@ export default function TeamAPIKeyServer({ team }: Props) {
         {team.apiKey ? (
           <>
             <div
-              className="w-full group cursor-pointer"
+              className="w-2/3 group cursor-pointer"
               onClick={() => {
                 if (!key) return;
                 setIsAnimating(true);
