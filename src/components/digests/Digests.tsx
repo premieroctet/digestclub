@@ -5,6 +5,7 @@ import { DigestBlockType } from '@prisma/client';
 import clsx from 'clsx';
 import Link from 'next/link';
 import NoContent from '../layout/NoContent';
+import { formatDate } from '@/utils/date';
 
 type Props = {
   digests: TeamDigestsResult[];
@@ -41,9 +42,14 @@ export const Digests = ({ digests, teamSlug }: Props) => {
             </Link>
             <div className="flex items-center text-sm text-gray-500">
               {digest.publishedAt ? (
-                <div className="flex items-center">
-                  <CheckIcon className="text-green-600 h-4 w-4" /> Published
-                </div>
+                <>
+                  <div className="flex items-center">
+                    <CheckIcon className="text-green-600 h-4 w-4" /> Published
+                  </div>
+                  <time className="text-gray-500 pl-1">
+                    - {formatDate(digest.publishedAt!, 'MMMM dd, yyyy')}
+                  </time>
+                </>
               ) : (
                 <div>Draft</div>
               )}
