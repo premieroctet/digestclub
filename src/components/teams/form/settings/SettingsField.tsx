@@ -15,6 +15,7 @@ export default function SettingsField({
   rightElement,
   selectDefault,
   selectOptions,
+  maxLength,
 }: FieldData) {
   const {
     register,
@@ -72,6 +73,7 @@ export default function SettingsField({
               className="sm:max-w-md"
               defaultValue={defaultValue || ''}
               placeholder={placeholder}
+              maxLength={maxLength}
               {...register(id, {
                 ...(!!registerOptions && registerOptions),
               })}
