@@ -124,7 +124,7 @@ export default function DigestEditTypefully({
               />
             }
           >
-            Re-genereate thread
+            Re-generate thread
           </Tooltip>
         </div>
       ) : (
