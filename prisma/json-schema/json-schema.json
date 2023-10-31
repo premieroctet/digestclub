@@ -537,6 +537,10 @@
         "isFeatured": {
           "type": "boolean",
           "default": false
+        },
+        "isTemplate": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -596,6 +600,10 @@
             "string",
             "null"
           ]
+        },
+        "isTemplate": {
+          "type": "boolean",
+          "default": false
         }
       }
     },

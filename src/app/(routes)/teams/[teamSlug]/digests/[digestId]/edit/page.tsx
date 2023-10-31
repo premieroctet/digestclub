@@ -1,3 +1,4 @@
+import { TemplateEdit } from '@/components/digests/templates/TemplateEdit';
 import { DigestEditPage } from '@/components/pages/DigestEditPage';
 import { TeamProvider } from '@/contexts/TeamContext';
 import {
@@ -40,11 +41,15 @@ const page = async ({ params, searchParams }: TeamPageProps) => {
 
   return (
     <TeamProvider team={team}>
-      <DigestEditPage
-        teamLinksData={teamLinksData}
-        digest={digest}
-        team={team}
-      />
+      {digest?.isTemplate ? (
+        <TemplateEdit template={digest} team={team} />
+      ) : (
+        <DigestEditPage
+          teamLinksData={teamLinksData}
+          digest={digest}
+          team={team}
+        />
+      )}
     </TeamProvider>
   );
 };

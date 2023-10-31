@@ -14,33 +14,36 @@ import { orderBlock } from '../order';
 export type ApiBookmarkDigestResponseSuccess = DigestBlock;
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 
-type PostBody = {
+export type CreateBlockData = {
   bookmarkId?: string;
   text?: string;
   position?: number;
   type: DigestBlockType;
   style?: BookmarkDigestStyle;
+  isTemplate?: boolean;
 };
 
-const createDigestBlock = async (
-  body: PostBody,
+export const createDigestBlock = async (
+  blockInfo: CreateBlockData,
   digest: Digest & {
     digestBlocks: DigestBlock[];
   }
 ) => {
+  const { bookmarkId, text, style, type, position, isTemplate } = blockInfo;
   const block = await client.digestBlock.create({
     data: {
       digestId: digest.id,
-      ...(body.bookmarkId && { bookmarkId: body.bookmarkId }),
-      ...(body.text && { text: body.text }),
-      ...(body.style && { style: body.style }),
+      ...(bookmarkId && { bookmarkId }),
+      ...(text && { text }),
+      ...(style && { style }),
       order: digest.digestBlocks.length,
-      type: body.type,
+      type,
+      isTemplate,
     },
   });
 
-  if (body.position !== undefined) {
-    await orderBlock(digest.id, block.id, body.position);
+  if (position !== undefined) {
+    await orderBlock(digest.id, block.id, position);
   }
   return block;
 };
@@ -50,7 +53,8 @@ router
   .use(checkDigest)
   .post(async (req, res) => {
     try {
-      const { bookmarkId, text, position, type, style } = req.body as PostBody;
+      const { bookmarkId, text, position, type, style } =
+        req.body as CreateBlockData;
       const { teamId, digestId } = req.query as {
         teamId: string;
         digestId: string;

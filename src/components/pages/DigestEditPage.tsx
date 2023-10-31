@@ -38,6 +38,7 @@ import DigestEditVisit from './DigestEditVisit';
 import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
 import { EyeIcon } from '@heroicons/react/24/solid';
+import CreateTemplateModal from '../digests/templates/CreateTemplateModal';
 
 type Props = {
   teamLinksData: TeamLinksData;
@@ -145,8 +146,9 @@ export const DigestEditPage = ({
     DigestData
   >(
     ['patch-digest-save', team.id, digest?.id],
-    (data: DigestData) =>
-      api.patch(`/teams/${team.id}/digests/${digest?.id}`, { ...data }),
+    (data: DigestData) => {
+      return api.patch(`/teams/${team.id}/digests/${digest?.id}`, { ...data });
+    },
     {
       onSuccess: (digest: DigestData) => {
         reset({ title: digest?.title, description: digest?.description });
@@ -306,7 +308,8 @@ export const DigestEditPage = ({
               </div>
             </SectionContainer>
           </div>
-          <SectionContainer className="md:w-1/2 w-full h-min">
+
+          <SectionContainer className={clsx(' w-full h-min md:w-1/2')}>
             <form className="flex flex-col gap-5" onBlur={handleSubmit(onBlur)}>
               <div className="w-full items-start flex flex-col gap-6">
                 <Input
@@ -314,11 +317,18 @@ export const DigestEditPage = ({
                   {...register('title')}
                   className="!text-3xl !font-bold px-4 !py-4"
                 />
+
                 <TextArea
                   placeholder="Add a description"
                   {...register('description')}
                 />
               </div>
+              <CreateTemplateModal
+                team={team}
+                digestBlocks={digest?.digestBlocks.filter(
+                  (block) => block?.type === 'TEXT'
+                )}
+              />
               <div
                 className={clsx(
                   'flex flex-col w-full',

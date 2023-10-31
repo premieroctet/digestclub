@@ -1,7 +1,7 @@
 'use client';
 
 import { routes } from '@/core/constants';
-import { Member, TeamInvitation } from '@/lib/queries';
+import { Member, TeamDigestsResult, TeamInvitation } from '@/lib/queries';
 import { Subscription, Team } from '@prisma/client';
 import PageContainer from '../layout/PageContainer';
 import SectionContainer from '../layout/SectionContainer';
@@ -10,6 +10,8 @@ import { Breadcrumb } from './Breadcrumb';
 import SettingsForm from './form/settings/SettingsForm';
 import TeamSettingsMembers from './TeamSettingsMembers';
 import { Session } from 'next-auth';
+import TeamTemplates from './form/settings/TeamTemplates';
+import TeamIntegrations from './form/settings/TeamIntegrations';
 
 type Props = {
   team: Team;
@@ -17,6 +19,7 @@ type Props = {
   subscriptions: Subscription[];
   invitations: TeamInvitation[];
   user: Session['user'];
+  templates: TeamDigestsResult[];
 };
 
 export const TeamSettings = ({
@@ -25,6 +28,7 @@ export const TeamSettings = ({
   invitations,
   user,
   subscriptions,
+  templates,
 }: Props) => {
   if (!team || !members || !subscriptions) return <Loader fullPage />;
 
@@ -49,6 +53,8 @@ export const TeamSettings = ({
         <div className="flex flex-col md:flex-row gap-10 ">
           <div className="rounded-lg w-full md:w-1/2 lg:w-[55%]">
             <SettingsForm team={team} />
+            <TeamTemplates team={team} templates={templates} />
+            <TeamIntegrations team={team} />
           </div>
           <div className="w-full md:w-1/2 lg:w-[45%]">
             <TeamSettingsMembers

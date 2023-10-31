@@ -11,12 +11,14 @@ import { Digests } from '../digests/Digests';
 import NoContent from '../layout/NoContent';
 import PageContainer from '../layout/PageContainer';
 import Pagination from '../list/Pagination';
+import SelectTemplateModal from '../digests/templates/SelectTemplateModal';
 
 type Props = {
   linkCount: number;
   teamLinks: TeamLinks;
   digests: TeamDigestsResult[];
   digestsCount: number;
+  templates: TeamDigestsResult[];
   team: Awaited<ReturnType<typeof getTeamBySlug>>;
   search?: string;
 };
@@ -28,6 +30,7 @@ const Team = ({
   digests,
   digestsCount,
   search,
+  templates,
 }: Props) => {
   return (
     <PageContainer title={team.name}>
@@ -78,11 +81,19 @@ const Team = ({
           }
         >
           <div className="flex flex-col gap-4 w-full">
-            <DigestCreateInput
-              teamId={team.id}
-              teamSlug={team.slug}
-              predictedDigestTitle={team?.nextSuggestedDigestTitle}
-            />
+            <div>
+              <DigestCreateInput
+                team={team}
+                predictedDigestTitle={team?.nextSuggestedDigestTitle}
+              />
+              {!!templates?.length && (
+                <SelectTemplateModal
+                  templates={templates}
+                  team={team}
+                  predictedDigestTitle={team?.nextSuggestedDigestTitle}
+                />
+              )}
+            </div>
             <Digests digests={digests} teamSlug={team.slug} />
             <Pagination
               totalItems={digestsCount}
