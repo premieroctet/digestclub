@@ -176,6 +176,7 @@ model Bookmark {
   updatedAt    DateTime   @updatedAt
   digestBlocks DigestBlock[]
   metadata     Json?
+  views        Int @default(0)
   
   @@map("bookmarks")
 }
@@ -195,7 +196,7 @@ model Digest {
   hasSentNewsletter Boolean @default(false)
   isFeatured Boolean @default(false)
   isTemplate Boolean @default(false)
-  
+  views       Int @default(0)
   @@unique([slug, teamId])
   @@map("digests")
 }
