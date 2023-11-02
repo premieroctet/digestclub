@@ -10,6 +10,7 @@ import AddTextBlockDialog from '../../dialog/AddTextBlockDialog';
 import EditBookmarkDialog from '../../dialog/EditBookmarkDialog';
 import * as Sentry from '@sentry/nextjs';
 import { CardStyleBlock, CardStyleInline, CardStyleTweet } from './card-style';
+import { incrementLinkView } from '@/lib/queries';
 
 export interface Props {
   block: PublicDigestListProps['digest']['digestBlocks'][number];
@@ -22,7 +23,6 @@ export interface Props {
 export default function BlockBookmarkCard({
   block,
   isEditable = false,
-  index,
 }: Props) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
 
@@ -45,6 +45,10 @@ export default function BlockBookmarkCard({
   const title = blockTitle || linkTitle;
   const description =
     blockDescription !== null ? blockDescription : linkDescription;
+  const onClickBookmark = () => {
+    !isEditable && incrementLinkView(bookmark.id);
+  }
+  const views = isEditable ? bookmark.views : undefined; 
 
   function EditPanel() {
     return (
@@ -79,6 +83,8 @@ export default function BlockBookmarkCard({
         {...(description && { description })}
         url={url}
         panelSlot={isEditable && <EditPanel />}
+        onClick={onClickBookmark}
+        views={views}
       />
     );
   } else if (blockStyle === BookmarkDigestStyle.BLOCK) {
@@ -95,6 +101,8 @@ export default function BlockBookmarkCard({
         {...(description && { description })}
         url={url}
         panelSlot={isEditable && <EditPanel />}
+        onClick={onClickBookmark}
+        views={views}
       />
     );
   } else if (blockStyle === BookmarkDigestStyle.TWEET_EMBED) {

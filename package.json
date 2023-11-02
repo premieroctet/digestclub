@@ -15,6 +15,9 @@
     "analyze": "cross-env ANALYZE=true next build",
     "prepare": "husky install"
   },
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
@@ -57,7 +60,7 @@
     "metascraper-twitter": "^5.33.7",
     "mjml": "^4.13.0",
     "mjml-react": "^2.0.8",
-    "next": "^13.5.2",
+    "next": "^14.0.1",
     "next-auth": "^4.20.1",
     "next-connect": "^1.0.0-next.3",
     "next-contentlayer": "^0.3.2",
@@ -99,7 +102,7 @@
     "clsx": "^1.2.1",
     "cross-env": "^7.0.3",
     "eslint": "8.35.0",
-    "eslint-config-next": "^13.5.2",
+    "eslint-config-next": "^14.0.1",
     "jest": "^29.5.0",
     "jest-environment-jsdom": "^29.5.0",
     "postcss": "^8.4.21",

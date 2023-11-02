@@ -1,6 +1,6 @@
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import { TeamDigestsResult } from '@/lib/queries';
-import { CheckIcon } from '@heroicons/react/24/solid';
+import { CheckIcon, ChartBarIcon } from '@heroicons/react/24/solid';
 import { DigestBlockType } from '@prisma/client';
 import clsx from 'clsx';
 import Link from 'next/link';
@@ -44,7 +44,7 @@ export const Digests = ({ digests, teamSlug }: Props) => {
               {digest.publishedAt ? (
                 <>
                   <div className="flex items-center">
-                    <CheckIcon className="text-green-600 h-4 w-4" /> Published
+                    <CheckIcon className="text-green-600 h-4 w-4 mr-1" /> Published
                   </div>
                   <time className="text-gray-500 pl-1">
                     - {formatDate(digest.publishedAt!, 'MMMM dd, yyyy')}
@@ -58,6 +58,11 @@ export const Digests = ({ digests, teamSlug }: Props) => {
                 {`${bookmarkCount} bookmark${bookmarkCount > 1 ? 's' : ''}`}
               </div>
             </div>
+            {digest.publishedAt && digest.views > 0 && <div className="flex items-center text-sm text-gray-400">
+              <div className="flex items-center">
+                <ChartBarIcon className="text-gray-400 h-4 w-4 mr-1" /> {`${digest.views} view${digest.views > 1 ? 's' : ''}`}
+              </div>
+            </div>}
           </div>
         );
       })}

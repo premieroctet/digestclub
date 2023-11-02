@@ -479,6 +479,10 @@
             "array",
             "null"
           ]
+        },
+        "views": {
+          "type": "integer",
+          "default": 0
         }
       }
     },
@@ -541,6 +545,10 @@
         "isTemplate": {
           "type": "boolean",
           "default": false
+        },
+        "views": {
+          "type": "integer",
+          "default": 0
         }
       }
     },
