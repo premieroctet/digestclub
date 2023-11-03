@@ -1,7 +1,6 @@
 'use server';
 import db from '@/lib/db';
 import * as Sentry from '@sentry/nextjs';
-import { revalidateTag } from 'next/cache';
 import { checkAuthAction, checkTeamAction, getErrorMessage } from './utils';
 import { Team } from '@prisma/client';
 
