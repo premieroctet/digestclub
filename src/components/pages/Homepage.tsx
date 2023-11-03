@@ -14,7 +14,6 @@ const Homepage = ({ user }: { user?: Session['user'] }) => {
         <HomeSteps />
       </section>
       <section className="bg-white flex flex-1 justify-center">
-        {/* @ts-expect-error */}
         <HomeDigests />
       </section>
       <HomeFooter />
