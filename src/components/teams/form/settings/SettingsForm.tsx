@@ -1,19 +1,16 @@
 'use client';
 
+import updateTeamInfo from '@/actions/update-team-info';
+import Button from '@/components/Button';
+import useCustomToast from '@/hooks/useCustomToast';
+import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import { Team } from '@prisma/client';
 import { FormEvent, useTransition } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DangerZoneTeam } from '../DangerZone';
-import SlackPanel from '../SlackPanel';
-import useCustomToast from '@/hooks/useCustomToast';
+import { FieldName, FIELDS, fieldsData } from './form-data';
 import SettingsField from './SettingsField';
-import { fieldsData, FieldName, FIELDS } from './form-data';
-import Button from '@/components/Button';
-import TypefullyPanel from '../TypefullyPanel';
-import TeamAPIKey from '../TeamAPIKey';
-import updateTeamInfo from '@/actions/update-team-info';
 import TeamColorField from './TeamColorField';
-import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 
 const PRO_FIELDS = ['prompt'];
 
@@ -44,26 +41,23 @@ const SettingsForm = ({ team }: { team: Team }) => {
   const { refresh, isRefreshing } = useTransitionRefresh();
 
   const onSubmit = (e: FormEvent) =>
-    startTransition(
-      //@ts-expect-error
-      async () => {
-        handleSubmit(async (values) => {
-          let changedValues: Partial<Team> = {};
-          Object.keys(dirtyFields).map((key) => {
-            changedValues[key as FieldName] = values[key as FieldName];
-          });
-          const { error } = await updateTeamInfo(changedValues, team?.id);
-          if (error) {
-            errorToast(error.message);
-          } else {
-            successToast('Team info updated successfully');
-            refresh();
-          }
+    startTransition(async () => {
+      handleSubmit(async (values) => {
+        let changedValues: Partial<Team> = {};
+        Object.keys(dirtyFields).map((key) => {
+          changedValues[key as FieldName] = values[key as FieldName];
+        });
+        const { error } = await updateTeamInfo(changedValues, team?.id);
+        if (error) {
+          errorToast(error.message);
+        } else {
+          successToast('Team info updated successfully');
+          refresh();
+        }
 
-          reset({}, { keepValues: true });
-        })(e);
-      }
-    );
+        reset({}, { keepValues: true });
+      })(e);
+    });
 
   return (
     <FormProvider {...methods}>
