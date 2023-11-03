@@ -2,7 +2,6 @@
 import db from '@/lib/db';
 import * as Sentry from '@sentry/nextjs';
 import jwt from 'jsonwebtoken';
-import { revalidateTag } from 'next/cache';
 
 interface APIKeyGenerationResult {
   error?: {
