@@ -33,39 +33,17 @@ router
         const lastDigests = await client.digest.findMany({
           select: { title: true },
           where: { teamId: digest?.teamId },
-          orderBy: { publishedAt: 'asc' },
+          take: 5,
+          orderBy: { publishedAt: 'desc' },
         });
+        if (!digest?.teamId) throw new Error('Missing teamId');
 
         const lastDigestTitles = [
-          ...lastDigests?.map((digest) => digest?.title),
           req.body.title,
+          ...lastDigests?.map((digest) => digest?.title),
         ].filter((title) => !!title);
 
-        if (Boolean(lastDigestTitles?.length)) {
-          const prompt = `
-        Here is a list of document titles sorted from most recent to oldest, separared by ; signs : ${lastDigestTitles.join(
-          ';'
-        )} 
-        Just guess the next document title. Don't add any other sentence in your response. If you can't guess a logical title, just write idk.
-        `;
-
-          try {
-            const response = await openAiCompletion({ prompt });
-            const guessedTitle = response[0]?.message?.content;
-            const canPredict = guessedTitle !== 'idk';
-            if (canPredict) {
-              await client.team.update({
-                where: { id: digest?.teamId },
-                data: {
-                  nextSuggestedDigestTitle: guessedTitle,
-                },
-              });
-            }
-          } catch (e) {
-            // eslint-disable-next-line no-console
-            console.log(e);
-          }
-        }
+        updateSuggestedDigestTitle(lastDigestTitles.reverse(), digest?.teamId!);
       }
 
       digest = await client.digest.update({
@@ -114,3 +92,36 @@ router
 export default router.handler({
   onError: errorHandler,
 });
+
+async function updateSuggestedDigestTitle(
+  lastDigestTitles: {
+    title: string;
+  }[],
+  teamId: string
+) {
+  if (Boolean(lastDigestTitles?.length)) {
+    const prompt = `
+        Here is a list of document titles sorted from most recent to oldest, separared by ; signs : ${lastDigestTitles.join(
+          ';'
+        )} 
+        Just guess the next document title. Don't add any other sentence in your response. If you can't guess a logical title, just write idk.
+        `;
+
+    try {
+      const response = await openAiCompletion({ prompt });
+      const guessedTitle = response[0]?.message?.content;
+      const canPredict = guessedTitle !== 'idk';
+      if (canPredict) {
+        await client.team.update({
+          where: { id: teamId },
+          data: {
+            nextSuggestedDigestTitle: guessedTitle,
+          },
+        });
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.log(e);
+    }
+  }
+}
