@@ -16,7 +16,6 @@ router
   .use(checkDigest)
   .patch(async (req, res) => {
     const digestId = req.query.digestId as string;
-
     try {
       let digest = await client.digest.findUnique({
         select: { publishedAt: true, teamId: true },
@@ -34,6 +33,7 @@ router
         const lastDigests = await client.digest.findMany({
           select: { title: true },
           where: { teamId: digest?.teamId },
+          orderBy: { publishedAt: 'asc' },
         });
 
         const lastDigestTitles = [
@@ -46,19 +46,21 @@ router
         Here is a list of document titles sorted from most recent to oldest, separared by ; signs : ${lastDigestTitles.join(
           ';'
         )} 
-        Just guess the next document title. Don't add any other sentence in your response.
+        Just guess the next document title. Don't add any other sentence in your response. If you can't guess a logical title, just write idk.
         `;
 
           try {
             const response = await openAiCompletion({ prompt });
             const guessedTitle = response[0]?.message?.content;
-
-            await client.team.update({
-              where: { id: digest?.teamId },
-              data: {
-                nextSuggestedDigestTitle: guessedTitle,
-              },
-            });
+            const canPredict = guessedTitle !== 'idk';
+            if (canPredict) {
+              await client.team.update({
+                where: { id: digest?.teamId },
+                data: {
+                  nextSuggestedDigestTitle: guessedTitle,
+                },
+              });
+            }
           } catch (e) {
             // eslint-disable-next-line no-console
             console.log(e);
@@ -97,7 +99,15 @@ router
         id: digestId?.toString(),
       },
     });
-
+    const wasAPublishedDigest = Boolean(digest?.publishedAt);
+    if (wasAPublishedDigest) {
+      await client.team.update({
+        where: { id: digest?.teamId },
+        data: {
+          nextSuggestedDigestTitle: null,
+        },
+      });
+    }
     return res.status(201).json(digest);
   });
 

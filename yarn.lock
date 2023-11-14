@@ -3921,10 +3921,11 @@ brotli@^1.3.3:
   dependencies:
     base64-js "^1.1.2"
 
-browser-request@*:
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/browser-request/-/browser-request-0.3.3.tgz#9ece5b5aca89a29932242e18bf933def9876cc17"
-  integrity sha512-YyNI4qJJ+piQG6MMEuo7J3Bzaqssufx04zpEKYfSrl/1Op59HWali9zMtBpXnkmqMcOuWJPZvudrm9wISmnCbg==
+"browser-request@github:postlight/browser-request#feat-add-headers-to-response":
+  version "0.3.2"
+  resolved "https://codeload.github.com/postlight/browser-request/tar.gz/38faa5b85741aabfca61aa37d1ef044d68969ddf"
+  dependencies:
+    http-headers "^3.0.1"
 
 browserslist@^4.21.10, browserslist@^4.21.9:
   version "4.22.1"
@@ -6777,6 +6778,13 @@ http-errors@2.0.0:
     statuses "2.0.1"
     toidentifier "1.0.1"
 
+http-headers@^3.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/http-headers/-/http-headers-3.0.2.tgz#5147771292f0b39d6778d930a3a59a76fc7ef44d"
+  integrity sha512-87E1I+2Wg4dxxz4rcxElo3dxO/w1ZtgL1yA0Sb6vH3qU16vRKq1NjWQv9SCY3ly2OQROcoxHZOUpmelS+k6wOw==
+  dependencies:
+    next-line "^1.1.0"
+
 http-proxy-agent@7.0.0:
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/http-proxy-agent/-/http-proxy-agent-7.0.0.tgz#e9096c5afd071a3fce56e6252bb321583c124673"
@@ -7832,7 +7840,7 @@ jose@^4.11.4, jose@^4.15.1:
   resolved "https://registry.yarnpkg.com/jose/-/jose-4.15.4.tgz#02a9a763803e3872cf55f29ecef0dfdcc218cc03"
   integrity sha512-W+oqK4H+r5sITxfxpSU+MMdr/YSWGvgZMQDIsNoBDGGy4i7GBPTtvFKibQzW06n3U3TqHjhvBJsirShsEJ6eeQ==
 
-jquery@*:
+jquery@^3.5.0:
   version "3.7.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
@@ -9571,14 +9579,14 @@ moment-parseformat@3.0.0:
   resolved "https://registry.yarnpkg.com/moment-parseformat/-/moment-parseformat-3.0.0.tgz#3a1dc438b4bc073b7e93cc298cfb6c5daac26dba"
   integrity sha512-dVgXe6b6DLnv4CHG7a1zUe5mSXaIZ3c6lSHm/EKeVeQI2/4pwe0VRde8OyoCE1Ro2lKT5P6uT9JElF7KDLV+jw==
 
-moment-timezone@*:
-  version "0.5.43"
-  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.43.tgz#3dd7f3d0c67f78c23cd1906b9b2137a09b3c4790"
-  integrity sha512-72j3aNyuIsDxdF1i7CEgV2FfxM1r6aaqJyLB2vwb33mXYyoyLly+F1zbWqhA3/bVIoJ4szlUoMbUnVdid32NUQ==
+moment-timezone@0.5.37:
+  version "0.5.37"
+  resolved "https://registry.yarnpkg.com/moment-timezone/-/moment-timezone-0.5.37.tgz#adf97f719c4e458fdb12e2b4e87b8bec9f4eef1e"
+  integrity sha512-uEDzDNFhfaywRl+vwXxffjjq1q0Vzr+fcQpQ1bU0kbzorfS7zVtZnCnGc8mhWmF39d4g4YriF6kwA75mJKE/Zg==
   dependencies:
-    moment "^2.29.4"
+    moment ">= 2.9.0"
 
-moment@^2.23.0, moment@^2.29.4:
+"moment@>= 2.9.0", moment@^2.23.0:
   version "2.29.4"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
   integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
@@ -9684,6 +9692,11 @@ next-contentlayer@^0.3.2:
   dependencies:
     "@contentlayer/core" "0.3.4"
     "@contentlayer/utils" "0.3.4"
+
+next-line@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/next-line/-/next-line-1.1.0.tgz#fcae57853052b6a9bae8208e40dd7d3c2d304603"
+  integrity sha512-+I10J3wKNoKddNxn0CNpoZ3eTZuqxjNM3b1GImVx22+ePI+Y15P8g/j3WsbP0fhzzrFzrtjOAoq5NCCucswXOQ==
 
 next-superjson-plugin@^0.5.8:
   version "0.5.9"
