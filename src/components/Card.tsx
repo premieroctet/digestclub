@@ -6,10 +6,12 @@ export const Card = ({
   header,
   footer,
   className,
+  contentClassName,
   ...props
 }: PropsWithChildren & {
   header?: ReactNode;
   footer?: ReactNode;
+  contentClassName?: string;
 } & HTMLProps<HTMLDivElement>) => {
   return (
     <section
@@ -20,7 +22,12 @@ export const Card = ({
       {...props}
     >
       {header && <div className="p-4">{header}</div>}
-      <div className="px-4 py-5 sm:p-6 w-full flex justify-center">
+      <div
+        className={clsx(
+          'px-4 py-5 sm:p-6 w-full flex justify-center',
+          contentClassName
+        )}
+      >
         {children}
       </div>
       {footer && <div className="px-4 py-4 sm:px-6">{footer}</div>}
