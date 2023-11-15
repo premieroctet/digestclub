@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-const siteUrl = 'https://digest.club';
+const siteUrl = process.env.VERCEL_URL || 'https://digest.club';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
