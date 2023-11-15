@@ -47,7 +47,7 @@ export default function ClientCharts({ teamLinksByMonth }: Props) {
     <ResponsiveContainer width="100%" height="100%">
       <LineChart
         data={data}
-        margin={{ top: 0, right: 20, left: 20, bottom: 6 }}
+        margin={{ top: 6, right: 20, left: 20, bottom: 6 }}
       >
         <Tooltip content={<ChartsTooltip />} />
         <Line
