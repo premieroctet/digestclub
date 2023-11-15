@@ -1,3 +1,4 @@
+'use client';
 import { PropsWithChildren, useState } from 'react';
 import Pagination from '../list/Pagination';
 import clsx from 'clsx';

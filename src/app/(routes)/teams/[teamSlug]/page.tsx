@@ -5,6 +5,7 @@ import {
   getTeamLinks,
   getTeamDigests,
   updateDefaultTeam,
+  countAllTeamLinks,
 } from '@/lib/queries';
 import { getCurrentUserOrRedirect } from '@/lib/sessions';
 import { Metadata } from 'next';
@@ -39,11 +40,12 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
 
   const linksPage = Number(searchParams?.page || 1);
   const search = searchParams?.search || '';
-  const { linksCount, teamLinks } = await getTeamLinks(team.id, {
+  const { teamLinks } = await getTeamLinks(team.id, {
     page: linksPage,
     onlyNotInDigest: !searchParams?.all,
     search,
   });
+  const totalLinksCount = await countAllTeamLinks(team.id);
 
   const digestsPage = Number(searchParams?.digestPage || 1);
   const { digests, digestsCount } = await getTeamDigests(
@@ -56,7 +58,7 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
   return (
     <Team
       team={team}
-      linkCount={linksCount}
+      linkCount={totalLinksCount}
       teamLinks={teamLinks}
       digests={digests}
       digestsCount={digestsCount}

@@ -1,4 +1,3 @@
-'use client';
 import { TeamDigestsResult, TeamLinks, getTeamBySlug } from '@/lib/queries';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import Link from 'next/link';
@@ -12,6 +11,9 @@ import NoContent from '../layout/NoContent';
 import PageContainer from '../layout/PageContainer';
 import Pagination from '../list/Pagination';
 import SelectTemplateModal from '../digests/templates/SelectTemplateModal';
+import ChartsServer from '../charts/ChartsServer';
+import { Suspense } from 'react';
+import ChartsSkeleton from '../charts/ChartsSkeleton';
 
 type Props = {
   linkCount: number;
@@ -37,14 +39,21 @@ const Team = ({
       <div className="flex max-lg:flex-col gap-5 pb-4">
         <Card
           className="w-full lg:w-2/3"
+          contentClassName="sm:py-2 sm:px-6"
           header={
-            <div className="flex items-center justify-between gap-3 max-sm:flex-col max-sm:items-start">
-              <div className="flex items-center gap-3 h-8">
-                <h2 className="text-xl">Bookmarks</h2>
-                <CounterTag count={linkCount} />
+            <>
+              <div className="flex items-center justify-between gap-3 max-sm:flex-col max-sm:items-start">
+                <div className="flex items-center gap-3 h-8">
+                  <h2 className="text-xl">Bookmarks</h2>
+                  {/* <CounterTag count={linkCount} /> */}
+                </div>
+
+                <BookmarksListControls linkCount={linkCount} />
               </div>
-              <BookmarksListControls linkCount={linkCount} />
-            </div>
+              <Suspense fallback={<ChartsSkeleton />}>
+                <ChartsServer linkCount={linkCount} teamId={team.id} />
+              </Suspense>
+            </>
           }
           footer={
             <div className="flex items-center justify-end">
