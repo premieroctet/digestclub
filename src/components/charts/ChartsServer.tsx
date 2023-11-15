@@ -31,16 +31,23 @@ GROUP BY
 }
 
 export default async function ChartsServer({ linkCount, teamId }: Props) {
-  const teamLinkCount = await getTeamLinksCountByMonth(teamId);
+  const teamLinkCountByMonth = await getTeamLinksCountByMonth(teamId);
+  const emptyCount = teamLinkCountByMonth.length === 0;
+  const text = linkCount > 1 ? 'bookmarks' : 'bookmark';
+  if (emptyCount) {
+    return null;
+  }
 
   return (
     <div className="h-full flex flex-grow-0 w-ful items-end">
       <p className="flex flex-col justify-end">
         <span className="text-3xl font-bold">{linkCount}</span>
-        <span className="text-xs whitespace-nowrap">bookmarks</span>
+        <span title="Link bookmarked" className="text-xs text-gray-400">
+          {text}
+        </span>
       </p>
       <div className="h-[60px] w-full">
-        <Charts teamLinksByMonth={teamLinkCount} />
+        <Charts teamLinksByMonth={teamLinkCountByMonth} />
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const getMonthFullName = (index: number): MonthLongName => {
   return MONTH_LONG_NAMES[index];
 };
 
-const Tooltip = ({
+const ChartsTooltip = ({
   active,
   payload,
   label,
@@ -46,4 +46,4 @@ const Tooltip = ({
   }
 };
 
-export default Tooltip;
+export default ChartsTooltip;

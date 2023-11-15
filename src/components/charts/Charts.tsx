@@ -3,7 +3,7 @@ import React from 'react';
 
 import { Tooltip, ResponsiveContainer, Line, LineChart } from 'recharts';
 
-import CustomTooltip from './Tooltip';
+import ChartsTooltip from './ChartsTooltip';
 interface Props {
   teamLinksByMonth: Array<{
     month: number;
@@ -49,7 +49,7 @@ export default function ClientCharts({ teamLinksByMonth }: Props) {
         data={data}
         margin={{ top: 0, right: 20, left: 20, bottom: 6 }}
       >
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip content={<ChartsTooltip />} />
         <Line
           baseLine={0}
           type="monotone"
