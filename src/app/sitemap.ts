@@ -1,6 +1,7 @@
 import db from '@/lib/db';
 import { MetadataRoute } from 'next';
 const siteUrl = process.env.VERCEL_URL || 'https://digest.club';
+const skipSitemap = process.env.SKIP_SITEMAP_GENERATION === 'true';
 
 interface TeamData {
   slug: string;
@@ -80,6 +81,9 @@ async function getDigestRoutes(teamsData: TeamData[]) {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  if (skipSitemap) {
+    return [];
+  }
   const teamsData = await getTeamsData();
   const teamRoutes = getTeamRoutes(teamsData);
   const digestRoutes = await getDigestRoutes(teamsData);
