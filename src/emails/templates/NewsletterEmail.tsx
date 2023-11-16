@@ -53,7 +53,7 @@ const Bookmark = ({
                   borderRadius: '16px',
                   padding: '4px 6px',
                   backgroundColor: 'rgba(109,40,217,0.1)',
-                  display: 'inline-block', // Set to inline-block to not take full width
+                  display: 'inline-block',
                   textDecoration: 'none',
                 }}
               >
