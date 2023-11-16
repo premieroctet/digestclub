@@ -17,6 +17,8 @@ import {
   ArrowLeftOnRectangleIcon,
   PlusIcon,
 } from '@heroicons/react/24/solid';
+import { useMutation } from 'react-query';
+import api from '@/lib/api';
 
 type Props = {
   teams?: Team[];
@@ -30,6 +32,11 @@ export const NavMenu = ({ teams }: Props) => {
   function onSignOut() {
     signOut({ callbackUrl: '/' });
   }
+
+  const { mutate: updateDefaultTeam } = useMutation(
+    'update-default-team',
+    (id: string) => api.patch(`/user/default-team?teamId=${id}`)
+  );
 
   return (
     <div className="relative flex items-stretch">
@@ -78,6 +85,10 @@ export const NavMenu = ({ teams }: Props) => {
                             }
                             key={team.id}
                             href={`${routes.TEAMS}/${team.slug}`}
+                            onClick={() => {
+                              // We doesn't need to wait for the mutation to complete, so we don't need to use `await`.
+                              updateDefaultTeam(team.id);
+                            }}
                           >
                             {team.name}
                           </Item>
