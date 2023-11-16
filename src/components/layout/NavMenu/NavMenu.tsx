@@ -86,7 +86,7 @@ export const NavMenu = ({ teams }: Props) => {
                             key={team.id}
                             href={`${routes.TEAMS}/${team.slug}`}
                             onClick={() => {
-                              // We doesn't need to wait for the mutation to complete, so we don't need to use `await`.
+                              // We don't need to wait for the mutation to complete
                               updateDefaultTeam(team.id);
                             }}
                           >
