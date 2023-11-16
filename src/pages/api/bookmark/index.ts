@@ -10,6 +10,9 @@ export type ApiBookmarkResponseSuccess = Bookmark;
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 
+interface PostRequestBody {
+  linkUrl: string;
+}
 router.post(async (req, res) => {
   if (!process.env.JWT_SECRET) return res.status(500).end();
   if (
@@ -25,7 +28,7 @@ router.post(async (req, res) => {
     const { teamId } = decoded as { teamId: string };
     if (!teamId) return res.status(401).end();
 
-    const { linkUrl } = JSON.parse(req.body);
+    const { linkUrl } = req.body as PostRequestBody;
     if (!linkUrl) return res.status(400).end();
 
     try {
