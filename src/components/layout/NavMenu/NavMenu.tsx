@@ -82,8 +82,8 @@ export const NavMenu = ({ teams, user }: Props) => {
                             key={team.id}
                             href={`${routes.TEAMS}/${team.slug}`}
                             onClick={() => {
-                              startTransition(() => {
-                                if (!team.id || !user.id) return;
+                              if (currentTeam?.id === team.id) return;
+                              startTransition(async () => {
                                 updateDefaultTeam(user.id, team.id);
                               });
                             }}
