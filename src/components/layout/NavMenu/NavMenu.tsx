@@ -17,26 +17,22 @@ import {
   ArrowLeftOnRectangleIcon,
   PlusIcon,
 } from '@heroicons/react/24/solid';
-import { useMutation } from 'react-query';
-import api from '@/lib/api';
+import { useTransition } from 'react';
+import updateDefaultTeam from '@/actions/update-default-team';
 
 type Props = {
   teams?: Team[];
   user: Session['user'];
 };
 
-export const NavMenu = ({ teams }: Props) => {
+export const NavMenu = ({ teams, user }: Props) => {
   const pathName = usePathname();
   const currentTeam = teams?.find((team) => pathName?.includes(team.slug));
+  const [_, startTransition] = useTransition();
 
   function onSignOut() {
     signOut({ callbackUrl: '/' });
   }
-
-  const { mutate: updateDefaultTeam } = useMutation(
-    'update-default-team',
-    (id: string) => api.patch(`/user/default-team?teamId=${id}`)
-  );
 
   return (
     <div className="relative flex items-stretch">
@@ -86,8 +82,10 @@ export const NavMenu = ({ teams }: Props) => {
                             key={team.id}
                             href={`${routes.TEAMS}/${team.slug}`}
                             onClick={() => {
-                              // We don't need to wait for the mutation to complete
-                              updateDefaultTeam(team.id);
+                              startTransition(() => {
+                                if (!team.id || !user.id) return;
+                                updateDefaultTeam(user.id, team.id);
+                              });
                             }}
                           >
                             {team.name}

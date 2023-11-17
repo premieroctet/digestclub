@@ -9,7 +9,10 @@ export async function middleware(req: NextRequest) {
 
     if (sessionToken) {
       const response = await fetch(
-        new URL(`/api/user/default-team?sessionToken=${sessionToken}`, req.url)
+        new URL(`/api/user/default-team?sessionToken=${sessionToken}`, req.url),
+        {
+          cache: 'no-cache',
+        }
       ).then((res) => res.json());
 
       if (response.defaultTeamSlug) {
