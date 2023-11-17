@@ -1,5 +1,4 @@
 import db from '@/lib/db';
-import { checkTeam } from '@/lib/middleware';
 import { AuthApiRequest } from '@/lib/router';
 import { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
