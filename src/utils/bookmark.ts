@@ -31,12 +31,8 @@ const getHtml = async (url: string) => {
   });
 };
 
-const isBookmarkedByUser = async (
-  linkId?: string,
-  membershipId?: string,
-  teamId?: string
-) => {
-  if (!linkId || !membershipId || !teamId) return;
+const isBookmarkAlreadyInTeam = async (linkId?: string, teamId?: string) => {
+  if (!linkId || !teamId) return;
 
   return db.bookmark
     .findFirst({
@@ -44,9 +40,6 @@ const isBookmarkedByUser = async (
       where: {
         linkId: {
           equals: linkId,
-        },
-        membershipId: {
-          equals: membershipId,
         },
         teamId: {
           equals: teamId,
@@ -98,7 +91,7 @@ export const saveBookmark = async (
   });
 
   const response = await isLinkValid(linkUrl);
-  await isBookmarkedByUser(link?.id, membershipId, teamId);
+  await isBookmarkAlreadyInTeam(link?.id, teamId);
 
   if (!link) {
     const isPDF = response.headers.get('Content-Type') === 'application/pdf';

@@ -6,46 +6,78 @@ import { createRouter } from 'next-connect';
 import * as Sentry from '@sentry/nextjs';
 import jwt from 'jsonwebtoken';
 import db from '@/lib/db';
+import rateLimit from '../../../utils/rateLimit';
+import {
+  ApiError,
+  InternalServerError,
+  MissingParametersError,
+  UnauthorizedError,
+} from '@/utils/apiError';
+
 export type ApiBookmarkResponseSuccess = Bookmark;
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 
+const UNIQUE_TOKEN_PER_INTERVAL = 500; // 500 requests
+const INTERVAL = 60000; // 1 minute
 interface PostRequestBody {
   linkUrl: string;
 }
+
+const limiter = rateLimit({
+  uniqueTokenPerInterval: UNIQUE_TOKEN_PER_INTERVAL,
+  interval: INTERVAL,
+});
+
 router.post(async (req, res) => {
-  if (!process.env.JWT_SECRET) return res.status(500).end();
-  if (
-    req.headers.authorization !== undefined &&
-    req.headers.authorization.startsWith('Bearer ')
-  ) {
-    const authHeader = req.headers.authorization;
+  const { JWT_SECRET } = process.env;
+  const { authorization: authHeader } = req.headers;
+  try {
+    if (!JWT_SECRET) throw new InternalServerError();
+
+    if (authHeader == undefined || authHeader.startsWith('Bearer '))
+      throw new UnauthorizedError();
+
     const token = authHeader.substring(7, authHeader.length);
-    // check if the token is valid
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    if (!decoded) return res.status(401).end();
+    const decoded = jwt.verify(token, JWT_SECRET);
+    if (!decoded) throw new UnauthorizedError();
 
     const { teamId } = decoded as { teamId: string };
-    if (!teamId) return res.status(401).end();
+    if (!teamId) throw new UnauthorizedError();
 
     const { linkUrl } = req.body as PostRequestBody;
-    if (!linkUrl) return res.status(400).end();
+    if (!linkUrl) throw new MissingParametersError();
 
-    try {
-      const team = await db.team.findFirst({
-        where: {
-          id: teamId,
-        },
-      });
-      if (!team) return res.status(401).end();
-      const bookmark = await saveBookmark(linkUrl, teamId);
-      return res.status(201).json(bookmark);
-    } catch (error: unknown) {
-      Sentry.captureException(error);
-      // eslint-disable-next-line no-console
-      console.log(error);
+    await limiter.check(res, 30, token);
+
+    const team = await db.team.findFirst({
+      where: {
+        id: teamId,
+      },
+    });
+    if (!team) throw new UnauthorizedError();
+    const bookmark = await saveBookmark(linkUrl, teamId);
+    return res.status(201).json(bookmark);
+  } catch (error: any) {
+    // Error that can be thrown by frontend or backend code (no status code etc..)
+    if (error instanceof TypeError) {
       return res.status(400).json({
-        error: 'Invalid link',
+        error: error.message,
+      });
+    }
+    // Error specific to the API (rate limit exceeded etc..)
+    else if (error instanceof ApiError) {
+      Sentry.captureException(error);
+
+      return res.status(error.status).json({
+        error,
+      });
+    } else {
+      // Unexpected error
+      Sentry.captureException(error);
+
+      return res.status(500).json({
+        error: 'Something went wrong',
       });
     }
   }
