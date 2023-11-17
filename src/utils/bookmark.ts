@@ -102,8 +102,10 @@ export const saveBookmark = async (
 
   if (!link) {
     const isPDF = response.headers.get('Content-Type') === 'application/pdf';
+    const isText = response.headers.get('Content-Type')?.startsWith('text/');
     let blurhash = null;
     let metadata = null;
+    if (!isPDF && !isText) throw new TypeError('invalid_content_type');
 
     if (!isPDF) {
       metadata = await extractMetadata(linkUrl);
@@ -119,7 +121,7 @@ export const saveBookmark = async (
       } catch (e) {}
     }
 
-    const logo = isPDF ? 'hello' : metadata?.logo ?? null;
+    const logo = isPDF ? null : metadata?.logo;
 
     link = await db.link.create({
       data: {
