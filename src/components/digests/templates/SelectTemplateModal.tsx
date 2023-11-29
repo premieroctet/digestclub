@@ -1,3 +1,4 @@
+'use client';
 import Button from '@/components/Button';
 import { Dialog, DialogTrigger, DialogContent } from '@/components/Dialog';
 import { Digest, Team } from '@prisma/client';

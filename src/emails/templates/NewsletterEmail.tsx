@@ -12,6 +12,7 @@ import {
   MjmlAll,
   MjmlHead,
   MjmlBreakpoint,
+  MjmlRaw,
 } from 'mjml-react';
 import React from 'react';
 import { remark } from 'remark';
@@ -36,33 +37,30 @@ const Bookmark = ({
             paddingBottom={5}
             color={theme.colors.darkGray}
           >
-            <a
-              href={url!}
-              target="_blank"
-              style={{ color: 'unset', textDecoration: 'unset' }}
-            >
-              <span>{title}</span>
-
-              {url && (
-                <>
-                  <span>{' · '}</span>
-                  <span
-                    style={{
-                      color: theme.colors.primary,
-                      fontWeight: 400,
-                      fontSize: 14,
-                      boxShadow: `0px 0px 0px 1px ${theme.colors.primary}`,
-                      borderRadius: '16px',
-                      padding: '4px 6px',
-                      backgroundColor: 'rgba(109,40,217,0.1)',
-                    }}
-                  >
-                    {url.replace(/^https?:\/\//, '').split('/')[0]}
-                  </span>
-                </>
-              )}
-            </a>
+            {title}
           </MjmlText>
+
+          {url && (
+            <MjmlText>
+              <a
+                href={url!}
+                target="_blank"
+                style={{
+                  color: theme.colors.primary,
+                  fontWeight: 400,
+                  fontSize: 14,
+                  boxShadow: `0px 0px 0px 1px ${theme.colors.primary}`,
+                  borderRadius: '16px',
+                  padding: '4px 6px',
+                  backgroundColor: 'rgba(109,40,217,0.1)',
+                  display: 'inline-block',
+                  textDecoration: 'none',
+                }}
+              >
+                {url.replace(/^https?:\/\//, '').split('/')[0]}
+              </a>
+            </MjmlText>
+          )}
         </MjmlColumn>
       )}
 
@@ -176,7 +174,7 @@ const NewsletterEmail = ({
           blocks.map((block, i) => {
             if (block.type === BlockType.BOOKMARK) {
               if (block.style === 'TWEET_EMBED') {
-                // maybe render tweets with their own component? to cleanly embed
+                // maybe render tweets with their own cloomponent? to cleanly embed
                 return <Bookmark bookmark={block} key={i} />;
               } else {
                 return <Bookmark bookmark={block} key={i} />;

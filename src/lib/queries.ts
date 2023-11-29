@@ -257,6 +257,21 @@ export const getTeamLinks = async (
   };
 };
 
+/**
+ * Returns the number links of a team, (all links, not only the ones in the team page)
+ */
+export const countAllTeamLinks = async (teamId: string) => {
+  return db.link.count({
+    where: {
+      bookmark: {
+        some: {
+          teamId,
+        },
+      },
+    },
+  });
+};
+
 export type TeamLinksData = Awaited<ReturnType<typeof getTeamLinks>>;
 
 export type TeamLinks = TeamLinksData['teamLinks'];

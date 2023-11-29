@@ -287,6 +287,7 @@ const message = {
         already_bookmarked:
           'You have already bookmarked this link in this team',
         invalid_link: 'Invalid link provided',
+        invalid_content_type: 'Invalid content type, only text or pdf allowed',
       },
     },
   },

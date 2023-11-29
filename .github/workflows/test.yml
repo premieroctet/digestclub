@@ -21,6 +21,7 @@ jobs:
           echo NEXTAUTH_SECRET="RANDOMEKEY" >> .env
           echo JWT_SECRET="RANDOMEKEY" >> .env
           echo OPENAI_API_KEY="RANDOMEKEY" >> .env
+          echo SKIP_SITEMAP_GENERATION="true" >> .env
           cat .env
       - name: Install dependencies
         run: yarn install
