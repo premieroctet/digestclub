@@ -50,6 +50,7 @@
     "husky": "^8.0.3",
     "jsonwebtoken": "^9.0.1",
     "lodash": "^4.17.21",
+    "lru-cache": "^10.0.2",
     "metascraper": "^5.36.0",
     "metascraper-description": "^5.33.7",
     "metascraper-image": "^5.33.7",
