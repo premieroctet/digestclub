@@ -11,11 +11,19 @@ export type ApiTeamResponseSuccess = Team;
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 
+const RESTRICTED_TEAM_NAMES = ['create', 'login', 'logout', 'signup', 'teams'];
+
 router.use(checkAuth).post(async (req, res) => {
   const { teamName } = req.body;
 
   if (!teamName) {
     return res.status(403).end();
+  }
+
+  if (RESTRICTED_TEAM_NAMES.includes(teamName)) {
+    return res.status(400).json({
+      error: 'Team name is restricted',
+    });
   }
 
   if (isStringEmpty(teamName)) {
