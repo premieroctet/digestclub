@@ -108,88 +108,30 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   );
 
   const options: NextAdminOptions = {
+    basePath: '/admin',
     model: {
       User: {
         toString: (user) => user.email ?? user.id,
         list: {
-          fields: {
-            id: {
-              display: true,
-            },
-            email: {
-              display: true,
-              search: true,
-            },
-            name: {
-              search: true,
-            },
-            role: {
-              display: true,
-            },
-            createdAt: {
-              display: true,
-            },
-          },
+          display: ['id', 'email', 'name', 'role', 'createdAt'],
+          search: ['email', 'name'],
         },
       },
       Team: {
         list: {
-          fields: {
-            id: {
-              display: true,
-            },
-            name: {
-              display: true,
-              search: true,
-            },
-            // @ts-expect-error
-            memberships: {
-              display: true,
-            },
-            createdAt: {
-              display: true,
-            },
-          },
+          display: ['id', 'name', 'memberships', 'createdAt'],
+          search: ['name'],
         },
       },
       Link: {
         list: {
-          fields: {
-            id: {
-              display: true,
-            },
-            title: {
-              display: true,
-            },
-            description: {
-              display: true,
-            },
-            url: {
-              display: true,
-              search: true,
-            },
-          },
+          display: ['id', 'title', 'description', 'url'],
+          search: ['url'],
         },
       },
       Digest: {
         list: {
-          fields: {
-            id: {
-              display: true,
-            },
-            title: {
-              display: true,
-            },
-            description: {
-              display: true,
-            },
-            isFeatured: {
-              display: true,
-            },
-            createdAt: {
-              display: true,
-            },
-          },
+          display: ['id', 'title', 'description', 'isFeatured', 'createdAt'],
         },
       },
     },
