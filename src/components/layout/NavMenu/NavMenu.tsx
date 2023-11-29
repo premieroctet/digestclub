@@ -17,7 +17,7 @@ import {
   ArrowLeftOnRectangleIcon,
   PlusIcon,
 } from '@heroicons/react/24/solid';
-import { useTransition } from 'react';
+import { useEffect, useTransition } from 'react';
 import updateDefaultTeam from '@/actions/update-default-team';
 
 type Props = {
@@ -33,6 +33,12 @@ export const NavMenu = ({ teams, user }: Props) => {
   function onSignOut() {
     signOut({ callbackUrl: '/' });
   }
+  useEffect(() => {
+    if (!currentTeam) return;
+    startTransition(async () => {
+      updateDefaultTeam(user.id, currentTeam.id);
+    });
+  }, [currentTeam]);
 
   return (
     <div className="relative flex items-stretch">
@@ -81,12 +87,6 @@ export const NavMenu = ({ teams, user }: Props) => {
                             }
                             key={team.id}
                             href={`${routes.TEAMS}/${team.slug}`}
-                            onClick={() => {
-                              if (currentTeam?.id === team.id) return;
-                              startTransition(async () => {
-                                updateDefaultTeam(user.id, team.id);
-                              });
-                            }}
                           >
                             {team.name}
                           </Item>
