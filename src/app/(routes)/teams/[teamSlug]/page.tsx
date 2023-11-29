@@ -4,7 +4,6 @@ import {
   checkUserTeamBySlug,
   getTeamLinks,
   getTeamDigests,
-  updateDefaultTeam,
   countAllTeamLinks,
 } from '@/lib/queries';
 import { getCurrentUserOrRedirect } from '@/lib/sessions';
@@ -35,8 +34,6 @@ const TeamPage = async ({ params, searchParams }: TeamPageProps) => {
   if (!team) {
     throw notFound();
   }
-
-  await updateDefaultTeam(user.id, team.id);
 
   const linksPage = Number(searchParams?.page || 1);
   const search = searchParams?.search || '';

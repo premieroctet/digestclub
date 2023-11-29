@@ -23,8 +23,6 @@ const page = async ({ params, searchParams }: TeamPageProps) => {
     redirect('/teams');
   }
 
-  await updateDefaultTeam(user.id, team.id);
-
   const digest = await getDigest(params.digestId);
 
   if (!digest || digest.teamId !== team.id) {
