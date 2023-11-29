@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic';
 import DigestPublicPage from '@/components/pages/DigestPublicPage';
 import { getPublicDigest, incrementDigestView } from '@/lib/queries';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
