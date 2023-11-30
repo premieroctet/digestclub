@@ -18,11 +18,14 @@ import React from 'react';
 import { remark } from 'remark';
 import html from 'remark-html';
 import theme from '../theme';
+import { hexToRGBA } from '@/utils/color';
 
 const Bookmark = ({
   bookmark: { title, description, url, image, style },
+  primaryColor,
 }: {
   bookmark: NewsletterBookmark;
+  primaryColor: string;
 }): JSX.Element => {
   let isBlock = !!image && style == 'BLOCK';
 
@@ -32,7 +35,7 @@ const Bookmark = ({
         <MjmlColumn width="100%">
           <MjmlText
             fontWeight={600}
-            fontSize={16}
+            fontSize={17}
             align="left"
             paddingBottom={5}
             color={theme.colors.darkGray}
@@ -46,13 +49,13 @@ const Bookmark = ({
                 href={url!}
                 target="_blank"
                 style={{
-                  color: theme.colors.primary,
+                  color: primaryColor,
                   fontWeight: 400,
                   fontSize: 14,
-                  boxShadow: `0px 0px 0px 1px ${theme.colors.primary}`,
+                  boxShadow: `0px 0px 0px 1px ${primaryColor}`,
                   borderRadius: '16px',
                   padding: '4px 6px',
-                  backgroundColor: 'rgba(109,40,217,0.1)',
+                  backgroundColor: hexToRGBA(primaryColor, 10),
                   display: 'inline-block',
                   textDecoration: 'none',
                 }}
@@ -72,7 +75,14 @@ const Bookmark = ({
 
       <MjmlColumn width={isBlock ? '60%' : '100%'}>
         {description && (
-          <MjmlText color={theme.colors.lightGray}>{description}</MjmlText>
+          <MjmlText
+            fontSize={16}
+            fontWeight={400}
+            lineHeight="18px"
+            color={theme.colors.lightGray}
+          >
+            {description}
+          </MjmlText>
         )}
       </MjmlColumn>
     </MjmlSection>
@@ -129,94 +139,120 @@ const NewsletterEmail = ({
   title,
   description,
   blocks,
-  teamId,
+  team,
   hostUrl,
+  digestSlug,
 }: {
   title: string | null;
+  digestSlug: string;
   description: string | null | undefined;
   blocks?: NewsletterBlock[];
-  teamId: string;
+  team: { name: string; slug: string; id: string; color: string | null };
   hostUrl: string;
-}): JSX.Element => (
-  <Mjml>
-    <MjmlHead>
-      <MjmlBreakpoint width={481} />
-      <MjmlAttributes>
-        <MjmlAll padding={'5px'} fontFamily={theme.fontFamily.bodyPrimary} />
-      </MjmlAttributes>
-    </MjmlHead>
-    <MjmlBody backgroundColor="#F1F5F9" cssClass="mt-1">
-      <MjmlWrapper backgroundColor="white" borderRadius={10} cssClass="mt-1">
-        <MjmlSection>
-          <MjmlColumn width="100%">
-            <MjmlText
-              fontWeight={800}
-              fontSize={26}
-              align="left"
-              paddingBottom={16}
-              color={theme.colors.primary}
-              fontFamily={theme.fontFamily.heading}
-            >
-              {title}
-            </MjmlText>
+}): JSX.Element => {
+  const primaryColor = team.color || theme.colors.primary;
+  return (
+    <Mjml>
+      <MjmlHead>
+        <MjmlBreakpoint width={481} />
+        <MjmlAttributes>
+          <MjmlAll padding={'5px'} fontFamily={theme.fontFamily.bodyPrimary} />
+        </MjmlAttributes>
+      </MjmlHead>
+      <MjmlBody backgroundColor="#F1F5F9" cssClass="mt-1">
+        <MjmlWrapper backgroundColor="white" borderRadius={10} cssClass="mt-1">
+          <MjmlSection>
+            <MjmlColumn width="100%">
+              <MjmlText>
+                <a
+                  href={`${hostUrl}/${team.slug}/${digestSlug}`}
+                  style={{ color: `${primaryColor} !important` }}
+                >
+                  Open website version 🌐
+                </a>
+              </MjmlText>
+              <MjmlText
+                fontWeight={800}
+                fontSize={34}
+                align="left"
+                paddingBottom={16}
+                color={primaryColor}
+                fontFamily={theme.fontFamily.heading}
+              >
+                {title}
+              </MjmlText>
 
-            <MjmlText
-              fontSize={14}
-              fontWeight={400}
-              lineHeight="20px"
-              fontFamily={theme.fontFamily.bodyPrimary}
-            >
-              {description}
-            </MjmlText>
-          </MjmlColumn>
-        </MjmlSection>
-        {blocks?.length &&
-          blocks.map((block, i) => {
-            if (block.type === BlockType.BOOKMARK) {
-              if (block.style === 'TWEET_EMBED') {
-                // maybe render tweets with their own cloomponent? to cleanly embed
-                return <Bookmark bookmark={block} key={i} />;
-              } else {
-                return <Bookmark bookmark={block} key={i} />;
+              <MjmlText
+                fontSize={18}
+                fontWeight={400}
+                lineHeight="24px"
+                fontFamily={theme.fontFamily.bodyPrimary}
+                color={theme.colors.darkGray}
+              >
+                {description}
+              </MjmlText>
+            </MjmlColumn>
+          </MjmlSection>
+          {blocks?.length &&
+            blocks.map((block, i) => {
+              if (block.type === BlockType.BOOKMARK) {
+                if (block.style === 'TWEET_EMBED') {
+                  // maybe render tweets with their own cloomponent? to cleanly embed
+                  return (
+                    <Bookmark
+                      bookmark={block}
+                      key={i}
+                      primaryColor={primaryColor}
+                    />
+                  );
+                } else {
+                  return (
+                    <Bookmark
+                      bookmark={block}
+                      key={i}
+                      primaryColor={primaryColor}
+                    />
+                  );
+                }
+              } else if (block.type === BlockType.TEXT) {
+                return <Text block={block} key={i} />;
               }
-            } else if (block.type === BlockType.TEXT) {
-              return <Text block={block} key={i} />;
-            }
-          })}
-        <MjmlSection>
-          <MjmlColumn width={'100%'}>
-            <MjmlText
-              fontSize={14}
-              fontWeight={400}
-              lineHeight="20px"
-              paddingTop={16}
-              fontFamily={theme.fontFamily.bodyPrimary}
-              color={theme.colors.lightGray}
-            >
-              You received this email because you subscribed to this newsletter
-              at{' '}
-              <a
-                href={hostUrl}
-                style={{ color: `${theme.colors.primary} !important` }}
+            })}
+          <MjmlSection>
+            <MjmlColumn width={'100%'}>
+              <MjmlText
+                fontSize={16}
+                fontWeight={400}
+                lineHeight="20px"
+                paddingTop={16}
+                fontFamily={theme.fontFamily.bodyPrimary}
+                color={theme.colors.lightGray}
               >
-                digest.club
-              </a>
-              . If you{"'"}d like to unsubscribe, click{' '}
-              <a
-                // `params.email` interpolation is done by sendinblue
-                href={`${hostUrl}/unsubscribe?email={{params.email}}&teamId=${teamId}`}
-                rel="nofollow"
-                style={{ color: `${theme.colors.primary} !important` }}
-              >
-                here
-              </a>
-              .
-            </MjmlText>
-          </MjmlColumn>
-        </MjmlSection>
-      </MjmlWrapper>
-    </MjmlBody>
-  </Mjml>
-);
+                You received this email because you subscribed to this
+                newsletter at{' '}
+                <a
+                  href={hostUrl}
+                  style={{ color: `${primaryColor} !important` }}
+                >
+                  digest.club
+                </a>
+                . If you{"'"}d like to unsubscribe, click{' '}
+                <a
+                  // `params.email` interpolation is done by sendinblue
+                  href={`${hostUrl}/unsubscribe?email={{params.email}}&teamId=${team.id}`}
+                  rel="nofollow"
+                  style={{ color: `${primaryColor} !important` }}
+                >
+                  here
+                </a>
+                .
+              </MjmlText>
+            </MjmlColumn>
+          </MjmlSection>
+        </MjmlWrapper>
+      </MjmlBody>
+    </Mjml>
+  );
+};
 
 export default NewsletterEmail;
