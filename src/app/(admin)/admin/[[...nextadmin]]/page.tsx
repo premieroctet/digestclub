@@ -6,7 +6,7 @@ import { NextAdmin } from '@premieroctet/next-admin';
 import { getPropsFromParams } from '@premieroctet/next-admin/dist/appRouter';
 import '@/theme/admin.css';
 import '@premieroctet/next-admin/dist/styles.css';
-import schema from '../../../../prisma/json-schema/json-schema.json';
+import schema from '../../../../../prisma/json-schema/json-schema.json';
 import { options } from '@/utils/nextadmin';
 import { submitFormAction } from '@/actions/nextadmin';
 import {
