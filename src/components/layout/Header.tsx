@@ -1,5 +1,3 @@
-'use client';
-
 import { routes } from '@/core/constants';
 import { Team } from '@prisma/client';
 import { Session } from 'next-auth';
@@ -8,17 +6,10 @@ import Button from '../Button';
 import Logo from './Logo';
 import NavList from './NavList';
 import { NavMenu } from './NavMenu/NavMenu';
-import { usePathname } from 'next/navigation';
 
 type Props = { teams?: Team[]; user?: Session['user'] };
 
 export default function Header({ teams, user }: Props) {
-  const pathname = usePathname();
-
-  if (pathname?.startsWith('/admin')) {
-    return null;
-  }
-
   return (
     <div className="flex items-center bg-white relative z-50">
       <div className="max-w-screen-xl w-full p-2 mx-auto flex justify-between items-center">
