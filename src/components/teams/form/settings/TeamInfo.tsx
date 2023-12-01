@@ -12,6 +12,7 @@ import updateTeamInfo from '@/actions/update-team-info';
 import TeamColorField from './TeamColorField';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import TeamMenuTitle from '../../TeamMenuTitle';
+import TeamMenuContent from '../../TeamMenuContent';
 
 const PRO_FIELDS = ['prompt'];
 
@@ -42,26 +43,23 @@ const TeamInfo = ({ team }: { team: Team }) => {
   const { refresh, isRefreshing } = useTransitionRefresh();
 
   const onSubmit = (e: FormEvent) =>
-    startTransition(
-      //@ts-expect-error
-      async () => {
-        handleSubmit(async (values) => {
-          let changedValues: Partial<Team> = {};
-          Object.keys(dirtyFields).map((key) => {
-            changedValues[key as FieldName] = values[key as FieldName];
-          });
-          const { error } = await updateTeamInfo(changedValues, team?.id);
-          if (error) {
-            errorToast(error.message);
-          } else {
-            successToast('Team info updated successfully');
-            refresh();
-          }
+    startTransition(async () => {
+      handleSubmit(async (values) => {
+        let changedValues: Partial<Team> = {};
+        Object.keys(dirtyFields).map((key) => {
+          changedValues[key as FieldName] = values[key as FieldName];
+        });
+        const { error } = await updateTeamInfo(changedValues, team?.id);
+        if (error) {
+          errorToast(error.message);
+        } else {
+          successToast('Team info updated successfully');
+          refresh();
+        }
 
-          reset({}, { keepValues: true });
-        })(e);
-      }
-    );
+        reset({}, { keepValues: true });
+      })(e);
+    });
 
   return (
     <>
@@ -69,40 +67,42 @@ const TeamInfo = ({ team }: { team: Team }) => {
         title="Team Info"
         subtitle="Fill your team info, they will be displayed on your public Team page"
       />
-      <FormProvider {...methods}>
-        {/* @ts-expect-error */}
-        <form action={onSubmit}>
-          <div className="flex flex-col gap-6 pt-4">
-            <div className="flex flex-col gap-4">
-              {fieldsData
-                .filter(
-                  (field) =>
-                    team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
-                )
-                .map((field) => (
-                  <SettingsField
-                    {...field}
-                    key={field.id}
-                    defaultValue={team[field.id] || ''}
-                  />
-                ))}
+      <TeamMenuContent>
+        <FormProvider {...methods}>
+          {/* @ts-expect-error */}
+          <form action={onSubmit}>
+            <div className="flex flex-col gap-6 pt-4">
+              <div className="flex flex-col gap-4">
+                {fieldsData
+                  .filter(
+                    (field) =>
+                      team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
+                  )
+                  .map((field) => (
+                    <SettingsField
+                      {...field}
+                      key={field.id}
+                      defaultValue={team[field.id] || ''}
+                    />
+                  ))}
 
-              <TeamColorField id="color" label="Team Color" team={team} />
+                <TeamColorField id="color" label="Team Color" team={team} />
+              </div>
+
+              <Button
+                fullWidth
+                type="submit"
+                isLoading={isPending}
+                disabled={!isDirty}
+              >
+                Save
+              </Button>
+
+              <DangerZoneTeam team={team} />
             </div>
-
-            <Button
-              fullWidth
-              type="submit"
-              isLoading={isPending}
-              disabled={!isDirty}
-            >
-              Save
-            </Button>
-
-            <DangerZoneTeam team={team} />
-          </div>
-        </form>
-      </FormProvider>
+          </form>
+        </FormProvider>
+      </TeamMenuContent>
     </>
   );
 };

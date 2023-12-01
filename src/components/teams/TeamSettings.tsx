@@ -8,7 +8,7 @@ import SectionContainer from '../layout/SectionContainer';
 import Loader from '../Loader';
 import { Breadcrumb } from './Breadcrumb';
 import TeamInfo from './form/settings/TeamInfo';
-import TeamUsers from './TeamUsers';
+import TeamUsers from './form/settings/TeamUsers';
 import { Session } from 'next-auth';
 import TeamTemplates from './form/settings/TeamTemplates';
 import TeamIntegrations from './form/settings/TeamIntegrations';
@@ -58,8 +58,8 @@ export const TeamSettings = ({
           selectedMenu={selectedMenu}
           setSelectedMenu={setSelectedMenu}
         />
-        <SectionContainer title={team.name} className="flex-1 w-full">
-          <div className="max-w-xl">
+        <SectionContainer className="flex-1 w-full">
+          <div className="w-full">
             <div className={clsx(selectedMenu !== 'info' && 'hidden')}>
               <TeamInfo team={team} />
             </div>
