@@ -19,7 +19,6 @@ const InvitationList = ({ invitations }: Props) => {
   const [isPending, startTransition] = useTransition();
 
   const handleDeleteInvitation = async (invitation: TeamInvitation) => {
-    // @ts-expect-error
     startTransition(async () => {
       const { error } = await deleteInvitation(invitation.id);
       if (error) {
