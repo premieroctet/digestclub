@@ -16,8 +16,9 @@ export default function InvitationForm({
   label,
 }: Props) {
   return (
-    <div className="flex justify-center">
+    <div className="flex w-full">
       <form
+        className="w-full"
         onSubmit={(e) => {
           e.preventDefault();
           if (email) {
@@ -25,13 +26,13 @@ export default function InvitationForm({
           }
         }}
       >
-        <fieldset className="group w-full flex flex-col gap-2 items-stretch">
+        <fieldset className="group w-full flex flex-col gap-2">
           <label htmlFor="email" className="font-bold sr-only">
             Email
           </label>
 
           <div className="mt-2 w-full">
-            <div className=" flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-sm pr-0">
+            <div className=" flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 pr-0">
               <Input
                 placeholder="Email"
                 value={email}

@@ -6,7 +6,7 @@ const TeamMenuTitle = ({
   subtitle: string;
 }) => {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 pb-4">
       <span>
         <h3 className="text-3xl font-semibold leading-7 text-center">
           {title}
