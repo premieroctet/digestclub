@@ -43,7 +43,7 @@ const TeamInfo = ({ team }: { team: Team }) => {
   const { refresh, isRefreshing } = useTransitionRefresh();
 
   const onSubmit = (e: FormEvent) =>
-    startTransition(async () => {
+    startTransition(() => {
       handleSubmit(async (values) => {
         let changedValues: Partial<Team> = {};
         Object.keys(dirtyFields).map((key) => {
