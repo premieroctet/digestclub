@@ -31,7 +31,6 @@ const CreateTemplateModal = ({
     {
       title: string;
       digestBlocks: CreateBlockData[];
-      isTemplate: boolean;
     }
   >(
     'save-digest-template',
@@ -59,7 +58,6 @@ const CreateTemplateModal = ({
     saveTemplate({
       title: `${team?.slug}-template-${templateTitle}`,
       digestBlocks: templateBlocks,
-      isTemplate: true,
     });
   };
 
