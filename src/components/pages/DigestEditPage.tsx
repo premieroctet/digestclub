@@ -309,7 +309,7 @@ export const DigestEditPage = ({
             </SectionContainer>
           </div>
 
-          <SectionContainer className={clsx(' w-full h-min md:w-1/2')}>
+          <SectionContainer className={clsx(' w-full h-min md:w-1/2 sticky top-4')}>
             <form className="flex flex-col gap-5" onBlur={handleSubmit(onBlur)}>
               <div className="w-full items-start flex flex-col gap-6">
                 <Input
