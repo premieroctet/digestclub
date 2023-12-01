@@ -4,7 +4,7 @@ import { AuthApiRequest, errorHandler } from '@/lib/router';
 import { reorderList } from '@/utils/actionOnList';
 import type { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
-import { stdout } from 'process';
+import * as Sentry from '@sentry/nextjs';
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 
@@ -76,23 +76,30 @@ router
   .use(checkTeam)
   .use(checkDigest)
   .post(async (req, res) => {
-    const digestId = req.query.digestId as string;
-    const { blockId, position } = req.body as {
-      blockId: string;
-      position: number;
-    };
-    const teamId = req.query.teamId as string;
+    try {
+      const digestId = req.query.digestId as string;
+      const { blockId, position } = req.body as {
+        blockId: string;
+        position: number;
+      };
+      const teamId = req.query.teamId as string;
 
-    await client.digest.findFirstOrThrow({
-      where: {
-        id: digestId,
-        teamId: teamId,
-      },
-    });
+      await client.digest.findFirstOrThrow({
+        where: {
+          id: digestId,
+          teamId: teamId,
+        },
+      });
 
-    const orderResult = await orderBlock(digestId, blockId, position);
+      const orderResult = await orderBlock(digestId, blockId, position);
 
-    return res.status(201).json(orderResult);
+      return res.status(201).json(orderResult);
+    } catch (error) {
+      Sentry.captureException(error);
+      return res.status(500).json({
+        error: 'Internal server error',
+      });
+    }
   });
 
 export default router.handler({

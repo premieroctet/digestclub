@@ -8,28 +8,34 @@ import useCustomToast from '@/hooks/useCustomToast';
 import { useMutation } from 'react-query';
 import api from '@/lib/api';
 import { Input } from '../../Input';
-import { DigestBlock, Team } from '@prisma/client';
+import { DigestBlock, DigestBlockType, Team } from '@prisma/client';
+import { AxiosError } from 'axios';
+import { CreateBlockData } from '@/pages/api/teams/[teamId]/digests/[digestId]/block';
 
 const CreateTemplateModal = ({
   team,
-  digestBlocks,
+  templateBlocks,
 }: {
   team: Team;
-  digestBlocks: DigestBlock[];
+  templateBlocks: CreateBlockData[]; // only template blocks
 }) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   const router = useRouter();
   const { errorToast, successToast } = useCustomToast();
 
-  const { mutate: saveTemplate, isLoading } = useMutation(
+  // find type for useMutation
+  const { mutate: saveTemplate, isLoading } = useMutation<
+    any,
+    AxiosError,
+    {
+      title: string;
+      digestBlocks: CreateBlockData[];
+      isTemplate: boolean;
+    }
+  >(
     'save-digest-template',
-    (title: string) =>
-      api.post(`/teams/${team.id}/digests`, {
-        title: `${team?.slug}-template-${title}`,
-        digestBlocks,
-        isTemplate: 'true',
-      }),
+    (data) => api.post(`/teams/${team.id}/template`, data),
     {
       onSuccess: () => {
         successToast('Your template has been saved');
@@ -48,12 +54,16 @@ const CreateTemplateModal = ({
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const template = e.currentTarget.template.value;
-    if (!template) return;
-    saveTemplate(template);
+    const templateTitle = e.currentTarget.template.value as string;
+    if (!templateTitle) return;
+    saveTemplate({
+      title: `${team?.slug}-template-${templateTitle}`,
+      digestBlocks: templateBlocks,
+      isTemplate: true,
+    });
   };
 
-  if (!digestBlocks?.length) return null;
+  if (!templateBlocks?.length) return null;
   return (
     <div className="py-4">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
