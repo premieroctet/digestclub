@@ -1,11 +1,5 @@
-import Header from '@/components/layout/Header';
-import { getUserTeams } from '@/lib/queries';
-import { getSession } from '@/lib/sessions';
 import { getEnvHost } from '@/lib/server';
 import { Metadata } from 'next';
-import '../theme/app.css';
-import '@/theme/globals.css';
-import Providers from './providers';
 
 export const dynamic = 'force-dynamic';
 
@@ -48,18 +42,10 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: Props) {
-  const session = await getSession();
-  const teams = session?.user.id
-    ? await getUserTeams(session.user.id)
-    : undefined;
-
   return (
     <html lang="en">
-      <body className="flex flex-col font-sans overflow-x-hidden">
-        <Providers>
-          <Header teams={teams} user={session?.user} />
-          {children}
-        </Providers>
+      <body className="flex flex-col font-sans overflow-x-hidden bg-white">
+        {children}
       </body>
     </html>
   );

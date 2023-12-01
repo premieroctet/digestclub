@@ -17,19 +17,28 @@ import {
   ArrowLeftOnRectangleIcon,
   PlusIcon,
 } from '@heroicons/react/24/solid';
+import { useEffect, useTransition } from 'react';
+import updateDefaultTeam from '@/actions/update-default-team';
 
 type Props = {
   teams?: Team[];
   user: Session['user'];
 };
 
-export const NavMenu = ({ teams }: Props) => {
+export const NavMenu = ({ teams, user }: Props) => {
   const pathName = usePathname();
   const currentTeam = teams?.find((team) => pathName?.includes(team.slug));
+  const [_, startTransition] = useTransition();
 
   function onSignOut() {
     signOut({ callbackUrl: '/' });
   }
+  useEffect(() => {
+    if (!currentTeam) return;
+    startTransition(async () => {
+      updateDefaultTeam(user.id, currentTeam.id);
+    });
+  }, [currentTeam]);
 
   return (
     <div className="relative flex items-stretch">

@@ -15,6 +15,7 @@ export default function SettingsField({
   rightElement,
   selectDefault,
   selectOptions,
+  maxLength,
 }: FieldData) {
   const {
     register,
@@ -70,6 +71,7 @@ export default function SettingsField({
             <TextArea
               defaultValue={defaultValue || ''}
               placeholder={placeholder}
+              maxLength={maxLength}
               {...register(id, {
                 ...(!!registerOptions && registerOptions),
               })}

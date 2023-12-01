@@ -14,6 +14,7 @@ export const openAiCompletion = async ({
   const chatCompletion = await openai.chat.completions.create({
     messages: [{ role: 'user', content: prompt }],
     model,
+    temperature: 0.5,
   });
 
   return chatCompletion.choices;

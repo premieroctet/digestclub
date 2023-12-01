@@ -1,5 +1,5 @@
 import DigestPublicPage from '@/components/pages/DigestPublicPage';
-import { getPublicDigest } from '@/lib/queries';
+import { getPublicDigest, incrementDigestView } from '@/lib/queries';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
@@ -50,6 +50,8 @@ const PublicDigestPage = async ({ params }: PageProps) => {
   if (!digest) {
     redirect('/');
   }
+
+  incrementDigestView(digest.id);
 
   return <DigestPublicPage digest={digest} />;
 };

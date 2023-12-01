@@ -1,6 +1,9 @@
+'use server';
+
 import { DigestBlockType, Prisma } from '@prisma/client';
 import { unstable_cache } from 'next/cache';
 import db from './db';
+
 export const getUserById = (userId: string) =>
   db.user.findUnique({
     where: {
@@ -254,6 +257,21 @@ export const getTeamLinks = async (
   };
 };
 
+/**
+ * Returns the number links of a team, (all links, not only the ones in the team page)
+ */
+export const countAllTeamLinks = async (teamId: string) => {
+  return db.link.count({
+    where: {
+      bookmark: {
+        some: {
+          teamId,
+        },
+      },
+    },
+  });
+};
+
 export type TeamLinksData = Awaited<ReturnType<typeof getTeamLinks>>;
 
 export type TeamLinks = TeamLinksData['teamLinks'];
@@ -387,6 +405,7 @@ export const getPublicDigest = (
 ) =>
   db.digest.findFirst({
     select: {
+      id: true,
       publishedAt: true,
       title: true,
       description: true,
@@ -565,6 +584,32 @@ export const getTeamSubscriptions = async (teamSlug: string) => {
     },
   });
   return subscriptions;
+};
+
+export const incrementDigestView = async (digestId: string) => {
+  return db.digest.update({
+    where: {
+      id: digestId,
+    },
+    data: {
+      views: {
+        increment: 1,
+      },
+    },
+  });
+};
+
+export const incrementLinkView = async (bookmarkId: string) => {
+  return db.bookmark.update({
+    where: {
+      id: bookmarkId,
+    },
+    data: {
+      views: {
+        increment: 1,
+      },
+    },
+  });
 };
 
 export type Member = Awaited<ReturnType<typeof getTeamMembers>>[number];

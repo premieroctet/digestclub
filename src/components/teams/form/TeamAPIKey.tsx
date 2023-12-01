@@ -35,19 +35,16 @@ export default function TeamAPIKeyServer({ team }: Props) {
   }, [isAnimating]);
 
   function handleClick() {
-    startTransition(
-      //@ts-expect-error
-      async () => {
-        const { error } = await generateAPIKey(team.id);
-        if (error) {
-          errorToast(error.message);
-          return;
-        } else {
-          successToast('Team API Key updated successfully');
-          router.refresh();
-        }
+    startTransition(async () => {
+      const { error } = await generateAPIKey(team.id);
+      if (error) {
+        errorToast(error.message);
+        return;
+      } else {
+        successToast('Team API Key updated successfully');
+        router.refresh();
       }
-    );
+    });
   }
 
   return (

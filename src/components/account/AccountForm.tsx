@@ -29,7 +29,6 @@ const AccountForm = ({ user }: Props) => {
     >
       <form
         className="flex flex-col items-end mt-4 gap-6 w-full max-w-2xl"
-        //@ts-expect-error
         action={async (formData) => {
           // validation du formulaire
           const { error } = await updateUser(formData);

@@ -13,5 +13,5 @@ export default async function Layout({
     redirect(authOptions.pages!.signIn!);
   }
 
-  return children;
+  return children as JSX.Element;
 }

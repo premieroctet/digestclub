@@ -1,4 +1,5 @@
 import { getDomainFromUrl } from '@/utils/url';
+import { ChartBarIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 
 function CardStyleInline({
@@ -6,11 +7,15 @@ function CardStyleInline({
   description,
   url,
   panelSlot,
+  onClick,
+  views
 }: {
   title?: string;
   description?: string;
   url: string;
   panelSlot: React.ReactNode;
+  onClick: () => void,
+  views?: number;
 }) {
   const hasPanel = Boolean(panelSlot);
   return (
@@ -25,6 +30,7 @@ function CardStyleInline({
         className="flex w-full overflow-hidden"
         rel="noopener noreferrer"
         target="_blank"
+        onClick={onClick}
       >
         <div
           className={clsx(
@@ -43,6 +49,11 @@ function CardStyleInline({
             <p className="text-sm mt-1 text-slate-400">
               {getDomainFromUrl(url)}
             </p>
+            {typeof views !== "undefined" && views > 0 && <div className="flex items-center text-sm text-gray-400 mt-1">
+              <div className="flex items-center">
+                <ChartBarIcon className="text-gray-400 h-4 w-4 mr-1" /> {`${views} view${views > 1 ? 's' : ''}`}
+              </div>
+            </div>}
           </div>
         </div>
       </a>

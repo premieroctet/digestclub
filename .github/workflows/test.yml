@@ -14,13 +14,14 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
       - name: 'Create env file'
         run: |
           touch .env
           echo NEXTAUTH_SECRET="RANDOMEKEY" >> .env
           echo JWT_SECRET="RANDOMEKEY" >> .env
           echo OPENAI_API_KEY="RANDOMEKEY" >> .env
+          echo SKIP_SITEMAP_GENERATION="true" >> .env
           cat .env
       - name: Install dependencies
         run: yarn install

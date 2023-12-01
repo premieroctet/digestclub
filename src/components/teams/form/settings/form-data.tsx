@@ -29,6 +29,7 @@ export interface FieldData {
   prefix?: string;
   selectDefault?: string;
   selectOptions?: SelectOptionProps[];
+  maxLength?: number;
 }
 
 export const fieldsData: FieldData[] = [
@@ -88,5 +89,6 @@ export const fieldsData: FieldData[] = [
     label: 'Summary generator prompt',
     placeholder:
       'Add a custom prompt for bookmark summary generation. Your prompt will be followed by : + article content',
+    maxLength: 4000,
   },
 ];

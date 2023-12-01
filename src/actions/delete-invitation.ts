@@ -2,7 +2,7 @@
 import db from '@/lib/db';
 import * as Sentry from '@sentry/nextjs';
 import { checkAuthAction, getErrorMessage } from './utils';
-import { revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 interface DeleteInvitationResult {
   error?: {
@@ -32,6 +32,7 @@ export default async function deleteInvitation(
       },
     });
 
+    revalidatePath('/teams/[teamSlug]/settings');
     return { data: { invitationId } };
   } catch (err: any) {
     Sentry.captureException(err);

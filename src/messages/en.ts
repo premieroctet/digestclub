@@ -152,7 +152,7 @@ const message = {
       seeAll: 'See all digests',
       twitter: {
         success: 'Tweet sent successfully',
-        error: 'An error occured while sending the tweet',
+        error: 'An error occurred while sending the tweet',
         title: 'Twitter thread',
         description: 'Summary',
         submit: 'Submit on Twitter',
@@ -173,7 +173,7 @@ const message = {
       'You will be redirected. If you are not redirected automatically click <a>here</a>.',
     delete: {
       success: 'Invitation deleted',
-      error: 'An error occured while deleting the invitation',
+      error: 'An error occurred while deleting the invitation',
     },
   },
   close: 'Close',
@@ -208,7 +208,7 @@ const message = {
       teamname_required: 'Team name is required',
       noSpecialChar: 'Team name cannot includes special characters',
       minLength: 'Team name should be at least 3 characters long',
-      default_error: 'An error occured during team creation',
+      default_error: 'An error occurred during team creation',
       existing_teamname:
         'This team name is already used, please choose another one',
     },
@@ -287,6 +287,7 @@ const message = {
         already_bookmarked:
           'You have already bookmarked this link in this team',
         invalid_link: 'Invalid link provided',
+        invalid_content_type: 'Invalid content type, only text or pdf allowed',
       },
     },
   },
@@ -366,7 +367,7 @@ const message = {
         title: 'Delete Link',
         msg: 'You are about to delete the following link :',
         undone: "This action can't be undone.",
-        defaultError: 'An error occured while deleting link',
+        defaultError: 'An error occurred while deleting link',
         success: 'Your link has been deleted',
       },
       noLinks: "Let's add links!",
@@ -398,7 +399,7 @@ const message = {
         loading: 'Gathering data from link',
       },
       errors: {
-        defaultError: 'An error occured during your link creation',
+        defaultError: 'An error occurred during your link creation',
         alreadyExist: 'You have already posted this link in this feed',
         invalidLink: 'The link you provided is not valid',
       },
