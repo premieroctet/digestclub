@@ -7,11 +7,14 @@ import PageContainer from '../layout/PageContainer';
 import SectionContainer from '../layout/SectionContainer';
 import Loader from '../Loader';
 import { Breadcrumb } from './Breadcrumb';
-import SettingsForm from './form/settings/SettingsForm';
-import TeamSettingsMembers from './TeamSettingsMembers';
+import TeamInfo from './form/settings/TeamInfo';
+import TeamUsers from './form/settings/TeamUsers';
 import { Session } from 'next-auth';
 import TeamTemplates from './form/settings/TeamTemplates';
 import TeamIntegrations from './form/settings/TeamIntegrations';
+import TeamToolBar from './TeamToolBar';
+import { useState } from 'react';
+import clsx from 'clsx';
 
 type Props = {
   team: Team;
@@ -30,6 +33,7 @@ export const TeamSettings = ({
   subscriptions,
   templates,
 }: Props) => {
+  const [selectedMenu, setSelectedMenu] = useState('info');
   if (!team || !members || !subscriptions) return <Loader fullPage />;
 
   return (
@@ -49,24 +53,34 @@ export const TeamSettings = ({
         />
       }
     >
-      <SectionContainer title={team.name}>
-        <div className="flex flex-col md:flex-row gap-10 ">
-          <div className="rounded-lg w-full md:w-1/2 lg:w-[55%]">
-            <SettingsForm team={team} />
-            <TeamTemplates team={team} templates={templates} />
-            <TeamIntegrations team={team} />
+      <div className="flex md:flex-row  flex-col gap-4 pb-4">
+        <TeamToolBar
+          selectedMenu={selectedMenu}
+          setSelectedMenu={setSelectedMenu}
+        />
+        <SectionContainer className="flex-1 w-full">
+          <div className="w-full">
+            <div className={clsx(selectedMenu !== 'info' && 'hidden')}>
+              <TeamInfo team={team} />
+            </div>
+            <div className={clsx(selectedMenu !== 'templates' && 'hidden')}>
+              <TeamTemplates team={team} templates={templates} />
+            </div>
+            <div className={clsx(selectedMenu !== 'integrations' && 'hidden')}>
+              <TeamIntegrations team={team} />
+            </div>
+            <div className={clsx(selectedMenu !== 'members' && 'hidden')}>
+              <TeamUsers
+                members={members}
+                invitations={invitations}
+                teamId={team.id.toString()}
+                user={user}
+                subscriptions={subscriptions}
+              />
+            </div>
           </div>
-          <div className="w-full md:w-1/2 lg:w-[45%]">
-            <TeamSettingsMembers
-              members={members}
-              invitations={invitations}
-              teamId={team.id.toString()}
-              user={user}
-              subscriptions={subscriptions}
-            />
-          </div>
-        </div>
-      </SectionContainer>
+        </SectionContainer>
+      </div>
     </PageContainer>
   );
 };

@@ -6,6 +6,9 @@ import { TeamInvitation } from '@/lib/queries';
 import message from '@/messages/en';
 import InvitationItem from './InvitationItem';
 import deleteInvitation from '@/actions/delete-invitation';
+import { Invitation } from '@prisma/client';
+import NoContent from '@/components/layout/NoContent';
+import { UserIcon } from '@heroicons/react/24/solid';
 
 type Props = {
   invitations: TeamInvitation[];
@@ -37,6 +40,13 @@ const InvitationList = ({ invitations }: Props) => {
           isLoading={isPending}
         />
       ))}
+      {!invitations?.length && (
+        <NoContent
+          icon={<UserIcon className="h-10 w-10" />}
+          title="No invitations"
+          subtitle="There is no pending invitation for your team."
+        />
+      )}
     </div>
   );
 };
