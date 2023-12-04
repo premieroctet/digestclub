@@ -3,9 +3,14 @@
 import PageContainer from '@/components/layout/PageContainer';
 import React from 'react';
 import { Breadcrumb } from '../../Breadcrumb';
-import TeamToolBar, { SettingToolBarProps } from './SettingToolBar';
-import { routes } from '@/core/constants';
 import { Props as BreadcrumbProps } from '../../Breadcrumb';
+
+import { ReactNode } from 'react';
+import clsx from 'clsx';
+import NextLink from 'next/link';
+import { Tooltip } from '@/components/Tooltip';
+import Link from '@/components/Link';
+import { usePathname } from 'next/navigation';
 
 function Header({ title, subtitle }: { title: string; subtitle: string }) {
   return (
@@ -24,6 +29,85 @@ function Content({ children }: { children: React.ReactNode }) {
   return <div className="flex flex-col gap-4 max-w-[600px]">{children}</div>;
 }
 
+function SmallItem({ title, icon, isActive, href }: ToolBarItem) {
+  return (
+    <div className="lg:hidden block w-full">
+      <Tooltip
+        side="left"
+        asChild
+        trigger={
+          <Link
+            href={href}
+            className="w-full md:w-6"
+            variant={isActive ? 'default' : 'ghost'}
+          >
+            {icon}
+          </Link>
+        }
+      >
+        {title}
+      </Tooltip>
+    </div>
+  );
+}
+
+function LargeItem({ title, icon, isActive, href }: ToolBarItem) {
+  return (
+    <NextLink
+      href={href}
+      className={clsx(
+        'hidden lg:flex gap-5 items-center  text-gray-700 py-3 px-4 rounded-md cursor-pointer ',
+        {
+          'opacity-100 text-violet-700 ': isActive,
+          'opacity-50 hover:bg-violet-100 hover:opacity-100 hover:text-violet-700':
+            !isActive,
+        }
+      )}
+    >
+      <p className="text-base font-medium  w-[12ch]">{title}</p>
+      <span className="w-6">{icon}</span>
+    </NextLink>
+  );
+}
+
+function ToolBarItem(props: ToolBarItem) {
+  return (
+    <div className="flex items-center flex-1 sm:flex-auto">
+      <SmallItem {...props} />
+      <LargeItem {...props} />
+    </div>
+  );
+}
+
+export interface ToolBarItem {
+  id: string;
+  title: string;
+  icon: ReactNode;
+  isActive: boolean;
+  href: string;
+}
+
+function Toolbar({ items }: { items: ToolBarItem[] }) {
+  const pathname = usePathname();
+  return (
+    <div>
+      <div className="flex md:flex-col flex-row justify-around  md:gap-7 lg:gap-4 sm:gap-10 gap-2 lg:px-4 md:px-2 py-4">
+        {items.map(({ id, href, ...props }) => {
+          return (
+            <ToolBarItem
+              key={id}
+              id={id}
+              href={href}
+              {...props}
+              isActive={pathname === href}
+            />
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 export default function SettingsPageLayout({
   children,
   title,
@@ -36,7 +120,7 @@ export default function SettingsPageLayout({
   subtitle: string;
   icon?: React.ReactNode;
   breadcrumbItems?: BreadcrumbProps['paths'];
-  menuItems: SettingToolBarProps['items'];
+  menuItems: ToolBarItem[];
 }) {
   return (
     <PageContainer
@@ -45,7 +129,7 @@ export default function SettingsPageLayout({
       }
     >
       <div className="flex md:flex-row flex-col gap-4 shadow-md bg-white rounded-lg px-8 md:px-0">
-        <TeamToolBar items={menuItems} />
+        <Toolbar items={menuItems} />
         <div className="flex-1 py-4">
           <div className="w-full">
             <Header title={title} subtitle={subtitle} />
