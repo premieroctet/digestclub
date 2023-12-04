@@ -1,23 +1,34 @@
 'use client';
-import { TEAM_SETTINGS_ITEMS } from '@/core/constants';
 import TeamToolBarItem from '../../TeamToolBarItem';
 
 import { usePathname } from 'next/navigation';
+import { ReactNode } from 'react';
 
-const TeamToolBar = ({ teamSlug }: { teamSlug: string }) => {
+export interface TeamToolBarItem {
+  id: string;
+  title: string;
+  icon: ReactNode;
+  isActive: boolean;
+  href: string;
+}
+
+export interface SettingToolBarProps {
+  items: TeamToolBarItem[];
+}
+
+const SettingToolBar = ({ items }: SettingToolBarProps) => {
   const pathname = usePathname();
   return (
     <div>
       <div className="flex md:flex-col flex-row justify-around  md:gap-7 lg:gap-4 sm:gap-10 gap-2 lg:px-4 md:px-2 py-4">
-        {TEAM_SETTINGS_ITEMS.map(({ title, icon, id, routePath }) => {
-          const itemPath = routePath.replace(':slug', teamSlug);
+        {items.map(({ title, icon, id, href }) => {
           return (
             <TeamToolBarItem
               key={id}
               title={title}
               icon={icon}
-              href={itemPath}
-              isActive={pathname === itemPath}
+              href={href}
+              isActive={pathname === href}
             />
           );
         })}
@@ -26,4 +37,4 @@ const TeamToolBar = ({ teamSlug }: { teamSlug: string }) => {
   );
 };
 
-export default TeamToolBar;
+export default SettingToolBar;

@@ -5,7 +5,7 @@ import { checkUserTeamBySlug } from '@/lib/queries';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
 import TeamIntegrations from '@/components/teams/form/settings/TeamIntegrations';
-import TeamSettingsPageLayout from '@/components/teams/form/settings/SettingsPageLayout';
+import SettingsPageLayout from '@/components/teams/form/settings/SettingsPageLayout';
 import { TEAM_SETTINGS_ITEMS, routes } from '@/core/constants';
 
 export default async function Page({ params }: TeamPageProps) {
@@ -26,17 +26,33 @@ export default async function Page({ params }: TeamPageProps) {
     throw new Error('Page not implemented (see core/constants.tsx)');
   }
   const { title, subtitle, routePath } = pageInfo;
+
+  const menuItems = TEAM_SETTINGS_ITEMS.map((item) => ({
+    ...item,
+    href: item.routePath.replace(':slug', team.slug),
+    isActive: item.id === 'integrations',
+  }));
+
   return (
-    <TeamSettingsPageLayout
-      team={team}
+    <SettingsPageLayout
       title={title}
       subtitle={subtitle}
-      breadcrumbCurrentItem={{
-        name: title,
-        href: routePath.replace(':slug', team.slug),
-      }}
+      menuItems={menuItems}
+      breadcrumbItems={[
+        {
+          name: team.name,
+          href: routes.TEAM.replace(':slug', team.slug),
+        },
+        {
+          name: 'Settings',
+        },
+        {
+          name: title,
+          href: routePath.replace(':slug', team.slug),
+        },
+      ]}
     >
       <TeamIntegrations team={team} />
-    </TeamSettingsPageLayout>
+    </SettingsPageLayout>
   );
 }

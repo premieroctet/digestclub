@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
 
-type Props = {
+export type Props = {
   paths?: {
     name: string;
     href?: string;

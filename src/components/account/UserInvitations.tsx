@@ -10,10 +10,7 @@ const UserInvitations = ({
   invitations: UserInvitationsResults;
 }) => {
   return (
-    <SectionContainer
-      title="My invitations"
-      className="flex justify-center max-w-2xl m-auto w-full"
-    >
+    <div className="py-2">
       {invitations?.length ? (
         <p className="pb-4">Find all pending invitations below</p>
       ) : (
@@ -24,7 +21,7 @@ const UserInvitations = ({
           <UserInvitationItem key={invitation?.id} invitation={invitation} />
         ))}
       </div>
-    </SectionContainer>
+    </div>
   );
 };
 

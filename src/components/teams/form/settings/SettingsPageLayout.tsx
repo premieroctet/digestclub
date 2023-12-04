@@ -3,8 +3,9 @@
 import PageContainer from '@/components/layout/PageContainer';
 import React from 'react';
 import { Breadcrumb } from '../../Breadcrumb';
-import TeamToolBar from './TeamToolBar';
+import TeamToolBar, { SettingToolBarProps } from './SettingToolBar';
 import { routes } from '@/core/constants';
+import { Props as BreadcrumbProps } from '../../Breadcrumb';
 
 function Header({ title, subtitle }: { title: string; subtitle: string }) {
   return (
@@ -25,43 +26,26 @@ function Content({ children }: { children: React.ReactNode }) {
 
 export default function SettingsPageLayout({
   children,
-  team,
   title,
   subtitle,
-  breadcrumbCurrentItem,
+  breadcrumbItems,
+  menuItems,
 }: {
   children: React.ReactNode;
   title: string;
   subtitle: string;
-  team: {
-    slug: string;
-    name: string;
-  };
   icon?: React.ReactNode;
-  breadcrumbCurrentItem?: {
-    name: string;
-    href: string;
-  };
+  breadcrumbItems?: BreadcrumbProps['paths'];
+  menuItems: SettingToolBarProps['items'];
 }) {
   return (
     <PageContainer
       breadCrumb={
-        <Breadcrumb
-          paths={[
-            {
-              name: team.name,
-              href: routes.TEAM.replace(':slug', team.slug),
-            },
-            {
-              name: 'Settings',
-            },
-            ...(breadcrumbCurrentItem ? [breadcrumbCurrentItem] : []),
-          ]}
-        />
+        breadcrumbItems && <Breadcrumb paths={[...breadcrumbItems]} />
       }
     >
       <div className="flex md:flex-row flex-col gap-4 shadow-md bg-white rounded-lg px-8 md:px-0">
-        <TeamToolBar teamSlug={team.slug} />
+        <TeamToolBar items={menuItems} />
         <div className="flex-1 py-4">
           <div className="w-full">
             <Header title={title} subtitle={subtitle} />
