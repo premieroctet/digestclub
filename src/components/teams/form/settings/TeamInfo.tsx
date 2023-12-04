@@ -63,46 +63,40 @@ const TeamInfo = ({ team }: { team: Team }) => {
 
   return (
     <>
-      <TeamMenuTitle
-        title="Team Profile"
-        subtitle="Fill your team informations, they will be displayed on your public team page"
-      />
-      <TeamMenuContent>
-        <FormProvider {...methods}>
-          {/* @ts-expect-error */}
-          <form action={onSubmit}>
-            <div className="flex flex-col gap-6 pt-4">
-              <div className="flex flex-col gap-4">
-                {fieldsData
-                  .filter(
-                    (field) =>
-                      team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
-                  )
-                  .map((field) => (
-                    <SettingsField
-                      {...field}
-                      key={field.id}
-                      defaultValue={team[field.id] || ''}
-                    />
-                  ))}
+      <FormProvider {...methods}>
+        {/* @ts-expect-error */}
+        <form action={onSubmit}>
+          <div className="flex flex-col gap-6 pt-4">
+            <div className="flex flex-col gap-4">
+              {fieldsData
+                .filter(
+                  (field) =>
+                    team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
+                )
+                .map((field) => (
+                  <SettingsField
+                    {...field}
+                    key={field.id}
+                    defaultValue={team[field.id] || ''}
+                  />
+                ))}
 
-                <TeamColorField id="color" label="Team Color" team={team} />
-              </div>
-
-              <Button
-                fullWidth
-                type="submit"
-                isLoading={isPending}
-                disabled={!isDirty}
-              >
-                Save
-              </Button>
-
-              <DangerZoneTeam team={team} />
+              <TeamColorField id="color" label="Team Color" team={team} />
             </div>
-          </form>
-        </FormProvider>
-      </TeamMenuContent>
+
+            <Button
+              fullWidth
+              type="submit"
+              isLoading={isPending}
+              disabled={!isDirty}
+            >
+              Save
+            </Button>
+
+            <DangerZoneTeam team={team} />
+          </div>
+        </form>
+      </FormProvider>
     </>
   );
 };

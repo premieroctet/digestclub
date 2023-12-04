@@ -5,6 +5,8 @@ import { checkUserTeamBySlug } from '@/lib/queries';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
 import TeamIntegrations from '@/components/teams/form/settings/TeamIntegrations';
+import TeamSettingsPageLayout from '@/components/teams/form/settings/SettingsPageLayout';
+import { TEAM_SETTINGS_ITEMS, routes } from '@/core/constants';
 
 export default async function Page({ params }: TeamPageProps) {
   const teamSlug = params.teamSlug;
@@ -17,5 +19,24 @@ export default async function Page({ params }: TeamPageProps) {
   if (!team) {
     redirect('/teams');
   }
-  return <TeamIntegrations team={team} />;
+  const pageInfo = TEAM_SETTINGS_ITEMS.find(
+    (item) => item.id === 'integrations'
+  );
+  if (!pageInfo) {
+    throw new Error('Page not implemented (see core/constants.tsx)');
+  }
+  const { title, subtitle, routePath } = pageInfo;
+  return (
+    <TeamSettingsPageLayout
+      team={team}
+      title={title}
+      subtitle={subtitle}
+      breadcrumbCurrentItem={{
+        name: title,
+        href: routePath.replace(':slug', team.slug),
+      }}
+    >
+      <TeamIntegrations team={team} />
+    </TeamSettingsPageLayout>
+  );
 }

@@ -67,23 +67,29 @@ export const TEAM_SETTINGS_ITEMS = [
     title: 'Profile',
     routePath: routes.TEAM_EDIT_PROFILE,
     icon: <IdentificationIcon className="h-7 w-7" />,
+    subtitle:
+      'Fill your team informations, they will be displayed on your public team page',
   },
   {
     id: 'integrations',
     title: 'Integrations',
     routePath: routes.TEAM_EDIT_INTEGRATIONS,
     icon: <KeyIcon className="h-7 w-7" />,
+    subtitle: 'Increase your digest reach by integrating with other tools.',
   },
   {
     id: 'members',
     title: 'Members',
     routePath: routes.TEAM_EDIT_MEMBERS,
     icon: <UserIcon className="h-7 w-7" />,
+    subtitle:
+      'Manage your team members, invitations and newsletter subscriptions',
   },
   {
     id: 'templates',
     title: 'Templates',
     routePath: routes.TEAM_EDIT_TEMPLATES,
     icon: <ViewColumnsIcon className="h-7 w-7" />,
+    subtitle: 'Manage your team templates',
   },
 ];
