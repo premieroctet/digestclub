@@ -5,9 +5,9 @@ import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
 import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
 import { AxiosError, AxiosResponse } from 'axios';
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react';
 import { useMutation } from 'react-query';
-import { routes } from '@/core/constants';
+import { COOKIES, routes } from '@/core/constants';
 import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import Button from '../Button';
@@ -16,6 +16,7 @@ import { TeamDigestsResult } from '@/lib/queries';
 import { Team } from '@prisma/client';
 import { formatTemplateTitle } from './templates/TemplateItem';
 import { useForm } from 'react-hook-form';
+import { useCookies } from 'react-cookie';
 
 type Props = {
   team: Team;
@@ -29,6 +30,7 @@ export const DigestCreateInput = ({
   templates,
 }: Props) => {
   const router = useRouter();
+  const [_, setCookie] = useCookies([COOKIES.DEFAULT_TEAM]);
   const { successToast, errorToast } = useCustomToast();
   const { isRefreshing, refresh } = useTransitionRefresh();
   const methods = useForm<{ title: string; templateId?: string }>({
@@ -78,6 +80,11 @@ export const DigestCreateInput = ({
   const hasTemplates = !!templates?.length;
   const title = watch('title');
   const templateId = watch('templateId');
+
+  useEffect(() => {
+    if (!team.slug) return;
+    setCookie(COOKIES.DEFAULT_TEAM, team.slug);
+  });
 
   return (
     <div>
