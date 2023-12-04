@@ -51,7 +51,7 @@ function LargeItem({
       className={clsx(
         'hidden lg:flex gap-5 items-center  text-gray-700 py-3 px-4 rounded-md cursor-pointer ',
         {
-          'text-white opacity-100 bg-violet-700 shadow-md': isSelected,
+          'opacity-100 text-violet-700 ': isSelected,
           'opacity-50 hover:bg-violet-100 hover:opacity-100 hover:text-violet-700':
             !isSelected,
         }

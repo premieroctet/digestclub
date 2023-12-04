@@ -40,7 +40,7 @@ const TeamToolBar = ({
 }) => {
   return (
     <div>
-      <div className="flex md:flex-col flex-row justify-around md:gap-7 lg:gap-4 sm:gap-10 gap-8 lg:px-4 md:px-2 px-4 py-4 shadow-md bg-white rounded-lg ">
+      <div className="flex md:flex-col flex-row justify-around md:gap-7 lg:gap-4 sm:gap-10 gap-8 lg:px-4 md:px-2 px-4 py-4 ">
         {TEAM_SETTINGS_ITEMS.map(({ title, icon, id }) => (
           <TeamToolBarItem
             key={id}

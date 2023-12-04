@@ -5,7 +5,5 @@ export default function TeamMenuContent({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <div className="flex flex-col gap-4 max-w-[600px] m-auto">{children}</div>
-  );
+  return <div className="flex flex-col gap-4 max-w-[600px]">{children}</div>;
 }

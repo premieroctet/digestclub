@@ -53,12 +53,12 @@ export const TeamSettings = ({
         />
       }
     >
-      <div className="flex md:flex-row  flex-col gap-4 pb-4">
+      <div className="flex md:flex-row flex-col gap-4 shadow-md bg-white rounded-lg">
         <TeamToolBar
           selectedMenu={selectedMenu}
           setSelectedMenu={setSelectedMenu}
         />
-        <SectionContainer className="flex-1 w-full">
+        <div className="flex-1 py-4">
           <div className="w-full">
             <div className={clsx(selectedMenu !== 'info' && 'hidden')}>
               <TeamInfo team={team} />
@@ -79,7 +79,7 @@ export const TeamSettings = ({
               />
             </div>
           </div>
-        </SectionContainer>
+        </div>
       </div>
     </PageContainer>
   );
