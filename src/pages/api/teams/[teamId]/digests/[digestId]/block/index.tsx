@@ -9,7 +9,7 @@ import {
 } from '@prisma/client';
 import type { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
-import { orderBlock } from '../order';
+import { createDigestBlock } from '@/lib/queries';
 
 export type ApiBookmarkDigestResponseSuccess = DigestBlock;
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
@@ -21,31 +21,6 @@ export type CreateBlockData = {
   type: DigestBlockType;
   style?: BookmarkDigestStyle;
   isTemplate?: boolean;
-};
-
-export const createDigestBlock = async (
-  blockInfo: CreateBlockData,
-  digest: Digest & {
-    digestBlocks: DigestBlock[];
-  }
-) => {
-  const { bookmarkId, text, style, type, position, isTemplate } = blockInfo;
-  const block = await client.digestBlock.create({
-    data: {
-      digestId: digest.id,
-      ...(bookmarkId && { bookmarkId }),
-      ...(text && { text }),
-      ...(style && { style }),
-      order: digest.digestBlocks.length,
-      type,
-      isTemplate,
-    },
-  });
-
-  if (position !== undefined) {
-    await orderBlock(digest.id, block.id, position);
-  }
-  return block;
 };
 
 router

@@ -5,47 +5,11 @@ import { reorderList } from '@/utils/actionOnList';
 import type { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import * as Sentry from '@sentry/nextjs';
+import { orderBlock } from '@/lib/queries';
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 
 export type OrderData = { blockId: string; position: number };
-
-export const orderBlock = async (
-  digestId: string,
-  blockId: string,
-  position: number
-) => {
-  const digestBlocks = await client.digestBlock.findMany({
-    where: {
-      digestId: digestId,
-    },
-    orderBy: {
-      order: 'asc',
-    },
-  });
-
-  if (digestBlocks) {
-    const bookmarkDigestMoved = digestBlocks.find(
-      (bookmarkDigest) => bookmarkDigest.id === blockId
-    );
-
-    if (bookmarkDigestMoved) {
-      await client.$transaction(
-        reorderList(digestBlocks, bookmarkDigestMoved.order, position).map(
-          (currentBookmarkDigest, index) => {
-            return client.digestBlock.updateMany({
-              where: {
-                id: currentBookmarkDigest.id,
-                digestId: digestId,
-              },
-              data: { order: index },
-            });
-          }
-        )
-      );
-    }
-  }
-};
 
 export const indexBlock = async (digestId: string) => {
   const digestBlocks = await client.digestBlock.findMany({
