@@ -12,19 +12,17 @@ const TeamTemplates = ({
   templates: TeamDigestsResult[];
 }) => {
   return (
-    <div>
-      <div className="flex gap-4 flex-col">
-        {templates?.map((template) => (
-          <TemplateItem key={template?.id} template={template} team={team} />
-        ))}
-        {!templates?.length && (
-          <NoContent
-            icon={<ViewColumnsIcon className="w-12 h-12" />}
-            title="No templates"
-            subtitle="Your team does not have templates yet, create one from one of your digest edition page"
-          />
-        )}
-      </div>
+    <div className="flex gap-6 flex-col pt-6">
+      {templates?.map((template) => (
+        <TemplateItem key={template?.id} template={template} team={team} />
+      ))}
+      {!templates?.length && (
+        <NoContent
+          icon={<ViewColumnsIcon className="w-12 h-12" />}
+          title="No templates"
+          subtitle="Your team does not have templates yet, create one from one of your digest edition page"
+        />
+      )}
     </div>
   );
 };

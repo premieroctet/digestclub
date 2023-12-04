@@ -26,7 +26,7 @@ export default function InvitationForm({
           }
         }}
       >
-        <fieldset className="group w-full flex flex-col gap-2">
+        <fieldset className="group w-full flex flex-col gap-2 max-w-[500px] ">
           <label htmlFor="email" className="font-bold sr-only">
             Email
           </label>

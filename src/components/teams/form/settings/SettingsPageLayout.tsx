@@ -14,7 +14,7 @@ import { usePathname } from 'next/navigation';
 
 function Header({ title, subtitle }: { title: string; subtitle: string }) {
   return (
-    <div className="flex flex-col gap-4 pb-4 pt-4">
+    <div className="flex flex-col gap-4 pb-4 pt-4 md:border-b-2 md:border-neutral-100 md:pl-6">
       <div>
         <h3 className="text-3xl font-semibold leading-7">{title}</h3>
         <span className="text-sm text-gray-500 font-light block mt-4">
@@ -26,7 +26,7 @@ function Header({ title, subtitle }: { title: string; subtitle: string }) {
 }
 
 function Content({ children }: { children: React.ReactNode }) {
-  return <div className="flex flex-col gap-4 max-w-[600px]">{children}</div>;
+  return <div className="flex flex-col gap-4 md:px-6 ">{children}</div>;
 }
 
 function SmallItem({ title, icon, isActive, href }: ToolBarItem) {
@@ -72,7 +72,11 @@ function LargeItem({ title, icon, isActive, href }: ToolBarItem) {
 
 function ToolBarItem(props: ToolBarItem) {
   return (
-    <div className="flex items-center flex-1 sm:flex-auto">
+    <div
+      className={clsx('flex items-center flex-1 sm:flex-auto', {
+        'lg:border-l-2 lg:border-violet-700': props.isActive,
+      })}
+    >
       <SmallItem {...props} />
       <LargeItem {...props} />
     </div>
@@ -90,8 +94,8 @@ export interface ToolBarItem {
 function Toolbar({ items }: { items: ToolBarItem[] }) {
   const pathname = usePathname();
   return (
-    <div>
-      <div className="flex md:flex-col flex-row justify-around  md:gap-7 lg:gap-4 sm:gap-10 gap-2 lg:px-4 md:px-2 py-4">
+    <div className="md:border-r-2 md:border-neutral-100">
+      <div className="flex md:flex-col flex-row justify-around md:gap-7 lg:gap-4 sm:gap-10 gap-2 lg:px-4 md:px-2 py-4">
         {items.map(({ id, href, ...props }) => {
           return (
             <ToolBarItem
@@ -128,9 +132,9 @@ export default function SettingsPageLayout({
         breadcrumbItems && <Breadcrumb paths={[...breadcrumbItems]} />
       }
     >
-      <div className="flex md:flex-row flex-col gap-4 shadow-md bg-white rounded-lg px-8 md:px-0">
+      <div className="flex md:flex-row flex-col gap-4 md:gap-0 shadow-md bg-white rounded-lg px-8 md:px-0">
         <Toolbar items={menuItems} />
-        <div className="flex-1 py-4">
+        <div className="flex-1 pt-4 pb-6">
           <div className="w-full">
             <Header title={title} subtitle={subtitle} />
             <Content>{children}</Content>
