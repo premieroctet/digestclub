@@ -54,7 +54,7 @@ export default function TeamAPIKeyServer({ team }: Props) {
         {team.apiKey ? (
           <>
             <div
-              className="w-full group cursor-pointer"
+              className="w-2/3 group cursor-pointer"
               onClick={() => {
                 if (!key) return;
                 setIsAnimating(true);
@@ -63,7 +63,7 @@ export default function TeamAPIKeyServer({ team }: Props) {
               }}
             >
               <div className="px-3 py-2 flex justify-between items-center rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <span className=" overflow-hidden text-ellipsis block select-none items-center text-gray-500 sm:text-base">
+                <span className=" overflow-hidden text-ellipsis block select-none items-center text-gray-500 sm:text-base max-w-[calc(100%-2rem)]">
                   {displayedKey}
                 </span>
 

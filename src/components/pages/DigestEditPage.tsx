@@ -39,6 +39,7 @@ import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
 import { EyeIcon } from '@heroicons/react/24/solid';
 import CreateTemplateModal from '../digests/templates/CreateTemplateModal';
+import { digestBlockToTemplateBlocks } from '@/utils/template';
 
 type Props = {
   teamLinksData: TeamLinksData;
@@ -309,7 +310,7 @@ export const DigestEditPage = ({
             </SectionContainer>
           </div>
 
-          <SectionContainer className={clsx(' w-full h-min md:w-1/2')}>
+          <SectionContainer className={clsx(' w-full h-min md:w-1/2 sticky top-4')}>
             <form className="flex flex-col gap-5" onBlur={handleSubmit(onBlur)}>
               <div className="w-full items-start flex flex-col gap-6">
                 <Input
@@ -325,8 +326,8 @@ export const DigestEditPage = ({
               </div>
               <CreateTemplateModal
                 team={team}
-                digestBlocks={digest?.digestBlocks.filter(
-                  (block) => block?.type === 'TEXT'
+                templateBlocks={digestBlockToTemplateBlocks(
+                  digest.digestBlocks
                 )}
               />
               <div
