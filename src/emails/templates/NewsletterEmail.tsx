@@ -78,7 +78,7 @@ const Bookmark = ({
           <MjmlText
             fontSize={16}
             fontWeight={400}
-            lineHeight="18px"
+            lineHeight="24px"
             color={theme.colors.lightGray}
           >
             {description}
