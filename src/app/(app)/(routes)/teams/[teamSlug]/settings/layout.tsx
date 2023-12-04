@@ -8,12 +8,7 @@ import React from 'react';
 import { checkUserTeamBySlug } from '@/lib/queries';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
-import {
-  IdentificationIcon,
-  KeyIcon,
-  UserIcon,
-  ViewColumnsIcon,
-} from '@heroicons/react/24/outline';
+
 import TeamSettingsPageLayout from '@/components/teams/form/settings/TeamSettingsPageLayout';
 
 type Props = {

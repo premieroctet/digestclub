@@ -16,14 +16,14 @@ interface ItemProps {
 
 function SmallItem({ title, icon, isActive, href }: ItemProps) {
   return (
-    <div className="lg:hidden block">
+    <div className="lg:hidden block w-full">
       <Tooltip
         side="left"
         asChild
         trigger={
           <Link
-            href="#"
-            className="w-6"
+            href={href}
+            className="w-full md:w-6"
             variant={isActive ? 'default' : 'ghost'}
           >
             {icon}
@@ -57,7 +57,7 @@ function LargeItem({ title, icon, isActive, href }: ItemProps) {
 
 const TeamToolBarItem = ({ title, icon, isActive, href }: ItemProps) => {
   return (
-    <div className="flex items-center">
+    <div className="flex items-center flex-1 md:flex-auto">
       <SmallItem title={title} icon={icon} isActive={isActive} href={href} />
       <LargeItem title={title} icon={icon} isActive={isActive} href={href} />
     </div>

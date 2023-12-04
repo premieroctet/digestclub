@@ -55,7 +55,7 @@ export default function TeamSettingsPageLayout({
         />
       }
     >
-      <div className="flex md:flex-row flex-col gap-4 shadow-md bg-white rounded-lg">
+      <div className="flex md:flex-row flex-col gap-4 shadow-md bg-white rounded-lg px-8 md:px-0">
         <TeamToolBar teamSlug={team.slug} />
         <div className="flex-1 py-4">
           <div className="w-full">{children}</div>
