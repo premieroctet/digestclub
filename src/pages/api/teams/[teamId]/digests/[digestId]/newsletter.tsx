@@ -80,6 +80,9 @@ router
         },
         select: {
           name: true,
+          slug: true,
+          id: true,
+          color: true,
         },
       });
       if (!team) {
@@ -147,12 +150,13 @@ router
               );
             }
           })}
-          teamId={teamId}
+          team={team}
+          digestSlug={digest?.slug!}
           hostUrl={hostUrl}
         />
       );
 
-      await apiInstance.sendTransacEmail({
+      const data = await apiInstance.sendTransacEmail({
         subject,
         htmlContent: html,
         sender: { name: team.name, email: 'noreply@digestclub.com' },
