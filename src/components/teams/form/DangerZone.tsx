@@ -10,16 +10,27 @@ import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import { useRouter } from 'next/navigation';
 import { DeletePopover } from '@/components/Popover';
 import Button from '@/components/Button';
+import clsx from 'clsx';
 
 type DangerZoneProps = {
   onDelete: () => void;
   isLoading: boolean;
   buttonText: string;
+  fullWidth?: boolean;
 };
 
-const DangerZone = ({ onDelete, isLoading, buttonText }: DangerZoneProps) => (
-  <div className="w-full">
-    <div className="flex flex-col rounded-md text-sm">
+const DangerZone = ({
+  onDelete,
+  isLoading,
+  buttonText,
+  fullWidth = true,
+}: DangerZoneProps) => (
+  <div
+    className={clsx({
+      'w-full': fullWidth,
+    })}
+  >
+    <div className="flex flex-col rounded-md text-sm whitespace-nowrap">
       <DeletePopover
         isLoading={isLoading}
         handleDelete={onDelete}
@@ -52,6 +63,7 @@ export const DangerZoneTeam = ({ team }: { team: Team }) => {
 
   return (
     <DangerZone
+      fullWidth={false}
       onDelete={deleteTeam}
       isLoading={isLoading || isRefreshing}
       buttonText="Delete team"

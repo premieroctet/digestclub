@@ -54,7 +54,7 @@ const AccountForm = ({ user }: Props) => {
           minLength={2}
         />
       </fieldset>
-      <div className="flex justify-start gap-4 w-full items-center">
+      <div className="flex flex-row-reverse justify-start gap-4 w-full items-center">
         <SubmitButton />
         <div className="flex-2">
           <DangerZoneAccount user={user} />

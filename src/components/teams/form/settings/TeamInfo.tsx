@@ -83,17 +83,18 @@ const TeamInfo = ({ team }: { team: Team }) => {
 
               <TeamColorField id="color" label="Team Color" team={team} />
             </div>
+            <div className="flex flex-row-reverse justify-start gap-4 items-center w-full">
+              <Button
+                // fullWidth
+                type="submit"
+                isLoading={isPending}
+                disabled={!isDirty}
+              >
+                Save
+              </Button>
 
-            <Button
-              fullWidth
-              type="submit"
-              isLoading={isPending}
-              disabled={!isDirty}
-            >
-              Save
-            </Button>
-
-            <DangerZoneTeam team={team} />
+              <DangerZoneTeam team={team} />
+            </div>
           </div>
         </form>
       </FormProvider>
