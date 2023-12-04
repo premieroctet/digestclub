@@ -1,15 +1,9 @@
-import { TeamSettings } from '@/components/teams/TeamSettings';
-import {
-  checkUserTeamBySlug,
-  getTeamDigests,
-  getTeamInvitations,
-  getTeamMembers,
-  getTeamSubscriptions,
-} from '@/lib/queries';
+import { checkUserTeamBySlug } from '@/lib/queries';
 import { getCurrentUser } from '@/lib/sessions';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { notFound, redirect } from 'next/navigation';
 import { TeamPageProps } from '../page';
+import { routes } from '@/core/constants';
 
 const TeamSettingsPage = async ({ params }: TeamPageProps) => {
   const teamSlug = params.teamSlug;
@@ -24,22 +18,9 @@ const TeamSettingsPage = async ({ params }: TeamPageProps) => {
     redirect('/teams');
   }
 
-  const members = await getTeamMembers(teamSlug);
-  const invitations = await getTeamInvitations(teamSlug);
-  const subscriptions = await getTeamSubscriptions(teamSlug);
-  const { digests: templates } = await getTeamDigests(team.id, 1, 30, true);
-
   if (!user?.id) return notFound();
-  return (
-    <TeamSettings
-      team={team}
-      members={members}
-      invitations={invitations}
-      user={user}
-      subscriptions={subscriptions}
-      templates={templates}
-    />
-  );
+
+  redirect(routes.TEAM_EDIT_PROFILE.replace(':slug', teamSlug));
 };
 
 export default TeamSettingsPage;

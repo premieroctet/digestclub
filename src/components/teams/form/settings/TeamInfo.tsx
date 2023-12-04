@@ -64,8 +64,8 @@ const TeamInfo = ({ team }: { team: Team }) => {
   return (
     <>
       <TeamMenuTitle
-        title="Team Info"
-        subtitle="Fill your team info, they will be displayed on your public Team page"
+        title="Team Profile"
+        subtitle="Fill your team informations, they will be displayed on your public team page"
       />
       <TeamMenuContent>
         <FormProvider {...methods}>

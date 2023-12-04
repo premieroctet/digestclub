@@ -1,6 +1,6 @@
+'use client';
 import Button from '@/components/Button';
 import { Input } from '@/components/Input';
-import { Tooltip } from '@/components/Tooltip';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';

@@ -1,3 +1,4 @@
+'use client';
 import { DeletePopover } from '@/components/Popover';
 import { Digest, Team } from '@prisma/client';
 import { TrashIcon } from '@heroicons/react/24/outline';

@@ -1,3 +1,4 @@
+'use client';
 import { Member, TeamInvitation } from '@/lib/queries';
 import MembersList from '../../settings-tabs/members/List';
 import SubscribersList from '../../settings-tabs/subscribers/List';

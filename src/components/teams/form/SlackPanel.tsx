@@ -1,3 +1,4 @@
+'use client';
 import Button from '@/components/Button';
 import BadgeOnline from '@/components/layout/BadgeOnline';
 import Link from '@/components/Link';

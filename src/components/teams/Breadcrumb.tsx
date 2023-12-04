@@ -1,4 +1,3 @@
-'use client';
 import Link from 'next/link';
 import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import clsx from 'clsx';
@@ -39,7 +38,7 @@ export const Breadcrumb = ({ paths }: Props) => {
                   </Link>
                 ) : (
                   <span
-                    className="ml-3 text-md font-medium text-gray-500 hover:text-gray-700"
+                    className="ml-3 text-md font-medium text-gray-500"
                     aria-current={
                       index === paths.length - 1 ? 'page' : undefined
                     }

@@ -1,32 +1,33 @@
+'use client';
+
 import { ReactNode } from 'react';
 import { Tooltip } from '../Tooltip';
 import Button from '../Button';
 import clsx from 'clsx';
+import NextLink from 'next/link';
+import Link from '../Link';
 
-function SmallItem({
-  title,
-  icon,
-  handleClick,
-  isSelected,
-}: {
+interface ItemProps {
   title: string;
   icon: ReactNode;
-  handleClick: () => void;
-  isSelected: boolean;
-}) {
+  isActive: boolean;
+  href: string;
+}
+
+function SmallItem({ title, icon, isActive, href }: ItemProps) {
   return (
     <div className="lg:hidden block">
       <Tooltip
         side="left"
         asChild
         trigger={
-          <Button
-            variant={isSelected ? 'default' : 'ghost'}
+          <Link
+            href="#"
             className="w-6"
-            onClick={handleClick}
+            variant={isActive ? 'default' : 'ghost'}
           >
             {icon}
-          </Button>
+          </Link>
         }
       >
         {title}
@@ -35,60 +36,30 @@ function SmallItem({
   );
 }
 
-function LargeItem({
-  title,
-  icon,
-  handleClick,
-  isSelected,
-}: {
-  title: string;
-  icon: ReactNode;
-  handleClick: () => void;
-  isSelected: boolean;
-}) {
+function LargeItem({ title, icon, isActive, href }: ItemProps) {
   return (
-    <div
+    <NextLink
+      href={href}
       className={clsx(
         'hidden lg:flex gap-5 items-center  text-gray-700 py-3 px-4 rounded-md cursor-pointer ',
         {
-          'opacity-100 text-violet-700 ': isSelected,
+          'opacity-100 text-violet-700 ': isActive,
           'opacity-50 hover:bg-violet-100 hover:opacity-100 hover:text-violet-700':
-            !isSelected,
+            !isActive,
         }
       )}
-      onClick={handleClick}
     >
       <p className="text-base font-medium  w-[12ch]">{title}</p>
       <span className="w-6">{icon}</span>
-    </div>
+    </NextLink>
   );
 }
 
-const TeamToolBarItem = ({
-  title,
-  icon,
-  handleClick,
-  isSelected,
-}: {
-  title: string;
-  icon: ReactNode;
-  handleClick: () => void;
-  isSelected: boolean;
-}) => {
+const TeamToolBarItem = ({ title, icon, isActive, href }: ItemProps) => {
   return (
     <div className="flex items-center">
-      <SmallItem
-        title={title}
-        icon={icon}
-        handleClick={handleClick}
-        isSelected={isSelected}
-      />
-      <LargeItem
-        title={title}
-        icon={icon}
-        handleClick={handleClick}
-        isSelected={isSelected}
-      />
+      <SmallItem title={title} icon={icon} isActive={isActive} href={href} />
+      <LargeItem title={title} icon={icon} isActive={isActive} href={href} />
     </div>
   );
 };
