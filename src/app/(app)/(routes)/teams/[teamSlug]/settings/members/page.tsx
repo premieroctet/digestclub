@@ -11,7 +11,8 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
 import TeamUsers from '@/components/teams/form/settings/TeamUsers';
 import SettingsPageLayout from '@/components/teams/form/settings/SettingsPageLayout';
-import { TEAM_SETTINGS_ITEMS, routes } from '@/core/constants';
+import { routes } from '@/core/constants';
+import { getTeamSettingsPageInfo } from '@/utils/page';
 
 export default async function Page({ params }: TeamPageProps) {
   const teamSlug = params.teamSlug;
@@ -28,18 +29,8 @@ export default async function Page({ params }: TeamPageProps) {
   const invitations = await getTeamInvitations(teamSlug);
   const subscriptions = await getTeamSubscriptions(teamSlug);
 
-  const pageInfo = TEAM_SETTINGS_ITEMS.find((item) => item.id === 'members');
-  if (!pageInfo) {
-    throw new Error('Page not implemented (see core/constants.tsx)');
-  }
-  const { title, subtitle, routePath } = pageInfo;
-
-  const menuItems = TEAM_SETTINGS_ITEMS.map((item) => ({
-    ...item,
-    href: item.routePath.replace(':slug', team.slug),
-    isActive: item.id === 'members',
-  }));
-
+  const pageInfo = getTeamSettingsPageInfo('members', team.slug);
+  const { title, subtitle, menuItems, routePath } = pageInfo;
   return (
     <SettingsPageLayout
       title={title}

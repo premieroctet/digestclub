@@ -93,3 +93,5 @@ export const TEAM_SETTINGS_ITEMS = [
     subtitle: 'Manage your team templates',
   },
 ];
+
+export type TeamSettingsItemsId = (typeof TEAM_SETTINGS_ITEMS)[number]['id'];
