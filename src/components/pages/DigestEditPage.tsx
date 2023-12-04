@@ -39,6 +39,7 @@ import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
 import { EyeIcon } from '@heroicons/react/24/solid';
 import CreateTemplateModal from '../digests/templates/CreateTemplateModal';
+import { digestBlockToTemplateBlocks } from '@/utils/template';
 
 type Props = {
   teamLinksData: TeamLinksData;
@@ -325,8 +326,8 @@ export const DigestEditPage = ({
               </div>
               <CreateTemplateModal
                 team={team}
-                digestBlocks={digest?.digestBlocks.filter(
-                  (block) => block?.type === 'TEXT'
+                templateBlocks={digestBlockToTemplateBlocks(
+                  digest.digestBlocks
                 )}
               />
               <div
