@@ -15,8 +15,6 @@ import { Subscription } from '@prisma/client';
 import message from '@/messages/en';
 import InvitationForm from '../../settings-tabs/invitations/InvitationForm';
 import InvitationList from '../../settings-tabs/invitations/InvitationList';
-import TeamMenuTitle from '../../TeamMenuTitle';
-import TeamMenuContent from '../../TeamMenuContent';
 
 type Props = {
   members: Member[];
