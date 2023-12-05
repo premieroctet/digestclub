@@ -7,7 +7,6 @@ import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
 
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import { getDigest, getTeamBySlug } from '@/lib/queries';
 import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
 import { reorderList } from '@/utils/actionOnList';
 import { TrashIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
@@ -29,6 +28,8 @@ import { BlockListDnd } from '../../digests/BlockListDnd';
 import SectionContainer from '../../layout/SectionContainer';
 import { Breadcrumb } from '../../teams/Breadcrumb';
 import { formatTemplateTitle } from '@/components/digests/templates/TemplateItem';
+import { getTeamBySlug } from '@/services/database/team';
+import { getDigest } from '@/services/database/digest';
 
 type Props = {
   template: NonNullable<Awaited<ReturnType<typeof getDigest>>>;

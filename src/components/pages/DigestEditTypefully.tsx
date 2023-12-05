@@ -5,7 +5,6 @@ import { ChevronRightIcon } from '@heroicons/react/24/solid';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SquaresPlusIcon } from '@heroicons/react/24/outline';
-import { getDigest, getTeamBySlug } from '@/lib/queries';
 import { Tooltip } from '../Tooltip';
 import { useMutation } from 'react-query';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -13,6 +12,8 @@ import api from '@/lib/api';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import useCustomToast from '@/hooks/useCustomToast';
 import { AiOutlineLoading3Quarters as LoadingIcon } from '@react-icons/all-files/ai/AiOutlineLoading3Quarters';
+import { getDigest } from '@/services/database/digest';
+import { getTeamBySlug } from '@/services/database/team';
 
 export default function DigestEditTypefully({
   team: { typefullyToken, id: teamId, slug },

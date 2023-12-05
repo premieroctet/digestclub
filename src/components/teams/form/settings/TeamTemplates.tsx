@@ -1,8 +1,8 @@
 import TemplateItem from '@/components/digests/templates/TemplateItem';
-import { TeamDigestsResult } from '@/lib/queries';
 import { Team } from '@prisma/client';
 import NoContent from '@/components/layout/NoContent';
 import { ViewColumnsIcon } from '@heroicons/react/24/outline';
+import { TeamDigestsResult } from '@/services/database/digest';
 
 const TeamTemplates = ({
   team,

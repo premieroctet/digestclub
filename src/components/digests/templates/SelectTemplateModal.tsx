@@ -4,7 +4,7 @@ import { Dialog, DialogTrigger, DialogContent } from '@/components/Dialog';
 import { Digest, Team } from '@prisma/client';
 import { useState } from 'react';
 import { DigestCreateInput } from '../DigestCreateInput';
-import { TeamDigestsResult } from '@/lib/queries';
+import { TeamDigestsResult } from '@/services/database/digest';
 
 const SelectTemplateModal = ({
   team,

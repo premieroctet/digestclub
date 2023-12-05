@@ -1,4 +1,4 @@
-import { PublicDigestResult } from '@/lib/queries';
+import { PublicDigestResult } from '@/services/database/digest';
 import PublicDigestHeader from '../digests/PublicDigestHeader';
 import PublicDigestList from '../digests/PublicDigestList';
 import SubscribeToNewsLetter from '../digests/SubscribeToNewsletter';

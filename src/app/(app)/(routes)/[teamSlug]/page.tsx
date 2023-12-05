@@ -1,6 +1,7 @@
 import TeamPublicPage from '@/components/pages/TeamPublicPage';
-import { getDiscoverDigests, getTeamBySlug } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
+import { getDiscoverDigests } from '@/services/database/digest';
+import { getTeamBySlug } from '@/services/database/team';
 import { generateTeamOGUrl } from '@/utils/open-graph-url';
 import { isPrismaNotFoundError } from '@/utils/prisma';
 import { Metadata } from 'next';

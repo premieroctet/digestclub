@@ -1,7 +1,7 @@
 'use client';
 
+import { UserInvitationsResults } from '@/services/database/invitation';
 import SectionContainer from '../layout/SectionContainer';
-import { UserInvitationsResults } from '@/lib/queries';
 import UserInvitationItem from './UserInvitationItem';
 
 const UserInvitations = ({

@@ -1,5 +1,4 @@
 'use client';
-import { Member, TeamInvitation } from '@/lib/queries';
 import MembersList from '../../settings-tabs/members/List';
 import SubscribersList from '../../settings-tabs/subscribers/List';
 import SettingsTabs from '../../settings-tabs/Tabs';
@@ -15,6 +14,8 @@ import { Subscription } from '@prisma/client';
 import message from '@/messages/en';
 import InvitationForm from '../../settings-tabs/invitations/InvitationForm';
 import InvitationList from '../../settings-tabs/invitations/InvitationList';
+import { TeamInvitation } from '@/services/database/invitation';
+import { Member } from '@/services/database/membership';
 
 type Props = {
   members: Member[];

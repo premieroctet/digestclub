@@ -4,7 +4,7 @@ import { AuthApiRequest, errorHandler } from '@/lib/router';
 import type { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import Parser from '@postlight/parser';
-import { getTeamById } from '@/lib/queries';
+import { getTeamById } from '@/services/database/team';
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 

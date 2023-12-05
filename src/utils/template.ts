@@ -1,5 +1,5 @@
-import { getDigest } from '@/lib/queries';
 import { CreateBlockData } from '@/pages/api/teams/[teamId]/digests/[digestId]/block';
+import { getDigest } from '@/services/database/digest';
 import { DigestBlock, DigestBlockType } from '@prisma/client';
 
 type DigestBlocks = NonNullable<

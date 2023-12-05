@@ -1,5 +1,5 @@
-import { getTeamMembershipById } from '@/lib/queries';
 import { getSession } from '@/lib/sessions';
+import { getTeamMembershipById } from '@/services/database/membership';
 
 export const CUSTOM_ERROR_MESSAGES = {
   unauthenticated: 'Unauthenticated user',

@@ -1,10 +1,10 @@
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import { TeamBookmarkedLinkItem } from '@/lib/queries';
 import React from 'react';
 import { AiOutlineLoading3Quarters as LoadingIcon } from '@react-icons/all-files/ai/AiOutlineLoading3Quarters';
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import { BookmarkDigestStyle, DigestBlockType } from '@prisma/client';
 import { isTwitterLink } from '@/utils/link';
+import { TeamBookmarkedLinkItem } from '@/services/database/link';
 
 interface Props {
   bookmark: TeamBookmarkedLinkItem;

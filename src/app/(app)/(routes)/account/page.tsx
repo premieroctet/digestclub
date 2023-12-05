@@ -3,9 +3,9 @@ import { getCurrentUser } from '@/lib/sessions';
 import AccountForm from '@/components/account/AccountForm';
 import { notFound } from 'next/navigation';
 import UserInvitations from '@/components/account/UserInvitations';
-import { getUserInvitations } from '@/lib/queries';
 import SettingsPageLayout from '@/components/teams/form/settings/SettingsPageLayout';
 import { UserCircleIcon } from '@heroicons/react/24/outline';
+import { getUserInvitations } from '@/services/database/invitation';
 
 export const dynamic = 'force-dynamic';
 export const metadata = {

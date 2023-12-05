@@ -2,11 +2,11 @@ import { UserRoles } from '@/core/constants';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
-import { Member } from '@/lib/queries';
 import { ApiDeleteMemberResponse } from '@/pages/api/teams/[teamId]/members/[memberId]';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useMutation } from 'react-query';
 import TabsListItem from '../TabsListItem';
+import { Member } from '@/services/database/membership';
 
 interface Props {
   membership: Member;

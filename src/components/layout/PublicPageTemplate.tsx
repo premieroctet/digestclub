@@ -1,7 +1,7 @@
-import { PublicDigestResult, PublicTeamResult } from '@/lib/queries';
 import { PropsWithChildren } from 'react';
 import PublicDigestHeader from '../digests/PublicDigestHeader';
 import SubscribeToNewsLetter from '../digests/SubscribeToNewsletter';
+import { PublicTeamResult } from '@/services/database/team';
 
 interface Props {
   // @ts-ignore

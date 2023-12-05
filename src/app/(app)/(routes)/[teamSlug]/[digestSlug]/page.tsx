@@ -1,9 +1,12 @@
 import DigestPublicPage from '@/components/pages/DigestPublicPage';
-import { getPublicDigest, incrementDigestView } from '@/lib/queries';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import * as Sentry from '@sentry/nextjs';
+import {
+  getPublicDigest,
+  incrementDigestView,
+} from '@/services/database/digest';
 
 interface PageProps {
   params: { teamSlug: string; digestSlug: string };

@@ -12,11 +12,11 @@ import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
 import Button from '../Button';
 import { Input, Select } from '../Input';
-import { TeamDigestsResult } from '@/lib/queries';
 import { Team } from '@prisma/client';
 import { formatTemplateTitle } from './templates/TemplateItem';
 import { useForm } from 'react-hook-form';
 import { useCookies } from 'react-cookie';
+import { TeamDigestsResult } from '@/services/database/digest';
 
 type Props = {
   team: Team;

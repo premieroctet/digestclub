@@ -7,7 +7,6 @@ import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
 
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import { TeamLinksData, getDigest, getTeamBySlug } from '@/lib/queries';
 import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
 import { reorderList } from '@/utils/actionOnList';
 import { getRelativeDate } from '@/utils/date';
@@ -40,6 +39,9 @@ import DigestEditSendNewsletter from './DigestEditSendNewsletter';
 import { EyeIcon } from '@heroicons/react/24/solid';
 import CreateTemplateModal from '../digests/templates/CreateTemplateModal';
 import { digestBlockToTemplateBlocks } from '@/utils/template';
+import { TeamLinksData } from '@/services/database/link';
+import { getDigest } from '@/services/database/digest';
+import { getTeamBySlug } from '@/services/database/team';
 
 type Props = {
   teamLinksData: TeamLinksData;
@@ -310,7 +312,9 @@ export const DigestEditPage = ({
             </SectionContainer>
           </div>
 
-          <SectionContainer className={clsx(' w-full h-min md:w-1/2 sticky top-4')}>
+          <SectionContainer
+            className={clsx(' w-full h-min md:w-1/2 sticky top-4')}
+          >
             <form className="flex flex-col gap-5" onBlur={handleSubmit(onBlur)}>
               <div className="w-full items-start flex flex-col gap-6">
                 <Input

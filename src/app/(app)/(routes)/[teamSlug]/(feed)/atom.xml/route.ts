@@ -1,6 +1,6 @@
-import { getPublicTeam } from '@/lib/queries';
 import { NextRequest, NextResponse } from 'next/server';
 import { atom } from '@/utils/feed';
+import { getPublicTeam } from '@/services/database/team';
 
 export async function GET(
   _request: NextRequest,

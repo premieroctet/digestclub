@@ -1,12 +1,12 @@
 'use client';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
-import { TeamDigestsResult } from '@/lib/queries';
 import { CheckIcon, ChartBarIcon } from '@heroicons/react/24/solid';
 import { DigestBlockType } from '@prisma/client';
 import clsx from 'clsx';
 import Link from 'next/link';
 import NoContent from '../layout/NoContent';
 import { formatDate } from '@/utils/date';
+import { TeamDigestsResult } from '@/services/database/digest';
 
 type Props = {
   digests: TeamDigestsResult[];

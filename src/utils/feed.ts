@@ -1,8 +1,8 @@
-import { PublicTeamResult } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
 import { parseISO } from 'date-fns';
 import { Feed } from 'feed';
 import { generateTeamOGUrl } from './open-graph-url';
+import { PublicTeamResult } from '@/services/database/team';
 
 export const createFeed = (team: PublicTeamResult, teamSlug: string) => {
   const date = new Date();

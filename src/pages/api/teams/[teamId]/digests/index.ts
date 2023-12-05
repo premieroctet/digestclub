@@ -4,7 +4,10 @@ import { Digest } from '@prisma/client';
 import { AuthApiRequest, errorHandler } from '@/lib/router';
 import { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
-import { createDigest, createDigestWithTemplate } from '@/lib/queries';
+import {
+  createDigest,
+  createDigestWithTemplate,
+} from '@/services/database/digest-block';
 
 export type ApiDigestResponseSuccess = Digest;
 interface PostBody {

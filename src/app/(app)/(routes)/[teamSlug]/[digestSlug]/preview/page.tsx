@@ -1,6 +1,7 @@
 import DigestPublicPage from '@/components/pages/DigestPublicPage';
-import { getPublicDigest, getUserTeams } from '@/lib/queries';
 import { getSession } from '@/lib/sessions';
+import { getPublicDigest } from '@/services/database/digest';
+import { getUserTeams } from '@/services/database/team';
 import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';

@@ -1,11 +1,10 @@
 import client from '@/lib/db';
 import { checkDigest, checkTeam } from '@/lib/middleware';
 import { AuthApiRequest, errorHandler } from '@/lib/router';
-import { reorderList } from '@/utils/actionOnList';
 import type { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import * as Sentry from '@sentry/nextjs';
-import { orderBlock } from '@/lib/queries';
+import { orderBlock } from '@/services/database/digest-block';
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 

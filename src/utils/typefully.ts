@@ -1,5 +1,5 @@
-import { DigestDataForTypefullyResult } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
+import { DigestDataForTypefullyResult } from '@/services/database/digest';
 import { DigestBlockType } from '@prisma/client';
 
 /**

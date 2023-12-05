@@ -1,9 +1,9 @@
 'use client';
-import { Member } from '@/lib/queries';
 import { InformationCircleIcon } from '@heroicons/react/24/solid';
 import { Session } from 'next-auth';
 import { UserRoles } from '@/core/constants';
 import Item from './Item';
+import { Member } from '@/services/database/membership';
 
 interface Props {
   memberships: Member[];

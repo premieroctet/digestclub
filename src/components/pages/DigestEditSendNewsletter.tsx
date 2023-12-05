@@ -1,6 +1,5 @@
 'use client';
 
-import { getDigest, getTeamBySlug } from '@/lib/queries';
 import { useMutation } from 'react-query';
 import { AxiosError, AxiosResponse } from 'axios';
 import api from '@/lib/api';
@@ -10,6 +9,8 @@ import { IoMail as MailIcon } from '@react-icons/all-files/io5/IoMail';
 import { IoMdSend as SendIcon } from '@react-icons/all-files/io/IoMdSend';
 import { Popover } from '../Popover';
 import Button from '../Button';
+import { getTeamBySlug } from '@/services/database/team';
+import { getDigest } from '@/services/database/digest';
 
 export default function DigestEditSendNewsletter({
   team: { id: teamId },

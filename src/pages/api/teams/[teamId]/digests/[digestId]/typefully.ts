@@ -1,10 +1,9 @@
 import api from '@/lib/api';
 import db from '@/lib/db';
 import { checkDigest, checkTeam } from '@/lib/middleware';
-import { getDigestDataForTypefully, getPublicDigest } from '@/lib/queries';
 import { AuthApiRequest } from '@/lib/router';
+import { getDigestDataForTypefully } from '@/services/database/digest';
 import { createTypefullyDraft } from '@/utils/typefully';
-import { Digest } from '@prisma/client';
 import { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 

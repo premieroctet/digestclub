@@ -1,11 +1,11 @@
 'use client';
 
-import { TeamLinks } from '@/lib/queries';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import NoContent from '../layout/NoContent';
 import { BookmarkItem } from './BookmarkItem';
 import Link from 'next/link';
 import SearchInput from '../digests/SearchInput';
+import { TeamLinks } from '@/services/database/link';
 
 type Props = {
   teamLinks: TeamLinks;

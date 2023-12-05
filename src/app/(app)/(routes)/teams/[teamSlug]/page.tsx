@@ -1,12 +1,9 @@
 import Team from '@/components/pages/Team';
 import db from '@/lib/db';
-import {
-  checkUserTeamBySlug,
-  getTeamLinks,
-  getTeamDigests,
-  countAllTeamLinks,
-} from '@/lib/queries';
 import { getCurrentUserOrRedirect } from '@/lib/sessions';
+import { getTeamDigests } from '@/services/database/digest';
+import { countAllTeamLinks, getTeamLinks } from '@/services/database/link';
+import { checkUserTeamBySlug } from '@/services/database/user';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 

@@ -1,4 +1,3 @@
-import { TeamDigestsResult, TeamLinks, getTeamBySlug } from '@/lib/queries';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import Link from 'next/link';
 import Card from '../Card';
@@ -14,6 +13,9 @@ import SelectTemplateModal from '../digests/templates/SelectTemplateModal';
 import ChartsServer from '../charts/ChartsServer';
 import { Suspense } from 'react';
 import ChartsSkeleton from '../charts/ChartsSkeleton';
+import { TeamDigestsResult } from '@/services/database/digest';
+import { TeamLinks } from '@/services/database/link';
+import { getTeamBySlug } from '@/services/database/team';
 
 type Props = {
   linkCount: number;
