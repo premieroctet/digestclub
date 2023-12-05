@@ -11,8 +11,6 @@ import Button from '@/components/Button';
 import updateTeamInfo from '@/actions/update-team-info';
 import TeamColorField from './TeamColorField';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
-import TeamMenuTitle from '../../TeamMenuTitle';
-import TeamMenuContent from '../../TeamMenuContent';
 
 const PRO_FIELDS = ['prompt'];
 

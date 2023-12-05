@@ -8,6 +8,7 @@ import { redirect } from 'next/navigation';
 import SettingsPageLayout from '@/components/teams/form/settings/SettingsPageLayout';
 import { routes } from '@/core/constants';
 import { getTeamSettingsPageInfo } from '@/utils/page';
+import Link from 'next/link';
 
 export default async function Page({ params }: TeamPageProps) {
   const teamSlug = params.teamSlug;
@@ -27,7 +28,18 @@ export default async function Page({ params }: TeamPageProps) {
   return (
     <SettingsPageLayout
       title={title}
-      subtitle={subtitle}
+      subtitle={
+        <p>
+          Fill your team informations, they will be displayed on your public{' '}
+          <Link
+            className="underline"
+            href={routes.TEAMS_PUBLIC.replace(':slug', teamSlug)}
+            target="_blank"
+          >
+            team page
+          </Link>
+        </p>
+      }
       menuItems={menuItems}
       breadcrumbItems={[
         {

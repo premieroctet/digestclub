@@ -1,6 +1,7 @@
 ---
 title: 📰 Newsletter
 publishedAt: 2023-06-02
+slug: changelog-002
 image: changelog-002.webp
 ---
 

@@ -1,6 +1,7 @@
 ---
 title: 🌟 Weekly improvement
 publishedAt: 2023-09-19
+slug: changelog-006
 image: changelog-006.webp
 ---
 

@@ -11,6 +11,7 @@ export const Changelog = defineDocumentType(() => ({
       type: 'string',
       required: false,
     },
+    slug: { type: 'string', required: true },
   },
 }));
 

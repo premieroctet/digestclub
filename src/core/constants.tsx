@@ -10,6 +10,7 @@ export const routes = {
   LOGIN: '/auth/login',
   ACCOUNT: '/account',
   TEAMS: '/teams',
+  TEAMS_PUBLIC: '/:slug',
   TEAM: '/teams/:slug',
   TEAMS_CREATE: '/teams/create',
   TEAMS_EDIT: '/teams/:slug/settings',

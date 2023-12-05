@@ -12,7 +12,13 @@ import { Tooltip } from '@/components/Tooltip';
 import Link from '@/components/Link';
 import { usePathname } from 'next/navigation';
 
-function Header({ title, subtitle }: { title: string; subtitle: string }) {
+function Header({
+  title,
+  subtitle,
+}: {
+  title: string;
+  subtitle: string | React.ReactNode;
+}) {
   return (
     <div className="flex flex-col gap-4 pb-4 pt-4 md:border-b-2 md:border-neutral-100 md:pl-6">
       <div>
@@ -121,7 +127,7 @@ export default function SettingsPageLayout({
 }: {
   children: React.ReactNode;
   title: string;
-  subtitle: string;
+  subtitle: string | React.ReactNode;
   icon?: React.ReactNode;
   breadcrumbItems?: BreadcrumbProps['paths'];
   menuItems: ToolBarItem[];

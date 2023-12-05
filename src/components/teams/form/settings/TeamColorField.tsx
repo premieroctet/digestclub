@@ -51,7 +51,7 @@ const TeamColorField = ({
             </h3>
             <p className="flex flex-col gap-1 list-decimal list-inside">
               Your team color is used to customize your newsletter, profile
-              picture and digest cover colors.
+              picture colors.
             </p>
           </div>
         </Popover>

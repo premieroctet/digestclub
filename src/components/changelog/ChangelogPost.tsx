@@ -1,4 +1,3 @@
-import { getEnvHost } from '@/lib/server';
 import { Changelog } from 'contentlayer/generated';
 import Image from 'next/image';
 import React from 'react';
@@ -8,7 +7,7 @@ interface Props {
 }
 
 export default function ChangelogPost({
-  changelog: { title, body, publishedAt, image },
+  changelog: { title, body, publishedAt, image, slug },
 }: Props) {
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -46,7 +45,10 @@ export default function ChangelogPost({
             />
           </div>
         )}
-        <h2 className="my-auto m-r-auto font-bold tracking-tight text-gray-800 md:text-4xl overflow-hidden text-ellipsis leading-6 bg-green-50 group-hover:bg-green-100 transition-colors inline py-1 px-2">
+        <h2
+          id={slug}
+          className="my-auto m-r-auto font-bold tracking-tight text-gray-800 md:text-4xl overflow-hidden text-ellipsis leading-6 bg-green-50 group-hover:bg-green-100 transition-colors inline py-1 px-2"
+        >
           {title}
         </h2>
         <div
