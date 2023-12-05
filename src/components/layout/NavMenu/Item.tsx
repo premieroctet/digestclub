@@ -1,5 +1,5 @@
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import Link from 'next/link';
+// import Link from 'next/link';
 import React from 'react';
 
 interface MenuItemProps {
@@ -51,14 +51,14 @@ const Item: Overload = (props: AnchorProps | ButtonProps) => {
             </span>
           )}
           <NavigationMenu.Link asChild>
-            <Link
+            <a
               href={href}
               className="whitespace-nowrap text-sm 2xl:text-base"
               {...otherProps}
             >
               {children}
               <span className="absolute inset-0"></span>
-            </Link>
+            </a>
           </NavigationMenu.Link>
         </div>
       ) : (

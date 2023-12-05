@@ -22,7 +22,10 @@ export default async function handler(
       },
     });
 
-    if (!bookmark) return res.status(404).end();
+    if (!bookmark) {
+      res.status(404).end();
+      return undefined;
+    }
 
     const {
       link: { title },
@@ -44,5 +47,8 @@ export default async function handler(
     // eslint-disable-next-line no-console
     console.log(e);
     res.status(500).json({ error: 'Internal server error' });
+  } finally {
+    res.end();
+    return undefined;
   }
 }

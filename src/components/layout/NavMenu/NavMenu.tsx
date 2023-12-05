@@ -6,7 +6,6 @@ import { HiChevronDown } from '@react-icons/all-files/hi/HiChevronDown';
 import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { usePathname } from 'next/navigation';
 import BookmarkButton from '../../bookmark/BookmarkButton';
-import { Session } from 'next-auth';
 import { signOut } from 'next-auth/react';
 import Divider from './Divider';
 import Item from './Item';
@@ -17,28 +16,19 @@ import {
   ArrowLeftOnRectangleIcon,
   PlusIcon,
 } from '@heroicons/react/24/solid';
-import { useEffect, useTransition } from 'react';
-import updateDefaultTeam from '@/actions/update-default-team';
 
 type Props = {
   teams?: Team[];
-  user: Session['user'];
 };
 
-export const NavMenu = ({ teams, user }: Props) => {
+export const NavMenu = ({ teams }: Props) => {
   const pathName = usePathname();
-  const currentTeam = teams?.find((team) => pathName?.includes(team.slug));
-  const [_, startTransition] = useTransition();
+  const currentTeamSlug = pathName?.split('/')[2];
+  const currentTeam = teams?.find((team) => team.slug === currentTeamSlug);
 
   function onSignOut() {
     signOut({ callbackUrl: '/' });
   }
-  useEffect(() => {
-    if (!currentTeam) return;
-    startTransition(async () => {
-      updateDefaultTeam(user.id, currentTeam.id);
-    });
-  }, [currentTeam]);
 
   return (
     <div className="relative flex items-stretch">
