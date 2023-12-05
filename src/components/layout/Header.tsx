@@ -20,7 +20,7 @@ export default function Header({ teams, user }: Props) {
           <NavList />
         </div>
         <div className=" flex flex-row items-center">
-          {user && teams && <NavMenu teams={teams} user={user} />}
+          {user && teams && <NavMenu teams={teams} />}
           {!user && (
             <Link href={routes.LOGIN}>
               <Button type="button" variant="ghost">

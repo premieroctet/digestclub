@@ -49,3 +49,7 @@ export enum UserRoles {
 }
 
 export const PUBLIC_ROUTES = ['/', routes.LOGIN];
+
+export const COOKIES = {
+  DEFAULT_TEAM: '__digestclub_default_team',
+};
