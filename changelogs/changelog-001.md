@@ -1,6 +1,7 @@
 ---
 title: 🎉 Introducing Typefully Integration
 publishedAt: 2023-05-26
+slug: changelog-001
 image: changelog-001.webp
 ---
 

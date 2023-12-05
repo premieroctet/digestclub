@@ -1,6 +1,6 @@
+'use client';
 import { DeletePopover } from '@/components/Popover';
 import { Digest, Team } from '@prisma/client';
-import { TrashIcon } from '@heroicons/react/24/outline';
 import Button from '@/components/Button';
 import { useMutation } from 'react-query';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -8,7 +8,6 @@ import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
 import api from '@/lib/api';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
-import { PencilSquareIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 
 export const formatTemplateTitle = (title: string, teamSlug: string) => {
@@ -45,31 +44,33 @@ const TemplateItem = ({ template, team }: { template: Digest; team: Team }) => {
     <div className="flex justify-between items-center w-full">
       <span>{formatTemplateTitle(template?.title, team.slug)}</span>
       <div className="flex gap-x-4">
-        <DeletePopover
-          handleDelete={() => deleteTemplate()}
-          isLoading={isDeleting}
-          trigger={
-            <Button
-              className="w-1"
-              aria-label="Delete template"
-              icon={<TrashIcon />}
-              variant="destructiveOutline"
-              isLoading={isDeleting}
-            />
-          }
-        />
         <Link
           href={`/teams/${team.slug}/digests/${template.id}/edit`}
           prefetch={false}
         >
           <Button
-            className="w-1"
+            size={'sm'}
             aria-label="Edit template"
-            icon={<PencilSquareIcon />}
             variant="outline"
             isLoading={isDeleting}
-          />
+          >
+            Edit
+          </Button>
         </Link>
+        <DeletePopover
+          handleDelete={() => deleteTemplate()}
+          isLoading={isDeleting}
+          trigger={
+            <Button
+              size={'sm'}
+              aria-label="Delete template"
+              variant="destructiveGhost"
+              isLoading={isDeleting}
+            >
+              Delete
+            </Button>
+          }
+        />
       </div>
     </div>
   );

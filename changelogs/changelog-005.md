@@ -1,5 +1,6 @@
 ---
 title: 🐦 Tweet / X Embeds
+slug: /changelog-005
 publishedAt: 2023-08-21
 image: changelog-005.webp
 ---

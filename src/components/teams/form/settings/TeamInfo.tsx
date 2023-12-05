@@ -11,8 +11,6 @@ import Button from '@/components/Button';
 import updateTeamInfo from '@/actions/update-team-info';
 import TeamColorField from './TeamColorField';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
-import TeamMenuTitle from '../../TeamMenuTitle';
-import TeamMenuContent from '../../TeamMenuContent';
 
 const PRO_FIELDS = ['prompt'];
 
@@ -63,34 +61,29 @@ const TeamInfo = ({ team }: { team: Team }) => {
 
   return (
     <>
-      <TeamMenuTitle
-        title="Team Info"
-        subtitle="Fill your team info, they will be displayed on your public Team page"
-      />
-      <TeamMenuContent>
-        <FormProvider {...methods}>
-          {/* @ts-expect-error */}
-          <form action={onSubmit}>
-            <div className="flex flex-col gap-6 pt-4">
-              <div className="flex flex-col gap-4">
-                {fieldsData
-                  .filter(
-                    (field) =>
-                      team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
-                  )
-                  .map((field) => (
-                    <SettingsField
-                      {...field}
-                      key={field.id}
-                      defaultValue={team[field.id] || ''}
-                    />
-                  ))}
+      <FormProvider {...methods}>
+        {/* @ts-expect-error */}
+        <form action={onSubmit}>
+          <div className="flex flex-col gap-6 pt-4">
+            <div className="flex flex-col gap-4">
+              {fieldsData
+                .filter(
+                  (field) =>
+                    team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
+                )
+                .map((field) => (
+                  <SettingsField
+                    {...field}
+                    key={field.id}
+                    defaultValue={team[field.id] || ''}
+                  />
+                ))}
 
-                <TeamColorField id="color" label="Team Color" team={team} />
-              </div>
-
+              <TeamColorField id="color" label="Team Color" team={team} />
+            </div>
+            <div className="flex flex-row-reverse justify-start gap-4 items-center w-full">
               <Button
-                fullWidth
+                // fullWidth
                 type="submit"
                 isLoading={isPending}
                 disabled={!isDirty}
@@ -100,9 +93,9 @@ const TeamInfo = ({ team }: { team: Team }) => {
 
               <DangerZoneTeam team={team} />
             </div>
-          </form>
-        </FormProvider>
-      </TeamMenuContent>
+          </div>
+        </form>
+      </FormProvider>
     </>
   );
 };

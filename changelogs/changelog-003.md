@@ -1,6 +1,7 @@
 ---
 title: 🖊️ Introducing Text block
 publishedAt: 2023-06-07
+slug: changelog-003
 image: changelog-003.webp
 ---
 

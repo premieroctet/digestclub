@@ -23,6 +23,7 @@ const DigestPublicPage = ({ digest }: Props) => {
             ...(team.twitter && { twitter: team.twitter }),
             ...(team.website && { website: team.website }),
             ...(team.slug && { slug: team.slug }),
+            ...(team.color && { color: team.color }),
           }}
         />
         <SubscribeToNewsLetter teamName={team.name} teamId={digest.team.id} />

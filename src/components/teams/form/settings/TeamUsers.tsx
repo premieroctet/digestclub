@@ -1,3 +1,4 @@
+'use client';
 import { Member, TeamInvitation } from '@/lib/queries';
 import MembersList from '../../settings-tabs/members/List';
 import SubscribersList from '../../settings-tabs/subscribers/List';
@@ -14,8 +15,6 @@ import { Subscription } from '@prisma/client';
 import message from '@/messages/en';
 import InvitationForm from '../../settings-tabs/invitations/InvitationForm';
 import InvitationList from '../../settings-tabs/invitations/InvitationList';
-import TeamMenuTitle from '../../TeamMenuTitle';
-import TeamMenuContent from '../../TeamMenuContent';
 
 type Props = {
   members: Member[];
@@ -66,44 +65,38 @@ const TeamUsers = ({
   };
   return (
     <div>
-      <TeamMenuTitle
-        title="Members and Subscriptions"
-        subtitle="Manage your team members, invitations and newsletter subscriptions"
-      />
-      <TeamMenuContent>
-        <Tabs.Root
-          defaultValue="members"
-          className="flex flex-col min-w-[300px] pt-4"
-        >
-          <SettingsTabs
-            nbMembers={members.length}
-            nbInvitations={invitations.length}
-            nbSubscriptions={subscriptions.length}
-          />
-          <Tabs.Content value="members">
-            <div className="pt-8">
-              <MembersList memberships={members} currentUser={user} />
-            </div>
-          </Tabs.Content>
-          <Tabs.Content value="invitations">
-            <div className="pt-8 flex flex-col items-stretch max-h-screen overflow-auto">
-              <InvitationForm
-                onSend={onSendInvitation}
-                isLoading={isLoading}
-                email={emailInvitation}
-                setEmail={setEmailInvitation}
-                label="Send"
-              />
-              <InvitationList invitations={invitations} />
-            </div>
-          </Tabs.Content>
-          <Tabs.Content value="subscribers">
-            <div className="pt-8 flex flex-col items-stretch max-h-screen overflow-auto">
-              <SubscribersList subscriptions={subscriptions} />
-            </div>
-          </Tabs.Content>
-        </Tabs.Root>
-      </TeamMenuContent>
+      <Tabs.Root
+        defaultValue="members"
+        className="flex flex-col min-w-[300px] pt-4"
+      >
+        <SettingsTabs
+          nbMembers={members.length}
+          nbInvitations={invitations.length}
+          nbSubscriptions={subscriptions.length}
+        />
+        <Tabs.Content value="members">
+          <div className="pt-8">
+            <MembersList memberships={members} currentUser={user} />
+          </div>
+        </Tabs.Content>
+        <Tabs.Content value="invitations">
+          <div className="pt-8 flex flex-col items-stretch max-h-screen overflow-auto">
+            <InvitationForm
+              onSend={onSendInvitation}
+              isLoading={isLoading}
+              email={emailInvitation}
+              setEmail={setEmailInvitation}
+              label="Send"
+            />
+            <InvitationList invitations={invitations} />
+          </div>
+        </Tabs.Content>
+        <Tabs.Content value="subscribers">
+          <div className="pt-8 flex flex-col items-stretch max-h-screen overflow-auto">
+            <SubscribersList subscriptions={subscriptions} />
+          </div>
+        </Tabs.Content>
+      </Tabs.Root>
     </div>
   );
 };

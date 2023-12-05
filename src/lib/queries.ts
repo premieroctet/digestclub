@@ -367,6 +367,7 @@ export const getPublicTeam = unstable_cache((slug: string) =>
       website: true,
       github: true,
       twitter: true,
+      color: true,
       id: true,
       Digest: {
         select: {
@@ -426,6 +427,7 @@ export const getPublicDigest = (
           website: true,
           github: true,
           twitter: true,
+          color: true,
         },
       },
       digestBlocks: {
@@ -527,7 +529,7 @@ export const getDiscoverDigests = async ({
 export const getRecentTeams = async () => {
   const digests = await db.digest.findMany({
     take: 5,
-    select: { team: { select: { name: true, slug: true } } },
+    select: { team: { select: { name: true, slug: true, color: true } } },
     where: { publishedAt: { not: null } },
     orderBy: { publishedAt: 'desc' },
     distinct: ['teamId'],

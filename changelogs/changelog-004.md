@@ -1,5 +1,6 @@
 ---
 title: 🚀 Introducing API for bookmarking
+slug: changelog-004
 publishedAt: 2023-06-15
 image: changelog-004.webp
 ---

@@ -84,7 +84,7 @@ export const NavMenu = ({ teams }: Props) => {
                       {teams && teams.length > 0 && <Divider />}
                       {!!currentTeam && (
                         <Item
-                          href={routes.TEAMS_EDIT.replace(
+                          href={routes.TEAM_EDIT_PROFILE.replace(
                             ':slug',
                             currentTeam!.slug
                           )}

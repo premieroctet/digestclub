@@ -13,6 +13,11 @@ import useCustomToast from '@/hooks/useCustomToast';
 import { useRouter } from 'next/navigation';
 import * as Popover from '@radix-ui/react-popover';
 import generateAPIKey from '@/actions/generate-api-key';
+import { Popover as CustomPopover } from '@/components/Popover';
+import { AiOutlineInfoCircle } from '@react-icons/all-files/ai/AiOutlineInfoCircle';
+import Link from 'next/link';
+import { routes } from '@/core/constants';
+
 interface Props {
   team: Team;
 }
@@ -49,12 +54,41 @@ export default function TeamAPIKeyServer({ team }: Props) {
 
   return (
     <div className=" w-full flex flex-col gap-2 items-stretch">
-      <span className="font-semibold mt-4 mb-4">API Key</span>
-      <div className="flex gap-8 items-center flex-col sm:flex-row">
+      <div className="flex gap-2 items-center">
+        <span className="font-semibold mt-4 mb-4">API Key</span>
+        <CustomPopover
+          trigger={
+            <span className="flex items-center justify-center">
+              <AiOutlineInfoCircle />
+            </span>
+          }
+        >
+          {' '}
+          <div className="bg-white max-w-[50ch] p-2 pb-3">
+            <h3 className="font-bold text-gray-900 text-md mb-2">
+              What is this ?
+            </h3>
+            <p className="flex flex-col gap-1 list-decimal list-inside">
+              Use this API Key to authenticate your requests to our API.
+            </p>
+            <p>
+              See the documentation{' '}
+              <Link
+                target="_blank"
+                className="underline text-violet-700"
+                href={routes.UPDATES.concat('#changelog-004')}
+              >
+                here
+              </Link>
+            </p>
+          </div>
+        </CustomPopover>
+      </div>
+      <div className="flex gap-8 items-center flex-row">
         {team.apiKey ? (
           <>
             <div
-              className="w-2/3 group cursor-pointer"
+              className="w-1/2 sm:w-auto group cursor-pointer"
               onClick={() => {
                 if (!key) return;
                 setIsAnimating(true);
@@ -62,8 +96,8 @@ export default function TeamAPIKeyServer({ team }: Props) {
                 copyToClipboard(key);
               }}
             >
-              <div className="px-3 py-2 flex justify-between items-center rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
-                <span className=" overflow-hidden text-ellipsis block select-none items-center text-gray-500 sm:text-base max-w-[calc(100%-2rem)]">
+              <div className="w-full sm:max-w-md px-3 py-2 flex justify-between items-center rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 ">
+                <span className="overflow-hidden text-ellipsis block select-none items-center text-gray-500 sm:text-base max-w-[calc(100%-2rem)]">
                   {displayedKey}
                 </span>
 

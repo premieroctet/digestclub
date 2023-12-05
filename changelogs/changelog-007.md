@@ -1,6 +1,7 @@
 ---
 title: 🔮 Discover page, metrics, AI, and more!
 publishedAt: 2023-11-17
+slug: changelog-007
 image: changelog-007.webp
 ---
 

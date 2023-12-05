@@ -37,7 +37,7 @@ export const fieldsData: FieldData[] = [
     id: FIELDS.name,
     input: 'text',
     inputType: 'text',
-    label: 'Team name',
+    label: 'Name',
     placeholder: 'Team name',
     registerOptions: {
       required: 'Team name is required',

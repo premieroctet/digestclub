@@ -12,6 +12,7 @@ interface Props {
     twitter?: string;
     github?: string;
     slug?: string;
+    color?: string;
   };
 }
 export default function PublicDigestHeader({ team }: Props) {
