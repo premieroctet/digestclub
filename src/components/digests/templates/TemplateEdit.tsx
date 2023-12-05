@@ -28,7 +28,7 @@ import { DeletePopover } from '../../Popover';
 import { BlockListDnd } from '../../digests/BlockListDnd';
 import SectionContainer from '../../layout/SectionContainer';
 import { Breadcrumb } from '../../teams/Breadcrumb';
-import { formatTemplateTitle } from '../../digests/templates/TemplateItem';
+import { formatTemplateTitle } from '@/components/digests/templates/TemplateItem';
 
 type Props = {
   template: NonNullable<Awaited<ReturnType<typeof getDigest>>>;
@@ -163,7 +163,14 @@ export const TemplateEdit = ({ template, team }: Props) => {
             href: routes.TEAM.replace(':slug', team.slug),
           },
           {
-            name: 'Template edition',
+            name: 'Settings',
+          },
+          {
+            name: 'Template',
+            href: routes.TEAM_EDIT_TEMPLATES.replace(':slug', team.slug),
+          },
+          {
+            name: `Edit`,
           },
         ]}
       />
