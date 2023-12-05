@@ -1,11 +1,11 @@
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import { TeamBookmarkedLinkItem, TeamLinks } from '@/lib/queries';
 import { PlusCircleIcon } from '@heroicons/react/24/solid';
 import { DigestBlockType } from '@prisma/client';
 import { AiOutlineLoading3Quarters as LoadingIcon } from '@react-icons/all-files/ai/AiOutlineLoading3Quarters';
 import Link from 'next/link';
 import { PropsWithChildren } from 'react';
 import BookmarkImage from './BookmarkImage';
+import { TeamBookmarkedLinkItem } from '@/services/database/link';
 
 export const Bookmark = ({
   teamLink,

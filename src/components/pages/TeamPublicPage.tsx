@@ -1,4 +1,3 @@
-import { DiscoveryDigest, PublicTeamResult } from '@/lib/queries';
 import { getEnvHost } from '@/lib/server';
 import { BookmarkIcon } from '@heroicons/react/24/solid';
 import RssButton from '../RssButton';
@@ -7,6 +6,7 @@ import PublicPageTemplate from '../layout/PublicPageTemplate';
 import PublicDigestListItem from '../teams/PublicDigestListItem';
 import Pagination from '../list/Pagination';
 import { Team } from '@prisma/client';
+import { DiscoveryDigest } from '@/services/database/digest';
 
 export interface Props {
   team: Team;

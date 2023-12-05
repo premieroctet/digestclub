@@ -1,6 +1,8 @@
-import { TeamLinks, getDigest, getTeamBySlug } from '@/lib/queries';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { BookmarkItem } from './BookmarkItem';
+import { getTeamBySlug } from '@/services/database/team';
+import { getDigest } from '@/services/database/digest';
+import { TeamLinks } from '@/services/database/link';
 
 export type BookmarkListDndProps = {
   digest: NonNullable<Awaited<ReturnType<typeof getDigest>>>;

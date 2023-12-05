@@ -2,13 +2,13 @@
 
 import useCustomToast from '@/hooks/useCustomToast';
 import { useTransition } from 'react';
-import { TeamInvitation } from '@/lib/queries';
 import message from '@/messages/en';
 import InvitationItem from './InvitationItem';
 import deleteInvitation from '@/actions/delete-invitation';
 import { Invitation } from '@prisma/client';
 import NoContent from '@/components/layout/NoContent';
 import { UserIcon } from '@heroicons/react/24/solid';
+import { TeamInvitation } from '@/services/database/invitation';
 
 type Props = {
   invitations: TeamInvitation[];

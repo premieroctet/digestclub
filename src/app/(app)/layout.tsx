@@ -1,11 +1,11 @@
 import Header from '@/components/layout/Header';
-import { getUserTeams } from '@/lib/queries';
 import { getSession } from '@/lib/sessions';
 import { getEnvHost } from '@/lib/server';
 import { Metadata } from 'next';
 import '@/theme/app.css';
 import '@/theme/globals.css';
 import Providers from './providers';
+import { getUserTeams } from '@/services/database/team';
 
 export const dynamic = 'force-dynamic';
 

@@ -1,5 +1,4 @@
 'use client';
-import { getDigest, getTeamBySlug } from '@/lib/queries';
 import { Draggable } from 'react-beautiful-dnd';
 import Droppable from '../Droppable';
 import NoContent from '../layout/NoContent';
@@ -7,6 +6,8 @@ import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill
 import clsx from 'clsx';
 import BlockCard from './block-card/BlockCard';
 import AddTextBlockButton from './AddTextBlockButton';
+import { getTeamBySlug } from '@/services/database/team';
+import { getDigest } from '@/services/database/digest';
 
 export type BlockListDndProps = {
   digest: Awaited<ReturnType<typeof getDigest>>;

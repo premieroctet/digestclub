@@ -1,4 +1,4 @@
-import { TeamInvitation } from '@/lib/queries';
+import { TeamInvitation } from '@/services/database/invitation';
 import ListItem from '../TabsListItem';
 
 type Props = {

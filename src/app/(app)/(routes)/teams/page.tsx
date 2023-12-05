@@ -1,6 +1,6 @@
 import { COOKIES, routes } from '@/core/constants';
-import { getUserTeams } from '@/lib/queries';
 import { getSession } from '@/lib/sessions';
+import { getUserTeams } from '@/services/database/team';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 

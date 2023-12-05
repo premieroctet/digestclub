@@ -1,7 +1,8 @@
 import Pagination from '@/components/list/Pagination';
 import PublicDigestListItem from '@/components/teams/PublicDigestListItem';
 import TeamAvatar from '@/components/teams/TeamAvatar';
-import { getDiscoverDigests, getRecentTeams } from '@/lib/queries';
+import { getDiscoverDigests } from '@/services/database/digest';
+import { getRecentTeams } from '@/services/database/team';
 import Link from 'next/link';
 
 export interface TeamPageProps {

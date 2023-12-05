@@ -1,8 +1,8 @@
-import { PublicDigestResult } from '@/lib/queries';
 import { formatDate } from '@/utils/date';
 import { BookmarkIcon } from '@heroicons/react/24/solid';
 import NoContent from '../layout/NoContent';
 import BlockCard from './block-card/BlockCard';
+import { PublicDigestResult } from '@/services/database/digest';
 
 export interface Props {
   digest: NonNullable<PublicDigestResult>;

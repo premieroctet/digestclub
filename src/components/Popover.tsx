@@ -7,9 +7,9 @@ import {
 } from '@radix-ui/react-popover';
 import { ReactElement, cloneElement, forwardRef } from 'react';
 import Button from './Button';
-import { TeamBookmarkedLinkItem } from '@/lib/queries';
 import { getContributor } from './bookmark/BookmarkItem';
 import { TrashIcon } from '@heroicons/react/24/solid';
+import { TeamBookmarkedLinkItem } from '@/services/database/link';
 
 interface DeletePopoverProps {
   trigger?: ReactElement;

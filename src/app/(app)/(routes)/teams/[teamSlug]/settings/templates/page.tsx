@@ -1,13 +1,14 @@
 import React from 'react';
 import { TeamPageProps } from '../../page';
 import { getCurrentUser } from '@/lib/sessions';
-import { checkUserTeamBySlug, getTeamDigests } from '@/lib/queries';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
 import TeamTemplates from '@/components/teams/form/settings/TeamTemplates';
 import SettingsPageLayout from '@/components/teams/form/settings/SettingsPageLayout';
 import { routes } from '@/core/constants';
 import { getTeamSettingsPageInfo } from '@/utils/page';
+import { getTeamDigests } from '@/services/database/digest';
+import { checkUserTeamBySlug } from '@/services/database/user';
 
 export default async function Page({ params }: TeamPageProps) {
   const teamSlug = params.teamSlug;

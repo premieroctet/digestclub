@@ -1,15 +1,14 @@
 import client from '@/lib/db';
 import { checkDigest, checkTeam } from '@/lib/middleware';
 import { AuthApiRequest, errorHandler } from '@/lib/router';
+import { createDigestBlock } from '@/services/database/digest-block';
 import {
   DigestBlock,
-  Digest,
   DigestBlockType,
   BookmarkDigestStyle,
 } from '@prisma/client';
 import type { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
-import { createDigestBlock } from '@/lib/queries';
 
 export type ApiBookmarkDigestResponseSuccess = DigestBlock;
 export const router = createRouter<AuthApiRequest, NextApiResponse>();

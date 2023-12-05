@@ -5,9 +5,9 @@ import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import { useMutation } from 'react-query';
 import api from '@/lib/api';
 import { routes } from '@/core/constants';
-import { UserInvitationItem } from '@/lib/queries';
 import useCustomToast from '@/hooks/useCustomToast';
 import { useRouter } from 'next/navigation';
+import { UserInvitationItem } from '@/services/database/invitation';
 
 const UserInvitationItem = ({
   invitation,

@@ -1,13 +1,10 @@
 import { TemplateEdit } from '@/components/digests/templates/TemplateEdit';
 import { DigestEditPage } from '@/components/pages/DigestEditPage';
 import { TeamProvider } from '@/contexts/TeamContext';
-import {
-  checkUserTeamBySlug,
-  getDigest,
-  getTeamLinks,
-  updateDefaultTeam,
-} from '@/lib/queries';
 import { getCurrentUserOrRedirect } from '@/lib/sessions';
+import { getDigest } from '@/services/database/digest';
+import { getTeamLinks } from '@/services/database/link';
+import { checkUserTeamBySlug } from '@/services/database/user';
 import { redirect } from 'next/navigation';
 
 export interface TeamPageProps {

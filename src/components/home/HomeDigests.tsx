@@ -1,5 +1,5 @@
+import { getDiscoverDigests } from '@/services/database/digest';
 import PublicDigestCard from '../teams/PublicDigestCard';
-import { getDiscoverDigests } from '@/lib/queries';
 
 const HomeDigests = async () => {
   const { digests } = await getDiscoverDigests({

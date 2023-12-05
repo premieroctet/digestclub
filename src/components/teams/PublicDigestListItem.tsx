@@ -1,4 +1,3 @@
-import { DiscoveryDigest } from '@/lib/queries';
 import { formatDate } from '@/utils/date';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { Team } from '@prisma/client';
@@ -6,6 +5,7 @@ import Link from 'next/link';
 import BookmarkImage from '../bookmark/BookmarkImage';
 import BookmarkCountBadge from './BookmarkCountBadge';
 import TeamAvatar from './TeamAvatar';
+import { DiscoveryDigest } from '@/services/database/digest';
 
 interface Props {
   digest: DiscoveryDigest;

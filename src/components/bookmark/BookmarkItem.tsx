@@ -1,6 +1,5 @@
 'use client';
 
-import { TeamBookmarkedLinkItem } from '@/lib/queries';
 import { getRelativeDate } from '@/utils/date';
 import { getDomainFromUrl } from '@/utils/url';
 import clsx from 'clsx';
@@ -21,6 +20,7 @@ import BookmarkAddButton from './BookmarkAddButton';
 import Link from 'next/link';
 import { Tooltip } from '../Tooltip';
 import { DeletePopover, MultipleDeletePopover } from '../Popover';
+import { TeamBookmarkedLinkItem } from '@/services/database/link';
 
 type Props = {
   teamLink: TeamBookmarkedLinkItem;

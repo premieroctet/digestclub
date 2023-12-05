@@ -6,11 +6,10 @@ import { Props as PublicDigestListProps } from '../../PublicDigestList';
 import { useTeam } from '@/contexts/TeamContext';
 import { useParams } from 'next/navigation';
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import AddTextBlockDialog from '../../dialog/AddTextBlockDialog';
 import EditBookmarkDialog from '../../dialog/EditBookmarkDialog';
 import * as Sentry from '@sentry/nextjs';
 import { CardStyleBlock, CardStyleInline, CardStyleTweet } from './card-style';
-import { incrementLinkView } from '@/lib/queries';
+import { incrementLinkView } from '@/services/database/link';
 
 export interface Props {
   block: PublicDigestListProps['digest']['digestBlocks'][number];
@@ -47,8 +46,8 @@ export default function BlockBookmarkCard({
     blockDescription !== null ? blockDescription : linkDescription;
   const onClickBookmark = () => {
     !isEditable && incrementLinkView(bookmark.id);
-  }
-  const views = isEditable ? bookmark.views : undefined; 
+  };
+  const views = isEditable ? bookmark.views : undefined;
 
   function EditPanel() {
     return (
