@@ -15,7 +15,7 @@ const Tag = ({
 }: {
   tag: ITag;
   onCloseClick?: (tag: ITag) => void;
-  size?: 'default' | 'small';
+  size?: 'default' | 'small' | 'large';
 }) => {
   return (
     <div
@@ -25,6 +25,7 @@ const Tag = ({
         {
           'text-xs px-2 py-1': size === 'default',
           'text-[11px] px-2 py-0.5': size === 'small',
+          'text-lg px-6 py-3': size === 'large',
         }
       )}
     >
