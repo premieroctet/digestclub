@@ -16,7 +16,7 @@
     "prepare": "husky install"
   },
   "prisma": {
-    "seed": "dotenv -e .env.local -- yarn tsx src/seed.ts"
+    "seed": "yarn tsx src/seed.ts"
   },
   "engines": {
     "node": ">=18.17.0"
