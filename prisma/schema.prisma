@@ -159,7 +159,7 @@ model Link {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   bookmark    Bookmark[]
-  tags Tags[] @relation("links_to_tags")
+  tags Tag[] @relation("links_to_tags")
   @@map("links")
 }
 
@@ -214,7 +214,7 @@ model DigestBlock {
   type        DigestBlockType @default(BOOKMARK)
   text        String?
   isTemplate Boolean @default(false)
-  tags Tags[] @relation("digestblocks_to_tags")
+  tags Tag[] @relation("digestblocks_to_tags")
 
   @@unique([bookmarkId, digestId])
   @@map("digest_blocks")
@@ -231,7 +231,7 @@ model Subscription {
   @@map("subscriptions")
 }
 
-model Tags {
+model Tag {
   id          String   @id @default(uuid())
   name        String
   slug        String
