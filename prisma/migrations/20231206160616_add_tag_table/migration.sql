@@ -17,7 +17,7 @@ CREATE TABLE "_links_to_tags" (
 );
 
 -- CreateTable
-CREATE TABLE "_bookmark_to_tags" (
+CREATE TABLE "_digestblocks_to_tags" (
     "A" TEXT NOT NULL,
     "B" TEXT NOT NULL
 );
@@ -29,10 +29,10 @@ CREATE UNIQUE INDEX "_links_to_tags_AB_unique" ON "_links_to_tags"("A", "B");
 CREATE INDEX "_links_to_tags_B_index" ON "_links_to_tags"("B");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "_bookmark_to_tags_AB_unique" ON "_bookmark_to_tags"("A", "B");
+CREATE UNIQUE INDEX "_digestblocks_to_tags_AB_unique" ON "_digestblocks_to_tags"("A", "B");
 
 -- CreateIndex
-CREATE INDEX "_bookmark_to_tags_B_index" ON "_bookmark_to_tags"("B");
+CREATE INDEX "_digestblocks_to_tags_B_index" ON "_digestblocks_to_tags"("B");
 
 -- AddForeignKey
 ALTER TABLE "_links_to_tags" ADD CONSTRAINT "_links_to_tags_A_fkey" FOREIGN KEY ("A") REFERENCES "links"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -41,7 +41,7 @@ ALTER TABLE "_links_to_tags" ADD CONSTRAINT "_links_to_tags_A_fkey" FOREIGN KEY 
 ALTER TABLE "_links_to_tags" ADD CONSTRAINT "_links_to_tags_B_fkey" FOREIGN KEY ("B") REFERENCES "tags"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_bookmark_to_tags" ADD CONSTRAINT "_bookmark_to_tags_A_fkey" FOREIGN KEY ("A") REFERENCES "bookmarks"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "_digestblocks_to_tags" ADD CONSTRAINT "_digestblocks_to_tags_A_fkey" FOREIGN KEY ("A") REFERENCES "digest_blocks"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "_bookmark_to_tags" ADD CONSTRAINT "_bookmark_to_tags_B_fkey" FOREIGN KEY ("B") REFERENCES "tags"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "_digestblocks_to_tags" ADD CONSTRAINT "_digestblocks_to_tags_B_fkey" FOREIGN KEY ("B") REFERENCES "tags"("id") ON DELETE CASCADE ON UPDATE CASCADE;

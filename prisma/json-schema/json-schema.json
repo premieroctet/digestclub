@@ -427,7 +427,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Tags"
+            "$ref": "#/definitions/Tag"
           }
         }
       }
@@ -622,7 +622,7 @@
         "tags": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Tags"
+            "$ref": "#/definitions/Tag"
           }
         }
       }
@@ -649,7 +649,7 @@
         }
       }
     },
-    "Tags": {
+    "Tag": {
       "type": "object",
       "properties": {
         "id": {
@@ -728,8 +728,8 @@
     "subscription": {
       "$ref": "#/definitions/Subscription"
     },
-    "tags": {
-      "$ref": "#/definitions/Tags"
+    "tag": {
+      "$ref": "#/definitions/Tag"
     }
   }
 }
