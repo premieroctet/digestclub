@@ -9,7 +9,7 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "prisma:migrate:dev": "prisma migrate dev",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "vercel-build": "prisma generate && prisma migrate deploy && prisma db seed && next build",
     "test:watch": "jest --watch",
     "test:build": "jest",
     "analyze": "cross-env ANALYZE=true next build",
