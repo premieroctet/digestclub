@@ -278,8 +278,8 @@ const DEFAULT_TAGS = [
   },
 ] as const;
 
-async function main() {
-  const tags = await Promise.all(
+function seedTags() {
+  return Promise.all(
     DEFAULT_TAGS.map((tag) =>
       prisma.tag.upsert({
         where: { id: tag.id },
@@ -288,6 +288,17 @@ async function main() {
       })
     )
   );
+}
+
+async function main() {
+  // eslint-disable-next-line no-console
+  console.log(`Start seeding ...`);
+  try {
+    await seedTags();
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  }
 }
 
 main()
