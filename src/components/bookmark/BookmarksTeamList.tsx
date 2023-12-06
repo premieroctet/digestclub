@@ -15,7 +15,7 @@ type Props = {
 
 export const BookmarksTeamList = ({ teamLinks, teamId, teamSlug }: Props) => {
   return (
-    <div className="w-full">
+    <div className="w-ful">
       <SearchInput className="mb-4" />
       {teamLinks.length < 1 ? (
         <NoContent

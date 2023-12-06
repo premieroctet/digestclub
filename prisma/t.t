@@ -159,7 +159,8 @@ model Link {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   bookmark    Bookmark[]
-  tags Tags[] @relation("links_to_tags")
+  tags Tags[] @relation("LinkToTags")
+
   @@map("links")
 }
 
@@ -177,7 +178,7 @@ model Bookmark {
   digestBlocks DigestBlock[]
   metadata     Json?
   views        Int @default(0)
-  tags Tags[] @relation("bookmark_to_tags")
+  tags Tags[] @relation("BookmarkToTags")
   @@map("bookmarks")
 }
 
@@ -238,7 +239,7 @@ model Tags {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   description String?
-  links       Link[]   @relation("links_to_tags")
-  bookmarks   Bookmark[] @relation("bookmark_to_tags")
+  links       Link[]   @relation("LinkToTags")
+  bookmarks   Bookmark[] @relation("BookmarkToTags")
   @@map("tags")
 }
