@@ -93,6 +93,14 @@ const DEFAULT_TAGS = [
       'A React framework that enables server-side rendering and other optimizations for React applications.',
   },
   {
+    id: '6c215964-b34e-4377-b14b-8b587e35310c',
+    name: 'NuxtJs',
+    slug: 'nuxtjs',
+    description:
+      'A Vue framework that enables server-side rendering and other optimizations for Vue applications.',
+  },
+
+  {
     id: '5e7e54fc-3f9b-47eb-a622-8a10a6e1d5ec',
     name: 'AI',
     slug: 'ai',
@@ -253,6 +261,20 @@ const DEFAULT_TAGS = [
     slug: 'crypto',
     description:
       'Short for cryptocurrency, a digital or virtual currency secured by cryptography.',
+  },
+  {
+    id: 'b4b6b8a0-9b0a-4e9e-8b0a-9b8b8b8b8b8b',
+    name: 'Event',
+    slug: 'event',
+    description:
+      'A planned and organized occasion, often with a specific purpose.',
+  },
+  {
+    id: 'b4b6b8a0-9b0a-4e9e-8b0a-9b8b8b8b8b8b',
+    name: 'Web dev',
+    slug: 'web-dev',
+    description:
+      'Internet development, the process of creating websites and applications for the web.',
   },
 ] as const;
 
