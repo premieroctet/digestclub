@@ -423,6 +423,12 @@
           "items": {
             "$ref": "#/definitions/Bookmark"
           }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tags"
+          }
         }
       }
     },
@@ -483,6 +489,12 @@
         "views": {
           "type": "integer",
           "default": 0
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tags"
+          }
         }
       }
     },
@@ -636,6 +648,46 @@
           "format": "date-time"
         }
       }
+    },
+    "Tags": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "bookmarks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Bookmark"
+          }
+        }
+      }
     }
   },
   "type": "object",
@@ -675,6 +727,9 @@
     },
     "subscription": {
       "$ref": "#/definitions/Subscription"
+    },
+    "tags": {
+      "$ref": "#/definitions/Tags"
     }
   }
 }
