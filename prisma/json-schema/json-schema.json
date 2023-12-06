@@ -489,12 +489,6 @@
         "views": {
           "type": "integer",
           "default": 0
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Tags"
-          }
         }
       }
     },
@@ -624,6 +618,12 @@
         "isTemplate": {
           "type": "boolean",
           "default": false
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tags"
+          }
         }
       }
     },
@@ -684,7 +684,7 @@
         "bookmarks": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Bookmark"
+            "$ref": "#/definitions/DigestBlock"
           }
         }
       }

@@ -1,3 +1,4 @@
+import Tag, { ITag } from '@/components/Tag';
 import BookmarkImage, {
   Props as BookmarkImageProps,
 } from '@/components/bookmark/BookmarkImage';
@@ -15,6 +16,7 @@ function CardStyleBlock({
   panelSlot,
   onClick,
   views,
+  tags,
 }: {
   bookmarkId: string;
   bookmarkLink: BookmarkImageProps['link'];
@@ -24,6 +26,7 @@ function CardStyleBlock({
   panelSlot: React.ReactNode;
   onClick: () => void;
   views?: number;
+  tags: ITag[];
 }) {
   const hasPanel = Boolean(panelSlot);
 
@@ -45,11 +48,14 @@ function CardStyleBlock({
                   fallbackSrc={`${getEnvHost()}/api/bookmark-og?bookmark=${bookmarkId}`}
                 />
               </div>
-              {typeof views !== "undefined" && views > 0 && <div className="flex items-center text-sm text-gray-400 mt-1">
-                <div className="flex items-center">
-                  <ChartBarIcon className="text-gray-400 h-4 w-4 mr-1" /> {`${views} view${views > 1 ? 's' : ''}`}
+              {typeof views !== 'undefined' && views > 0 && (
+                <div className="flex items-center text-sm text-gray-400 mt-1">
+                  <div className="flex items-center">
+                    <ChartBarIcon className="text-gray-400 h-4 w-4 mr-1" />{' '}
+                    {`${views} view${views > 1 ? 's' : ''}`}
+                  </div>
                 </div>
-              </div>}
+              )}
             </div>
             <div className="w-full md:w-2/3 md:mt-0 max-w-[100%]">
               <p className="text-lg font-semibold overflow-hidden text-ellipsis leading-6 bg-green-50 group-hover:bg-green-100 transition-colors inline">
@@ -60,9 +66,18 @@ function CardStyleBlock({
                   {description}
                 </p>
               )}
-              <p className="text-sm mt-1 text-slate-400">
-                {getDomainFromUrl(url)}
-              </p>
+              <div className="flex flex-wrap gap-2 items-center mt-1">
+                <p className="text-sm  text-slate-400">
+                  {getDomainFromUrl(url)}
+                </p>
+                <ul className="flex gap-2 items-center">
+                  {tags.map((tag) => (
+                    <li key={tag.id}>
+                      <Tag tag={tag} size="small" />
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </>
         </div>
