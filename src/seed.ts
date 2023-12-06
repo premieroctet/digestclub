@@ -281,7 +281,7 @@ const DEFAULT_TAGS = [
 async function main() {
   const tags = await Promise.all(
     DEFAULT_TAGS.map((tag) =>
-      prisma.tags.upsert({
+      prisma.tag.upsert({
         where: { id: tag.id },
         update: {},
         create: tag,

@@ -8,7 +8,7 @@ export const router = createRouter<AuthApiRequest, NextApiResponse>();
 router.get(async (req, res) => {
   try {
     /** Get all available tags */
-    const tags = await db.tags.findMany({
+    const tags = await db.tag.findMany({
       select: {
         id: true,
         name: true,
