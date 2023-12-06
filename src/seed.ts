@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
-const DEFAULT_TAGS = [
+const tags = [
   {
     id: '8fc45134-1a0a-40e2-b6ac-103c3376d158',
     name: 'React',
@@ -278,16 +278,26 @@ const DEFAULT_TAGS = [
   },
 ] as const;
 
-async function main() {
-  const tags = await Promise.all(
-    DEFAULT_TAGS.map((tag) =>
-      prisma.tag.upsert({
-        where: { id: tag.id },
-        update: {},
-        create: tag,
-      })
+async function seedTags() {
+  await Promise.all(
+    tags.map(
+      async (tag) =>
+        await prisma.tag.upsert({
+          where: { id: tag.id },
+          update: {},
+          create: tag,
+        })
     )
   );
+}
+
+async function main() {
+  try {
+    await seedTags();
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.error(e);
+  }
 }
 
 main()
@@ -295,6 +305,8 @@ main()
     await prisma.$disconnect();
   })
   .catch(async (e) => {
+    // eslint-disable-next-line no-console
+    console.error(e);
     await prisma.$disconnect();
     process.exit(1);
   });
