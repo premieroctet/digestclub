@@ -292,10 +292,6 @@ async function seedTags() {
 }
 
 async function main() {
-  // eslint-disable-next-line no-console
-  console.log(`Start seeding ...`);
-  // eslint-disable-next-line no-console
-  console.log('env : ', process.env);
   try {
     await seedTags();
   } catch (e) {
