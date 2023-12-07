@@ -110,9 +110,6 @@ export default function TagsSelect({
           onFocus={() => {
             setIsListOpen(true);
           }}
-          onBlur={() => {
-            setIsListOpen(false);
-          }}
           disabled={hasMaxTags}
         />
       </div>
