@@ -65,14 +65,14 @@ const TagsPage = async ({
                   <h3 className="text-2xl font-bold">
                     No digests found for this topic
                   </h3>
-                  <p className="text-lg text-slate-500">
+                  <p className="text-base text-slate-500">
                     {` We couldn't find any digests tagged with ${tag.name}. Try a different tag or browse all digests.`}
                   </p>
                 </div>
                 <CustomLink
                   href="/discover"
                   className="mt-4"
-                  variant="outline"
+                  variant="ghost"
                   title="Browse all digests"
                 >
                   Browse all digests

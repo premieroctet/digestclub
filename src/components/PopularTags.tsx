@@ -11,6 +11,9 @@ export default function PopularTags({ tags, currentTag }: Props) {
   return (
     <div className="bg-white p-4 border border-gray-200 rounded-lg">
       <h4 className="text-xl font-bold">Popular tags</h4>
+      <p className="text-xs text-slate-500 mt-0.5">
+        Browse digests by the most used tags
+      </p>
       <div className="flex gap-2 mt-4 flex-wrap">
         {tags.map(({ id, name, slug, description }) => (
           <Link key={id} href={`/tags/${slug}`}>
