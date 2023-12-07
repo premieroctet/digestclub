@@ -3,6 +3,7 @@ import { extractMetadata } from '@/utils/bookmark';
 import { isLinkValid } from '@/utils/link';
 import { getPlaiceholder } from 'plaiceholder';
 import db from '@/lib/db';
+import { generateLinksTags } from './link';
 
 export const saveBookmark = async (
   linkUrl: string,
@@ -45,6 +46,18 @@ export const saveBookmark = async (
 
     const logo = isPDF ? null : metadata?.logo;
 
+    const tags = await db.tag.findMany({
+      select: { id: true, name: true },
+    });
+
+    const generatedTags = await generateLinksTags(
+      {
+        title: metadata?.title || linkUrl,
+        description: metadata?.description || '',
+      },
+      tags
+    );
+
     link = await db.link.create({
       data: {
         title: metadata?.title || linkUrl,
@@ -53,6 +66,13 @@ export const saveBookmark = async (
         url: linkUrl,
         logo,
         blurHash: blurhash,
+        ...(generatedTags.length > 0 && {
+          tags: {
+            connect: generatedTags.map((tag) => ({
+              id: tag.id,
+            })),
+          },
+        }),
       },
     });
   }
@@ -92,4 +112,28 @@ const isBookmarkAlreadyInTeam = async (linkId?: string, teamId?: string) => {
         throw new TypeError('already_bookmarked');
       }
     });
+};
+
+export const getTagsFromLinkByBookmarkId = async (bookmarkId: string) => {
+  const link = await db.link.findFirst({
+    where: {
+      bookmark: {
+        some: {
+          id: bookmarkId,
+        },
+      },
+    },
+    select: {
+      tags: {
+        select: {
+          id: true,
+          name: true,
+          slug: true,
+        },
+      },
+      bookmark: {},
+    },
+  });
+  if (!link) return [];
+  return link?.tags;
 };

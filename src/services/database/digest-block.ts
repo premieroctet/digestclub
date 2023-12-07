@@ -9,6 +9,7 @@ import {
   DigestBlockType,
 } from '@prisma/client';
 import urlSlug from 'url-slug';
+import { getTagsFromLinkByBookmarkId } from './bookmark';
 
 export type CreateBlockData = {
   bookmarkId?: string;
@@ -151,17 +152,45 @@ export const createDigestBlock = async (
 ) => {
   const { bookmarkId, text, style, type, position, isTemplate } = blockInfo;
   const hasOrderParam = order !== undefined;
-  const block = await db.digestBlock.create({
-    data: {
-      digestId: digest.id,
-      ...(bookmarkId && { bookmarkId }),
-      ...(text && { text }),
-      ...(style && { style }),
-      order: hasOrderParam ? order : digest.digestBlocks.length,
-      type,
-      isTemplate,
-    },
-  });
+  let block;
+
+  if (bookmarkId) {
+    // Block is a bookmark
+    const tags = await getTagsFromLinkByBookmarkId(bookmarkId);
+
+    block = await db.digestBlock.create({
+      data: {
+        digestId: digest.id,
+        ...(bookmarkId && { bookmarkId }),
+        ...(text && { text }),
+        ...(style && { style }),
+
+        order: hasOrderParam ? order : digest.digestBlocks.length,
+        type,
+        isTemplate,
+        ...(tags && {
+          tags: {
+            connect: tags.map((tag) => ({
+              id: tag.id,
+            })),
+          },
+        }),
+      },
+    });
+  } else {
+    // Block is a text block or a template block
+    block = await db.digestBlock.create({
+      data: {
+        digestId: digest.id,
+        ...(bookmarkId && { bookmarkId }),
+        ...(text && { text }),
+        ...(style && { style }),
+        order: hasOrderParam ? order : digest.digestBlocks.length,
+        type,
+        isTemplate,
+      },
+    });
+  }
 
   if (position !== undefined && !hasOrderParam) {
     await orderBlock(digest.id, block.id, position);
