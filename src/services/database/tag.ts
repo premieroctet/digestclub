@@ -20,7 +20,7 @@ type PopularTag = {
 };
 
 /**
- * Retrieves the top 5 most popular tags associated digest blocks that have been published.
+ * Retrieves the 5 most popular tags associated with a DigestBlock (that is published).
  * These tags are based on the count of digest blocks associated with each tag.
  */
 export const getPopularTags = async () => {
