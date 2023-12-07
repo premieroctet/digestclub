@@ -1,6 +1,7 @@
 'use server';
 
 import db from '@/lib/db';
+import { openAiCompletion } from '@/utils/openai';
 import { Prisma } from '@prisma/client';
 
 /**
@@ -140,6 +141,50 @@ export const incrementLinkView = async (bookmarkId: string) => {
       },
     },
   });
+};
+
+export const generateLinksTags = async (
+  {
+    title,
+    description,
+  }: {
+    title: string;
+    description: string;
+  },
+  allTags: {
+    id: string;
+    name: string;
+  }[]
+): Promise<
+  {
+    id: string;
+    name: string;
+  }[]
+> => {
+  const prompt = `
+  You're about to save a new bookmark, in a plateform called Digest Club, that allows you to save and share bookmarks with your team. We aim to make easier technology watch and knowledge sharing (about IT and web development).
+  Generate tags for this bookmark based on the title and description. You can't add more than 2 tags and you must use tags that I provided below (separated with a commas). If no tags seems relevant (it might often be the case), just write NONE.
+  Only returns the response, not the prompt. If only one tag is needed just return one tag (it can be the case sometimes). If two tags are needed, return two tags but the first one must be the most relevant one.
+  ---
+  Bookmark title: ${title}
+  Bookmark description: ${description}
+  ---
+  Tags: ${allTags.map((tag) => tag.name).join(', ')}
+  ---
+  `;
+
+  const response = await openAiCompletion({ prompt, model: 'gpt-4' });
+
+  const data = response[0].message.content;
+  if (data === 'NONE' || !data) return [];
+  // If AI can't find any tags or if the response is empty, we return an empty array
+
+  const AITags = data.split(', ');
+  const tags = allTags.filter((tag) => AITags.includes(tag.name));
+  // We make sure the tags returned by the AI are in the allTags array
+  if (tags.length === 0) return [];
+
+  return tags;
 };
 
 export type TeamLinksData = Awaited<ReturnType<typeof getTeamLinks>>;
