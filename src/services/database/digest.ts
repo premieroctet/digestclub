@@ -159,15 +159,20 @@ export const getDiscoverDigests = async ({
   page,
   perPage = 10,
   teamId,
+  tagId,
 }: {
   page?: number;
   perPage?: number;
   teamId?: string;
+  tagId?: string;
 }) => {
   const where = {
     publishedAt: { not: null },
     digestBlocks: { some: { bookmarkId: { not: null } } },
     ...(teamId ? { teamId } : {}),
+    ...(tagId
+      ? { digestBlocks: { some: { tags: { some: { id: tagId } } } } }
+      : {}),
   };
 
   const digestsCount = await db.digest.count({
