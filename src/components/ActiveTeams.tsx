@@ -13,6 +13,9 @@ export default function ActiveTeams({ teams }: Props) {
   return (
     <div className="bg-white p-4 border border-gray-200 rounded-lg">
       <h4 className="text-xl font-bold">Active Teams</h4>
+      <p className="text-xs text-slate-500 mt-0.5">
+        Most active teams on digest.club
+      </p>
       <div className="flex flex-col gap-4 mt-4">
         {teams.map((team) => (
           <Link key={team.slug} href={`/${team.slug}`}>
