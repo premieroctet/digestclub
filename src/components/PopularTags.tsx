@@ -8,6 +8,7 @@ interface Props {
 }
 
 export default function PopularTags({ tags, currentTag }: Props) {
+  if (tags.length === 0) return <></>;
   return (
     <div className="bg-white p-4 border border-gray-200 rounded-lg">
       <h4 className="text-xl font-bold">Popular tags</h4>
