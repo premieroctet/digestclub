@@ -73,14 +73,14 @@ const tags = [
   },
   {
     id: '6c215964-b34e-4377-b14b-8b587e35310c',
-    name: 'NextJs',
+    name: 'NextJS',
     slug: 'nextjs',
     description:
       'A React framework that enables server-side rendering and other optimizations for React applications.',
   },
   {
     id: '6c215964-b34e-4377-b14b-8b587e35310c',
-    name: 'NuxtJs',
+    name: 'NuxtJS',
     slug: 'nuxtjs',
     description:
       'A Vue framework that enables server-side rendering and other optimizations for Vue applications.',
