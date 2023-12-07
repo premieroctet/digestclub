@@ -15,10 +15,7 @@ export default function PopularTags({ tags, currentTag }: Props) {
       <div className="flex gap-4 mt-4">
         {tags.map(({ id, name, slug, description }) => (
           <Link key={id} href={`/tags/${slug}`}>
-            <div
-              className="flex flex-col items-start gap-2"
-              title={description || name}
-            >
+            <div className="flex flex-col items-start gap-2">
               <Tag
                 tag={{
                   id,
