@@ -1,11 +1,11 @@
 import { checkTeam } from '@/lib/middleware';
 import { AuthApiRequest, errorHandler } from '@/lib/router';
-import { saveBookmark } from '@/utils/bookmark';
 import { Bookmark } from '@prisma/client';
 import { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
 import * as Sentry from '@sentry/nextjs';
 import messages from '@/messages/en';
+import { saveBookmark } from '@/services/database/bookmark';
 
 export type ApiBookmarkResponseSuccess = Bookmark;
 
