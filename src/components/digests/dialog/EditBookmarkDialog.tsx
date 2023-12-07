@@ -7,18 +7,21 @@ import { BookmarkDigestStyle } from '@prisma/client';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import Button from '../../Button';
 import { Dialog, DialogContent } from '../../Dialog';
 import { Input, Select, TextArea } from '../../Input';
 import { Props as BookmarkCardProps } from '../block-card/BlockCard';
 import SummaryButton from './SummaryButton';
+import TagsSelect from '@/components/TagsSelect';
+import { ITag } from '@/components/Tag';
 
 interface IFormValues {
   title: string;
   description: string;
   style: BookmarkDigestStyle;
+  tags: ITag[];
 }
 
 interface Props {
@@ -59,6 +62,7 @@ export default function EditBookmarkDialog({
     handleSubmit,
     formState: { errors, isDirty },
     reset,
+    control,
     setValue,
   } = useForm<IFormValues>({
     defaultValues,
@@ -75,13 +79,14 @@ export default function EditBookmarkDialog({
     IFormValues
   >(
     'update-bookmarkdigest',
-    ({ title, description, style }) => {
+    ({ title, description, style, tags }) => {
       return api.patch(
         `/teams/${teamId}/digests/${params?.digestId}/block/${bookmarkDigest.id}`,
         {
           title,
           description,
           style,
+          tags: tags.map((tag) => tag.id),
         }
       );
     },
@@ -182,6 +187,13 @@ export default function EditBookmarkDialog({
               options={getStyleSelectOptions()}
             />
           </fieldset>
+          <Controller
+            name="tags"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TagsSelect value={value} onChange={onChange} />
+            )}
+          />
           <div className="flex justify-between gap-4 w-full items-center">
             <Button type="button" variant="ghost" onClick={closeDialog}>
               Cancel

@@ -55,6 +55,12 @@ Run migrations
 yarn prisma:migrate:dev
 ```
 
+Run seeders
+
+```bash
+yarn prisma:seed
+```
+
 Run the development server:
 
 ```bash

@@ -40,7 +40,12 @@ export default function BlockBookmarkCard({
 
   if (!bookmark) throw new Error('Block type is BOOKMARK but bookmark is null');
   const { link } = bookmark;
-  const { title: linkTitle, description: linkDescription, url } = link;
+  const {
+    title: linkTitle,
+    description: linkDescription,
+    url,
+    tags: linkTags,
+  } = link;
   const title = blockTitle || linkTitle;
   const description =
     blockDescription !== null ? blockDescription : linkDescription;
@@ -48,6 +53,7 @@ export default function BlockBookmarkCard({
     !isEditable && incrementLinkView(bookmark.id);
   };
   const views = isEditable ? bookmark.views : undefined;
+  const tags = block.tags || linkTags || [];
 
   function EditPanel() {
     return (
@@ -68,6 +74,7 @@ export default function BlockBookmarkCard({
           defaultValues={{
             ...(title && { title }),
             ...(description && { description }),
+            ...(tags && { tags }),
           }}
           url={url}
         />
@@ -102,6 +109,7 @@ export default function BlockBookmarkCard({
         panelSlot={isEditable && <EditPanel />}
         onClick={onClickBookmark}
         views={views}
+        tags={tags}
       />
     );
   } else if (blockStyle === BookmarkDigestStyle.TWEET_EMBED) {
