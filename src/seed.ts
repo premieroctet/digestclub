@@ -30,20 +30,6 @@ const tags = [
       'A superset of JavaScript that adds static typing to the language.',
   },
   {
-    id: '7e53b7a1-ebfd-4924-aee4-61762cd3aaee',
-    name: 'Programming',
-    slug: 'programming',
-    description:
-      'The act of writing, testing, and maintaining the source code of computer programs.',
-  },
-  {
-    id: '02bc36de-ce59-46bb-8bee-664b9f655d54',
-    name: 'News',
-    slug: 'news',
-    description:
-      'Current information or reports about recent events or developments.',
-  },
-  {
     id: 'd4a86be1-d4db-4e96-b15e-3f2130ab0522',
     name: 'Career',
     slug: 'career',
@@ -275,6 +261,103 @@ const tags = [
     slug: 'web-dev',
     description:
       'Internet development, the process of creating websites and applications for the web.',
+  },
+  {
+    id: '920cdb23-30db-4c1e-bfb7-00bd3dff1c20',
+    name: 'GraphQL',
+    slug: 'graphql',
+    description:
+      'A query language for APIs and a runtime for fulfilling those queries with existing data.',
+  },
+  {
+    id: '8cef67d8-e53f-43a5-a71a-fb0f7402aa37',
+    name: 'Dev ops',
+    slug: 'dev-ops',
+    description:
+      'A set of practices that combines software development and IT operations.',
+  },
+  {
+    id: '0194d883-c48d-49e7-abb6-28f823de983f',
+    name: 'Cloud',
+    slug: 'cloud',
+    description:
+      'A network of servers that perform different functions to deliver services to clients.',
+  },
+  {
+    id: 'd729fb1c-d56c-47aa-b21f-da0f2c07c619',
+    name: 'CSS',
+    slug: 'css',
+    description:
+      'A style sheet language used for describing the presentation of a document written in a markup language such as HTML.',
+  },
+  {
+    id: '35eb38d9-193d-403e-8c0d-c1faff3690e3',
+    name: 'HTML',
+    slug: 'html',
+    description:
+      'A markup language used for describing the structure of a web page.',
+  },
+  {
+    id: '6b9c5fd6-c1d8-4e67-a33f-a25db28d176b',
+    name: 'PWA',
+    slug: 'pwa',
+    description:
+      'A web application that uses modern web capabilities to deliver an app-like experience to users.',
+  },
+  {
+    id: '098a8e24-0433-42c1-ab83-a8a1429a4dca',
+    name: 'A11y',
+    slug: 'a11y',
+    description:
+      'Short for accessibility, the inclusive practice of removing barriers that prevent interaction with, or access to, websites by people with disabilities.',
+  },
+  {
+    id: 'f2dd9633-823e-451d-9aaa-6148718245ac',
+    name: 'Responsive',
+    slug: 'responsive',
+    description:
+      'A design approach that allows websites to adapt to different screen sizes and devices.',
+  },
+  {
+    id: '900f69b4-9dfb-4129-97ee-06b79ec2f1b6',
+    name: 'Performance',
+    slug: 'performance',
+    description:
+      'The speed at which a website loads and becomes interactive for users.',
+  },
+  {
+    id: '1c095e44-549f-41b8-9b5e-33f60df0d887',
+    name: 'UX/UI',
+    slug: 'ux-ui',
+    description:
+      'Short for user experience and user interface, the process of designing user interfaces with a focus on user experience.',
+  },
+  {
+    id: '96416ae6-fa13-490c-aa22-abdec4eac867',
+    name: 'SEO',
+    slug: 'seo',
+    description:
+      'Short for search engine optimization, the process of improving a website to increase its visibility for relevant searches.',
+  },
+  {
+    id: '8721ef2c-84d9-4097-9036-945c06b3143d',
+    name: 'E-commerce',
+    slug: 'e-commerce',
+    description:
+      'Short for electronic commerce, the process of buying and selling products and services online.',
+  },
+  {
+    id: 'd194e0aa-cd94-4ed8-998e-3c747c17fcf9',
+    name: 'WordPress',
+    slug: 'wordpress',
+    description:
+      'A free and open-source content management system written in PHP.',
+  },
+  {
+    id: 'e6b9e168-4c7c-4742-93ba-6ba54bc9d665',
+    name: 'Mobile',
+    slug: 'mobile',
+    description: 'Related to mobile applications, devices, and the mobile web.',
   },
 ] as const;
 
