@@ -17,6 +17,7 @@ const Tag = ({
 }) => {
   return (
     <div
+      title={tag.description || tag.name}
       key={tag.id}
       className={clsx(
         'flex items-center justify-center rounded-md bg-gray-50 font-medium text-gray-600 ring-1 ring-inset ring-gray-500/10',
