@@ -1,12 +1,16 @@
 import Tag from '@/components/Tag';
 import Pagination from '@/components/list/Pagination';
-import Homepage from '@/components/pages/Homepage';
 import PublicDigestListItem from '@/components/teams/PublicDigestListItem';
 import TeamAvatar from '@/components/teams/TeamAvatar';
-import { getCurrentUser } from '@/lib/sessions';
 import { getDiscoverDigests } from '@/services/database/digest';
+import { getPopularTags, getTagBySlug } from '@/services/database/tag';
 import { getRecentTeams } from '@/services/database/team';
+import { Button } from '@tremor/react';
 import Link from 'next/link';
+import CustomLink from '@/components/Link';
+import { notFound } from 'next/navigation';
+import PopularTags from '@/components/PopularTags';
+import ActiveTeams from '@/components/ActiveTeams';
 export const dynamic = 'force-dynamic';
 
 const TagsPage = async ({
@@ -19,27 +23,23 @@ const TagsPage = async ({
   const { slug } = params;
 
   const page = 1;
-
+  const tag = await getTagBySlug(slug);
+  if (!tag) return notFound();
   const recentTeams = await getRecentTeams();
   const { digests, digestsCount } = await getDiscoverDigests({
     page,
     perPage: 20,
+    tagId: tag.id,
   });
+  const popularTags = await getPopularTags();
+
   return (
     <main className="max-w-6xl mx-auto mb-10">
       <div className="flex gap-4">
         <div className="md:w-9/12 flex justify-between items-center gap-3 w-full">
           <h1 className="font-bold text-3xl my-4 flex items-center">
-            Digests tagged with &nbsp;
-            <Tag
-              tag={{
-                id: '123',
-                name: 'NextJS',
-                slug: 'tag',
-                description: 'tag',
-              }}
-              size="large"
-            />
+            <span>Digests tagged with </span>&nbsp;
+            <span className="text-violet-700">{tag.name}</span>
           </h1>
           <Pagination totalItems={digestsCount} itemsPerPage={20} />
         </div>
@@ -48,42 +48,43 @@ const TagsPage = async ({
       <div className="flex md:flex-row gap-4 flex-col ">
         <div className="md:w-9/12">
           <div className="flex gap-4 flex-col">
-            <div className="flex gap-4 flex-col">
-              {digests.map((digest) => (
-                <PublicDigestListItem
-                  key={digest.id}
-                  digest={digest}
-                  team={digest?.team}
-                  showTeam
-                />
-              ))}
-            </div>
+            {digestsCount > 0 ? (
+              <div className="flex gap-4 flex-col">
+                {digests.map((digest) => (
+                  <PublicDigestListItem
+                    key={digest.id}
+                    digest={digest}
+                    team={digest?.team}
+                    showTeam
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-col items-start w-full bg-white py-6 px-6 border border-gray-200 rounded-md gap-6">
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-2xl font-bold">
+                    No digests found for this topic
+                  </h3>
+                  <p className="text-lg text-slate-500">
+                    {` We couldn't find any digests tagged with ${tag.name}. Try a different tag or browse all digests.`}
+                  </p>
+                </div>
+                <CustomLink
+                  href="/discover"
+                  className="mt-4"
+                  variant="outline"
+                  title="Browse all digests"
+                >
+                  Browse all digests
+                </CustomLink>
+              </div>
+            )}
           </div>
         </div>
         <div className="flex flex-col gap-4 md:max-w-[22rem] w-full">
-          <div className="bg-white p-4 border border-gray-200 rounded-lg">
-            <h4 className="text-xl font-bold">Active Teams</h4>
-            <div className="flex flex-col gap-4 mt-4">
-              {recentTeams.map((team) => (
-                <Link key={team.slug} href={`/${team.slug}`}>
-                  <div className="flex items-center gap-2">
-                    <TeamAvatar team={team} />
-                    <div className="flex flex-col">
-                      <span className="font-semibold">{team?.name}</span>
-                      <a
-                        href={`/${team.slug}`}
-                        className="hover:text-violet-600 text-xs text-slate-500"
-                        title={` Browse all digests of ${team.name}`}
-                        rel="noreferrer"
-                      >
-                        Browse all digests
-                      </a>
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
+          <ActiveTeams teams={recentTeams} />
+
+          <PopularTags tags={popularTags} currentTag={tag} />
         </div>
       </div>
     </main>
