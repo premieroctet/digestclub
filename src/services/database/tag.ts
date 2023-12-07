@@ -26,27 +26,28 @@ type PopularTag = {
 export const getPopularTags = async () => {
   try {
     const tagsByCount = await db.$queryRaw<PopularTag[]>`
-        SELECT 
+      SELECT 
           tags.name,
           tags.slug,
           tags.id,
           tags.description,
           CAST(COUNT(digest_blocks.id) AS INTEGER) AS block_count 
-        FROM 
-            digest_blocks
-        LEFT JOIN 
-            _digestblocks_to_tags ON digest_blocks.id = _digestblocks_to_tags."A"
-        LEFT JOIN 
-            tags ON _digestblocks_to_tags."B" = tags.id 
-        LEFT JOIN 
-            digests ON digest_blocks."digestId" = digests.id
-        WHERE 
-            digests."publishedAt" IS NOT NULL
-        GROUP BY 
-            tags.name, tags.slug, tags.id, tags.description
-        ORDER BY 
-            block_count DESC
-        LIMIT 5;
+      FROM 
+          digest_blocks
+      LEFT JOIN 
+          _digestblocks_to_tags ON digest_blocks.id = _digestblocks_to_tags."A"
+      LEFT JOIN 
+          tags ON _digestblocks_to_tags."B" = tags.id 
+      LEFT JOIN 
+          digests ON digest_blocks."digestId" = digests.id
+      WHERE 
+          digests."publishedAt" IS NOT NULL
+          AND _digestblocks_to_tags."B" IS NOT NULL
+      GROUP BY 
+          tags.name, tags.slug, tags.id, tags.description
+      ORDER BY 
+          block_count DESC
+      LIMIT 5;
     `;
 
     return tagsByCount;
