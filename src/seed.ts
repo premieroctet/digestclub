@@ -362,24 +362,18 @@ const tags = [
 ] as const;
 
 async function seedTags() {
-  const batches = [];
-
-  for (let i = 0; i < tags.length; i += 3) {
-    const batch = tags.slice(i, i + 3).map(async (tag) => {
-      return prisma.tag.upsert({
-        where: { id: tag.id },
-        update: {},
-        create: tag,
-      });
-    });
-
-    batches.push(batch);
-  }
-
-  for (const batch of batches) {
-    await Promise.all(batch);
-  }
+  await Promise.all(
+    tags.map(
+      async (tag) =>
+        await prisma.tag.upsert({
+          where: { id: tag.id },
+          update: {},
+          create: tag,
+        })
+    )
+  );
 }
+
 async function main() {
   try {
     await seedTags();
