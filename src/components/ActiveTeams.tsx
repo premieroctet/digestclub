@@ -10,6 +10,7 @@ interface Props {
   }[];
 }
 export default function ActiveTeams({ teams }: Props) {
+  if (teams.length === 0) return <></>;
   return (
     <div className="bg-white p-4 border border-gray-200 rounded-lg">
       <h4 className="text-xl font-bold">Active Teams</h4>
