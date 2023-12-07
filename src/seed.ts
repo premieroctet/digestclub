@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-const prisma = new PrismaClient();
+import db from './lib/db';
 
 const tags = [
   {
@@ -365,7 +364,7 @@ async function seedTags() {
   await Promise.all(
     tags.map(
       async (tag) =>
-        await prisma.tag.upsert({
+        await db.tag.upsert({
           where: { id: tag.id },
           update: {},
           create: tag,
@@ -385,11 +384,11 @@ async function main() {
 
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await db.$disconnect();
   })
   .catch(async (e) => {
     // eslint-disable-next-line no-console
     console.error(e);
-    await prisma.$disconnect();
+    await db.$disconnect();
     process.exit(1);
   });
