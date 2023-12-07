@@ -11,34 +11,42 @@ export const getTagBySlug = async (slug: string) => {
   return tag;
 };
 
+type PopularTag = {
+  name: string;
+  slug: string;
+  id: string;
+  description: string;
+  block_count: number;
+};
+
+/**
+ * Retrieves the top 5 most popular tags associated digest blocks that have been published.
+ * These tags are based on the count of digest blocks associated with each tag.
+ */
 export const getPopularTags = async () => {
   try {
-    const tagsByCount = await db.$queryRaw<
-      {
-        name: string;
-        slug: string;
-        id: string;
-        description: string;
-        block_count: number;
-      }[]
-    >`
-      SELECT 
-        t.name AS name,
-        t.slug AS slug,
-        t.id AS id,
-        t.description AS description,
-        CAST(COUNT(db.id) AS INTEGER) AS block_count 
-      FROM 
-        digest_blocks AS db
-      LEFT JOIN 
-        _digestblocks_to_tags AS dbtt ON db.id = dbtt."A"
-      LEFT JOIN 
-        tags AS t ON dbtt."B" = t.id 
-      GROUP BY 
-        t.name, t.slug, t.id, t.description
-      ORDER BY 
-        block_count DESC
-      LIMIT 5;
+    const tagsByCount = await db.$queryRaw<PopularTag[]>`
+        SELECT 
+          tags.name,
+          tags.slug,
+          tags.id,
+          tags.description,
+          CAST(COUNT(digest_blocks.id) AS INTEGER) AS block_count 
+        FROM 
+            digest_blocks
+        LEFT JOIN 
+            _digestblocks_to_tags ON digest_blocks.id = _digestblocks_to_tags."A"
+        LEFT JOIN 
+            tags ON _digestblocks_to_tags."B" = tags.id 
+        LEFT JOIN 
+            digests ON digest_blocks."digestId" = digests.id
+        WHERE 
+            digests."publishedAt" IS NOT NULL
+        GROUP BY 
+            tags.name, tags.slug, tags.id, tags.description
+        ORDER BY 
+            block_count DESC
+        LIMIT 5;
     `;
 
     return tagsByCount;
