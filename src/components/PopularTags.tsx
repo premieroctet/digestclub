@@ -1,6 +1,7 @@
 import React from 'react';
 import Tag, { ITag } from './Tag';
 import Link from 'next/link';
+import { routes } from '@/core/constants';
 
 interface Props {
   tags: ITag[];
@@ -16,22 +17,30 @@ export default function PopularTags({ tags, currentTag }: Props) {
         Browse digests by the most used tags
       </p>
       <div className="flex gap-2 mt-4 flex-wrap">
-        {tags.map(({ id, name, slug, description }) => (
-          <Link key={id} href={`/tags/${slug}`}>
-            <div className="flex flex-col items-start gap-&">
-              <Tag
-                tag={{
-                  id,
-                  name,
-                  slug,
-                  description,
-                }}
-                size="default"
-                active={currentTag?.id === id}
-              />
-            </div>
-          </Link>
-        ))}
+        {tags.map(({ id, name, slug, description }) => {
+          const isActive = currentTag?.id === id;
+          return (
+            <Link
+              key={id}
+              href={
+                isActive ? routes.DISCOVER : routes.TAG.replace(':slug', slug)
+              }
+            >
+              <div className="flex flex-col items-start gap-&">
+                <Tag
+                  tag={{
+                    id,
+                    name,
+                    slug,
+                    description,
+                  }}
+                  size="default"
+                  active={currentTag?.id === id}
+                />
+              </div>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );
