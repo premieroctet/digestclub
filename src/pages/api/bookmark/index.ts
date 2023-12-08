@@ -1,5 +1,4 @@
 import { AuthApiRequest, errorHandler } from '@/lib/router';
-import { saveBookmark } from '@/utils/bookmark';
 import { Bookmark } from '@prisma/client';
 import { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
@@ -13,6 +12,7 @@ import {
   MissingParametersError,
   UnauthorizedError,
 } from '@/utils/apiError';
+import { saveBookmark } from '@/services/database/bookmark';
 
 export type ApiBookmarkResponseSuccess = Bookmark;
 
