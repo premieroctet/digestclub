@@ -78,7 +78,7 @@ const tags = [
       'A React framework that enables server-side rendering and other optimizations for React applications.',
   },
   {
-    id: '6c215964-b34e-4377-b14b-8b587e35310c',
+    id: '768344a0-8754-4dde-858e-d1c800a13410',
     name: 'NuxtJS',
     slug: 'nuxtjs',
     description:
@@ -90,14 +90,14 @@ const tags = [
     name: 'AI',
     slug: 'ai',
     description:
-      'Artificial Intelligence, the simulation of human intelligence processes by machines.',
+      'Artificial Intelligence, deep learning, machine learning, and other related topics.',
   },
   {
     id: 'efaf86b3-b48f-447d-8242-56003344be9b',
     name: 'Github',
     slug: 'github',
     description:
-      'A platform for hosting and collaborating on Git repositories.',
+      'A code hosting platform for version control and collaboration.',
   },
   {
     id: 'e59c7d8b-966f-4cc9-9aa8-2b2915d093d0',
@@ -150,7 +150,8 @@ const tags = [
     id: 'b3c85d76-e40b-4e39-82f6-00a5c985ac37',
     name: 'Data',
     slug: 'data',
-    description: 'Information that can be stored, manipulated, and retrieved.',
+    description:
+      'Toppics related to data science, analysis, and visualization.',
   },
   {
     id: '8433abb2-bbba-46ad-b70c-03c9d7a0dd16',
@@ -252,10 +253,10 @@ const tags = [
     name: 'Event',
     slug: 'event',
     description:
-      'A planned and organized occasion, often with a specific purpose.',
+      'A planned and organized occasion, meetup, or other gathering of people.',
   },
   {
-    id: 'b4b6b8a0-9b0a-4e9e-8b0a-9b8b8b8b8b8b',
+    id: 'b8ea5aef-0d5a-4b7b-a553-3a08846953b8',
     name: 'Web dev',
     slug: 'web-dev',
     description:
@@ -322,7 +323,7 @@ const tags = [
     name: 'Performance',
     slug: 'performance',
     description:
-      'The speed at which a website loads and becomes interactive for users.',
+      'Metrics related to the speed and responsiveness of a website or application.',
   },
   {
     id: '1c095e44-549f-41b8-9b5e-33f60df0d887',
