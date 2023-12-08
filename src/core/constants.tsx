@@ -22,6 +22,7 @@ export const routes = {
   DIGEST_EDIT: '/teams/:slug/digests/:id/edit',
   UPDATES: '/updates',
   DISCOVER: '/discover',
+  TAG: '/tags/:slug',
 };
 
 export const mainNavigation = [
