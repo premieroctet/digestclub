@@ -1,5 +1,6 @@
 'use server';
 
+import { FEATURE_FLAGS } from '@/core/constants';
 import db from '@/lib/db';
 import { openAiCompletion } from '@/utils/openai';
 import { Prisma } from '@prisma/client';
@@ -161,6 +162,8 @@ export const generateLinksTags = async (
     name: string;
   }[]
 > => {
+  if (FEATURE_FLAGS.hasAITagsGeneration === false) return [];
+
   const prompt = `
   You're about to save a new bookmark, in a plateform called Digest Club, that allows you to save and share bookmarks with your team. We aim to make easier technology watch and knowledge sharing (about IT and web development).
   Generate tags for this bookmark based on the title and description. You can't add more than 2 tags and you must use tags that I provided below (separated with a commas). If no tags seems relevant (it might often be the case), just write NONE.

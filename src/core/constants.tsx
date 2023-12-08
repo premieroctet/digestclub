@@ -101,3 +101,7 @@ export type TeamSettingsItemsId = (typeof TEAM_SETTINGS_ITEMS)[number]['id'];
 export const COOKIES = {
   DEFAULT_TEAM: '__digestclub_default_team',
 };
+
+export const FEATURE_FLAGS = {
+  hasAITagsGeneration: true,
+};
