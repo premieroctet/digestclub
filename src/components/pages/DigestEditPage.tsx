@@ -285,11 +285,6 @@ export const DigestEditPage = ({
             </div>
 
             <SectionContainer title="Bookmarks" className="relative">
-              <Pagination
-                totalItems={linksCount}
-                itemsPerPage={perPage}
-                className="absolute top-5 right-5"
-              />
               <SearchInput className="mb-4" />
               <div className="flex flex-col gap-2">
                 {teamLinks && teamLinks.length > 0 ? (
