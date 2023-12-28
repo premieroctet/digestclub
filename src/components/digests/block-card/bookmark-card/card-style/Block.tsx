@@ -70,13 +70,15 @@ function CardStyleBlock({
                 <p className="text-sm  text-slate-400">
                   {getDomainFromUrl(url)}
                 </p>
-                <ul className="flex gap-2 items-center">
-                  {tags.map((tag) => (
-                    <li key={tag.id}>
-                      <Tag tag={tag} size="small" />
-                    </li>
-                  ))}
-                </ul>
+                {tags.length > 0 && (
+                  <ul className="flex gap-2 items-center">
+                    {tags.map((tag) => (
+                      <li key={tag.id}>
+                        <Tag tag={tag} size="small" />
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
           </>

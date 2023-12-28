@@ -91,6 +91,7 @@ export default function BlockBookmarkCard({
         panelSlot={isEditable && <EditPanel />}
         onClick={onClickBookmark}
         views={views}
+        tags={tags}
       />
     );
   } else if (blockStyle === BookmarkDigestStyle.BLOCK) {
