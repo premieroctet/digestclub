@@ -11,7 +11,14 @@ export type ApiTeamResponseSuccess = Team;
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 
-const RESTRICTED_TEAM_NAMES = ['create', 'login', 'logout', 'signup', 'teams'];
+const RESTRICTED_TEAM_NAMES = [
+  'create',
+  'login',
+  'logout',
+  'signup',
+  'teams',
+  'tags',
+];
 
 router.use(checkAuth).post(async (req, res) => {
   const { teamName } = req.body;

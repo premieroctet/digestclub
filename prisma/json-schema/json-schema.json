@@ -423,6 +423,12 @@
           "items": {
             "$ref": "#/definitions/Bookmark"
           }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
         }
       }
     },
@@ -612,6 +618,12 @@
         "isTemplate": {
           "type": "boolean",
           "default": false
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
         }
       }
     },
@@ -634,6 +646,46 @@
         "updatedAt": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Link"
+          }
+        },
+        "bookmarks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DigestBlock"
+          }
         }
       }
     }
@@ -675,6 +727,9 @@
     },
     "subscription": {
       "$ref": "#/definitions/Subscription"
+    },
+    "tag": {
+      "$ref": "#/definitions/Tag"
     }
   }
 }
