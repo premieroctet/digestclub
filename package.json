@@ -24,7 +24,7 @@
     "@heroicons/react": "^2.0.16",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@postlight/parser": "^2.2.3",
-    "@premieroctet/next-admin": "^3.2.0",
+    "@premieroctet/next-admin": "^3.2.1",
     "@prisma/client": "^4.11.0",
     "@radix-ui/react-dialog": "^1.0.3",
     "@radix-ui/react-navigation-menu": "^1.1.2",

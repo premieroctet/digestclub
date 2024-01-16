@@ -1591,10 +1591,10 @@
   dependencies:
     safe-buffer "^5.0.1"
 
-"@premieroctet/next-admin@^3.2.0":
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-3.2.0.tgz#3ca3d8db760950972e479d1c8d5f5b9734f2c7c9"
-  integrity sha512-v1A90UWs4YE5MGACgO+Xr8FdbOqvzioK+CL37npkhDoq1Tjw1g8oJcFDjePydnGHrl9RTR5PXrENanmtJuV3Yg==
+"@premieroctet/next-admin@^3.2.1":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-3.2.1.tgz#35aa53a681a14a9e4dc46d52209404187ef2c24b"
+  integrity sha512-fcEVWBgXp+/77H1g8vaPj8DseE7rvVW35eG13YtcCqEXR6OEdjANREPfdFW3Z504TE22+aDhyVgQMO2CJ/p5Og==
   dependencies:
     "@headlessui/react" "^1.7.13"
     "@heroicons/react" "^2.0.18"
