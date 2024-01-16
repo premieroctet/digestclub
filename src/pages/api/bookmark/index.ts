@@ -1,18 +1,18 @@
-import { AuthApiRequest, errorHandler } from '@/lib/router';
-import { saveBookmark } from '@/utils/bookmark';
-import { Bookmark } from '@prisma/client';
-import { NextApiResponse } from 'next';
-import { createRouter } from 'next-connect';
-import * as Sentry from '@sentry/nextjs';
-import jwt from 'jsonwebtoken';
 import db from '@/lib/db';
-import rateLimit from '../../../utils/rateLimit';
+import { AuthApiRequest, errorHandler } from '@/lib/router';
 import {
   ApiError,
   InternalServerError,
   MissingParametersError,
   UnauthorizedError,
 } from '@/utils/apiError';
+import { saveBookmark } from '@/utils/bookmark';
+import { Bookmark } from '@prisma/client';
+import * as Sentry from '@sentry/nextjs';
+import jwt from 'jsonwebtoken';
+import { NextApiResponse } from 'next';
+import { createRouter } from 'next-connect';
+import rateLimit from '../../../utils/rateLimit';
 
 export type ApiBookmarkResponseSuccess = Bookmark;
 
@@ -34,8 +34,7 @@ router.post(async (req, res) => {
   const { authorization: authHeader } = req.headers;
   try {
     if (!JWT_SECRET) throw new InternalServerError();
-
-    if (authHeader == undefined || authHeader.startsWith('Bearer '))
+    if (authHeader == undefined || !authHeader.startsWith('Bearer '))
       throw new UnauthorizedError();
 
     const token = authHeader.substring(7, authHeader.length);
