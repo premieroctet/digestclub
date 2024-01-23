@@ -57,9 +57,6 @@ export const options: NextAdminOptions = {
           url: {
             format: 'uri'
           },
-          image: {
-            format: 'file'
-          },
           bookmark: {
             optionFormatter: (bookmark) => `Bookmark ${bookmark?.id?.slice(0, 5)}...`
           },

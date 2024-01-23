@@ -1,4 +1,4 @@
-import { submitFormAction } from '@/actions/nextadmin';
+import { deleteItem, submitFormAction } from '@/actions/nextadmin';
 import Dashboard, { DashboardProps } from '@/components/admin/Dashboard';
 import {
   linksByDay,
@@ -9,10 +9,10 @@ import {
 import client from '@/lib/db';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import '@/theme/admin.css';
-import '@premieroctet/next-admin/dist/styles.css';
 import { options } from '@/utils/nextadmin';
 import { NextAdmin } from '@premieroctet/next-admin';
 import { getPropsFromParams } from '@premieroctet/next-admin/dist/appRouter';
+import '@premieroctet/next-admin/dist/styles.css';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import schema from '../../../../../prisma/json-schema/json-schema.json';
@@ -39,6 +39,7 @@ export default async function AdminPage({
     prisma: client,
     schema,
     action: submitFormAction,
+    deleteAction: deleteItem
   });
 
   const dashboardProps: DashboardProps | undefined = !params.nextadmin
