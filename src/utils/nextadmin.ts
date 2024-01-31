@@ -4,6 +4,10 @@ export const options: NextAdminOptions = {
   basePath: '/admin',
   model: {
     User: {
+      aliases: {
+        emailVerified: 'Email verified date',
+        defaultTeam: 'Default team',
+      },
       toString: (user) => user.email ?? user.id,
       list: {
         display: ['id', 'email', 'name', 'role', 'createdAt'],
@@ -24,6 +28,16 @@ export const options: NextAdminOptions = {
       },
     },
     Team: {
+      aliases: {
+        bookmarks: 'Links',
+        createdAt: 'Created at',
+        slackToken: 'Slack token',
+        slackTeamId: 'Slack team',
+        typefullyToken: 'Typefully token',
+        apiKey: 'API key',
+        nextSuggestedDigestTitle: 'Next suggested digest title',
+        subscriptionId: 'Subscription',
+      },
       list: {
         display: ['id', 'name', 'memberships', 'createdAt'],
         search: ['name'],
@@ -36,18 +50,24 @@ export const options: NextAdminOptions = {
       edit: {
         fields: {
           memberships: {
-            optionFormatter: (membership) => `User ${membership?.userId?.slice(0, 5)}...`
+            optionFormatter: (membership) => membership?.user?.email ?? `User ${membership?.user?.id?.slice(0, 5)}...`
           },
           bookmarks: {
-            optionFormatter: (bookmark) => `Bookmark ${bookmark?.id?.slice(0, 5)}...`
+            optionFormatter: (bookmark) => bookmark.link.title ?? `Bookmark ${bookmark?.id?.slice(0, 5)}...`
           },
           color: {
             format: 'color'
+          },
+          apiKey: {
+            format: 'password'
           }
         }
       },
     },
     Link: {
+      aliases: {
+        bookmark: 'Teams',
+      },
       list: {
         display: ['id', 'title', 'description', 'url'],
         search: ['url'],
@@ -58,7 +78,7 @@ export const options: NextAdminOptions = {
             format: 'uri'
           },
           bookmark: {
-            optionFormatter: (bookmark) => `Bookmark ${bookmark?.id?.slice(0, 5)}...`
+            optionFormatter: (bookmark) => bookmark.team.name ?? `Bookmark ${bookmark?.id?.slice(0, 5)}...`
           },
         }
       },
@@ -77,6 +97,9 @@ export const options: NextAdminOptions = {
         fields: {
           team: {
             optionFormatter: (team) => team?.name!
+          },
+          digestBlocks: {
+            optionFormatter: (digestBlock) => digestBlock.title ?? `DigestBlock ${digestBlock?.id?.slice(0, 5)}...`
           },
         }
       }
