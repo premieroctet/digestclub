@@ -58,7 +58,7 @@ yarn prisma:migrate:dev
 Run seeders
 
 ```bash
-yarn prisma:seed
+yarn prisma db seed
 ```
 
 Run the development server:
