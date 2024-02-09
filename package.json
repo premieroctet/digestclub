@@ -9,11 +9,14 @@
     "lint": "next lint",
     "postinstall": "prisma generate",
     "prisma:migrate:dev": "prisma migrate dev",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build",
+    "vercel-build": "prisma generate && prisma migrate deploy && prisma db seed && next build",
     "test:watch": "jest --watch",
     "test:build": "jest",
     "analyze": "cross-env ANALYZE=true next build",
     "prepare": "husky install"
+  },
+  "prisma": {
+    "seed": "yarn tsx src/seed.ts"
   },
   "engines": {
     "node": ">=18.17.0"
@@ -86,6 +89,7 @@
     "satori": "^0.10.2",
     "sharp": "^0.31.3",
     "superjson": "^1.12.2",
+    "tsx": "^4.6.2",
     "url-slug": "^3.0.4"
   },
   "devDependencies": {

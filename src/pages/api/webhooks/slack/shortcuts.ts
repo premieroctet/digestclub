@@ -1,6 +1,6 @@
 import db from '@/lib/db';
 import { AuthApiRequest, errorHandler } from '@/lib/router';
-import { saveBookmark } from '@/utils/bookmark';
+import { saveBookmark } from '@/services/database/bookmark';
 import { extractLinksFromBlocks, TBlock } from '@/utils/slack';
 import axios from 'axios';
 import type { NextApiResponse } from 'next';

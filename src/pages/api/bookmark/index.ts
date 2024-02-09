@@ -1,12 +1,12 @@
 import db from '@/lib/db';
 import { AuthApiRequest, errorHandler } from '@/lib/router';
+import { saveBookmark } from '@/services/database/bookmark';
 import {
   ApiError,
   InternalServerError,
   MissingParametersError,
   UnauthorizedError,
 } from '@/utils/apiError';
-import { saveBookmark } from '@/utils/bookmark';
 import { Bookmark } from '@prisma/client';
 import * as Sentry from '@sentry/nextjs';
 import jwt from 'jsonwebtoken';

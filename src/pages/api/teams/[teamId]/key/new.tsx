@@ -1,7 +1,6 @@
 import db from '@/lib/db';
 import { checkTeam } from '@/lib/middleware';
 import { AuthApiRequest, errorHandler } from '@/lib/router';
-import { saveBookmark } from '@/utils/bookmark';
 import { Bookmark } from '@prisma/client';
 import { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';

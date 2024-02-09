@@ -58,6 +58,7 @@ export const getDigest = async (id: string) => {
                   image: true,
                   title: true,
                   blurHash: true,
+                  tags: true,
                 },
               },
               membership: {
@@ -70,6 +71,14 @@ export const getDigest = async (id: string) => {
                   },
                 },
               },
+            },
+          },
+          tags: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+              description: true,
             },
           },
         },
@@ -122,8 +131,17 @@ export const getPublicDigest = (
                   image: true,
                   title: true,
                   blurHash: true,
+                  tags: true,
                 },
               },
+            },
+          },
+          tags: {
+            select: {
+              id: true,
+              name: true,
+              slug: true,
+              description: true,
             },
           },
         },
@@ -141,15 +159,20 @@ export const getDiscoverDigests = async ({
   page,
   perPage = 10,
   teamId,
+  tagId,
 }: {
   page?: number;
   perPage?: number;
   teamId?: string;
+  tagId?: string;
 }) => {
   const where = {
     publishedAt: { not: null },
     digestBlocks: { some: { bookmarkId: { not: null } } },
     ...(teamId ? { teamId } : {}),
+    ...(tagId
+      ? { digestBlocks: { some: { tags: { some: { id: tagId } } } } }
+      : {}),
   };
 
   const digestsCount = await db.digest.count({
