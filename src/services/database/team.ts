@@ -2,7 +2,6 @@
 
 import db from '@/lib/db';
 import { DigestBlockType } from '@prisma/client';
-import { unstable_cache } from 'next/cache';
 
 export const getUserTeams = (userId?: string) => {
   if (userId)
@@ -50,7 +49,7 @@ export const getTeamById = (id: string) =>
 //     },
 //   });
 
-export const getPublicTeam = unstable_cache((slug: string) =>
+export const getPublicTeam = (slug: string) =>
   db.team.findFirst({
     where: {
       slug,
@@ -99,8 +98,7 @@ export const getPublicTeam = unstable_cache((slug: string) =>
         },
       },
     },
-  })
-);
+  });
 
 export const getRecentTeams = async () => {
   const digests = await db.digest.findMany({
