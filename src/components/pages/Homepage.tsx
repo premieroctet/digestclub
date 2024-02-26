@@ -1,8 +1,9 @@
 import Hero from '@/components/home/Hero';
-import HomeFooter from '../home/HomeFooter';
-import HomeSteps from '../home/HomeSteps';
 import { Session } from 'next-auth';
 import HomeDigests from '../home/HomeDigests';
+import HomeFeatures from '../home/HomeFeatures';
+import HomeFooter from '../home/HomeFooter';
+import HomeSteps from '../home/HomeSteps';
 
 const Homepage = ({ user }: { user?: Session['user'] }) => {
   return (
@@ -14,6 +15,9 @@ const Homepage = ({ user }: { user?: Session['user'] }) => {
         <HomeSteps />
       </section>
       <section className="bg-white flex flex-1 justify-center">
+        <HomeFeatures />
+      </section>
+      <section className="bg-slate-100 flex flex-1 justify-center">
         <HomeDigests />
       </section>
       <HomeFooter />

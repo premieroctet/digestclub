@@ -1,15 +1,13 @@
 'use client';
 import clsx from 'clsx';
+import BrandIcon from './BrandIcon';
 
-const Logo = (props: { className?: string }) => {
+const Logo = (props: { className?: string; isWhite?: boolean }) => {
   return (
-    <div className="flex items-center cursor-pointer">
-      <div className="w-8 h-8 xs:w-4 xs:h-4 rounded-full bg-gradient-to-tl from-[#DEFFF0] to-[#89FFCB] bg-[#89FFCB] sm:mt-1" />
+    <div className="flex items-center cursor-pointer gap-2">
+      <BrandIcon fill={props.isWhite ? 'white' : 'black'} />
       <span
-        className={clsx(
-          ` ml-2 text-xl font-[800] text-gray-900 max-xs:hidden`,
-          props.className
-        )}
+        className={clsx(`text-xl font-[800] text-gray-900`, props.className)}
       >
         digest.club
       </span>
