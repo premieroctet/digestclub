@@ -2,7 +2,7 @@
 
 module.exports = {
   content: [
-    './node_modules/@premieroctet/next-admin/src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@premieroctet/next-admin/dist/**/*.{js,ts,jsx,tsx}',
     './node_modules/@tremor/**/*.{js,ts,jsx,tsx}',
     './src/components/admin/**/*.{js,ts,jsx,tsx}',
   ],
