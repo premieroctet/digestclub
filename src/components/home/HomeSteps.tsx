@@ -1,5 +1,6 @@
-import React from 'react';
 import Image from 'next/image';
+import React from 'react';
+import Section from './Section';
 
 type StepProps = {
   title: string;
@@ -12,11 +13,11 @@ const Step = ({ title, img, description }: StepProps) => (
     <Image
       width={70}
       height={0}
-      className="relative w-2/3 xs:w-[13rem] "
+      className="relative w-3/5 xs:w-[13rem] "
       src={img}
-      alt=""
+      alt="Digest"
     />
-    <div>
+    <div className="text-center xs:text-left">
       <span className="font-[800] text-2xl pt-4 pb-1 border-b-black border-b-4 mb-3 inline-block pr-5">
         {title}
       </span>
@@ -27,35 +28,35 @@ const Step = ({ title, img, description }: StepProps) => (
 
 const HomeSteps = () => {
   return (
-    <div className="p-4 m-auto max-w-5xl pt-10 pb-20 text-gray-900 w-full h-full flex flex-col items-center">
-      <h2 className="pb-12 font-[800] text-2xl lg:text-3xl text-center flex flex-col ">
-        <span>{'Create or join your team’s feed.'}</span>
-        <span>{'Share the good stuff with others.'}</span>
-      </h2>
+    <Section
+      title="Supercharge your Team knowledge"
+      caption="Easily capture valuable links, categorize resources for efficient access, and distribute curated content seamlessly with our digest feature."
+      className="max-w-5xl"
+    >
       <div className="flex max-lg:flex-col lg:space-x-10 max-lg:space-y-12">
         <Step
-          title={'1. Collect'}
+          title="1. Collect Links"
           img="/collect.svg"
           description={
             'Add links manually or synchronize your account with external services'
           }
         />
         <Step
-          title={'2. Organize'}
+          title="2. Organize"
           img="/organize.svg"
           description={
             'Make your personal selection of interesting content you want to share'
           }
         />
         <Step
-          title={'3. Publish'}
+          title="3. Share Digest"
           img="/publish.svg"
           description={
-            'Set an automatic publication frequency or publish manually your digest'
+            'Share your digest with a public link or via the newsletter feature'
           }
         />
       </div>
-    </div>
+    </Section>
   );
 };
 
