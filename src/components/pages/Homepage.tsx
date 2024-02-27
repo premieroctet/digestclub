@@ -3,6 +3,7 @@ import { Session } from 'next-auth';
 import HomeDigests from '../home/HomeDigests';
 import HomeFeatures from '../home/HomeFeatures';
 import HomeFooter from '../home/HomeFooter';
+import HomeOpenSource from '../home/HomeOpenSource';
 import HomeSteps from '../home/HomeSteps';
 
 const Homepage = ({ user }: { user?: Session['user'] }) => {
@@ -19,6 +20,9 @@ const Homepage = ({ user }: { user?: Session['user'] }) => {
       </section>
       <section className="bg-slate-100 flex flex-1 justify-center">
         <HomeDigests />
+      </section>
+      <section className="bg-white flex flex-1 justify-center">
+        <HomeOpenSource />
       </section>
       <HomeFooter />
     </div>
