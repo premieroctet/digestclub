@@ -103,8 +103,13 @@ export const getPublicTeam = (slug: string) =>
 export const getRecentTeams = async () => {
   const digests = await db.digest.findMany({
     take: 5,
-    select: { team: { select: { name: true, slug: true, color: true } } },
-    where: { publishedAt: { not: null } },
+    select: {
+      team: { select: { name: true, slug: true, color: true } },
+    },
+    where: {
+      publishedAt: { not: null },
+      digestBlocks: { some: {} },
+    },
     orderBy: { publishedAt: 'desc' },
     distinct: ['teamId'],
   });

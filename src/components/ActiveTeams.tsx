@@ -1,6 +1,5 @@
-import React from 'react';
-import TeamAvatar from './teams/TeamAvatar';
 import Link from 'next/link';
+import TeamAvatar from './teams/TeamAvatar';
 
 interface Props {
   teams: {
@@ -10,7 +9,10 @@ interface Props {
   }[];
 }
 export default function ActiveTeams({ teams }: Props) {
-  if (teams.length === 0) return <></>;
+  if (teams.length === 0) {
+    return <></>;
+  }
+
   return (
     <div className="bg-white p-4 border border-gray-200 rounded-lg">
       <h4 className="text-xl font-bold">Active Teams</h4>
