@@ -1610,10 +1610,10 @@
   dependencies:
     safe-buffer "^5.0.1"
 
-"@premieroctet/next-admin@^3.3.1":
-  version "3.3.1"
-  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-3.3.1.tgz#a821d71ee4876c827be3efa0951c6215d7e25b6e"
-  integrity sha512-YRhgmYuEzxArYG4+8Y3Q7xy5nZoMXH3CU+LZrx/6xdQIQ+f0uoor6Uj9HDwbhTrmPKp+4j7zWzoZocIuyAZchQ==
+"@premieroctet/next-admin@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-3.4.0.tgz#5108803237b9c7efc219370ea0892edc4b27dd2a"
+  integrity sha512-j08hG1q2+qiKdEqZHcA7W/ie805sg5ClQxWgyLI5uL52WKSv6iy2vvU9YRwFPE158sxhb9A7yOWRCala6BmWPg==
   dependencies:
     "@headlessui/react" "^1.7.13"
     "@heroicons/react" "^2.0.18"
