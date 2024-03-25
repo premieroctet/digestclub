@@ -1,5 +1,6 @@
-/** @type {import('tailwindcss').Config} */
+const defaultColors = require('tailwindcss/colors');
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './node_modules/@premieroctet/next-admin/dist/**/*.{js,ts,jsx,tsx}',
@@ -11,6 +12,9 @@ module.exports = {
     current: 'currentColor',
     extend: {
       colors: {
+        'nextadmin': {
+          primary: defaultColors.violet,
+        },
         // light mode
         'tremor': {
           brand: {

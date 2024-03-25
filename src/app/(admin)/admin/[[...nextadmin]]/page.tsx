@@ -17,7 +17,6 @@ import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import schema from '../../../../../prisma/json-schema/json-schema.json';
 
-
 export default async function AdminPage({
   params,
   searchParams,
@@ -39,33 +38,39 @@ export default async function AdminPage({
     prisma: client,
     schema,
     action: submitFormAction,
-    deleteAction: deleteItem
+    deleteAction: deleteItem,
   });
 
   const dashboardProps: DashboardProps | undefined = !params.nextadmin
     ? {
-      newUsersByMonth: await newUsersByMonth(),
-      newDigestByMonth: await newDigestByMonth(),
-      linksByDomain: await linksByDomain(),
-      linksByDay: await linksByDay(),
-      linksCount: await client.link.count(),
-      latestDigest: await client.digest.findFirst({
-        where: { publishedAt: { not: null } },
-        orderBy: { createdAt: 'desc' },
-        include: {
-          team: true,
-        },
-      }),
-      latestTeam: await client.team.findFirst({
-        orderBy: { createdAt: 'desc' },
-      }),
-    }
+        newUsersByMonth: await newUsersByMonth(),
+        newDigestByMonth: await newDigestByMonth(),
+        linksByDomain: await linksByDomain(),
+        linksByDay: await linksByDay(),
+        linksCount: await client.link.count(),
+        latestDigest: await client.digest.findFirst({
+          where: { publishedAt: { not: null } },
+          orderBy: { createdAt: 'desc' },
+          include: {
+            team: true,
+          },
+        }),
+        latestTeam: await client.team.findFirst({
+          orderBy: { createdAt: 'desc' },
+        }),
+      }
     : undefined;
 
   return (
     <NextAdmin
       {...props}
       dashboard={dashboardProps && <Dashboard {...dashboardProps} />}
+      user={{
+        data: {
+          name: session!.user!.email!,
+        },
+        logoutUrl: '/logout',
+      }}
     />
   );
 }
