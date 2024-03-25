@@ -1610,16 +1610,19 @@
   dependencies:
     safe-buffer "^5.0.1"
 
-"@premieroctet/next-admin@^3.4.0":
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-3.4.0.tgz#5108803237b9c7efc219370ea0892edc4b27dd2a"
-  integrity sha512-j08hG1q2+qiKdEqZHcA7W/ie805sg5ClQxWgyLI5uL52WKSv6iy2vvU9YRwFPE158sxhb9A7yOWRCala6BmWPg==
+"@premieroctet/next-admin@^3.5.2":
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-3.5.2.tgz#367f82fd02ca99e54451c2a50d5937464bb7c1eb"
+  integrity sha512-iByKxpRJxH5EviDPOq2wJfOWWlVvco7T0GvHW5G5j+HxGyg3X6uL+x49WVa95HpHjKHdyTbYuKA7mta6/qgKfw==
   dependencies:
     "@headlessui/react" "^1.7.13"
     "@heroicons/react" "^2.0.18"
     "@picocss/pico" "^1.5.7"
+    "@radix-ui/react-checkbox" "^1.0.4"
     "@radix-ui/react-dropdown-menu" "^2.0.6"
     "@radix-ui/react-select" "^1.2.2"
+    "@radix-ui/react-switch" "^1.0.3"
+    "@radix-ui/react-tooltip" "^1.0.7"
     "@rjsf/core" "^5.3.0"
     "@rjsf/utils" "^5.3.0"
     "@rjsf/validator-ajv8" "^5.3.0"
@@ -1862,6 +1865,21 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-primitive" "1.0.3"
+
+"@radix-ui/react-checkbox@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-checkbox/-/react-checkbox-1.0.4.tgz#98f22c38d5010dd6df4c5744cac74087e3275f4b"
+  integrity sha512-CBuGQa52aAYnADZVt/KBQzXrwx6TqnlwtcIPGtVt5JkkzQwMOLJjPukimhfKEr4GQNd43C+djUh5Ikopj8pSLg==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/primitive" "1.0.1"
+    "@radix-ui/react-compose-refs" "1.0.1"
+    "@radix-ui/react-context" "1.0.1"
+    "@radix-ui/react-presence" "1.0.1"
+    "@radix-ui/react-primitive" "1.0.3"
+    "@radix-ui/react-use-controllable-state" "1.0.1"
+    "@radix-ui/react-use-previous" "1.0.1"
+    "@radix-ui/react-use-size" "1.0.1"
 
 "@radix-ui/react-collection@1.0.3":
   version "1.0.3"
@@ -2277,6 +2295,20 @@
     "@babel/runtime" "^7.13.10"
     "@radix-ui/react-compose-refs" "1.0.1"
 
+"@radix-ui/react-switch@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-switch/-/react-switch-1.0.3.tgz#6119f16656a9eafb4424c600fdb36efa5ec5837e"
+  integrity sha512-mxm87F88HyHztsI7N+ZUmEoARGkC22YVW5CaC+Byc+HRpuvCrOBPTAnXgf+tZ/7i0Sg/eOePGdMhUKhPaQEqow==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/primitive" "1.0.1"
+    "@radix-ui/react-compose-refs" "1.0.1"
+    "@radix-ui/react-context" "1.0.1"
+    "@radix-ui/react-primitive" "1.0.3"
+    "@radix-ui/react-use-controllable-state" "1.0.1"
+    "@radix-ui/react-use-previous" "1.0.1"
+    "@radix-ui/react-use-size" "1.0.1"
+
 "@radix-ui/react-tabs@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-tabs/-/react-tabs-1.0.4.tgz#993608eec55a5d1deddd446fa9978d2bc1053da2"
@@ -2292,7 +2324,7 @@
     "@radix-ui/react-roving-focus" "1.0.4"
     "@radix-ui/react-use-controllable-state" "1.0.1"
 
-"@radix-ui/react-tooltip@^1.0.5":
+"@radix-ui/react-tooltip@^1.0.5", "@radix-ui/react-tooltip@^1.0.7":
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-tooltip/-/react-tooltip-1.0.7.tgz#8f55070f852e7e7450cc1d9210b793d2e5a7686e"
   integrity sha512-lPh5iKNFVQ/jav/j6ZrWq3blfDJ0OH9R6FlNUHPMqdLuQ9vwDgFsRxvl8b7Asuy5c8xmoojHUxKHQSOAvMHxyw==

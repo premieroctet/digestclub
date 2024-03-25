@@ -1,10 +1,14 @@
-import { linksByDay, linksByDomain, newDigestByMonth, newUsersByMonth } from "@/lib/adminQueries";
-import { Digest, Team } from "@prisma/client";
-import { Card, Col, Grid, Metric, Text } from "@tremor/react";
-import DataOverTime from "./widgets/DataOverTime";
-import LinksByWebsite from "./widgets/LinksByWebsite";
-import LinksOverTime from "./widgets/LinksOverTime";
-
+import {
+  linksByDay,
+  linksByDomain,
+  newDigestByMonth,
+  newUsersByMonth,
+} from '@/lib/adminQueries';
+import { Digest, Team } from '@prisma/client';
+import { Card, Col, Grid, Metric, Text } from '@tremor/react';
+import DataOverTime from './widgets/DataOverTime';
+import LinksByWebsite from './widgets/LinksByWebsite';
+import LinksOverTime from './widgets/LinksOverTime';
 
 export type DashboardProps = {
   newUsersByMonth: Awaited<ReturnType<typeof newUsersByMonth>>;
@@ -18,7 +22,7 @@ export type DashboardProps = {
 
 const Dashboard = (dashboardProps: DashboardProps) => {
   return (
-    <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-2">
+    <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-2 p-4">
       <Col numColSpan={1} numColSpanLg={2}>
         <DataOverTime
           data={{
@@ -59,7 +63,7 @@ const Dashboard = (dashboardProps: DashboardProps) => {
         <LinksOverTime data={{ linksByDay: dashboardProps.linksByDay }} />
       </Col>
     </Grid>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;
