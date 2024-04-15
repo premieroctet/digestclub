@@ -1,4 +1,8 @@
-import { deleteItem, submitFormAction } from '@/actions/nextadmin';
+import {
+  deleteItem,
+  searchResource,
+  submitFormAction,
+} from '@/actions/nextadmin';
 import Dashboard, { DashboardProps } from '@/components/admin/Dashboard';
 import {
   linksByDay,
@@ -39,6 +43,7 @@ export default async function AdminPage({
     schema,
     action: submitFormAction,
     deleteAction: deleteItem,
+    searchPaginatedResourceAction: searchResource,
   });
 
   const dashboardProps: DashboardProps | undefined = !params.nextadmin

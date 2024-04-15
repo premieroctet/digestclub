@@ -2,7 +2,12 @@
 import client from '@/lib/db';
 import { options } from '@/utils/nextadmin';
 import { ActionParams, ModelName } from '@premieroctet/next-admin';
-import { deleteResourceItems, submitForm } from '@premieroctet/next-admin/dist/actions';
+import {
+  deleteResourceItems,
+  submitForm,
+  searchPaginatedResource,
+  SearchPaginatedResourceParams,
+} from '@premieroctet/next-admin/dist/actions';
 
 export const submitFormAction = async (
   params: ActionParams,
@@ -16,4 +21,14 @@ export const deleteItem = async (
   ids: string[] | number[]
 ) => {
   return deleteResourceItems(client, model, ids);
+};
+
+export const searchResource = async (
+  actionParams: ActionParams,
+  params: SearchPaginatedResourceParams
+) => {
+  return searchPaginatedResource(
+    { ...actionParams, options, prisma: client },
+    params
+  );
 };
