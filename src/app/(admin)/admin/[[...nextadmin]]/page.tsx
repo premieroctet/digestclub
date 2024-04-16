@@ -12,11 +12,9 @@ import {
 } from '@/lib/adminQueries';
 import client from '@/lib/db';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import '@/theme/admin.css';
 import { options } from '@/utils/nextadmin';
 import { NextAdmin } from '@premieroctet/next-admin';
 import { getPropsFromParams } from '@premieroctet/next-admin/dist/appRouter';
-import '@premieroctet/next-admin/dist/styles.css';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 import schema from '../../../../../prisma/json-schema/json-schema.json';

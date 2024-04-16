@@ -1,20 +1,16 @@
-const defaultColors = require('tailwindcss/colors');
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
     './node_modules/@premieroctet/next-admin/dist/**/*.{js,ts,jsx,tsx}',
     './node_modules/@tremor/**/*.{js,ts,jsx,tsx}',
     './src/components/admin/**/*.{js,ts,jsx,tsx}',
+    './src/app/(admin)/admin/**/*.{ts,tsx}',
   ],
   theme: {
     transparent: 'transparent',
     current: 'currentColor',
     extend: {
       colors: {
-        'nextadmin': {
-          primary: defaultColors.violet,
-        },
         // light mode
         'tremor': {
           brand: {
@@ -134,7 +130,5 @@ module.exports = {
   ],
   plugins: [require('@headlessui/tailwindcss')],
   darkMode: 'class',
-  corePlugins: {
-    preflight: false,
-  },
+  presets: [require('@premieroctet/next-admin/dist/preset')],
 };

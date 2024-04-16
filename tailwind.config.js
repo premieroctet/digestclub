@@ -47,8 +47,13 @@ module.exports = {
             '--tw-prose-invert-td-borders': theme('colors.violet[700]'),
           },
         },
-      })
-    }
+      }),
+    },
   },
-  plugins: [require('@tailwindcss/forms'), require('tailwindcss-animate'), require('@tailwindcss/line-clamp'), require('@tailwindcss/typography')],
+  plugins: [
+    require('@tailwindcss/forms'),
+    require('tailwindcss-animate'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/typography'),
+  ],
 };
