@@ -1,13 +1,27 @@
 import { Team } from '@prisma/client';
 import { FaTelegramPlane } from '@react-icons/all-files/fa/FaTelegramPlane';
-import { BookmarkModal } from './BookmarkModal';
+import { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger } from '../Dialog';
-import { useState } from 'react';
+import { BookmarkModal } from './BookmarkModal';
 
 type Props = { team: Team };
 
-const BookmarkButton = ({ team }: Props) => {
+const HeaderBookmarkButton = ({ team }: Props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  function onKeyDown(event: KeyboardEvent) {
+    if (event.key === 'b' && event.ctrlKey) {
+      setIsDialogOpen(true);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('keypress', onKeyDown);
+    return () => {
+      window.removeEventListener('keypress', onKeyDown);
+    };
+  }, []);
+
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
@@ -32,4 +46,4 @@ const BookmarkButton = ({ team }: Props) => {
   );
 };
 
-export default BookmarkButton;
+export default HeaderBookmarkButton;
