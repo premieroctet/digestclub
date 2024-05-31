@@ -4,13 +4,10 @@ import { TeamLinks } from '@/services/database/link';
 import { Team } from '@prisma/client';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import Link from 'next/link';
-import { useState } from 'react';
-import Button from '../Button';
-import { Dialog, DialogContent, DialogTrigger } from '../Dialog';
 import SearchInput from '../digests/SearchInput';
 import NoContent from '../layout/NoContent';
 import { BookmarkItem } from './BookmarkItem';
-import { BookmarkModal } from './BookmarkModal';
+import CreateBookmarkButton from './CreateBookmarkButton';
 
 type Props = {
   teamLinks: TeamLinks;
@@ -18,35 +15,15 @@ type Props = {
 };
 
 export const BookmarksTeamList = ({ teamLinks, team }: Props) => {
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
     <div className="w-full">
       <div className="flex w-full justify-start items-center gap-4 mb-4">
         <div className="flex-1">
           <SearchInput />
         </div>
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button
-              onClick={() => setIsDialogOpen(true)}
-              variant="default"
-              size="md"
-            >
-              Add Bookmark
-            </Button>
-          </DialogTrigger>
-          <DialogContent
-            containerClassName="w-full sm:max-w-md"
-            title="New Bookmark"
-            description="Add a new link to your team feed"
-            closeIcon
-          >
-            <BookmarkModal
-              onSuccess={() => setIsDialogOpen(false)}
-              team={team}
-            />
-          </DialogContent>
-        </Dialog>
+        <div className="flex">
+          <CreateBookmarkButton team={team} />
+        </div>
       </div>
 
       {teamLinks.length < 1 ? (

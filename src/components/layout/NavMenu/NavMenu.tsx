@@ -13,7 +13,7 @@ import * as NavigationMenu from '@radix-ui/react-navigation-menu';
 import { HiChevronDown } from '@react-icons/all-files/hi/HiChevronDown';
 import { signOut } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
-import HeaderBookmarkButton from '../../bookmark/HeaderBookmarkButton';
+import HeaderCreateBookmarkButton from '../../bookmark/HeaderCreateBookmarkButton';
 import Divider from './Divider';
 import Item from './Item';
 
@@ -36,7 +36,7 @@ export const NavMenu = ({ teams }: Props) => {
         <div>
           {currentTeam && pathName !== '/' && (
             <>
-              <HeaderBookmarkButton team={currentTeam} />
+              <HeaderCreateBookmarkButton team={currentTeam} />
             </>
           )}
         </div>

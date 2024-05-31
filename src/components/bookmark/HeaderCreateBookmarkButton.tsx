@@ -6,7 +6,7 @@ import { BookmarkModal } from './BookmarkModal';
 
 type Props = { team: Team };
 
-const HeaderBookmarkButton = ({ team }: Props) => {
+const HeaderCreateBookmarkButton = ({ team }: Props) => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   function onKeyDown(event: KeyboardEvent) {
@@ -16,9 +16,9 @@ const HeaderBookmarkButton = ({ team }: Props) => {
   }
 
   useEffect(() => {
-    window.addEventListener('keypress', onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
     return () => {
-      window.removeEventListener('keypress', onKeyDown);
+      window.removeEventListener('keydown', onKeyDown);
     };
   }, []);
 
@@ -27,10 +27,10 @@ const HeaderBookmarkButton = ({ team }: Props) => {
       <DialogTrigger asChild>
         <button
           className="btn-add-link"
-          aria-label="Add bookmark"
-          title="Add bookmark"
+          aria-label="New bookmark"
+          title="New bookmark"
         >
-          <span className="hidden md:block">Add Bookmark</span>
+          <span className="hidden md:block">New bookmark</span>
           <FaTelegramPlane />
         </button>
       </DialogTrigger>
@@ -46,4 +46,4 @@ const HeaderBookmarkButton = ({ team }: Props) => {
   );
 };
 
-export default HeaderBookmarkButton;
+export default HeaderCreateBookmarkButton;
