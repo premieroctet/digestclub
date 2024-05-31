@@ -17,10 +17,10 @@ export default function CreateBookmarkButton({ team }: Props) {
       <DialogTrigger asChild>
         <Button
           onClick={() => setIsDialogOpen(true)}
-          variant="default"
+          variant="outline"
           size="md"
         >
-          New bookmark
+          Create new
         </Button>
       </DialogTrigger>
       <DialogContent
