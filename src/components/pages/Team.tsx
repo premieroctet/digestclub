@@ -1,21 +1,21 @@
+import { TeamDigestsResult } from '@/services/database/digest';
+import { TeamLinks } from '@/services/database/link';
+import { getTeamBySlug } from '@/services/database/team';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import Link from 'next/link';
+import { Suspense } from 'react';
 import Card from '../Card';
 import { CounterTag } from '../CounterTag';
 import { BookmarksListControls } from '../bookmark/BookmarksListControls';
 import { BookmarksTeamList } from '../bookmark/BookmarksTeamList';
+import ChartsServer from '../charts/ChartsServer';
+import ChartsSkeleton from '../charts/ChartsSkeleton';
 import { DigestCreateInput } from '../digests/DigestCreateInput';
 import { Digests } from '../digests/Digests';
+import SelectTemplateModal from '../digests/templates/SelectTemplateModal';
 import NoContent from '../layout/NoContent';
 import PageContainer from '../layout/PageContainer';
 import Pagination from '../list/Pagination';
-import SelectTemplateModal from '../digests/templates/SelectTemplateModal';
-import ChartsServer from '../charts/ChartsServer';
-import { Suspense } from 'react';
-import ChartsSkeleton from '../charts/ChartsSkeleton';
-import { TeamDigestsResult } from '@/services/database/digest';
-import { TeamLinks } from '@/services/database/link';
-import { getTeamBySlug } from '@/services/database/team';
 
 type Props = {
   linkCount: number;
@@ -70,11 +70,7 @@ const Team = ({
               subtitle="Start bookmarking links to share them with your team"
             />
           ) : (
-            <BookmarksTeamList
-              teamId={team.id}
-              teamSlug={team.slug}
-              teamLinks={teamLinks}
-            />
+            <BookmarksTeamList team={team} teamLinks={teamLinks} />
           )}
         </Card>
         <Card

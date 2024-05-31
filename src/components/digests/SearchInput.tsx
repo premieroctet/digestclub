@@ -1,10 +1,10 @@
 'use client';
 
-import { InputHTMLAttributes, useCallback, useTransition } from 'react';
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { AiOutlineLoading3Quarters as LoadingIcon } from '@react-icons/all-files/ai/AiOutlineLoading3Quarters';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import debounce from 'lodash/debounce';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { InputHTMLAttributes, useCallback, useTransition } from 'react';
 
 const SearchInput = ({
   className,
@@ -30,7 +30,7 @@ const SearchInput = ({
 
   return (
     <div className={className}>
-      <div className="mt-2 flex rounded-md shadow-sm">
+      <div className="flex rounded-md shadow-sm">
         <div className="relative flex flex-grow items-stretch focus-within:z-10">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             {isPending ? (

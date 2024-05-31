@@ -1,22 +1,54 @@
 'use client';
 
+import { TeamLinks } from '@/services/database/link';
+import { Team } from '@prisma/client';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
+import Link from 'next/link';
+import { useState } from 'react';
+import Button from '../Button';
+import { Dialog, DialogContent, DialogTrigger } from '../Dialog';
+import SearchInput from '../digests/SearchInput';
 import NoContent from '../layout/NoContent';
 import { BookmarkItem } from './BookmarkItem';
-import Link from 'next/link';
-import SearchInput from '../digests/SearchInput';
-import { TeamLinks } from '@/services/database/link';
+import { BookmarkModal } from './BookmarkModal';
 
 type Props = {
   teamLinks: TeamLinks;
-  teamId: string;
-  teamSlug: string;
+  team: Team;
 };
 
-export const BookmarksTeamList = ({ teamLinks, teamId, teamSlug }: Props) => {
+export const BookmarksTeamList = ({ teamLinks, team }: Props) => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   return (
     <div className="w-full">
-      <SearchInput className="mb-4" />
+      <div className="flex w-full justify-start items-center gap-4 mb-4">
+        <div className="flex-1">
+          <SearchInput />
+        </div>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <Button
+              onClick={() => setIsDialogOpen(true)}
+              variant="default"
+              size="md"
+            >
+              Add Bookmark
+            </Button>
+          </DialogTrigger>
+          <DialogContent
+            containerClassName="w-full sm:max-w-md"
+            title="New Bookmark"
+            description="Add a new link to your team feed"
+            closeIcon
+          >
+            <BookmarkModal
+              onSuccess={() => setIsDialogOpen(false)}
+              team={team}
+            />
+          </DialogContent>
+        </Dialog>
+      </div>
+
       {teamLinks.length < 1 ? (
         <NoContent
           icon={<BsFillBookmarkFill />}
@@ -34,8 +66,8 @@ export const BookmarksTeamList = ({ teamLinks, teamId, teamSlug }: Props) => {
             >
               <BookmarkItem
                 teamLink={teamLink}
-                teamSlug={teamSlug}
-                teamId={teamId}
+                teamSlug={team.slug}
+                teamId={team.id}
                 digestId={
                   teamLink.bookmark?.find(
                     (teamLink) => teamLink?.digestBlocks?.length
