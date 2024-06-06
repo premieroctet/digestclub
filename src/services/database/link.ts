@@ -176,7 +176,7 @@ export const generateLinksTags = async (
   ---
   `;
 
-  const response = await openAiCompletion({ prompt, model: 'gpt-4' });
+  const response = await openAiCompletion({ prompt });
 
   const data = response[0].message.content;
   if (data === 'NONE' || !data) return [];

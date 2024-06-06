@@ -1,10 +1,10 @@
-import { openAiCompletion } from '@/utils/openai';
 import { checkProAccount, checkTeam } from '@/lib/middleware';
 import { AuthApiRequest, errorHandler } from '@/lib/router';
+import { getTeamById } from '@/services/database/team';
+import { openAiCompletion } from '@/utils/openai';
+import Parser from '@postlight/parser';
 import type { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
-import Parser from '@postlight/parser';
-import { getTeamById } from '@/services/database/team';
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
 
@@ -38,7 +38,7 @@ router
             .slice(0, 5500)
             .join(' ');
 
-      const response = await openAiCompletion({ prompt, model: 'gpt-4' });
+      const response = await openAiCompletion({ prompt });
       const summary = response[0]?.message?.content;
 
       return res.status(201).json(summary);

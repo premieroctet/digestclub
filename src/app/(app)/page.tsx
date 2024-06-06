@@ -3,8 +3,9 @@ import { getCurrentUser } from '@/lib/sessions';
 export const dynamic = 'force-dynamic';
 
 const Home = async () => {
-  await getCurrentUser();
-  return <Homepage />;
+  const user = await getCurrentUser();
+
+  return <Homepage user={user} />;
 };
 
 export default Home;
