@@ -16,14 +16,14 @@ const buttonVariants = cva(
         destructive:
           'border-1 shadow-sm bg-red-700 hover:bg-red-600 text-white border-red-700',
         destructiveOutline:
-          'border-1 shadow-sm bg-transparent hover:bg-red-700 text-red-700 border-1 border-red-700 hover:bg-red-100 hover:text-white',
+          'border-1 shadow-sm bg-transparent text-red-700 border-1 border-red-700 hover:bg-red-100 hover:text-white',
         success:
           'border-1 shadow-sm bg-[#4ade80] hover:bg-[#3dba6b] text-white border-[#4ade80] hover:border-[#3dba6b]',
         ghost:
           'bg-transparent text-violet-700 border-1 border-transparent hover:bg-violet-100 hover:border-violet-100',
         destructiveGhost:
           'bg-transparent text-red-700 border-1 border-transparent hover:bg-red-100 hover:border-red-100',
-        link: 'border-0 text-gray-700 text-sm underline hover:text-gray-400 font-light !px-0 !font-normal',
+        link: 'border-0 text-gray-700 text-sm underline hover:text-gray-400 !px-0 !font-normal',
       },
       size: {
         sm: 'py-1 px-4 text-sm',

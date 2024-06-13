@@ -286,7 +286,7 @@ export const DigestEditPage = ({
             </div>
 
             <SectionContainer title="Bookmarks" className="relative">
-              <div className="flex w-full justify-start items-center gap-4 mb-4">
+              <div className="flex w-full justify-between items-center gap-4 mb-4">
                 <div className="flex-1">
                   <SearchInput />
                 </div>

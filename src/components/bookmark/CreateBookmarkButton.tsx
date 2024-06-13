@@ -1,5 +1,6 @@
 'use client';
 
+import { PlusIcon } from '@heroicons/react/24/solid';
 import { Team } from '@prisma/client';
 import { useState } from 'react';
 import Button from '../Button';
@@ -17,10 +18,12 @@ export default function CreateBookmarkButton({ team }: Props) {
       <DialogTrigger asChild>
         <Button
           onClick={() => setIsDialogOpen(true)}
-          variant="outline"
+          variant="default"
           size="md"
+          icon={<PlusIcon className="h-5 w-5" aria-hidden="true" />}
+          title="Create a new bookmark"
         >
-          Create new
+          New bookmark
         </Button>
       </DialogTrigger>
       <DialogContent

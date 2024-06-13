@@ -1,5 +1,5 @@
+import { PlusIcon } from '@heroicons/react/24/solid';
 import { Team } from '@prisma/client';
-import { FaTelegramPlane } from '@react-icons/all-files/fa/FaTelegramPlane';
 import { useEffect, useState } from 'react';
 import { Dialog, DialogContent, DialogTrigger } from '../Dialog';
 import { BookmarkModal } from './BookmarkModal';
@@ -31,7 +31,7 @@ const HeaderCreateBookmarkButton = ({ team }: Props) => {
           title="New bookmark"
         >
           <span className="hidden md:block">New bookmark</span>
-          <FaTelegramPlane />
+          <PlusIcon className="h-5 w-5" aria-hidden="true" />
         </button>
       </DialogTrigger>
       <DialogContent

@@ -17,8 +17,8 @@ type Props = {
 export const BookmarksTeamList = ({ teamLinks, team }: Props) => {
   return (
     <div className="w-full">
-      <div className="flex w-full justify-start items-center gap-4 mb-4">
-        <div className="flex-1">
+      <div className="flex w-full justify-between items-center gap-4 mb-4">
+        <div className="flex-1 ">
           <SearchInput />
         </div>
         <div className="flex">

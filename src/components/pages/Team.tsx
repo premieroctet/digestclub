@@ -41,7 +41,7 @@ const Team = ({
       <div className="flex max-lg:flex-col gap-5 pb-4">
         <Card
           className="w-full lg:w-2/3"
-          contentClassName="sm:py-2 sm:px-6"
+          contentClassName="sm:py-5 sm:px-5"
           header={
             <>
               <div className="flex items-center justify-between gap-3 max-sm:flex-col max-sm:items-start">
