@@ -20,8 +20,9 @@ export default function CreateBookmarkButton({ team }: Props) {
           onClick={() => setIsDialogOpen(true)}
           variant="default"
           size="md"
-          icon={<PlusIcon className="h-5 w-5" aria-hidden="true" />}
+          icon={<PlusIcon className="h-4 w-4" aria-hidden="true" />}
           title="Create a new bookmark"
+          className="px-0"
         >
           New bookmark
         </Button>

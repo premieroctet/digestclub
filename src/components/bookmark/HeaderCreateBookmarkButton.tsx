@@ -31,7 +31,7 @@ const HeaderCreateBookmarkButton = ({ team }: Props) => {
           title="New bookmark"
         >
           <span className="hidden md:block">New bookmark</span>
-          <PlusIcon className="h-5 w-5" aria-hidden="true" />
+          <PlusIcon className="h-3.5 w-3.5" aria-hidden="true" />
         </button>
       </DialogTrigger>
       <DialogContent
