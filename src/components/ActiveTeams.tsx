@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import TeamAvatar from './teams/TeamAvatar';
 
 interface Props {
@@ -25,14 +26,14 @@ export default function ActiveTeams({ teams }: Props) {
               <TeamAvatar team={team} />
               <span className="flex flex-col">
                 <span className="font-semibold">{team?.name}</span>
-                <a
+                <Link
                   href={`/${team.slug}`}
                   className="hover:text-violet-600 text-xs text-slate-500"
                   title={` Browse all digests of ${team.name}`}
                   rel="noreferrer"
                 >
                   Browse all digests
-                </a>
+                </Link>
               </span>
             </span>
           </div>
