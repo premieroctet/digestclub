@@ -30,7 +30,9 @@ const HeaderCreateBookmarkButton = ({ team }: Props) => {
           aria-label="New bookmark"
           title="New bookmark"
         >
-          <span className="hidden md:block">New bookmark</span>
+          <span className="hidden md:block whitespace-nowrap">
+            New bookmark
+          </span>
           <PlusIcon className="h-3.5 w-3.5" aria-hidden="true" />
         </button>
       </DialogTrigger>
