@@ -27,10 +27,12 @@ export async function generateMetadata({
         description: digest?.description || digest?.team.name,
         images: [url],
       },
+
       openGraph: {
-        type: 'website',
+        type: 'article',
         title: `${digest?.title}`,
         description: digest?.description || digest?.team.name,
+        siteName: 'Digest.Club',
         url,
         images: [
           {
