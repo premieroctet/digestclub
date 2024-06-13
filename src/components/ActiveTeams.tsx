@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import TeamAvatar from './teams/TeamAvatar';
 
 interface Props {
@@ -21,10 +20,10 @@ export default function ActiveTeams({ teams }: Props) {
       </p>
       <div className="flex flex-col gap-4 mt-4">
         {teams.map((team) => (
-          <Link key={team.slug} href={`/${team.slug}`}>
-            <div className="flex items-center gap-2">
+          <div key={team.slug}>
+            <span className="flex items-center gap-2">
               <TeamAvatar team={team} />
-              <div className="flex flex-col">
+              <span className="flex flex-col">
                 <span className="font-semibold">{team?.name}</span>
                 <a
                   href={`/${team.slug}`}
@@ -34,9 +33,9 @@ export default function ActiveTeams({ teams }: Props) {
                 >
                   Browse all digests
                 </a>
-              </div>
-            </div>
-          </Link>
+              </span>
+            </span>
+          </div>
         ))}
       </div>
     </div>
