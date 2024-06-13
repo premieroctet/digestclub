@@ -1,12 +1,12 @@
 import DigestPublicPage from '@/components/pages/DigestPublicPage';
-import { generateDigestOGUrl } from '@/utils/open-graph-url';
-import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
-import * as Sentry from '@sentry/nextjs';
 import {
   getPublicDigest,
   incrementDigestView,
 } from '@/services/database/digest';
+import { generateDigestOGUrl } from '@/utils/open-graph-url';
+import * as Sentry from '@sentry/nextjs';
+import { Metadata } from 'next';
+import { redirect } from 'next/navigation';
 
 interface PageProps {
   params: { teamSlug: string; digestSlug: string };
@@ -28,10 +28,11 @@ export async function generateMetadata({
         images: [url],
       },
       openGraph: {
-        type: 'website',
+        type: 'article',
         title: `${digest?.title}`,
         description: digest?.description || digest?.team.name,
-        url,
+        siteName: 'digest.club',
+        url: `${process.env.NEXT_PUBLIC_PUBLIC_URL}/${params.teamSlug}/${params.digestSlug}`,
         images: [
           {
             url,
