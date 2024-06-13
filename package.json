@@ -35,7 +35,6 @@
     "@radix-ui/react-tabs": "^1.0.3",
     "@radix-ui/react-tooltip": "^1.0.5",
     "@react-icons/all-files": "^4.1.0",
-    "@redirection.io/vercel-middleware": "^0.1.4",
     "@resvg/resvg-js": "^2.4.1",
     "@sendinblue/client": "^3.3.1",
     "@sentry/nextjs": "^7.51.2",
