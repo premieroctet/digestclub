@@ -33,7 +33,7 @@ export async function generateMetadata({
         title: `${digest?.title}`,
         description: digest?.description || digest?.team.name,
         siteName: 'Digest.Club',
-        url,
+        url: `https://digest.club/${params.teamSlug}/${params.digestSlug}`,
         images: [
           {
             url,
