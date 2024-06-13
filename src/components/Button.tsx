@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import React, { forwardRef } from 'react';
 
 const buttonVariants = cva(
-  'rounded-md font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 flex items-center justify-center gap-2 cursor-pointer box-content',
+  'rounded-md font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 flex items-center justify-center gap-2 cursor-pointer',
   {
     variants: {
       variant: {
@@ -81,7 +81,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
           [disabledClass]: disabled,
         },
         {
-          'w-full': fullWidth,
+          'w-full box-border': fullWidth,
         },
         className
       )}
