@@ -1,22 +1,31 @@
 'use client';
 
+import { TeamLinks } from '@/services/database/link';
+import { Team } from '@prisma/client';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
-import NoContent from '../layout/NoContent';
-import { BookmarkItem } from './BookmarkItem';
 import Link from 'next/link';
 import SearchInput from '../digests/SearchInput';
-import { TeamLinks } from '@/services/database/link';
+import NoContent from '../layout/NoContent';
+import { BookmarkItem } from './BookmarkItem';
+import CreateBookmarkButton from './CreateBookmarkButton';
 
 type Props = {
   teamLinks: TeamLinks;
-  teamId: string;
-  teamSlug: string;
+  team: Team;
 };
 
-export const BookmarksTeamList = ({ teamLinks, teamId, teamSlug }: Props) => {
+export const BookmarksTeamList = ({ teamLinks, team }: Props) => {
   return (
     <div className="w-full">
-      <SearchInput className="mb-4" />
+      <div className="flex w-full justify-between items-center gap-4 mb-4">
+        <div className="flex-1 ">
+          <SearchInput />
+        </div>
+        <div className="flex">
+          <CreateBookmarkButton team={team} />
+        </div>
+      </div>
+
       {teamLinks.length < 1 ? (
         <NoContent
           icon={<BsFillBookmarkFill />}
@@ -34,8 +43,8 @@ export const BookmarksTeamList = ({ teamLinks, teamId, teamSlug }: Props) => {
             >
               <BookmarkItem
                 teamLink={teamLink}
-                teamSlug={teamSlug}
-                teamId={teamId}
+                teamSlug={team.slug}
+                teamId={team.id}
                 digestId={
                   teamLink.bookmark?.find(
                     (teamLink) => teamLink?.digestBlocks?.length
