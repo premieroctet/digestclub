@@ -21,22 +21,22 @@ export default function ActiveTeams({ teams }: Props) {
       </p>
       <div className="flex flex-col gap-4 mt-4">
         {teams.map((team) => (
-          <Link key={team.slug} href={`/${team.slug}`}>
-            <div className="flex items-center gap-2">
+          <div key={team.slug}>
+            <span className="flex items-center gap-2">
               <TeamAvatar team={team} />
-              <div className="flex flex-col">
+              <span className="flex flex-col">
                 <span className="font-semibold">{team?.name}</span>
-                <a
+                <Link
                   href={`/${team.slug}`}
                   className="hover:text-violet-600 text-xs text-slate-500"
                   title={` Browse all digests of ${team.name}`}
                   rel="noreferrer"
                 >
                   Browse all digests
-                </a>
-              </div>
-            </div>
-          </Link>
+                </Link>
+              </span>
+            </span>
+          </div>
         ))}
       </div>
     </div>

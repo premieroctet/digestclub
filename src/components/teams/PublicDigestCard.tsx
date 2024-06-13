@@ -1,10 +1,10 @@
+import { DiscoveryDigest } from '@/services/database/digest';
 import { formatDate } from '@/utils/date';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { Team } from '@prisma/client';
 import Link from 'next/link';
 import BookmarkCountBadge from './BookmarkCountBadge';
 import TeamAvatar from './TeamAvatar';
-import { DiscoveryDigest } from '@/services/database/digest';
 
 interface Props {
   digest: DiscoveryDigest;
@@ -17,11 +17,12 @@ const PublicDigestCard = ({ digest, showTeam, team }: Props) => {
   const url = new URL(generateDigestOGUrl(digest.slug));
 
   return (
-    <Link
-      href={`/${team.slug}/${digest.slug}`}
-      className="overflow-hidden flex cursor-pointer p-2"
-      rel="noopener noreferrer"
-    >
+    <div className="overflow-hidden flex  p-2 relative">
+      <Link
+        href={`/${team.slug}/${digest.slug}`}
+        rel="noopener noreferrer"
+        className="inset-0 absolute z-10 cursor-pointer"
+      />
       <article className="flex flex-col items-start w-full">
         <div className="relative w-full aspect-[16/9] rounded-2xl bg-gray-100 sm:aspect-[2/1] lg:aspect-[3/2] overflow-hidden">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -61,7 +62,7 @@ const PublicDigestCard = ({ digest, showTeam, team }: Props) => {
           </div>
         </div>
       </article>
-    </Link>
+    </div>
   );
 };
 
