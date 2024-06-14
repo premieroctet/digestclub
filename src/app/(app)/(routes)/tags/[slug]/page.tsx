@@ -1,34 +1,35 @@
-import Tag from '@/components/Tag';
+import ActiveTeams from '@/components/ActiveTeams';
+import CustomLink from '@/components/Link';
+import PopularTags from '@/components/PopularTags';
 import Pagination from '@/components/list/Pagination';
 import PublicDigestListItem from '@/components/teams/PublicDigestListItem';
-import TeamAvatar from '@/components/teams/TeamAvatar';
 import { getDiscoverDigests } from '@/services/database/digest';
 import { getPopularTags, getTagBySlug } from '@/services/database/tag';
 import { getRecentTeams } from '@/services/database/team';
-import { Button } from '@tremor/react';
-import Link from 'next/link';
-import CustomLink from '@/components/Link';
 import { notFound } from 'next/navigation';
-import PopularTags from '@/components/PopularTags';
-import ActiveTeams from '@/components/ActiveTeams';
 export const dynamic = 'force-dynamic';
+
+const PER_PAGE = 10;
 
 const TagsPage = async ({
   params,
+  searchParams,
 }: {
   params: {
     slug: string;
   };
+  searchParams?: { [key: string]: string | undefined };
 }) => {
   const { slug } = params;
 
-  const page = 1;
+  const page = Number(searchParams?.page || 1);
+
   const tag = await getTagBySlug(slug);
   if (!tag) return notFound();
   const recentTeams = await getRecentTeams();
   const { digests, digestsCount } = await getDiscoverDigests({
     page,
-    perPage: 20,
+    perPage: PER_PAGE,
     tagId: tag.id,
   });
   const popularTags = await getPopularTags();
