@@ -1,24 +1,23 @@
+import { hexToRGBA } from '@/utils/color';
 import { applyInlineStyleToRawHtml } from '@/utils/newsletter';
 import { BookmarkDigestStyle, DigestBlockType } from '@prisma/client';
 import {
   Mjml,
+  MjmlAll,
+  MjmlAttributes,
   MjmlBody,
+  MjmlBreakpoint,
   MjmlColumn,
+  MjmlHead,
   MjmlImage,
   MjmlSection,
   MjmlText,
   MjmlWrapper,
-  MjmlAttributes,
-  MjmlAll,
-  MjmlHead,
-  MjmlBreakpoint,
-  MjmlRaw,
 } from 'mjml-react';
 import React from 'react';
 import { remark } from 'remark';
 import html from 'remark-html';
 import theme from '../theme';
-import { hexToRGBA } from '@/utils/color';
 
 const Bookmark = ({
   bookmark: { title, description, url, image, style },
@@ -69,7 +68,7 @@ const Bookmark = ({
 
       {isBlock && (
         <MjmlColumn width="40%">
-          <MjmlImage src={image!} alt={title || 'Bookmark'} />
+          <MjmlImage src={image!} alt={title || 'Bookmark'} href={url!} />
         </MjmlColumn>
       )}
 
@@ -163,14 +162,6 @@ const NewsletterEmail = ({
         <MjmlWrapper backgroundColor="white" borderRadius={10} cssClass="mt-1">
           <MjmlSection>
             <MjmlColumn width="100%">
-              <MjmlText>
-                <a
-                  href={`${hostUrl}/${team.slug}/${digestSlug}`}
-                  style={{ color: `${primaryColor} !important` }}
-                >
-                  Open website version 🌐
-                </a>
-              </MjmlText>
               <MjmlText
                 fontWeight={800}
                 fontSize={34}
@@ -197,7 +188,7 @@ const NewsletterEmail = ({
             blocks.map((block, i) => {
               if (block.type === BlockType.BOOKMARK) {
                 if (block.style === 'TWEET_EMBED') {
-                  // maybe render tweets with their own cloomponent? to cleanly embed
+                  // maybe render tweets with their own component? to cleanly embed
                   return (
                     <Bookmark
                       bookmark={block}
@@ -246,6 +237,16 @@ const NewsletterEmail = ({
                   here
                 </a>
                 .
+              </MjmlText>
+            </MjmlColumn>
+            <MjmlColumn width={'100%'}>
+              <MjmlText>
+                <a
+                  href={`${hostUrl}/${team.slug}/${digestSlug}`}
+                  style={{ color: `${primaryColor} !important` }}
+                >
+                  Open website version 🌐
+                </a>
               </MjmlText>
             </MjmlColumn>
           </MjmlSection>
