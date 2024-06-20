@@ -10,7 +10,7 @@ module.exports = {
       ...defaultTheme.screens,
     },
     fontFamily: {
-      mulish: 'var(--font-mulish)',
+      inter: 'var(--font-inter)',
     },
     extends: {
       typography: ({ theme }) => ({
