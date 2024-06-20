@@ -30,7 +30,7 @@ export const DigestCreateInput = ({
   templates,
 }: Props) => {
   const router = useRouter();
-  const [_, setCookie, removeCookie] = useCookies([COOKIES.DEFAULT_TEAM]);
+  const [_, setCookie] = useCookies([COOKIES.DEFAULT_TEAM]);
   const { successToast, errorToast } = useCustomToast();
   const { isRefreshing, refresh } = useTransitionRefresh();
   const methods = useForm<{ title: string; templateId?: string }>({
