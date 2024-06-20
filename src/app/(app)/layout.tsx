@@ -5,7 +5,7 @@ import { getUserTeams } from '@/services/database/team';
 import '@/theme/app.css';
 import '@/theme/globals.css';
 import { Metadata } from 'next';
-import { Mulish } from 'next/font/google';
+import { Inter } from 'next/font/google';
 import Providers from './providers';
 
 export const dynamic = 'force-dynamic';
@@ -48,10 +48,10 @@ export const metadata: Metadata = {
   },
 };
 
-const mulish = Mulish({
+const inter = Inter({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
-  variable: '--font-mulish',
+  variable: '--font-inter',
 });
 
 export default async function RootLayout({ children }: Props) {
@@ -63,7 +63,7 @@ export default async function RootLayout({ children }: Props) {
   return (
     <html lang="en">
       <body
-        className={`flex flex-col font-sans overflow-x-hidden ${mulish.variable} font-mulish`}
+        className={`flex flex-col font-sans overflow-x-hidden ${inter.variable} font-inter`}
       >
         <Providers>
           <Header teams={teams} user={session?.user} />
