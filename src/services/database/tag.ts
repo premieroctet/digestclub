@@ -58,3 +58,17 @@ export const getPopularTags = async () => {
     throw new Error('Error getting popular tags');
   }
 };
+
+
+export const getAllTags = async () => {
+  try {
+    const tags = await db.tag.findMany({
+      orderBy: {
+        name: 'asc',
+      },
+    });
+    return tags;
+  } catch (error) {
+    throw new Error('Error getting all tags');
+  }
+};

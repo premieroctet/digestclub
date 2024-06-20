@@ -1,12 +1,10 @@
 import ActiveTeams from '@/components/ActiveTeams';
-import PopularTags from '@/components/PopularTags';
+import TagsList from '@/components/TagsList';
 import Pagination from '@/components/list/Pagination';
 import PublicDigestListItem from '@/components/teams/PublicDigestListItem';
-import TeamAvatar from '@/components/teams/TeamAvatar';
 import { getDiscoverDigests } from '@/services/database/digest';
-import { getPopularTags } from '@/services/database/tag';
+import { getAllTags, getPopularTags } from '@/services/database/tag';
 import { getRecentTeams } from '@/services/database/team';
-import Link from 'next/link';
 
 export interface TeamPageProps {
   params: { teamSlug: string };
@@ -20,6 +18,7 @@ const DiscoverPage = async ({ searchParams }: TeamPageProps) => {
 
   const recentTeams = await getRecentTeams();
   const popularTags = await getPopularTags();
+  const allTags = await getAllTags();
 
   const { digests, digestsCount } = await getDiscoverDigests({
     page,
@@ -52,7 +51,16 @@ const DiscoverPage = async ({ searchParams }: TeamPageProps) => {
         </div>
         <div className="flex flex-col gap-4 md:max-w-[22rem] w-full">
           <ActiveTeams teams={recentTeams} />
-          <PopularTags tags={popularTags} />
+          <TagsList
+            tags={popularTags}
+            title="Popular tags"
+            description="Browse digests by the most used tags"
+          />
+          <TagsList
+            tags={allTags}
+            title="Tags"
+            description="Browse digests by tags"
+          />
         </div>
       </div>
     </main>

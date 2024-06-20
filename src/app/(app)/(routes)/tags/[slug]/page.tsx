@@ -1,11 +1,16 @@
 import ActiveTeams from '@/components/ActiveTeams';
 import CustomLink from '@/components/Link';
-import PopularTags from '@/components/PopularTags';
+import TagsList from '@/components/TagsList';
 import Pagination from '@/components/list/Pagination';
 import PublicDigestListItem from '@/components/teams/PublicDigestListItem';
 import { getDiscoverDigests } from '@/services/database/digest';
-import { getPopularTags, getTagBySlug } from '@/services/database/tag';
+import {
+  getAllTags,
+  getPopularTags,
+  getTagBySlug,
+} from '@/services/database/tag';
 import { getRecentTeams } from '@/services/database/team';
+
 import { notFound } from 'next/navigation';
 export const dynamic = 'force-dynamic';
 
@@ -33,6 +38,7 @@ const TagsPage = async ({
     tagId: tag.id,
   });
   const popularTags = await getPopularTags();
+  const allTags = await getAllTags();
 
   return (
     <main className="max-w-6xl mx-auto mb-10">
@@ -84,8 +90,18 @@ const TagsPage = async ({
         </div>
         <div className="flex flex-col gap-4 md:max-w-[22rem] w-full">
           <ActiveTeams teams={recentTeams} />
-
-          <PopularTags tags={popularTags} currentTag={tag} />
+          <TagsList
+            tags={popularTags}
+            currentTag={tag}
+            title="Popular tags"
+            description="Browse digests by the most used tags"
+          />
+          <TagsList
+            tags={allTags}
+            currentTag={tag}
+            title="Tags"
+            description="Browse digests by tags"
+          />
         </div>
       </div>
     </main>
