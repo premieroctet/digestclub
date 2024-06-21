@@ -1,4 +1,4 @@
-import baseTheme from '../../emails/theme';
+import baseTheme from '@/emails/theme';
 
 type Theme = {
   [key: string]: {
