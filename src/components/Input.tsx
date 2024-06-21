@@ -1,6 +1,6 @@
 'use client';
 import clsx from 'clsx';
-import { forwardRef, HTMLProps, useState } from 'react';
+import { forwardRef, HTMLProps } from 'react';
 
 export const Input = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>(
   function Input({ className, ...props }, ref) {
@@ -65,16 +65,14 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps<any>>(
 
 export const Switch = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>(
   function Switch({ label, onChange, checked, ...props }, ref) {
-    const [isChecked, setIsChecked] = useState(checked);
     return (
       <label className="relative inline-flex  cursor-pointer">
         <div className="flex-1">
           <input
             type="checkbox"
-            checked={isChecked}
+            checked={checked}
             className="sr-only peer"
             onChange={(e) => {
-              setIsChecked(!isChecked);
               onChange && onChange(e);
             }}
             ref={ref}
@@ -84,7 +82,7 @@ export const Switch = forwardRef<HTMLInputElement, HTMLProps<HTMLInputElement>>(
         </div>
         <span
           className={`ml-3 text-sm font-medium text-gray-900 dark:text-gray-300 ${
-            !isChecked ? 'opacity-60' : 'opacity-100'
+            !checked ? 'opacity-60' : 'opacity-100'
           }`}
         >
           {label}
