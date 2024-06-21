@@ -5,4 +5,13 @@ export const getDomainFromUrl = (url: string) => {
   return domain;
 };
 
-export const isPdfUrl = (url: string) => url.indexOf('.pdf') > -1;
+export const isPdfUrl = (url: string): boolean => {
+  const urlObject = new URL(url);
+  const pathname = urlObject.pathname;
+  const hasExtension = pathname.endsWith('.pdf');
+  if (!hasExtension) return false;
+  // Edge case for urls like https://example.com/.pdf should not be considered as pdf
+  const hasFileName = pathname.split('/').pop() !== '.pdf';
+  if (!hasFileName) return false;
+  return hasExtension && hasFileName;
+};
