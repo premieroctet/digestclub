@@ -175,7 +175,7 @@ const tags = [
   },
   {
     id: 'ce6bad39-fd36-4798-996c-c259768c929a',
-    name: 'React Native',
+    name: 'ReactNative',
     slug: 'react-native',
     description: 'A framework for building native applications using React.',
   },
@@ -223,7 +223,7 @@ const tags = [
   },
   {
     id: '35fdc96c-6963-4b30-82e1-89b49d402af9',
-    name: 'Game dev',
+    name: 'GameDev',
     slug: 'game-dev',
     description:
       'The process of creating video games, including design, development, and testing.',
@@ -257,7 +257,7 @@ const tags = [
   },
   {
     id: 'b8ea5aef-0d5a-4b7b-a553-3a08846953b8',
-    name: 'Web dev',
+    name: 'WebDev',
     slug: 'web-dev',
     description:
       'Internet development, the process of creating websites and applications for the web.',
@@ -271,7 +271,7 @@ const tags = [
   },
   {
     id: '8cef67d8-e53f-43a5-a71a-fb0f7402aa37',
-    name: 'Dev ops',
+    name: 'DevOps',
     slug: 'dev-ops',
     description:
       'A set of practices that combines software development and IT operations.',
@@ -341,7 +341,7 @@ const tags = [
   },
   {
     id: '8721ef2c-84d9-4097-9036-945c06b3143d',
-    name: 'E-commerce',
+    name: 'ECommerce',
     slug: 'e-commerce',
     description:
       'Short for electronic commerce, the process of buying and selling products and services online.',
