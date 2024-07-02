@@ -5,6 +5,7 @@ import { getUserTeams } from '@/services/database/team';
 import '@/theme/app.css';
 import '@/theme/globals.css';
 import { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import Providers from './providers';
 
 export const dynamic = 'force-dynamic';
@@ -47,6 +48,12 @@ export const metadata: Metadata = {
   },
 };
 
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-inter',
+});
+
 export default async function RootLayout({ children }: Props) {
   const session = await getSession();
   const teams = session?.user.id
@@ -55,7 +62,9 @@ export default async function RootLayout({ children }: Props) {
 
   return (
     <html lang="en">
-      <body className="flex flex-col font-sans overflow-x-hidden">
+      <body
+        className={`flex flex-col font-sans overflow-x-hidden ${inter.variable} font-inter`}
+      >
         <Providers>
           <Header teams={teams} user={session?.user} />
           {children}

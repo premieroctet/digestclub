@@ -6,10 +6,10 @@ const openai = new OpenAI({
 
 export const openAiCompletion = async ({
   prompt,
-  model = 'gpt-3.5-turbo',
+  model = 'gpt-4o',
 }: {
   prompt: string;
-  model?: 'gpt-3.5-turbo' | 'gpt-4';
+  model?: 'gpt-4o' | 'gpt-4-turbo';
 }) => {
   const chatCompletion = await openai.chat.completions.create({
     messages: [{ role: 'user', content: prompt }],

@@ -1,16 +1,21 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { routes } from '@/core/constants';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
+import { useRouter } from 'next/navigation';
 
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
+import { getDigest } from '@/services/database/digest';
+import { TeamLinksData } from '@/services/database/link';
+import { getTeamBySlug } from '@/services/database/team';
 import { reorderList } from '@/utils/actionOnList';
 import { getRelativeDate } from '@/utils/date';
+import { digestBlockToTemplateBlocks } from '@/utils/template';
 import { EyeSlashIcon, RssIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { EyeIcon } from '@heroicons/react/24/solid';
 import { DigestBlock, DigestBlockType } from '@prisma/client';
 import { BsFillBookmarkFill } from '@react-icons/all-files/bs/BsFillBookmarkFill';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -26,22 +31,18 @@ import { useMutation } from 'react-query';
 import Button from '../Button';
 import { Input, TextArea } from '../Input';
 import { DeletePopover } from '../Popover';
-import { BlockListDnd } from '../digests/BlockListDnd';
 import BookmarkListDnd from '../bookmark/BookmarkListDnd';
+import CreateBookmarkButton from '../bookmark/CreateBookmarkButton';
+import { BlockListDnd } from '../digests/BlockListDnd';
 import SearchInput from '../digests/SearchInput';
+import CreateTemplateModal from '../digests/templates/CreateTemplateModal';
 import NoContent from '../layout/NoContent';
 import SectionContainer from '../layout/SectionContainer';
 import Pagination from '../list/Pagination';
 import { Breadcrumb } from '../teams/Breadcrumb';
-import DigestEditVisit from './DigestEditVisit';
-import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
-import { EyeIcon } from '@heroicons/react/24/solid';
-import CreateTemplateModal from '../digests/templates/CreateTemplateModal';
-import { digestBlockToTemplateBlocks } from '@/utils/template';
-import { TeamLinksData } from '@/services/database/link';
-import { getDigest } from '@/services/database/digest';
-import { getTeamBySlug } from '@/services/database/team';
+import DigestEditTypefully from './DigestEditTypefully';
+import DigestEditVisit from './DigestEditVisit';
 
 type Props = {
   teamLinksData: TeamLinksData;
@@ -285,7 +286,14 @@ export const DigestEditPage = ({
             </div>
 
             <SectionContainer title="Bookmarks" className="relative">
-              <SearchInput className="mb-4" />
+              <div className="flex w-full justify-between items-center gap-4 mb-4">
+                <div className="flex-1">
+                  <SearchInput />
+                </div>
+                <div className="flex">
+                  <CreateBookmarkButton team={team} />
+                </div>
+              </div>
               <div className="flex flex-col gap-2">
                 {teamLinks && teamLinks.length > 0 ? (
                   <BookmarkListDnd

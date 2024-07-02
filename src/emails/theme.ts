@@ -1,6 +1,6 @@
 const theme = {
   fontFamily: {
-    heading: 'Arial Rounded MT Bold, Arial, Arial, sans-serif',
+    heading: 'Helvetica, sans-serif',
     bodyPrimary: 'Helvetica, sans-serif',
     bodySecondary: 'Arial, sans-serif',
   },

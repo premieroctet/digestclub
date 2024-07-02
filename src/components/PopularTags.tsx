@@ -1,7 +1,6 @@
-import React from 'react';
-import Tag, { ITag } from './Tag';
-import Link from 'next/link';
 import { routes } from '@/core/constants';
+import Link from 'next/link';
+import Tag, { ITag } from './Tag';
 
 interface Props {
   tags: ITag[];
@@ -26,7 +25,7 @@ export default function PopularTags({ tags, currentTag }: Props) {
                 isActive ? routes.DISCOVER : routes.TAG.replace(':slug', slug)
               }
             >
-              <div className="flex flex-col items-start gap-&">
+              <span className="flex flex-col items-start gap-&">
                 <Tag
                   tag={{
                     id,
@@ -37,7 +36,7 @@ export default function PopularTags({ tags, currentTag }: Props) {
                   size="default"
                   active={currentTag?.id === id}
                 />
-              </div>
+              </span>
             </Link>
           );
         })}

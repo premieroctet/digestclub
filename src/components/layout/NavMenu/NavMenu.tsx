@@ -1,21 +1,21 @@
 'use client';
 
 import { routes } from '@/core/constants';
-import { Team } from '@prisma/client';
-import { HiChevronDown } from '@react-icons/all-files/hi/HiChevronDown';
-import * as NavigationMenu from '@radix-ui/react-navigation-menu';
-import { usePathname } from 'next/navigation';
-import BookmarkButton from '../../bookmark/BookmarkButton';
-import { signOut } from 'next-auth/react';
-import Divider from './Divider';
-import Item from './Item';
 import {
   AdjustmentsVerticalIcon,
-  CheckIcon,
-  UserIcon,
   ArrowLeftOnRectangleIcon,
+  CheckIcon,
   PlusIcon,
+  UserIcon,
 } from '@heroicons/react/24/solid';
+import { Team } from '@prisma/client';
+import * as NavigationMenu from '@radix-ui/react-navigation-menu';
+import { HiChevronDown } from '@react-icons/all-files/hi/HiChevronDown';
+import { signOut } from 'next-auth/react';
+import { usePathname } from 'next/navigation';
+import HeaderCreateBookmarkButton from '../../bookmark/HeaderCreateBookmarkButton';
+import Divider from './Divider';
+import Item from './Item';
 
 type Props = {
   teams?: Team[];
@@ -36,7 +36,7 @@ export const NavMenu = ({ teams }: Props) => {
         <div>
           {currentTeam && pathName !== '/' && (
             <>
-              <BookmarkButton team={currentTeam} />
+              <HeaderCreateBookmarkButton team={currentTeam} />
             </>
           )}
         </div>

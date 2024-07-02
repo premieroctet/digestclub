@@ -9,6 +9,9 @@ module.exports = {
       xs: '480px',
       ...defaultTheme.screens,
     },
+    fontFamily: {
+      inter: 'var(--font-inter)',
+    },
     extends: {
       typography: ({ theme }) => ({
         violet: {

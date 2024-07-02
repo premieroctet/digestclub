@@ -1,3 +1,4 @@
+import { DiscoveryDigest } from '@/services/database/digest';
 import { formatDate } from '@/utils/date';
 import { generateDigestOGUrl } from '@/utils/open-graph-url';
 import { Team } from '@prisma/client';
@@ -5,7 +6,6 @@ import Link from 'next/link';
 import BookmarkImage from '../bookmark/BookmarkImage';
 import BookmarkCountBadge from './BookmarkCountBadge';
 import TeamAvatar from './TeamAvatar';
-import { DiscoveryDigest } from '@/services/database/digest';
 
 interface Props {
   digest: DiscoveryDigest;
@@ -18,19 +18,22 @@ const PublicDigestListItem = ({ digest, showTeam, team }: Props) => {
   const url = new URL(generateDigestOGUrl(digest.slug));
 
   return (
-    <Link
-      href={`/${team.slug}/${digest.slug}`}
-      className="overflow-hidden flex cursor-pointer"
-      rel="noopener noreferrer"
-    >
+    <div className="overflow-hidden flex relative ">
+      <Link
+        href={`/${team.slug}/${digest.slug}`}
+        rel="noopener noreferrer"
+        className="inset-0 absolute z-20 cursor-pointer"
+      />
       <article className="flex flex-col items-start w-full bg-white py-6 px-6 border border-gray-200 rounded-md">
         {showTeam && (
           <div className="flex items-center gap-x-1 text-xs">
-            <Link href={`/${team.slug}`}>
-              <div className="flex items-center justify-center gap-2">
+            <Link href={`/${team.slug}`} className="relative z-30 group">
+              <span className="flex items-center justify-center gap-2">
                 <TeamAvatar team={team} />
-                <span>{team?.name}</span>
-              </div>
+                <span className="group-hover:text-violet-700">
+                  {team?.name}
+                </span>
+              </span>
             </Link>
           </div>
         )}
@@ -59,7 +62,7 @@ const PublicDigestListItem = ({ digest, showTeam, team }: Props) => {
           ))}
         </div>
       </article>
-    </Link>
+    </div>
   );
 };
 

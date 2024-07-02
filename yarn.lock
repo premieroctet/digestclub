@@ -2498,6 +2498,19 @@
   resolved "https://registry.yarnpkg.com/@react-icons/all-files/-/all-files-4.1.0.tgz#477284873a0821928224b6fc84c62d2534d6650b"
   integrity sha512-hxBI2UOuVaI3O/BhQfhtb4kcGn9ft12RWAFVMUeNjqqhLsHvFtzIkFaptBJpFDANTKoDfdVoHTKZDlwKCACbMQ==
 
+"@redirection.io/redirectionio@^2.11.4":
+  version "2.11.4"
+  resolved "https://registry.yarnpkg.com/@redirection.io/redirectionio/-/redirectionio-2.11.4.tgz#c8226ab685c7443d139bc4328519d53e71be53b3"
+  integrity sha512-VMZAetkEtGOt+CVAlv5XCp+jsZF4hLcuZ5alYffiIhMaRzJYmKQw8y7rs4Wg8UHHBWMnThCI2173B8wV/qU9VA==
+
+"@redirection.io/vercel-middleware@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@redirection.io/vercel-middleware/-/vercel-middleware-0.1.4.tgz#fb983a6fa9aecaa1213cc68ceebc819282f86e8d"
+  integrity sha512-NL0QndvzWmhkyQ84tC89hnzFqew6IuM34PmUIL0wu4CvXicotB60dZwVkk0q5EEFrVvGpCkVqF8BJMAA1DzVYA==
+  dependencies:
+    "@redirection.io/redirectionio" "^2.11.4"
+    "@vercel/edge" "^1.1.1"
+
 "@resvg/resvg-js-android-arm-eabi@2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@resvg/resvg-js-android-arm-eabi/-/resvg-js-android-arm-eabi-2.6.0.tgz#fed7723ed5c5f7490762e025ad704bcbceee37b7"
@@ -3373,6 +3386,11 @@
   dependencies:
     "@typescript-eslint/types" "6.9.1"
     eslint-visitor-keys "^3.4.1"
+
+"@vercel/edge@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@vercel/edge/-/edge-1.1.1.tgz#9b2fc0081dfe95db8b4c3598275721b1ad85e43f"
+  integrity sha512-NtKiIbn9Cq6HWGy+qRudz28mz5nxfOJWls5Pnckjw1yCfSX8rhXdvY/il3Sy3Zd5n/sKCM2h7VSCCpJF/oaDrQ==
 
 "@vercel/og@^0.4.0":
   version "0.4.2"

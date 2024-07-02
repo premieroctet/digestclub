@@ -1,30 +1,29 @@
 'use client';
 
-import React, { forwardRef } from 'react';
 import { AiOutlineLoading3Quarters as LoadingIcon } from '@react-icons/all-files/ai/AiOutlineLoading3Quarters';
-import clsx from 'clsx';
 import { VariantProps, cva } from 'class-variance-authority';
+import clsx from 'clsx';
+import React, { forwardRef } from 'react';
 
 const buttonVariants = cva(
   'rounded-md font-semibold focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 flex items-center justify-center gap-2 cursor-pointer',
   {
     variants: {
       variant: {
-        default:
-          'ring-1 shadow-sm bg-violet-600 hover:bg-violet-700 text-white ring-violet-600',
+        default: 'shadow-sm bg-violet-600 hover:bg-violet-700 text-white',
         outline:
-          'ring-1 shadow-sm bg-transparent hover:bg-violet-700 text-violet-700 ring-1 ring-violet-600 hover:bg-violet-100 hover:text-white',
+          'border border-1 shadow-sm bg-transparent hover:bg-violet-700 text-violet-700 border-violet-600 hover:text-white box-border',
         destructive:
-          'ring-1 shadow-sm bg-red-700 hover:bg-red-600 text-white ring-red-700',
+          'border-1 shadow-sm bg-red-700 hover:bg-red-600 text-white border-red-700',
         destructiveOutline:
-          'ring-1 shadow-sm bg-transparent hover:bg-red-700 text-red-700 ring-1 ring-red-700 hover:bg-red-100 hover:text-white',
+          'border-1 shadow-sm bg-transparent text-red-700 border-1 border-red-700 hover:bg-red-100 hover:text-white',
         success:
-          'ring-1 shadow-sm bg-[#4ade80] hover:bg-[#3dba6b] text-white ring-[#4ade80] hover:ring-[#3dba6b]',
+          'border-1 shadow-sm bg-[#4ade80] hover:bg-[#3dba6b] text-white border-[#4ade80] hover:border-[#3dba6b]',
         ghost:
-          'bg-transparent text-violet-700 ring-1 ring-transparent hover:bg-violet-100 hover:ring-violet-100',
+          'bg-transparent text-violet-700 border-1 border-transparent hover:bg-violet-100 hover:border-violet-100',
         destructiveGhost:
-          'bg-transparent text-red-700 ring-1 ring-transparent hover:bg-red-100 hover:ring-red-100',
-        link: 'ring-0 text-gray-700 text-sm underline hover:text-gray-400 font-light !px-0 !font-normal',
+          'bg-transparent text-red-700 border-1 border-transparent hover:bg-red-100 hover:border-red-100',
+        link: 'border-0 text-gray-700 text-sm underline hover:text-gray-400 !px-0 !font-normal',
       },
       size: {
         sm: 'py-1 px-4 text-sm',
@@ -82,7 +81,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
           [disabledClass]: disabled,
         },
         {
-          'w-full': fullWidth,
+          'w-full box-border': fullWidth,
         },
         className
       )}

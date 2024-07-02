@@ -1,22 +1,22 @@
 'use client';
 
+import { COOKIES, routes } from '@/core/constants';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
 import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
+import { TeamDigestsResult } from '@/services/database/digest';
+import { Team } from '@prisma/client';
 import { AxiosError, AxiosResponse } from 'axios';
-import { FormEvent, useEffect } from 'react';
-import { useMutation } from 'react-query';
-import { COOKIES, routes } from '@/core/constants';
-import { useRouter } from 'next/navigation';
 import clsx from 'clsx';
+import { useRouter } from 'next/navigation';
+import { FormEvent, useEffect } from 'react';
+import { useCookies } from 'react-cookie';
+import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-query';
 import Button from '../Button';
 import { Input, Select } from '../Input';
-import { Team } from '@prisma/client';
 import { formatTemplateTitle } from './templates/TemplateItem';
-import { useForm } from 'react-hook-form';
-import { useCookies } from 'react-cookie';
-import { TeamDigestsResult } from '@/services/database/digest';
 
 type Props = {
   team: Team;
@@ -83,7 +83,10 @@ export const DigestCreateInput = ({
 
   useEffect(() => {
     if (!team.slug) return;
-    setCookie(COOKIES.DEFAULT_TEAM, team.slug);
+    setCookie(COOKIES.DEFAULT_TEAM, team.slug, {
+      sameSite: 'strict',
+      path: '/',
+    });
   });
 
   return (

@@ -1,15 +1,15 @@
 'use client';
 import { routes } from '@/core/constants';
+import message from '@/messages/en';
 import { EmailProvider, getEmailProvider } from '@/utils/getEmailProvider';
 import { CheckCircleIcon } from '@heroicons/react/24/solid';
-import Link from 'next/link';
 import { signIn } from 'next-auth/react';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
 import { useMutation } from 'react-query';
 import Button from '../Button';
 import { Input } from '../Input';
-import message from '@/messages/en';
 
 const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -37,7 +37,7 @@ const LoginForm = () => {
   );
 
   return (
-    <div className="flex flex-col space-y-6 items-stretch">
+    <div className="flex flex-col space-y-6 items-stretch box-border">
       {isSuccess ? (
         <>
           <div className="text-center flex justify-center">
