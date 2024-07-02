@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    './src/utils/nextadmin.{ts,tsx}',
     './node_modules/@premieroctet/next-admin/dist/**/*.{js,ts,jsx,tsx}',
     './node_modules/@tremor/**/*.{js,ts,jsx,tsx}',
     './src/components/admin/**/*.{js,ts,jsx,tsx}',
