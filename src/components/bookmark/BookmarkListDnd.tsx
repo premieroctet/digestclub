@@ -1,8 +1,8 @@
-import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { BookmarkItem } from './BookmarkItem';
-import { getTeamBySlug } from '@/services/database/team';
 import { getDigest } from '@/services/database/digest';
 import { TeamLinks } from '@/services/database/link';
+import { getTeamBySlug } from '@/services/database/team';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { BookmarkItem } from './BookmarkItem';
 
 export type BookmarkListDndProps = {
   digest: NonNullable<Awaited<ReturnType<typeof getDigest>>>;
@@ -23,7 +23,7 @@ const BookmarkListDnd = ({ teamLinks, team, digest }: BookmarkListDndProps) => {
             return (
               <Draggable
                 key={teamLink.id}
-                draggableId={teamLink.bookmark[0].id}
+                draggableId={teamLink?.bookmark[0]?.id}
                 index={index}
               >
                 {(provided) => (
