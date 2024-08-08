@@ -1,3 +1,4 @@
+import schema from '@/../prisma/json-schema/json-schema.json';
 import Dashboard, { DashboardProps } from '@/components/admin/Dashboard';
 import {
   linksByDay,
@@ -12,7 +13,6 @@ import { NextAdmin, PageProps } from '@premieroctet/next-admin';
 import { getNextAdminProps } from '@premieroctet/next-admin/dist/appRouter';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
-import schema from '@/../prisma/json-schema/json-schema.json';
 
 export default async function AdminPage({ params, searchParams }: PageProps) {
   const session = await getServerSession(authOptions);
@@ -60,7 +60,7 @@ export default async function AdminPage({ params, searchParams }: PageProps) {
         data: {
           name: session!.user!.email!,
         },
-        logoutUrl: '/logout',
+        logout: ['/logout'],
       }}
     />
   );
