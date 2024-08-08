@@ -1568,10 +1568,10 @@
   dependencies:
     safe-buffer "^5.0.1"
 
-"@premieroctet/next-admin@5.0.0-rc.12":
-  version "5.0.0-rc.12"
-  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-5.0.0-rc.12.tgz#b3982e62a7be374e2deb7b2c88104c49a7e64506"
-  integrity sha512-0ALWEwjZwdBeVu/Phv3tSBXaik7mUOP7BbTXNQ6YvEDm9rc6h/m5WdONhhs+cE4E8ytNPi6QhxbsxTtcmtRPpg==
+"@premieroctet/next-admin@5.0.0-rc.13":
+  version "5.0.0-rc.13"
+  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-5.0.0-rc.13.tgz#f4ac2d6b726093826848e9e064642b1d93eaeb10"
+  integrity sha512-o+sWUVmKGT5ylBZl8/FEgjMZlzLAj3VFMx4X6cC2IV5H9PgUs0FHuOHGvyK1aX6OGkDqw9FwF1M8u+PiJNSw3g==
   dependencies:
     "@dnd-kit/core" "^6.1.0"
     "@dnd-kit/sortable" "^8.0.0"

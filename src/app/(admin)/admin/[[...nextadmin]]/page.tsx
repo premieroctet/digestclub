@@ -60,7 +60,7 @@ export default async function AdminPage({ params, searchParams }: PageProps) {
         data: {
           name: session!.user!.email!,
         },
-        logout: ['/logout'],
+        logout: '/logout',
       }}
     />
   );
