@@ -1568,10 +1568,10 @@
   dependencies:
     safe-buffer "^5.0.1"
 
-"@premieroctet/next-admin@5.0.0-rc.8":
-  version "5.0.0-rc.8"
-  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-5.0.0-rc.8.tgz#1dfb20460f5377505253df398a38cd5e3defed35"
-  integrity sha512-/AhKCOoCyF0QWe4dLS+uFNI/g4OR2POL5A5KtGj0qMh7OUpawrQyQ0r1NlhXT0nh1f8BF5e53Av2BG5LF9PqQQ==
+"@premieroctet/next-admin@5.0.0-rc.12":
+  version "5.0.0-rc.12"
+  resolved "https://registry.yarnpkg.com/@premieroctet/next-admin/-/next-admin-5.0.0-rc.12.tgz#b3982e62a7be374e2deb7b2c88104c49a7e64506"
+  integrity sha512-0ALWEwjZwdBeVu/Phv3tSBXaik7mUOP7BbTXNQ6YvEDm9rc6h/m5WdONhhs+cE4E8ytNPi6QhxbsxTtcmtRPpg==
   dependencies:
     "@dnd-kit/core" "^6.1.0"
     "@dnd-kit/sortable" "^8.0.0"
@@ -1584,9 +1584,9 @@
     "@radix-ui/react-select" "^1.2.2"
     "@radix-ui/react-switch" "^1.0.3"
     "@radix-ui/react-tooltip" "^1.0.7"
-    "@rjsf/core" "^5.3.0"
-    "@rjsf/utils" "^5.3.0"
-    "@rjsf/validator-ajv8" "^5.3.0"
+    "@rjsf/core" "^5.19.3"
+    "@rjsf/utils" "^5.19.3"
+    "@rjsf/validator-ajv8" "^5.19.3"
     "@tanstack/react-table" "^8.9.2"
     "@types/formidable" "^3.4.5"
     "@types/node" "^18.15.3"
@@ -2582,21 +2582,21 @@
   resolved "https://registry.yarnpkg.com/@resvg/resvg-wasm/-/resvg-wasm-2.4.1.tgz#88f7a08107bf5ea691b016e55e6db955c85d845c"
   integrity sha512-yi6R0HyHtsoWTRA06Col4WoDs7SvlXU3DLMNP2bdAgs7HK18dTEVl1weXgxRzi8gwLteGUbIg29zulxIB3GSdg==
 
-"@rjsf/core@^5.3.0":
-  version "5.13.3"
-  resolved "https://registry.yarnpkg.com/@rjsf/core/-/core-5.13.3.tgz#d515c02a48d832d06a014b9f1f420f5a5e0ea7c7"
-  integrity sha512-9jFHqI5yBZz0a2FNZefx6ZvUTLVkoBkoFIsaN827Q4VaDAe8bSCXb45Vb/Xur0CJwx9E4GTLrLbNRrGmaujtMQ==
+"@rjsf/core@^5.19.3":
+  version "5.19.4"
+  resolved "https://registry.yarnpkg.com/@rjsf/core/-/core-5.19.4.tgz#d3a1e272c7bc1b4055c3c506b32f846c59eec1e7"
+  integrity sha512-HsbvyBs5TcM5VZgsw6Txk8UOhGG5BbCmeAYlHpzb6tbR3ZsLf1MSiFQKIZXHe+BTOW4FekZMBfGa9BfWQZjyLQ==
   dependencies:
     lodash "^4.17.21"
     lodash-es "^4.17.21"
-    markdown-to-jsx "^7.3.2"
-    nanoid "^3.3.6"
+    markdown-to-jsx "^7.4.1"
+    nanoid "^3.3.7"
     prop-types "^15.8.1"
 
-"@rjsf/utils@^5.3.0":
-  version "5.13.3"
-  resolved "https://registry.yarnpkg.com/@rjsf/utils/-/utils-5.13.3.tgz#c42690ca65ecd2dd1da6e815f678fed4233dff84"
-  integrity sha512-a4vmjvoC7fdVTUGw7MMw94/x4TT5C4Y5Gzy/a5x4rnVqy0jV3QBSYngaZUB3wLp0vavPQhKPIUTR7KoMu71OuA==
+"@rjsf/utils@^5.19.3":
+  version "5.19.4"
+  resolved "https://registry.yarnpkg.com/@rjsf/utils/-/utils-5.19.4.tgz#aca645f4b183137bc4338b5697c32012bd70e3fe"
+  integrity sha512-853BZuQvl62Xw2Ve07dkOdEzlr7jCBU/XFPhj9tik3s++InY1brBIDBRZKABvWHjymdSvO9gSzQXzj9aFREcFA==
   dependencies:
     json-schema-merge-allof "^0.8.1"
     jsonpointer "^5.0.1"
@@ -2604,10 +2604,10 @@
     lodash-es "^4.17.21"
     react-is "^18.2.0"
 
-"@rjsf/validator-ajv8@^5.3.0":
-  version "5.13.3"
-  resolved "https://registry.yarnpkg.com/@rjsf/validator-ajv8/-/validator-ajv8-5.13.3.tgz#cbfca4efaab9d0617939092b95107c571b9130b8"
-  integrity sha512-4JcwCuw5xaeoLEISurrhBVX3tfyemItAAxqWwp8N4jLI4irjlrwi/8bkDPyvYVB1bBK5wJpXc0DeiJOjx+1S7Q==
+"@rjsf/validator-ajv8@^5.19.3":
+  version "5.19.4"
+  resolved "https://registry.yarnpkg.com/@rjsf/validator-ajv8/-/validator-ajv8-5.19.4.tgz#523a38c2b5da7061f7a144f4fe522413614c3b26"
+  integrity sha512-meatFQFif92mlFUcmywbDElWSOUdLg6rIowisNaquktUxTRce2TL9TPd7vgcMdwFI1h9NiFok5q6V8v3XyyLLQ==
   dependencies:
     ajv "^8.12.0"
     ajv-formats "^2.1.1"
@@ -8367,10 +8367,10 @@ markdown-extensions@^1.0.0:
   resolved "https://registry.yarnpkg.com/markdown-extensions/-/markdown-extensions-1.1.1.tgz#fea03b539faeaee9b4ef02a3769b455b189f7fc3"
   integrity sha512-WWC0ZuMzCyDHYCasEGs4IPvLyTGftYwh6wIEOULOF0HXcqZlhwRzrK0w2VUlxWA98xnvb/jszw4ZSkJ6ADpM6Q==
 
-markdown-to-jsx@^7.3.2:
-  version "7.3.2"
-  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.3.2.tgz#f286b4d112dad3028acc1e77dfe1f653b347e131"
-  integrity sha512-B+28F5ucp83aQm+OxNrPkS8z0tMKaeHiy0lHJs3LqCyDQFtWuenaIrkaVTgAm1pf1AU85LXltva86hlaT17i8Q==
+markdown-to-jsx@^7.4.1:
+  version "7.4.7"
+  resolved "https://registry.yarnpkg.com/markdown-to-jsx/-/markdown-to-jsx-7.4.7.tgz#740ee7ec933865ef5cc683a0992797685a75e2ee"
+  integrity sha512-0+ls1IQZdU6cwM1yu0ZjjiVWYtkbExSyUIFU2ZeDIFuZM1W42Mh4OlJ4nb4apX4H8smxDHRdFaoIVJGwfv5hkg==
 
 match-sorter@^6.0.2:
   version "6.3.1"
@@ -9536,6 +9536,11 @@ nanoid@3.3.6, nanoid@^3.3.6:
   version "3.3.6"
   resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.6.tgz#443380c856d6e9f9824267d960b4236ad583ea4c"
   integrity sha512-BGcqMMJuToF7i1rt+2PWSNVnWIkGCU78jBG3RxO/bZlnZPK2Cmi2QaffxGO/2RvWi9sL+FAiRiXMgsyxQ1DIDA==
+
+nanoid@^3.3.7:
+  version "3.3.7"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-3.3.7.tgz#d0c301a691bc8d54efa0a2226ccf3fe2fd656bd8"
+  integrity sha512-eSRppjcPIatRIMC1U6UngP8XFcz8MQWGQdt1MTBQ7NaAmvXDfvNxbvWV3x2y6CdEUciCSsDHDQZbhYaB8QEo2g==
 
 napi-build-utils@^1.0.1:
   version "1.0.2"
