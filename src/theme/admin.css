@@ -1,4 +1,4 @@
-@config "./../../tailwind.admin.config.js";
+@config "../../tailwind.admin.config.js";
 
 @tailwind base;
 @tailwind components;

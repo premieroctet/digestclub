@@ -1,5 +1,6 @@
 import { getEnvHost } from '@/lib/server';
 import { Metadata } from 'next';
+import '@/theme/admin.css';
 
 export const dynamic = 'force-dynamic';
 
@@ -44,7 +45,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: Props) {
   return (
     <html lang="en">
-      <body className="flex flex-col font-sans overflow-x-hidden bg-white">
+      <body className="flex flex-col overflow-x-hidden  bg-nextadmin-background-default dark:bg-dark-nextadmin-background-default">
         {children}
       </body>
     </html>
