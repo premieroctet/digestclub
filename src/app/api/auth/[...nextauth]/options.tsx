@@ -23,6 +23,7 @@ const options: AuthOptions = {
     session: async ({ session, user }) => {
       if (user) {
         session.user.id = user.id;
+        session.user.email = user.email;
 
         if (user.role) {
           session.user.role = user.role;
