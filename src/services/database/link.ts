@@ -49,12 +49,12 @@ export const getTeamLinks = async (
         bookmark: {
           some: {
             teamId,
+            ...(options.onlyNotInDigest && {
+              digestBlocks: {
+                none: {},
+              },
+            }),
           },
-          ...(options.onlyNotInDigest && {
-            every: {
-              digestBlocks: { none: {} },
-            },
-          }),
         },
       },
     ],
@@ -101,14 +101,10 @@ export const getTeamLinks = async (
         },
         where: {
           teamId,
-          ...(options.onlyNotInDigest && {
-            digestBlocks: { none: {} },
-          }),
         },
       },
     },
   });
-
   return {
     teamLinks,
     linksCount,
