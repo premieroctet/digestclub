@@ -1,11 +1,11 @@
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import authOptions from '@/app/api/auth/[...nextauth]/options';
+import { checkDigestAuth } from '@/services/database/digest';
+import { getTeamMembershipById } from '@/services/database/membership';
+import { getTeamById } from '@/services/database/team';
 import { NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth';
 import { NextHandler } from 'next-connect';
 import { AuthApiRequest } from './router';
-import { getTeamById } from '@/services/database/team';
-import { getTeamMembershipById } from '@/services/database/membership';
-import { checkDigestAuth } from '@/services/database/digest';
 
 export const checkProAccount = async (
   req: AuthApiRequest,

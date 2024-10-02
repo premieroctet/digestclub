@@ -3,10 +3,10 @@ import { EMAIL_SUBJECTS, sendEmail } from '@/emails';
 import LoginEmail from '@/emails/templates/LoginEmail';
 import prisma from '@/lib/db';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import { AuthOptions } from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 
-export const authOptions: NextAuthOptions = {
+const options: AuthOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     EmailProvider({
@@ -28,7 +28,6 @@ export const authOptions: NextAuthOptions = {
           session.user.role = user.role;
         }
       }
-
       return session;
     },
   },
@@ -37,4 +36,4 @@ export const authOptions: NextAuthOptions = {
   },
 };
 
-export default NextAuth(authOptions);
+export default options;
