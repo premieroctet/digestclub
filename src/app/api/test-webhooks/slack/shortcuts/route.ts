@@ -1,7 +1,6 @@
 import db from '@/lib/db';
 import { saveBookmark } from '@/services/database/bookmark';
 import { TBlock, extractLinksFromBlocks } from '@/utils/slack';
-import axios from 'axios';
 
 interface SlackPayload {
   type: 'message_action';
@@ -13,7 +12,6 @@ interface SlackPayload {
     blocks: TBlock[];
   };
 }
-
 
 export async function POST(request: Request) {
   try {
@@ -39,12 +37,17 @@ export async function POST(request: Request) {
         )
       );
 
-      // Send response to Slack
-      await axios.post(payload.response_url, {
-        text: `:pushpin: ${links.join(',')} has been added to your team feed *${
-          team.name
-        }*`,
-        response_type: 'ephemeral',
+      await fetch(payload.response_url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: `:pushpin: ${links.join(
+            ','
+          )} has been added to your team feed *${team.name}*`,
+          response_type: 'ephemeral',
+        }),
       });
 
       return new Response(JSON.stringify({ bookmarks }), { status: 200 });
