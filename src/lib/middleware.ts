@@ -1,4 +1,4 @@
-import authOptions from '@/app/api/auth/[...nextauth]/options';
+import { default as authOptions } from '@/app/api/auth/[...nextauth]/options';
 import { checkDigestAuth } from '@/services/database/digest';
 import { getTeamMembershipById } from '@/services/database/membership';
 import { getTeamById } from '@/services/database/team';
@@ -65,6 +65,7 @@ export const checkAuth = async (
 
   return next();
 };
+
 
 export const checkDigest = async (
   req: AuthApiRequest,

@@ -57,6 +57,10 @@ export class HandlerApiResponse {
     return this.success(body, 201);
   }
 
+  static noContent(): Response {
+    return this.success(null, 204);
+  }
+
   static ok(body: any): Response {
     return this.success(body, 200);
   }
