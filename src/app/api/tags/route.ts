@@ -1,10 +1,7 @@
 import { NextRequest } from 'next/server';
 
 import db from '@/lib/db';
-import {
-  HandlerInternalServerError,
-  HandlerOkSuccess,
-} from '@/utils/handlerResponse';
+import { HandlerApiError, HandlerApiResponse } from '@/utils/handlerResponse';
 
 export async function GET(req: NextRequest) {
   try {
@@ -18,10 +15,10 @@ export async function GET(req: NextRequest) {
       },
     });
 
-    return new HandlerOkSuccess({ tags });
+    return HandlerApiResponse.success(tags);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
-    return new HandlerInternalServerError();
+    return HandlerApiError.internalServerError();
   }
 }

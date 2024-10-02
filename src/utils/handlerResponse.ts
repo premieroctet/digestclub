@@ -1,67 +1,63 @@
 export const ApiErrorMessages = {
-  INTERNAL_SERVER_ERROR: 'Internal Server Error',
+  INTERNAL_SERVER_ERROR: 'Internal server error',
   UNAUTHORIZED: 'Unauthorized',
-  RATE_LIMIT_EXCEEDED: 'Rate Limit Exceeded',
-  MISSING_PARAMETERS: 'Missing Parameters',
+  RATE_LIMIT_EXCEEDED: 'Rate limit exceeded',
+  MISSING_PARAMETERS: 'Missing parameters',
 } as const;
 
 type ApiErrorMessagesType =
   (typeof ApiErrorMessages)[keyof typeof ApiErrorMessages];
 
-export class HandlerError extends Response {
-  constructor(message: ApiErrorMessagesType, public status: number) {
-    super(JSON.stringify({ error: message }), {
-      status: status,
+export class HandlerApiError {
+  static json(body: any, status: number = 200): Response {
+    return Response.json(body, {
+      status,
       headers: {
         'Content-Type': 'application/json',
       },
     });
   }
-}
 
-export class HandlerUnauthorizedError extends HandlerError {
-  constructor() {
-    super(ApiErrorMessages.UNAUTHORIZED, 401);
+  static error(message: ApiErrorMessagesType, status: number): Response {
+    return this.json({ error: message }, status);
+  }
+
+  static unauthorized(): Response {
+    return this.error(ApiErrorMessages.UNAUTHORIZED, 401);
+  }
+
+  static missingParameters(): Response {
+    return this.error(ApiErrorMessages.MISSING_PARAMETERS, 400);
+  }
+
+  static rateLimitExceeded(): Response {
+    return this.error(ApiErrorMessages.RATE_LIMIT_EXCEEDED, 429);
+  }
+
+  static internalServerError(): Response {
+    return this.error(ApiErrorMessages.INTERNAL_SERVER_ERROR, 500);
   }
 }
 
-export class HandlerMissingParametersError extends HandlerError {
-  constructor() {
-    super(ApiErrorMessages.MISSING_PARAMETERS, 400);
-  }
-}
-
-export class HandlerRateLimitExceedError extends HandlerError {
-  constructor() {
-    super(ApiErrorMessages.RATE_LIMIT_EXCEEDED, 429);
-  }
-}
-
-export class HandlerInternalServerError extends HandlerError {
-  constructor() {
-    super(ApiErrorMessages.INTERNAL_SERVER_ERROR, 500);
-  }
-}
-
-export class HandlerSuccess extends Response {
-  constructor(body: any, public status: number) {
-    super(JSON.stringify(body), {
-      status: status,
+export class HandlerApiResponse {
+  static json(body: any, status: number = 200): Response {
+    return Response.json(body, {
+      status,
       headers: {
         'Content-Type': 'application/json',
       },
     });
   }
-}
 
-export class HandlerCreatedSuccess extends HandlerSuccess {
-  constructor(body: any) {
-    super(body, 201);
+  static success(body: any, status: number = 200): Response {
+    return this.json({ body }, status);
   }
-}
 
-export class HandlerOkSuccess extends HandlerSuccess {
-  constructor(body: any) {
-    super(body, 200);
+  static created(body: any): Response {
+    return this.success(body, 201);
+  }
+
+  static ok(body: any): Response {
+    return this.success(body, 200);
   }
 }

@@ -1,11 +1,6 @@
 import db from '@/lib/db';
 import { saveBookmark } from '@/services/database/bookmark';
-import {
-  HandlerCreatedSuccess,
-  HandlerInternalServerError,
-  HandlerMissingParametersError,
-  HandlerUnauthorizedError,
-} from '@/utils/handlerResponse';
+import { HandlerApiError, HandlerApiResponse } from '@/utils/handlerResponse';
 
 import { Bookmark } from '@prisma/client';
 import jwt from 'jsonwebtoken';
@@ -31,16 +26,16 @@ export async function POST(req: NextRequest) {
     const { JWT_SECRET } = process.env;
     const authHeader = req.headers.get('Authorization');
     if (!authHeader || !authHeader.startsWith('Bearer ')) throw new Error();
-    if (!JWT_SECRET) throw new HandlerUnauthorizedError();
+    if (!JWT_SECRET) return HandlerApiError.unauthorized();
     const token = authHeader.substring(7, authHeader.length);
     const decoded = jwt.verify(token, JWT_SECRET);
-    if (!decoded) throw new HandlerUnauthorizedError();
+    if (!decoded) return HandlerApiError.unauthorized();
 
     const { teamId } = decoded as { teamId: string };
-    if (!teamId) throw new HandlerInternalServerError();
+    if (!teamId) return HandlerApiError.internalServerError();
 
     const { linkUrl } = (await req.json()) as { linkUrl: string };
-    if (!linkUrl) throw new HandlerMissingParametersError();
+    if (!linkUrl) return HandlerApiError.missingParameters();
 
     // @todo implement rate limiting
 
@@ -51,10 +46,10 @@ export async function POST(req: NextRequest) {
     });
     if (!team) throw new Error();
     const bookmark = await saveBookmark(linkUrl, teamId);
-    return new HandlerCreatedSuccess(bookmark);
+    return HandlerApiResponse.success(bookmark);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
-    return new HandlerInternalServerError();
+    return HandlerApiError.internalServerError();
   }
 }
