@@ -88,5 +88,5 @@ router.use(checkAuthAppRouter).post(async (req, event, next) => {
 });
 
 export async function POST(request: NextRequest, ctx: {}) {
-  return router.run(request, ctx);
+  return router.run(request, ctx) as Promise<Response>;
 }

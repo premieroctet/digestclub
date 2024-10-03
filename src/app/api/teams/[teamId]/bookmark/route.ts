@@ -44,7 +44,9 @@ router
     try {
       const session = await getServerSession(options);
       const { teamId } = event.params;
-      if (!session || !teamId) return HandlerApiError.unauthorized();
+      if (!session || !teamId) {
+        return HandlerApiError.unauthorized();
+      }
       const membership = await getTeamMembershipById(teamId, session?.user?.id);
 
       if (!linkUrl) {
@@ -71,5 +73,5 @@ router
   });
 
 export async function GET(request: NextRequest, ctx: RequestContext) {
-  return router.run(request, ctx);
+  return router.run(request, ctx) as Promise<Response>;
 }
