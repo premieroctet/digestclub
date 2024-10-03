@@ -3,6 +3,7 @@ export const ApiErrorMessages = {
   UNAUTHORIZED: 'Unauthorized',
   RATE_LIMIT_EXCEEDED: 'Rate limit exceeded',
   MISSING_PARAMETERS: 'Missing parameters',
+  BAD_REQUEST: 'Bad request',
 } as const;
 
 type ApiErrorMessagesType =
@@ -16,6 +17,10 @@ export class HandlerApiError {
         'Content-Type': 'application/json',
       },
     });
+  }
+
+  static customError(message: string, status: number): Response {
+    return this.json({ error: message }, status);
   }
 
   static error(message: ApiErrorMessagesType, status: number): Response {
@@ -37,6 +42,10 @@ export class HandlerApiError {
   static internalServerError(): Response {
     return this.error(ApiErrorMessages.INTERNAL_SERVER_ERROR, 500);
   }
+
+  static badRequest(): Response {
+    return this.error(ApiErrorMessages.BAD_REQUEST, 400);
+  }
 }
 
 export class HandlerApiResponse {
@@ -50,7 +59,7 @@ export class HandlerApiResponse {
   }
 
   static success(body: any, status: number = 200): Response {
-    return this.json({ body }, status);
+    return this.json(body, status);
   }
 
   static created(body: any): Response {
