@@ -1,10 +1,14 @@
-import { default as authOptions } from '@/app/api/auth/[...nextauth]/options';
+import options, {
+  default as authOptions,
+} from '@/app/api/auth/[...nextauth]/options';
 import { checkDigestAuth } from '@/services/database/digest';
 import { getTeamMembershipById } from '@/services/database/membership';
 import { getTeamById } from '@/services/database/team';
+import { HandlerApiError } from '@/utils/handlerResponse';
 import { NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth';
 import { NextHandler } from 'next-connect';
+import { NextRequest } from 'next/server';
 import { AuthApiRequest } from './router';
 
 export const checkProAccount = async (
@@ -66,6 +70,19 @@ export const checkAuth = async (
   return next();
 };
 
+export const checkAuthAppRouter = async (
+  req: NextRequest,
+  event: {},
+  next: NextHandler
+) => {
+  const session = await getServerSession(options);
+
+  if (!session) return HandlerApiError.unauthorized();
+  const { teamName } = await req.json();
+  if (!teamName) return HandlerApiError.badRequest();
+
+  return next();
+};
 
 export const checkDigest = async (
   req: AuthApiRequest,

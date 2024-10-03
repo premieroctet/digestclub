@@ -1,17 +1,16 @@
 import db from '@/lib/db';
-import { AuthApiRequest } from '@/lib/router';
+import { checkAuthAppRouter } from '@/lib/middleware';
 import { HandlerApiError, HandlerApiResponse } from '@/utils/handlerResponse';
 import { Team } from '@prisma/client';
-import { NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth';
-import { createRouter } from 'next-connect';
-import { NextRequest } from 'next/server';
+import { createEdgeRouter } from 'next-connect';
+import type { NextRequest } from 'next/server';
 import urlSlug from 'url-slug';
 import options from '../auth/[...nextauth]/options';
 
 export type ApiTeamResponseSuccess = Team;
 
-export const router = createRouter<AuthApiRequest, NextApiResponse>();
+const router = createEdgeRouter<NextRequest, {}>();
 
 const RESTRICTED_TEAM_NAMES = [
   'create',
@@ -22,10 +21,9 @@ const RESTRICTED_TEAM_NAMES = [
   'tags',
 ];
 
-export async function POST(req: NextRequest) {
+router.use(checkAuthAppRouter).post(async (req, event, next) => {
   try {
     const session = await getServerSession(options);
-
     if (!session) return HandlerApiError.unauthorized();
     const { teamName } = await req.json();
     if (!teamName) return HandlerApiError.badRequest();
@@ -87,4 +85,8 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     return HandlerApiError.internalServerError();
   }
+});
+
+export async function POST(request: NextRequest, ctx: {}) {
+  return router.run(request, ctx);
 }
