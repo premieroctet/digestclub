@@ -5,7 +5,7 @@ import { routes } from '@/core/constants';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
-import { ApiTeamResponseSuccess } from '@/pages/api/teams';
+import { ApiTeamResponseSuccess } from '@/app/api/teams/route';
 import { AxiosError, AxiosResponse } from 'axios';
 import { useRouter } from 'next/navigation';
 import { useMutation } from 'react-query';
