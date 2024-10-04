@@ -1,15 +1,17 @@
 'use client';
 
-import { useRouter } from 'next/navigation';
 import { routes } from '@/core/constants';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
+import { useRouter } from 'next/navigation';
 
+import { formatTemplateTitle } from '@/components/digests/templates/TemplateItem';
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
+import { getDigest } from '@/services/database/digest';
+import { getTeamBySlug } from '@/services/database/team';
 import { reorderList } from '@/utils/actionOnList';
-import { TrashIcon, InformationCircleIcon } from '@heroicons/react/24/outline';
+import { InformationCircleIcon, TrashIcon } from '@heroicons/react/24/outline';
 import { DigestBlock, DigestBlockType } from '@prisma/client';
 import { AxiosError, AxiosResponse } from 'axios';
 import clsx from 'clsx';
@@ -27,9 +29,6 @@ import { DeletePopover } from '../../Popover';
 import { BlockListDnd } from '../../digests/BlockListDnd';
 import SectionContainer from '../../layout/SectionContainer';
 import { Breadcrumb } from '../../teams/Breadcrumb';
-import { formatTemplateTitle } from '@/components/digests/templates/TemplateItem';
-import { getTeamBySlug } from '@/services/database/team';
-import { getDigest } from '@/services/database/digest';
 
 type Props = {
   template: NonNullable<Awaited<ReturnType<typeof getDigest>>>;

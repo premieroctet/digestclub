@@ -1,14 +1,13 @@
 'use client';
-import { DeletePopover } from '@/components/Popover';
-import { Digest, Team } from '@prisma/client';
 import Button from '@/components/Button';
-import { useMutation } from 'react-query';
-import { AxiosError, AxiosResponse } from 'axios';
-import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
-import api from '@/lib/api';
+import { DeletePopover } from '@/components/Popover';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
+import api from '@/lib/api';
+import { Digest, Team } from '@prisma/client';
+import { AxiosError, AxiosResponse } from 'axios';
 import Link from 'next/link';
+import { useMutation } from 'react-query';
 
 export const formatTemplateTitle = (title: string, teamSlug: string) => {
   return title.replace(`${teamSlug}-template-`, '');

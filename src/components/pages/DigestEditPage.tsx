@@ -7,7 +7,6 @@ import api from '@/lib/api';
 import { useRouter } from 'next/navigation';
 
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
 import { getDigest } from '@/services/database/digest';
 import { TeamLinksData } from '@/services/database/link';
 import { getTeamBySlug } from '@/services/database/team';
