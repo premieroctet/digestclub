@@ -2,6 +2,7 @@ import options, {
   default as authOptions,
 } from '@/app/api/auth/[...nextauth]/options';
 import { TeamsRequestContext } from '@/app/api/teams/[teamId]/bookmark/route';
+import { TeamsDigestsRequestContext } from '@/app/api/teams/[teamId]/digests/[digestId]/route';
 import { checkDigestAuth } from '@/services/database/digest';
 import { getTeamMembershipById } from '@/services/database/membership';
 import { getTeamById } from '@/services/database/team';
@@ -127,6 +128,27 @@ export const checkDigest = async (
 
   if (count === 0) {
     return res.status(403).end();
+  }
+
+  return next();
+};
+
+export const checkDigestAppRouter = async (
+  req: NextRequest,
+  event: TeamsDigestsRequestContext,
+  next: NextHandler
+) => {
+  const teamId = event.params.teamId as string;
+  const digestId = event.params.digestId as string;
+
+  if (!teamId && !digestId) {
+    return HandlerApiError.unauthorized();
+  }
+
+  const count = await checkDigestAuth(teamId, digestId);
+
+  if (count === 0) {
+    return HandlerApiError.unauthorized();
   }
 
   return next();

@@ -1,4 +1,5 @@
 'use client';
+import { ResponseSuccess } from '@/app/api/teams/[teamId]/digests/route';
 import Button from '@/components/Button';
 import { DeletePopover } from '@/components/Popover';
 import useCustomToast from '@/hooks/useCustomToast';
@@ -17,7 +18,7 @@ const TemplateItem = ({ template, team }: { template: Digest; team: Team }) => {
   const { successToast, errorToast } = useCustomToast();
   const { refresh, isRefreshing } = useTransitionRefresh();
   const { mutate: deleteTemplate, isLoading: isDeleting } = useMutation<
-    AxiosResponse<ApiDigestResponseSuccess>,
+    AxiosResponse<ResponseSuccess>,
     AxiosError<ErrorResponse>
   >(
     'delete-template',
