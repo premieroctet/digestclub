@@ -4,6 +4,7 @@ export const ApiErrorMessages = {
   RATE_LIMIT_EXCEEDED: 'Rate limit exceeded',
   MISSING_PARAMETERS: 'Missing parameters',
   BAD_REQUEST: 'Bad request',
+  NOT_FOUND: 'Not found',
 } as const;
 
 type ApiErrorMessagesType =
@@ -45,6 +46,10 @@ export class HandlerApiError {
 
   static badRequest(): Response {
     return this.error(ApiErrorMessages.BAD_REQUEST, 400);
+  }
+
+  static notFound(): Response {
+    return this.error(ApiErrorMessages.NOT_FOUND, 404);
   }
 }
 

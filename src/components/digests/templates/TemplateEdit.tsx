@@ -6,6 +6,7 @@ import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
 import { useRouter } from 'next/navigation';
 
+import { ResponseSuccess } from '@/app/api/teams/[teamId]/digests/route';
 import { formatTemplateTitle } from '@/components/digests/templates/TemplateItem';
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
 import { getDigest } from '@/services/database/digest';
@@ -126,7 +127,7 @@ export const TemplateEdit = ({ template, team }: Props) => {
   );
 
   const { mutate: deleteDigest, isLoading: isDeleting } = useMutation<
-    AxiosResponse<ApiDigestResponseSuccess>,
+    AxiosResponse<ResponseSuccess>,
     AxiosError<ErrorResponse>
   >(
     'delete-digest',
