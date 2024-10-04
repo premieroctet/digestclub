@@ -1,6 +1,7 @@
 import options, {
   default as authOptions,
 } from '@/app/api/auth/[...nextauth]/options';
+import { TeamsRequestContext } from '@/app/api/teams/[teamId]/bookmark/route';
 import { checkDigestAuth } from '@/services/database/digest';
 import { getTeamMembershipById } from '@/services/database/membership';
 import { getTeamById } from '@/services/database/team';
@@ -51,6 +52,32 @@ export const checkTeam = async (
   req.teamId = membership.teamId;
   req.user = { id: session!.user.id, email: session!.user.email! };
 
+  return next();
+};
+
+export const checkTeamAppRouter = async (
+  req: NextRequest,
+  event: TeamsRequestContext,
+  next: NextHandler
+) => {
+  const session = await getServerSession(options);
+  // req.query.state is for Slack integration (we cant choose the name of the query param)
+  // @todo implement slack integration with teamId (req.query.state)
+  const teamId = event.params.teamId as string;
+
+  if (!session && !teamId) {
+    return HandlerApiError.unauthorized();
+  }
+
+  const membership = await getTeamMembershipById(teamId, session!.user?.id);
+
+  if (!membership) {
+    return HandlerApiError.unauthorized();
+  }
+
+  event.membershipId = membership.id;
+  event.teamId = membership.teamId;
+  event.user = { id: session!.user.id, email: session!.user.email! };
   return next();
 };
 
