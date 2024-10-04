@@ -44,5 +44,5 @@ router.use(checkTeamAppRouter).delete(async (req, event, next) => {
 });
 
 export async function DELETE(request: NextRequest, ctx: TeamsRequestContext) {
-  return router.run(request, ctx);
+  return router.run(request, ctx) as Promise<Response>;
 }
