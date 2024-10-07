@@ -7,6 +7,7 @@ const { withContentlayer } = require('next-contentlayer');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'standalone',
   experimental: {
     serverActions: true,
     serverComponentsExternalPackages: ['mjml', 'mjml-react'],

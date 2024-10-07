@@ -1,9 +1,5 @@
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY!,
-});
-
 export const openAiCompletion = async ({
   prompt,
   model = 'gpt-4o',
@@ -11,6 +7,10 @@ export const openAiCompletion = async ({
   prompt: string;
   model?: 'gpt-4o' | 'gpt-4-turbo';
 }) => {
+  const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY!,
+  });
+
   const chatCompletion = await openai.chat.completions.create({
     messages: [{ role: 'user', content: prompt }],
     model,
