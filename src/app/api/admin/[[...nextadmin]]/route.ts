@@ -1,6 +1,6 @@
 import schema from '@/../prisma/json-schema/json-schema.json';
+import authOptions from '@/app/api/auth/[...nextauth]/options';
 import client from '@/lib/db';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { options } from '@/utils/nextadmin';
 import { createHandler } from '@premieroctet/next-admin/dist/appHandler';
 import { getServerSession } from 'next-auth';

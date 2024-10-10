@@ -1,13 +1,12 @@
-import React from 'react';
-import { TeamPageProps } from '../../page';
-import { getCurrentUser } from '@/lib/sessions';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
-import { redirect } from 'next/navigation';
-import TeamIntegrations from '@/components/teams/form/settings/TeamIntegrations';
+import authOptions from '@/app/api/auth/[...nextauth]/options';
 import SettingsPageLayout from '@/components/teams/form/settings/SettingsPageLayout';
+import TeamIntegrations from '@/components/teams/form/settings/TeamIntegrations';
 import { routes } from '@/core/constants';
-import { getTeamSettingsPageInfo } from '@/utils/page';
+import { getCurrentUser } from '@/lib/sessions';
 import { checkUserTeamBySlug } from '@/services/database/user';
+import { getTeamSettingsPageInfo } from '@/utils/page';
+import { redirect } from 'next/navigation';
+import { TeamPageProps } from '../../page';
 
 export default async function Page({ params }: TeamPageProps) {
   const teamSlug = params.teamSlug;

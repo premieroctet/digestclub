@@ -6,8 +6,8 @@ import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
 import { useRouter } from 'next/navigation';
 
+import { ResponseSuccess } from '@/app/api/teams/[teamId]/bookmark/[bookmarkId]/route';
 import useAddAndRemoveBlockOnDigest from '@/hooks/useAddAndRemoveBlockOnDigest';
-import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
 import { getDigest } from '@/services/database/digest';
 import { TeamLinksData } from '@/services/database/link';
 import { getTeamBySlug } from '@/services/database/team';
@@ -43,6 +43,7 @@ import { Breadcrumb } from '../teams/Breadcrumb';
 import DigestEditSendNewsletter from './DigestEditSendNewsletter';
 import DigestEditTypefully from './DigestEditTypefully';
 import DigestEditVisit from './DigestEditVisit';
+import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/template';
 
 type Props = {
   teamLinksData: TeamLinksData;
@@ -170,7 +171,7 @@ export const DigestEditPage = ({
   );
 
   const { mutate: deleteDigest, isLoading: isDeleting } = useMutation<
-    AxiosResponse<ApiDigestResponseSuccess>,
+    AxiosResponse<ResponseSuccess>,
     AxiosError<ErrorResponse>
   >(
     'delete-digest',

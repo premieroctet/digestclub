@@ -1,5 +1,5 @@
+import authOptions from '@/app/api/auth/[...nextauth]/options';
 import { getCurrentUser } from '@/lib/sessions';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { redirect } from 'next/navigation';
 
 export default async function Layout({

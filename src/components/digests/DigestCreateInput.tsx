@@ -1,10 +1,10 @@
 'use client';
 
+import { ResponseSuccess } from '@/app/api/teams/[teamId]/digests/route';
 import { COOKIES, routes } from '@/core/constants';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import api from '@/lib/api';
-import { ApiDigestResponseSuccess } from '@/pages/api/teams/[teamId]/digests';
 import { TeamDigestsResult } from '@/services/database/digest';
 import { Team } from '@prisma/client';
 import { AxiosError, AxiosResponse } from 'axios';
@@ -43,7 +43,7 @@ export const DigestCreateInput = ({
   const { handleSubmit, register, watch } = methods;
 
   const { mutate: createDigest, isLoading } = useMutation<
-    AxiosResponse<ApiDigestResponseSuccess>,
+    AxiosResponse<ResponseSuccess>,
     AxiosError<ErrorResponse>,
     { title: string; templateId?: string }
   >(
