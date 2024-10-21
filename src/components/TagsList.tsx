@@ -5,16 +5,21 @@ import Tag, { ITag } from './Tag';
 interface Props {
   tags: ITag[];
   currentTag?: ITag;
+  title: string;
+  description: string;
 }
 
-export default function PopularTags({ tags, currentTag }: Props) {
+export default function TagsList({
+  tags,
+  currentTag,
+  title,
+  description,
+}: Props) {
   if (tags.length === 0) return <></>;
   return (
     <div className="bg-white p-4 border border-gray-200 rounded-lg">
-      <h4 className="text-xl font-bold">Popular tags</h4>
-      <p className="text-xs text-slate-500 mt-0.5">
-        Browse digests by the most used tags
-      </p>
+      <h4 className="text-xl font-bold">{title}</h4>
+      <p className="text-xs text-slate-500 mt-0.5">{description}</p>
       <div className="flex gap-2 mt-4 flex-wrap">
         {tags.map(({ id, name, slug, description }) => {
           const isActive = currentTag?.id === id;
