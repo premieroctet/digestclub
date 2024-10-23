@@ -38,7 +38,7 @@ enum DigestBlockType {
 }
 
 model Account {
-  id                String   @id @default(uuid())
+  id                String  @id @default(uuid())
   userId            String
   type              String
   provider          String
@@ -70,6 +70,7 @@ model User {
   id            String       @id @default(uuid())
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
+  hello         String?
   name          String?
   email         String?      @unique
   emailVerified DateTime?
@@ -80,6 +81,8 @@ model User {
   memberships   Membership[]
   defaultTeam   Team?        @relation(fields: [defaultTeamId], references: [id], onDelete: SetNull)
   defaultTeamId String?
+  vault         Vault?       @relation(fields: [vaultId], references: [id], onDelete: SetNull)
+  vaultId       String?
 
   @@map("users")
 }
@@ -93,29 +96,35 @@ model VerificationToken {
   @@map("verification_tokens")
 }
 
+model Vault {
+  id       String @unique
+  password String
+  User     User[]
+}
+
 model Team {
-  id          String         @id @default(uuid())
-  name        String
-  slug        String
-  memberships Membership[]
-  subscriptions Subscription[]
-  users       User[]
-  Digest      Digest[]
-  bookmarks   Bookmark[]
-  slackToken  String?
-  slackTeamId String?
-  typefullyToken String?
-  bio         String?
-  website     String?
-  twitter     String?
-  github      String?
-  createdAt   DateTime   @default(now())
-  apiKey      String?
+  id                       String         @id @default(uuid())
+  name                     String
+  slug                     String
+  memberships              Membership[]
+  subscriptions            Subscription[]
+  users                    User[]
+  Digest                   Digest[]
+  bookmarks                Bookmark[]
+  slackToken               String?
+  slackTeamId              String?
+  typefullyToken           String?
+  bio                      String?
+  website                  String?
+  twitter                  String?
+  github                   String?
+  createdAt                DateTime       @default(now())
+  apiKey                   String?
   nextSuggestedDigestTitle String?
-  color       String?
-  subscriptionId String?
-  prompt    String? 
-  
+  color                    String?
+  subscriptionId           String?
+  prompt                   String?
+
   @@unique([id, slackTeamId])
   @@unique(slug)
   @@map("teams")
@@ -159,86 +168,89 @@ model Link {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   bookmark    Bookmark[]
-  tags Tag[] @relation("links_to_tags")
+  tags        Tag[]      @relation("links_to_tags")
+
   @@map("links")
 }
 
 model Bookmark {
-  id           String     @id @default(uuid())
-  link         Link       @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  id           String        @id @default(uuid())
+  link         Link          @relation(fields: [linkId], references: [id], onDelete: Cascade)
   linkId       String
-  membership   Membership? @relation(fields: [membershipId], references: [id], onDelete: SetNull)
+  membership   Membership?   @relation(fields: [membershipId], references: [id], onDelete: SetNull)
   membershipId String?
-  team         Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  team         Team          @relation(fields: [teamId], references: [id], onDelete: Cascade)
   teamId       String
-  provider     Provider   @default(WEB)
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
+  provider     Provider      @default(WEB)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
   digestBlocks DigestBlock[]
   metadata     Json?
-  views        Int @default(0)
+  views        Int           @default(0)
+
   @@map("bookmarks")
 }
 
 model Digest {
-  id          String     @id @default(uuid())
-  title       String
-  slug        String
-  description String?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  publishedAt DateTime?
-  team        Team       @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  teamId      String
-  digestBlocks   DigestBlock[]
+  id                 String        @id @default(uuid())
+  title              String
+  slug               String
+  description        String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  publishedAt        DateTime?
+  team               Team          @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId             String
+  digestBlocks       DigestBlock[]
   typefullyThreadUrl String?
-  hasSentNewsletter Boolean @default(false)
-  isFeatured Boolean @default(false)
-  isTemplate Boolean @default(false)
-  views       Int @default(0)
+  hasSentNewsletter  Boolean       @default(false)
+  isFeatured         Boolean       @default(false)
+  isTemplate         Boolean       @default(false)
+  views              Int           @default(0)
+
   @@unique([slug, teamId])
   @@map("digests")
 }
 
-
 model DigestBlock {
-  id          String   @id @default(uuid())
-  bookmark    Bookmark? @relation(fields : [bookmarkId], references : [id], onDelete: Cascade)
+  id          String              @id @default(uuid())
+  bookmark    Bookmark?           @relation(fields: [bookmarkId], references: [id], onDelete: Cascade)
   bookmarkId  String?
-  digest      Digest   @relation(fields : [digestId], references: [id], onDelete: Cascade)
+  digest      Digest              @relation(fields: [digestId], references: [id], onDelete: Cascade)
   digestId    String
   order       Int
   style       BookmarkDigestStyle @default(BLOCK)
   title       String?
   description String?
-  type        DigestBlockType @default(BOOKMARK)
+  type        DigestBlockType     @default(BOOKMARK)
   text        String?
-  isTemplate Boolean @default(false)
-  tags Tag[] @relation("digestblocks_to_tags")
+  isTemplate  Boolean             @default(false)
+  tags        Tag[]               @relation("digestblocks_to_tags")
 
   @@unique([bookmarkId, digestId])
   @@map("digest_blocks")
 }
 
 model Subscription {
-  id           String   @id @default(uuid())
-  team         Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
-  teamId       String
-  email        String
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id        String   @id @default(uuid())
+  team      Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  teamId    String
+  email     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("subscriptions")
 }
 
 model Tag {
-  id          String   @id @default(uuid())
+  id          String        @id @default(uuid())
   name        String
   slug        String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
   description String?
-  links       Link[]   @relation("links_to_tags")
+  links       Link[]        @relation("links_to_tags")
   bookmarks   DigestBlock[] @relation("digestblocks_to_tags")
+
   @@map("tags")
 }

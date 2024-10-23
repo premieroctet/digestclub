@@ -95,6 +95,12 @@
           "type": "string",
           "format": "date-time"
         },
+        "hello": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "name": {
           "type": [
             "string",
@@ -155,6 +161,16 @@
               "type": "null"
             }
           ]
+        },
+        "vault": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/Vault"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       }
     },
@@ -170,6 +186,23 @@
         "expires": {
           "type": "string",
           "format": "date-time"
+        }
+      }
+    },
+    "Vault": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "User": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
         }
       }
     },
@@ -703,6 +736,9 @@
     },
     "verificationToken": {
       "$ref": "#/definitions/VerificationToken"
+    },
+    "vault": {
+      "$ref": "#/definitions/Vault"
     },
     "team": {
       "$ref": "#/definitions/Team"
