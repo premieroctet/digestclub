@@ -8,9 +8,9 @@ import { Team } from '@prisma/client';
 import { FormEvent, useTransition } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DangerZoneTeam } from '../DangerZone';
-import { FieldName, FIELDS, fieldsData } from './form-data';
 import SettingsField from './SettingsField';
 import TeamColorField from './TeamColorField';
+import { FIELDS, FieldName, textFieldsData } from './form-data';
 
 const PRO_FIELDS = ['prompt'];
 
@@ -65,7 +65,7 @@ const SettingsForm = ({ team }: { team: Team }) => {
       <form action={onSubmit}>
         <div className="flex flex-col gap-6 pt-4">
           <div className="flex flex-col gap-4">
-            {fieldsData
+            {textFieldsData
               .filter(
                 (field) =>
                   team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
