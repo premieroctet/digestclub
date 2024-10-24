@@ -1,9 +1,9 @@
+import authOptions from '@/app/api/auth/[...nextauth]/options';
+import { routes } from '@/core/constants';
 import { getCurrentUser } from '@/lib/sessions';
-import { authOptions } from '@/pages/api/auth/[...nextauth]';
+import { checkUserTeamBySlug } from '@/services/database/user';
 import { notFound, redirect } from 'next/navigation';
 import { TeamPageProps } from '../page';
-import { routes } from '@/core/constants';
-import { checkUserTeamBySlug } from '@/services/database/user';
 
 const TeamSettingsPage = async ({ params }: TeamPageProps) => {
   const teamSlug = params.teamSlug;

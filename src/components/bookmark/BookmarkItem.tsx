@@ -1,26 +1,26 @@
 'use client';
 
+import { getEnvHost } from '@/lib/server';
 import { getRelativeDate } from '@/utils/date';
 import { getDomainFromUrl } from '@/utils/url';
 import clsx from 'clsx';
 import BookmarkImage from './BookmarkImage';
-import { getEnvHost } from '@/lib/server';
 
+import { ResponseSuccess } from '@/app/api/teams/[teamId]/bookmark/[bookmarkId]/route';
 import api from '@/lib/api';
-import { ApiBookmarkResponseSuccess } from '@/pages/api/teams/[teamId]/bookmark';
 
 import { AxiosError, AxiosResponse } from 'axios';
 
 import { useMutation } from 'react-query';
 
-import message from '../../messages/en';
 import useCustomToast from '@/hooks/useCustomToast';
 import useTransitionRefresh from '@/hooks/useTransitionRefresh';
-import BookmarkAddButton from './BookmarkAddButton';
-import Link from 'next/link';
-import { Tooltip } from '../Tooltip';
-import { DeletePopover, MultipleDeletePopover } from '../Popover';
 import { TeamBookmarkedLinkItem } from '@/services/database/link';
+import Link from 'next/link';
+import message from '../../messages/en';
+import { DeletePopover, MultipleDeletePopover } from '../Popover';
+import { Tooltip } from '../Tooltip';
+import BookmarkAddButton from './BookmarkAddButton';
 
 type Props = {
   teamLink: TeamBookmarkedLinkItem;
@@ -73,7 +73,7 @@ export const BookmarkItem = ({
   const bookmarksNumber = teamLink.bookmark?.length;
 
   const { mutate: deleteBookmark, isLoading: isDeleting } = useMutation<
-    AxiosResponse<ApiBookmarkResponseSuccess>,
+    AxiosResponse<ResponseSuccess>,
     AxiosError<ErrorResponse>,
     { bookmarkId: string }
   >(

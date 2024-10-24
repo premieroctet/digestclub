@@ -12,6 +12,16 @@ const nextConfig = {
     serverActions: true,
     serverComponentsExternalPackages: ['mjml', 'mjml-react'],
   },
+
+  webpack: (config, { isServer }) => {
+    // to use metascraper in route handlers https://github.com/uhop/node-re2/issues/63#issuecomment-1785743859
+    config.module.rules.push({
+      test: /\.node$/,
+      loader: 'node-loader',
+    });
+
+    return config;
+  },
   reactStrictMode: false,
 };
 
