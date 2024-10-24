@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+    web:
+        # TODO
+        volumes:
+            - uploads:/app/public/uploads
+volumes:
+    uploads:

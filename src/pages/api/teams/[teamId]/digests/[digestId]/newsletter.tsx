@@ -1,13 +1,13 @@
+import NewsletterEmail from '@/emails/templates/NewsletterEmail';
+import db from '@/lib/db';
 import { checkDigest, checkTeam } from '@/lib/middleware';
-import { Digest, DigestBlockType } from '@prisma/client';
 import { AuthApiRequest, errorHandler } from '@/lib/router';
+import { getEnvHost } from '@/lib/server';
+import { Digest, DigestBlockType } from '@prisma/client';
+import * as SibApiV3Sdk from '@sendinblue/client';
+import { render } from 'mjml-react';
 import { NextApiResponse } from 'next';
 import { createRouter } from 'next-connect';
-import * as SibApiV3Sdk from '@sendinblue/client';
-import db from '@/lib/db';
-import { render } from 'mjml-react';
-import NewsletterEmail from '@/emails/templates/NewsletterEmail';
-import { getEnvHost } from '@/lib/server';
 
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
@@ -21,6 +21,15 @@ apiInstance.basePath = 'https://api.sendinblue.com/v3';
 export type ApiDigestResponseSuccess = Digest;
 
 export const router = createRouter<AuthApiRequest, NextApiResponse>();
+
+function getFallbackImage(id: string) {
+  return `https://digest.club/api/bookmark-og?bookmark=${id}`;
+}
+
+function isResponseImage(response: Response) {
+  const contentType = response.headers.get('content-type');
+  return contentType?.startsWith('image');
+}
 
 async function getSubject({
   title,
@@ -123,11 +132,38 @@ router
         teamId,
       });
 
+      // Check all image links concurrently and wait for results
+      const deadLinks: string[] = [];
+      if (digest?.digestBlocks) {
+        const imageChecks = digest.digestBlocks
+          .filter(
+            (block) =>
+              block.type === DigestBlockType.BOOKMARK &&
+              block.bookmark &&
+              block.bookmark.link.image
+          )
+          .map(async (block) => {
+            try {
+              const response = await fetch(block.bookmark!.link.image!);
+              if (!response.ok || !isResponseImage(response)) {
+                deadLinks.push(block.bookmark!.id);
+              }
+            } catch (error) {
+              // If fetch fails, consider it a dead link
+              deadLinks.push(block.bookmark!.id);
+            }
+          });
+
+        // Wait for all image checks to complete
+        await Promise.all(imageChecks);
+      }
+
       const { html } = render(
         <NewsletterEmail
           title={subject}
           description={digest?.description}
           blocks={digest?.digestBlocks.map((block) => {
+            const fallbackImage = getFallbackImage(block.bookmark?.id!);
             if (block.type === DigestBlockType.BOOKMARK && block.bookmark) {
               return {
                 type: DigestBlockType.BOOKMARK,
@@ -135,7 +171,9 @@ router
                 url: block.bookmark!.link.url,
                 description:
                   block.description || block.bookmark!.link.description,
-                image: block.bookmark!.link.image,
+                image: deadLinks.includes(block.bookmark.id)
+                  ? fallbackImage
+                  : block.bookmark!.link.image ?? fallbackImage,
                 style: block.style,
               };
             } else if (block.type === DigestBlockType.TEXT && block.text) {
