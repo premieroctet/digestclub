@@ -1,10 +1,11 @@
-import { ImGithub } from '@react-icons/all-files/im/ImGithub';
-import { ImTwitter } from '@react-icons/all-files/im/ImTwitter';
-import { ImLink } from '@react-icons/all-files/im/ImLink';
-import { RegisterOptions } from 'react-hook-form';
 import { SelectOptionProps } from '@/components/Input';
+import { ImGithub } from '@react-icons/all-files/im/ImGithub';
+import { ImLink } from '@react-icons/all-files/im/ImLink';
+import { ImTwitter } from '@react-icons/all-files/im/ImTwitter';
+import { RegisterOptions } from 'react-hook-form';
 
 export const FIELDS = {
+  avatar: 'avatar',
   bio: 'bio',
   name: 'name',
   website: 'website',
@@ -16,7 +17,7 @@ export const FIELDS = {
 
 export type FieldName = (typeof FIELDS)[keyof typeof FIELDS];
 
-export interface FieldData {
+export interface TextFieldData {
   id: FieldName;
   input: 'text' | 'textarea' | 'select';
   inputType: 'text' | 'email' | 'password' | 'url';
@@ -32,7 +33,7 @@ export interface FieldData {
   maxLength?: number;
 }
 
-export const fieldsData: FieldData[] = [
+export const textFieldsData: TextFieldData[] = [
   {
     id: FIELDS.name,
     input: 'text',

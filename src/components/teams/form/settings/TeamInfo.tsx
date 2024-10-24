@@ -1,16 +1,17 @@
 'use client';
 
+import updateTeamInfo from '@/actions/update-team-info';
+import Button from '@/components/Button';
+import useCustomToast from '@/hooks/useCustomToast';
+import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import { Team } from '@prisma/client';
 import { FormEvent, useTransition } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DangerZoneTeam } from '../DangerZone';
-import useCustomToast from '@/hooks/useCustomToast';
+import AvatarField from './AvatarField';
 import SettingsField from './SettingsField';
-import { fieldsData, FieldName, FIELDS } from './form-data';
-import Button from '@/components/Button';
-import updateTeamInfo from '@/actions/update-team-info';
 import TeamColorField from './TeamColorField';
-import useTransitionRefresh from '@/hooks/useTransitionRefresh';
+import { FIELDS, FieldName, textFieldsData } from './form-data';
 
 const PRO_FIELDS = ['prompt'];
 
@@ -23,6 +24,7 @@ const TeamInfo = ({ team }: { team: Team }) => {
   const methods = useForm<SettingsForm>({
     mode: 'onBlur',
     defaultValues: {
+      [FIELDS.avatar]: '',
       [FIELDS.bio]: team?.bio || '',
       [FIELDS.name]: team?.name || '',
       [FIELDS.website]: team?.website || '',
@@ -66,7 +68,11 @@ const TeamInfo = ({ team }: { team: Team }) => {
         <form action={onSubmit}>
           <div className="flex flex-col gap-6 pt-4">
             <div className="flex flex-col gap-4">
-              {fieldsData
+              <AvatarField
+                avatar={team?.avatar ?? undefined}
+                name={team?.name}
+              />
+              {textFieldsData
                 .filter(
                   (field) =>
                     team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)

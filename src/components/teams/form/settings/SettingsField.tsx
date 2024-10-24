@@ -1,7 +1,6 @@
 import { Input, Select, TextArea } from '@/components/Input';
-import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import { FieldData } from './form-data';
+import { TextFieldData } from './form-data';
 
 export default function SettingsField({
   id,
@@ -16,7 +15,7 @@ export default function SettingsField({
   selectDefault,
   selectOptions,
   maxLength,
-}: FieldData) {
+}: TextFieldData) {
   const {
     register,
     formState: { errors },
