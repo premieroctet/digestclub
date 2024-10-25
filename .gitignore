@@ -48,3 +48,6 @@ next.config.original.js
 
 #Content Layer
 .contentlayer
+
+#Uploads
+/uploads

@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import Image from 'next/image';
+import { useState } from 'react';
 
 interface IProps {
   size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
@@ -8,32 +9,37 @@ interface IProps {
 }
 
 export default function Avatar({ size = 'md', src, name }: IProps) {
+  const [isImageError, setIsImageError] = useState(false);
   const sizeClass: Record<IProps['size'], string> = {
-    'xs': 'h-4 w-4',
-    'sm': 'h-6 w-6',
-    'md': 'h-8 w-8',
-    'lg': 'h-10 w-10',
-    'xl': 'h-16 w-16',
-    '2xl': 'h-32 w-32',
+    'xs': 'h-4 w-4' /* 16px */,
+    'sm': 'h-6 w-6' /* 24px */,
+    'md': 'h-8 w-8' /* 32px */,
+    'lg': 'h-10 w-10' /* 40px */,
+    'xl': 'h-16 w-16' /* 64px */,
+    '2xl': 'h-32 w-32' /* 128px */,
   };
 
   const sizePixels: Record<IProps['size'], number> = {
-    'xs': 4,
-    'sm': 6,
-    'md': 8,
-    'lg': 10,
-    'xl': 16,
-    '2xl': 32,
+    'xs': 16,
+    'sm': 24,
+    'md': 32,
+    'lg': 40,
+    'xl': 64,
+    '2xl': 128,
   };
 
-  if (src !== undefined) {
+  if (src !== undefined && !isImageError) {
     return (
       <Image
         className={`inline-block rounded-full ${sizeClass[size]}`}
         src={src}
+        quality={100}
         width={sizePixels[size]}
         height={sizePixels[size]}
         alt="avatar"
+        onError={(e) => {
+          setIsImageError(true);
+        }}
       />
     );
   }

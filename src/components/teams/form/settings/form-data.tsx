@@ -6,6 +6,8 @@ import { RegisterOptions } from 'react-hook-form';
 
 export const FIELDS = {
   avatar: 'avatar',
+  avatarUpload: 'avatar-upload',
+  avatarRemove: 'avatar-remove',
   bio: 'bio',
   name: 'name',
   website: 'website',
