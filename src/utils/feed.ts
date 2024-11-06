@@ -8,7 +8,7 @@ export const createFeed = (team: PublicTeamResult, teamSlug: string) => {
   const date = new Date();
   const ogImage = generateTeamOGUrl(team?.slug || '');
   const feed = new Feed({
-    title: team!.name,
+    title: `Cool stuff from the Web - ${team!.name} - Digest.club`,
     description: team?.bio || undefined,
     id: `${getEnvHost()}/${teamSlug}`,
     copyright: `All rights reserved ${date.getFullYear()}, Digest.club`,
