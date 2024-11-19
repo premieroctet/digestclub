@@ -8,7 +8,7 @@ datasource db {
 }
 
 generator jsonSchema {
-  provider = "prisma-json-schema-generator"
+  provider = "next-admin-generator-prisma"
 }
 
 enum MembershipRole {

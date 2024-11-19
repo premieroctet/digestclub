@@ -131,5 +131,5 @@ module.exports = {
   ],
   plugins: [require('@headlessui/tailwindcss')],
   darkMode: 'class',
-  presets: [require('@premieroctet/next-admin/dist/preset')],
+  presets: [require('@premieroctet/next-admin/preset')],
 };
