@@ -1,4 +1,3 @@
-import schema from '@/../prisma/json-schema/json-schema.json';
 import Dashboard, { DashboardProps } from '@/components/admin/Dashboard';
 import {
   linksByDay,
@@ -10,7 +9,7 @@ import client from '@/lib/db';
 import { authOptions } from '@/pages/api/auth/[...nextauth]';
 import { options } from '@/utils/nextadmin';
 import { NextAdmin, PageProps } from '@premieroctet/next-admin';
-import { getNextAdminProps } from '@premieroctet/next-admin/dist/appRouter';
+import { getNextAdminProps } from '@premieroctet/next-admin/appRouter';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
@@ -28,8 +27,7 @@ export default async function AdminPage({ params, searchParams }: PageProps) {
     params: params.nextadmin as string[],
     searchParams,
     options,
-    prisma: client,
-    schema,
+    prisma: client
   });
 
   const dashboardProps: DashboardProps | undefined = !params.nextadmin
