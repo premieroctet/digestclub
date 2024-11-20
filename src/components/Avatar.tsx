@@ -1,35 +1,45 @@
+import cn from 'classnames';
 import Image from 'next/image';
-import React from 'react';
+import { useState } from 'react';
 
 interface IProps {
-  size: 'xs' | 'sm' | 'md' | 'lg';
+  size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
   name?: string;
   src?: string;
 }
 
 export default function Avatar({ size = 'md', src, name }: IProps) {
+  const [isImageError, setIsImageError] = useState(false);
   const sizeClass: Record<IProps['size'], string> = {
-    xs: 'h-4 w-4',
-    sm: 'h-6 w-6',
-    md: 'h-8 w-8',
-    lg: 'h-10 w-10',
+    'xs': 'h-4 w-4' /* 16px */,
+    'sm': 'h-6 w-6' /* 24px */,
+    'md': 'h-8 w-8' /* 32px */,
+    'lg': 'h-10 w-10' /* 40px */,
+    'xl': 'h-16 w-16' /* 64px */,
+    '2xl': 'h-32 w-32' /* 128px */,
   };
 
   const sizePixels: Record<IProps['size'], number> = {
-    xs: 4,
-    sm: 6,
-    md: 8,
-    lg: 10,
+    'xs': 16,
+    'sm': 24,
+    'md': 32,
+    'lg': 40,
+    'xl': 64,
+    '2xl': 128,
   };
 
-  if (src !== undefined) {
+  if (src !== undefined && !isImageError) {
     return (
       <Image
         className={`inline-block rounded-full ${sizeClass[size]}`}
         src={src}
+        quality={100}
         width={sizePixels[size]}
         height={sizePixels[size]}
         alt="avatar"
+        onError={(e) => {
+          setIsImageError(true);
+        }}
       />
     );
   }
@@ -39,7 +49,15 @@ export default function Avatar({ size = 'md', src, name }: IProps) {
       <span
         className={`inline-flex items-center justify-center rounded-full bg-violet-500 ${sizeClass[size]}`}
       >
-        <span className="text-xs font-medium leading-none text-white uppercase">
+        <span
+          className={cn(' font-medium leading-none text-white uppercase', {
+            'text-xs': ['xs', 'sm'].includes(size),
+            'text-sm': size === 'md',
+            'text-base': size === 'lg',
+            'text-xl': size === 'xl',
+            'text-4xl': size === '2xl',
+          })}
+        >
           {name
             .split(' ')
             .splice(0, 2)

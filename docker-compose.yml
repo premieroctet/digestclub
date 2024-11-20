@@ -19,6 +19,26 @@ services:
         ports:
             - '1080:80'
             - '25:25'
+
+    web:
+        image: node:18
+        working_dir: /app
+        command: sh -c "yarn && npm run dev"  # Install dependencies before starting
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./uploads:/app/public/uploads  # Mount local uploads to Next.js public directory
+            - .:/app                         # Mount entire project for development
+            - /app/node_modules              # Prevent overriding node_modules
+        environment:
+            NODE_ENV: development
+            PORT: 3000
+        env_file: 
+            - .env  # This will load environment variables from .env file
+        depends_on:
+            - postgres
+
 volumes:
     postgresql:
     postgresql_data:
+    # uploads: ajouter point de volume pour uploads

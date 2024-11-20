@@ -1,20 +1,39 @@
 'use client';
 
+import updateTeamInfo from '@/actions/update-team-info';
+import Button from '@/components/Button';
+import useCustomToast from '@/hooks/useCustomToast';
+import useTransitionRefresh from '@/hooks/useTransitionRefresh';
 import { Team } from '@prisma/client';
-import { FormEvent, useTransition } from 'react';
+import { ImGithub } from '@react-icons/all-files/im/ImGithub';
+import { ImLink } from '@react-icons/all-files/im/ImLink';
+import { ImTwitter } from '@react-icons/all-files/im/ImTwitter';
+import { FormEvent, useEffect, useTransition } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { DangerZoneTeam } from '../DangerZone';
-import useCustomToast from '@/hooks/useCustomToast';
+import AvatarField from './AvatarField';
 import SettingsField from './SettingsField';
-import { fieldsData, FieldName, FIELDS } from './form-data';
-import Button from '@/components/Button';
-import updateTeamInfo from '@/actions/update-team-info';
 import TeamColorField from './TeamColorField';
-import useTransitionRefresh from '@/hooks/useTransitionRefresh';
+import { FIELDS, FieldName } from './form-data';
 
-const PRO_FIELDS = ['prompt'];
+/* Represents the form data with fields names perfectly matching the Team model */
+interface BasicSettingsForm {
+  [FIELDS.avatar]: string;
+  [FIELDS.bio]: string;
+  [FIELDS.name]: string;
+  [FIELDS.website]: string;
+  [FIELDS.github]: string;
+  [FIELDS.twitter]: string;
+  [FIELDS.color]: string;
+  [FIELDS.prompt]: string;
+}
 
-type SettingsForm = Record<FieldName, string>;
+interface InternalUploadSettingsForm {
+  [FIELDS.avatarUpload]: File;
+  [FIELDS.avatarRemove]: string;
+}
+
+interface SettingsForm extends BasicSettingsForm, InternalUploadSettingsForm {}
 
 const TeamInfo = ({ team }: { team: Team }) => {
   const { successToast, errorToast } = useCustomToast();
@@ -23,6 +42,7 @@ const TeamInfo = ({ team }: { team: Team }) => {
   const methods = useForm<SettingsForm>({
     mode: 'onBlur',
     defaultValues: {
+      [FIELDS.avatar]: team?.avatar || undefined,
       [FIELDS.bio]: team?.bio || '',
       [FIELDS.name]: team?.name || '',
       [FIELDS.website]: team?.website || '',
@@ -36,18 +56,33 @@ const TeamInfo = ({ team }: { team: Team }) => {
   const {
     handleSubmit,
     reset,
+    watch,
+    getValues,
     formState: { isDirty, dirtyFields },
   } = methods;
   const { refresh, isRefreshing } = useTransitionRefresh();
 
+  // Watch the entire form or specific fields
+  const formValues = watch(); // This will watch all form values
+
+  // Use useEffect to log form values whenever they change
+  useEffect(() => {
+    console.log('Form values changed:', formValues);
+  }, [formValues]); // This effect will run every time formV
+
   const onSubmit = (e: FormEvent) =>
     startTransition(() => {
       handleSubmit(async (values) => {
-        let changedValues: Partial<Team> = {};
+        let formData = new FormData();
+
+        // Map to the dirty fields (fields that have been changed) and append to the form data
         Object.keys(dirtyFields).map((key) => {
-          changedValues[key as FieldName] = values[key as FieldName];
+          const k = key as FieldName;
+          const v = values[k];
+          formData.append(k, v);
         });
-        const { error } = await updateTeamInfo(changedValues, team?.id);
+
+        const { error } = await updateTeamInfo(formData, team?.id);
         if (error) {
           errorToast(error.message);
         } else {
@@ -66,18 +101,82 @@ const TeamInfo = ({ team }: { team: Team }) => {
         <form action={onSubmit}>
           <div className="flex flex-col gap-6 pt-4">
             <div className="flex flex-col gap-4">
-              {fieldsData
-                .filter(
-                  (field) =>
-                    team?.subscriptionId || !PRO_FIELDS?.includes(field?.id)
-                )
-                .map((field) => (
-                  <SettingsField
-                    {...field}
-                    key={field.id}
-                    defaultValue={team[field.id] || ''}
-                  />
-                ))}
+              <AvatarField
+                avatar={getValues(FIELDS.avatar) ?? undefined}
+                name={team?.name}
+                teamId={team.id}
+              />
+
+              <SettingsField
+                id="name"
+                input="text"
+                inputType="text"
+                label="Name"
+                placeholder="Team name"
+                registerOptions={{
+                  required: 'Team name is required',
+                }}
+                defaultValue={team?.name || ''}
+              />
+
+              <SettingsField
+                id="bio"
+                input="textarea"
+                inputType="text"
+                label="Bio"
+                placeholder="Tell us about your team"
+                registerOptions={{
+                  maxLength: {
+                    value: 160,
+                    message: 'Bio must be less than 160 characters',
+                  },
+                }}
+                defaultValue={team?.bio || ''}
+              />
+
+              <SettingsField
+                id="website"
+                input="text"
+                inputType="url"
+                label="Website"
+                rightElement={<ImLink />}
+                placeholder="https://company.io"
+                defaultValue={team?.website || ''}
+              />
+
+              <SettingsField
+                id="github"
+                input="text"
+                inputType="text"
+                label="Github"
+                rightElement={<ImGithub />}
+                prefix="@"
+                placeholder=""
+                defaultValue={team?.github || ''}
+              />
+
+              <SettingsField
+                id="twitter"
+                input="text"
+                inputType="text"
+                label="Twitter"
+                rightElement={<ImTwitter />}
+                prefix="@"
+                placeholder=""
+                defaultValue={team?.twitter || ''}
+              />
+
+              {team?.subscriptionId && (
+                <SettingsField
+                  id="prompt"
+                  input="textarea"
+                  inputType="text"
+                  label="Summary generator prompt"
+                  placeholder="Add a custom prompt for bookmark summary generation. Your prompt will be followed by : + article content"
+                  maxLength={4000}
+                  defaultValue={team?.prompt || ''}
+                />
+              )}
 
               <TeamColorField id="color" label="Team Color" team={team} />
             </div>

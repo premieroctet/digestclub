@@ -179,6 +179,12 @@
         "id": {
           "type": "string"
         },
+        "avatar": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
         "name": {
           "type": "string"
         },

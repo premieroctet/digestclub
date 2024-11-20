@@ -95,6 +95,7 @@ model VerificationToken {
 
 model Team {
   id          String         @id @default(uuid())
+  avatar      String?
   name        String
   slug        String
   memberships Membership[]

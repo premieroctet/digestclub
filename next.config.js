@@ -12,6 +12,18 @@ const nextConfig = {
     serverActions: true,
     serverComponentsExternalPackages: ['mjml', 'mjml-react'],
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'digestclub.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
+    ],
+  },
   reactStrictMode: false,
 };
 
