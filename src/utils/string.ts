@@ -12,7 +12,7 @@ export function isStringEmpty(str: string): boolean {
  * Function that returns a hidden string, i.e. a string with all characters replaced by '*'
  */
 export function makeHidden(str: string): string {
-  return str.replace(/./g, '*');
+    return str.replace(/[\s\S]/gu, '*');
 }
 
 /**

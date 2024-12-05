@@ -1,5 +1,5 @@
+import { getTweetId, isTwitterLink } from '@/utils/link';
 import { describe, expect, test } from '@jest/globals';
-import { isTwitterLink, getTweetId } from './index';
 
 describe('isTwitterLink', () => {
   test('url to user should return true', () => {
