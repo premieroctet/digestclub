@@ -10,7 +10,9 @@ export async function isLinkValid(url: string): Promise<Response> {
       }
       return response;
     })
-    .catch(() => {
+    .catch((e) => {
+      // eslint-disable-next-line no-console
+      console.error(e);
       throw new TypeError('invalid_link');
     });
 }
