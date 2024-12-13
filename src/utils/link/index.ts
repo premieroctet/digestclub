@@ -5,7 +5,11 @@ export async function isLinkValid(url: string): Promise<Response> {
     },
   })
     .then((response) => {
+      // eslint-disable-next-line no-console
+      console.log('response', response);
       if (!response.ok) {
+        // eslint-disable-next-line no-console
+        console.error(response);
         throw new TypeError('invalid_link');
       }
       return response;
