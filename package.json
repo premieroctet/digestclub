@@ -65,7 +65,7 @@
     "metascraper-twitter": "~5.33.7",
     "mjml": "^4.13.0",
     "mjml-react": "^2.0.8",
-    "next": "^14.0.1",
+    "next": "14.2.35",
     "next-auth": "^4.20.1",
     "next-connect": "^1.0.0-next.3",
     "next-contentlayer": "^0.3.2",
